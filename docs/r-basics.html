@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 R Basics | R Tutorial for MKT 4320</title>
+  <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 R Basics | R Tutorial for MKT 4320" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 R Basics | R Tutorial for MKT 4320" />
+  
+  <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+<meta name="author" content="Jeffrey Meyer" />
+
+
+<meta name="date" content="2022-01-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="examining-and-summarizing-data.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this tutorial</a></li>
+<li class="chapter" data-level="1" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>1</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="r-basics.html"><a href="r-basics.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="r-basics.html"><a href="r-basics.html#why-r"><i class="fa fa-check"></i><b>1.1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.1.3" data-path="r-basics.html"><a href="r-basics.html#why-not-r"><i class="fa fa-check"></i><b>1.1.3</b> Why NOT R?</a></li>
+<li class="chapter" data-level="1.1.4" data-path="r-basics.html"><a href="r-basics.html#what-is-rstudio"><i class="fa fa-check"></i><b>1.1.4</b> What is RStudio?</a></li>
+<li class="chapter" data-level="1.1.5" data-path="r-basics.html"><a href="r-basics.html#getting-started"><i class="fa fa-check"></i><b>1.1.5</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="1.1.5.1" data-path="r-basics.html"><a href="r-basics.html#option-1-install-on-your-machine"><i class="fa fa-check"></i><b>1.1.5.1</b> Option 1: Install on your Machine</a></li>
+<li class="chapter" data-level="1.1.5.2" data-path="r-basics.html"><a href="r-basics.html#option-2-use-bgsus-virtual-computing-lab-pilot"><i class="fa fa-check"></i><b>1.1.5.2</b> Option 2: Use BGSU’s Virtual Computing Lab pilot</a></li>
+<li class="chapter" data-level="1.1.5.3" data-path="r-basics.html"><a href="r-basics.html#option-3-use-a-computer-in-an-on-campus-computer-lab"><i class="fa fa-check"></i><b>1.1.5.3</b> Option 3: Use a computer in an on-campus computer lab</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.6" data-path="r-basics.html"><a href="r-basics.html#navigating-rstudio"><i class="fa fa-check"></i><b>1.1.6</b> Navigating RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.6.1" data-path="r-basics.html"><a href="r-basics.html#quadrant-1"><i class="fa fa-check"></i><b>1.1.6.1</b> <span style="color: #ff9600;">Quadrant 1</span></a></li>
+<li class="chapter" data-level="1.1.6.2" data-path="r-basics.html"><a href="r-basics.html#quadrant-2"><i class="fa fa-check"></i><b>1.1.6.2</b> <span style="color: #ff0000;">Quadrant 2</span></a></li>
+<li class="chapter" data-level="1.1.6.3" data-path="r-basics.html"><a href="r-basics.html#quadrant-3"><i class="fa fa-check"></i><b>1.1.6.3</b> <span style="color: #0018ff;">Quadrant 3</span></a></li>
+<li class="chapter" data-level="1.1.6.4" data-path="r-basics.html"><a href="r-basics.html#quadrant-4"><i class="fa fa-check"></i><b>1.1.6.4</b> <span style="color: #4f2c1d;">Quadrant 4</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="r-basics.html"><a href="r-basics.html#r-language"><i class="fa fa-check"></i><b>1.2</b> R Language</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="r-basics.html"><a href="r-basics.html#basics-of-r-commands"><i class="fa fa-check"></i><b>1.2.1</b> Basics of R Commands</a></li>
+<li class="chapter" data-level="1.2.2" data-path="r-basics.html"><a href="r-basics.html#operators"><i class="fa fa-check"></i><b>1.2.2</b> Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-basics.html"><a href="r-basics.html#packages"><i class="fa fa-check"></i><b>1.3</b> Packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="r-basics.html"><a href="r-basics.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="r-basics.html"><a href="r-basics.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting Help</a></li>
+<li class="chapter" data-level="1.5" data-path="r-basics.html"><a href="r-basics.html#basic-object-types-and-other-important-stuff"><i class="fa fa-check"></i><b>1.5</b> Basic Object Types (and Other Important Stuff)</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-basics.html"><a href="r-basics.html#indexing"><i class="fa fa-check"></i><b>1.5.2</b> Indexing</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-basics.html"><a href="r-basics.html#sequencing"><i class="fa fa-check"></i><b>1.5.3</b> Sequencing</a></li>
+<li class="chapter" data-level="1.5.4" data-path="r-basics.html"><a href="r-basics.html#missing-and-other-interesting-values"><i class="fa fa-check"></i><b>1.5.4</b> Missing (and Other Interesting) Values</a></li>
+<li class="chapter" data-level="1.5.5" data-path="r-basics.html"><a href="r-basics.html#factors"><i class="fa fa-check"></i><b>1.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basics.html"><a href="r-basics.html#data-frames"><i class="fa fa-check"></i><b>1.6</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="r-basics.html"><a href="r-basics.html#overview"><i class="fa fa-check"></i><b>1.6.1</b> Overview</a></li>
+<li class="chapter" data-level="1.6.2" data-path="r-basics.html"><a href="r-basics.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a></li>
+<li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="r-basics.html"><a href="r-basics.html#creating-new-variables"><i class="fa fa-check"></i><b>1.7.1</b> Creating New Variables</a></li>
+<li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
+<li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.9</b> Package <em>dplyr</em></a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.9.1</b> <em>dplyr</em> Examples</a>
+<ul>
+<li class="chapter" data-level="1.9.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.9.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.9.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.9.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.9.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.9.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.9.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.9.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.9.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.9.1.5</b> <code>summarise()</code> function</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html"><i class="fa fa-check"></i><b>2</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#visualizations"><i class="fa fa-check"></i><b>2.1</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggplot2"><i class="fa fa-check"></i><b>2.1.1</b> Package <em>ggplot2</em></a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#introduction-1"><i class="fa fa-check"></i><b>2.1.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#usage"><i class="fa fa-check"></i><b>2.1.1.2</b> Usage</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-and-column-charts"><i class="fa fa-check"></i><b>2.1.2</b> Bar and Column Charts</a>
+<ul>
+<li class="chapter" data-level="2.1.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-charts"><i class="fa fa-check"></i><b>2.1.2.1</b> Bar Charts</a></li>
+<li class="chapter" data-level="2.1.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#column-charts"><i class="fa fa-check"></i><b>2.1.2.2</b> Column Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#histogram"><i class="fa fa-check"></i><b>2.1.3</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="2.1.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#changing-bins"><i class="fa fa-check"></i><b>2.1.3.1</b> Changing Bins</a></li>
+<li class="chapter" data-level="2.1.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#improving-the-look"><i class="fa fa-check"></i><b>2.1.3.2</b> Improving the Look</a></li>
+<li class="chapter" data-level="2.1.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options"><i class="fa fa-check"></i><b>2.1.3.3</b> Other Options</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#box-plot"><i class="fa fa-check"></i><b>2.1.4</b> Box Plot</a></li>
+<li class="chapter" data-level="2.1.5" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#scatterplot"><i class="fa fa-check"></i><b>2.1.5</b> Scatterplot</a>
+<ul>
+<li class="chapter" data-level="2.1.5.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#trendline"><i class="fa fa-check"></i><b>2.1.5.1</b> Trendline</a></li>
+<li class="chapter" data-level="2.1.5.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options-1"><i class="fa fa-check"></i><b>2.1.5.2</b> Other Options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#tables-and-statistics"><i class="fa fa-check"></i><b>2.2</b> Tables and Statistics</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#frequency-table"><i class="fa fa-check"></i><b>2.2.1</b> Frequency Table</a></li>
+<li class="chapter" data-level="2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#crosstabs"><i class="fa fa-check"></i><b>2.2.2</b> Crosstabs</a>
+<ul>
+<li class="chapter" data-level="2.2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r"><i class="fa fa-check"></i><b>2.2.2.1</b> Base R</a></li>
+<li class="chapter" data-level="2.2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#alternative-packages"><i class="fa fa-check"></i><b>2.2.2.2</b> Alternative Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#measures-of-centrality-and-dispersion"><i class="fa fa-check"></i><b>2.2.3</b> Measures of Centrality and Dispersion</a>
+<ul>
+<li class="chapter" data-level="2.2.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-1"><i class="fa fa-check"></i><b>2.2.3.1</b> Base R</a></li>
+<li class="chapter" data-level="2.2.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-dplyr-1"><i class="fa fa-check"></i><b>2.2.3.2</b> Package <em>dplyr</em></a></li>
+<li class="chapter" data-level="2.2.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-vtable"><i class="fa fa-check"></i><b>2.2.3.3</b> Package <em>vtable</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#correlation"><i class="fa fa-check"></i><b>2.2.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.2.4.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-2"><i class="fa fa-check"></i><b>2.2.4.1</b> Base R</a></li>
+<li class="chapter" data-level="2.2.4.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-hmisc"><i class="fa fa-check"></i><b>2.2.4.2</b> Package <em>Hmisc</em></a></li>
+<li class="chapter" data-level="2.2.4.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-sjplot-1"><i class="fa fa-check"></i><b>2.2.4.3</b> Package <em>sjPlot</em></a></li>
+<li class="chapter" data-level="2.2.4.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggally"><i class="fa fa-check"></i><b>2.2.4.4</b> Package <em>GGally</em></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Tutorial for MKT 4320</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-basics" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> R Basics</h1>
+<p>Sources for this chapter:</p>
+<ul>
+<li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
+<ul>
+<li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
+</ul></li>
+</ul>
+<div id="introduction" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Introduction</h2>
+<div id="what-is-r" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> What is R?</h3>
+<ul>
+<li>R <strong>is</strong> a programming language</li>
+<li>R <strong>is not</strong> a statistics program
+<ul>
+<li>Much different than SPSS, MiniTab, Stata, etc.</li>
+<li>Does not use a point-and-click interface</li>
+</ul></li>
+</ul>
+</div>
+<div id="why-r" class="section level3" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Why R?</h3>
+<ul>
+<li>Emerging techniques usually available in R quickly</li>
+<li>Default educational platform for statistics programs (and spreading to other disciplines)</li>
+<li>Large and diverse set of analytic tools</li>
+<li>Powerful plotting options</li>
+<li>Large community of helpful users</li>
+<li>R skills are in high demand</li>
+</ul>
+<p>And</p>
+<ul>
+<li>R is free</li>
+</ul>
+</div>
+<div id="why-not-r" class="section level3" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Why NOT R?</h3>
+<ul>
+<li>Steep learning curve</li>
+<li>Requires programming</li>
+</ul>
+</div>
+<div id="what-is-rstudio" class="section level3" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> What is RStudio?</h3>
+<ul>
+<li>RStudio IDE is an integrated development environment that makes working with R more user friendly</li>
+<li>Not required to use R, but provides a better interface and environment of writing code, editing code, and creating documents.</li>
+<li>Complete separate software</li>
+</ul>
+<p>And</p>
+<ul>
+<li>RStudio is free</li>
+</ul>
+</div>
+<div id="getting-started" class="section level3" number="1.1.5">
+<h3><span class="header-section-number">1.1.5</span> Getting Started</h3>
+<div id="option-1-install-on-your-machine" class="section level4" number="1.1.5.1">
+<h4><span class="header-section-number">1.1.5.1</span> Option 1: Install on your Machine</h4>
+<ol style="list-style-type: decimal">
+<li>Install “R base” from the Comprehensive R Archive Network (CRAN)
+<ul>
+<li><a href="https://cran.r-project.org/">https://cran.r-project.org/</a></li>
+</ul></li>
+<li>Install RStudio
+<ul>
+<li><a href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a></li>
+</ul></li>
+</ol>
+</div>
+<div id="option-2-use-bgsus-virtual-computing-lab-pilot" class="section level4" number="1.1.5.2">
+<h4><span class="header-section-number">1.1.5.2</span> Option 2: Use BGSU’s Virtual Computing Lab pilot</h4>
+<ul>
+<li>See course website for link</li>
+</ul>
+</div>
+<div id="option-3-use-a-computer-in-an-on-campus-computer-lab" class="section level4" number="1.1.5.3">
+<h4><span class="header-section-number">1.1.5.3</span> Option 3: Use a computer in an on-campus computer lab</h4>
+<ul>
+<li>All computer in on-campus computer labs should have R and RStudio installed</li>
+</ul>
+</div>
+</div>
+<div id="navigating-rstudio" class="section level3" number="1.1.6">
+<h3><span class="header-section-number">1.1.6</span> Navigating RStudio</h3>
+<p>As you can see in Figure <a href="r-basics.html#fig:rstudiopane">1.1</a>, RStudio is typically divided in 4 quadrants.</p>
+<div class="figure"><span style="display:block;" id="fig:rstudiopane"></span>
+<img src="Images/RStudioEnvironment.png" alt="RStudio Layout" width="960" />
+<p class="caption">
+Figure 1.1: RStudio Layout
+</p>
+</div>
+<div id="quadrant-1" class="section level4" number="1.1.6.1">
+<h4><span class="header-section-number">1.1.6.1</span> <span style="color: #ff9600;">Quadrant 1</span></h4>
+<p>The upper-left corner is the <strong>source</strong> pane. This pane is where the majority of your programming or coding will take place. When working in this pane, the code does not run unless you tell it to run. In addition, the code can be saved to prevent work from being lost.</p>
+</div>
+<div id="quadrant-2" class="section level4" number="1.1.6.2">
+<h4><span class="header-section-number">1.1.6.2</span> <span style="color: #ff0000;">Quadrant 2</span></h4>
+<p>The lower-left corner is the <strong>console</strong> pane. While it contains several tabs, generally the <code>Console</code> tab is the only one used. The console is where R actually evaluates the code. If you run code from the a source pane window, the code will automatically be put into the console pane and evaluated. You can also type code directly into the console pane and receive immediate results. Depending on the code, the results will appear directly in the console or in a tab Quadrant 4. The “&gt;” symbol shows that the console is ready for input.</p>
+</div>
+<div id="quadrant-3" class="section level4" number="1.1.6.3">
+<h4><span class="header-section-number">1.1.6.3</span> <span style="color: #0018ff;">Quadrant 3</span></h4>
+<p>The upper-right corner also contains several tabs, but the <code>Environment</code> and <code>History</code> tabs are the ones used most often.</p>
+<ul>
+<li>The <code>Environment</code> tab lists all data objects that have been defined in the current session.</li>
+<li>The <code>History</code> tab is an archive of all commands run in the current session.</li>
+</ul>
+</div>
+<div id="quadrant-4" class="section level4" number="1.1.6.4">
+<h4><span class="header-section-number">1.1.6.4</span> <span style="color: #4f2c1d;">Quadrant 4</span></h4>
+<p>The bottom-right corner also contains several tabs, all of which are used at different times.</p>
+<ul>
+<li>The <code>Files</code> tab lists all files in the current directory.</li>
+<li>The <code>Plots</code> tab shows visualizations created during the current session.</li>
+<li>The <code>Packages</code> tab shows all packages installed as well as which packages are currently loaded.</li>
+<li>The <code>Help</code> tab contains the help menu.</li>
+<li>The <code>Viewer</code> tab contains output from code if the code directs it to be displayed there.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="r-language" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> R Language</h2>
+<div id="basics-of-r-commands" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Basics of R Commands</h3>
+<ul>
+<li>R is case sensitive</li>
+<li>When using the console, use the keyboard <span style="background-color: #f7f7f7;"> ↑ </span> and <span style="background-color: #f7f7f7;"> ↓ </span> arrow keys to easily cycle through previous commands typed.</li>
+<li>When using the text editor (i.e., a script file) in the source pane, use the <code>Ctrl</code>+<code>Enter</code> keyboard shortcut to submit a line of code directly to the console.
+<ul>
+<li>The entire line does <strong>not</strong> need to be highlighted; the cursor needs to be anywhere on the line to be submitted.</li>
+</ul></li>
+<li>When using the text editor/script file, the “#” symbol signifies a comment
+<ul>
+<li>Everything after is ignored</li>
+<li>It can be on the same line:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-basics.html#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span>   <span class="co"># Assign 100 to x</span></span></code></pre></div>
+<ul>
+<li>It can be on separate lines:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-basics.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 100 to x</span></span>
+<span id="cb2-2"><a href="r-basics.html#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span></code></pre></div></li>
+</ul>
+</div>
+<div id="operators" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Operators</h3>
+Mathematical and logical operators are used frequently.
+<table>
+<caption>
+<span id="tab:roperators">Table 1.1: </span>R Operators
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:left;">
+Operator
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="5">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>Mathematical</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+addition
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(+\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+subtraction
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(-\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+multiplication
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(*\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+division
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(/\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+exponentiation
+</td>
+<td style="text-align:left;">
+^ or <span class="math inline">\(**\)</span>
+</td>
+</tr>
+<tr grouplength="10">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>Logical</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+less than
+</td>
+<td style="text-align:left;">
+&lt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+less than or equal to
+</td>
+<td style="text-align:left;">
+&lt;=
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+greater than
+</td>
+<td style="text-align:left;">
+&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+greater than or equal to
+</td>
+<td style="text-align:left;">
+&gt;=
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+exactly equal to
+</td>
+<td style="text-align:left;">
+==
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+not equal to
+</td>
+<td style="text-align:left;">
+!=
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Not x
+</td>
+<td style="text-align:left;">
+!x
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+x OR y
+</td>
+<td style="text-align:left;">
+x|y
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+x AND y
+</td>
+<td style="text-align:left;">
+x&amp;y
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+test if X is TRUE
+</td>
+<td style="text-align:left;">
+isTRUE(x)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="packages" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Packages</h2>
+<p>Packages are collections of functions that have been written to expand the functionality of R. Packages are not automatically included, and if a command is given that is not part of a package installed and loaded, R will give an error message. Therefore, the package must first be installed, and then loaded.</p>
+<div id="installing-packages" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Installing Packages</h3>
+<ul>
+<li><p>Installing packages is performed with the <code>install.packages("")</code>function, where the name of the package is inside the quotation marks</p></li>
+<li><p>Two packages that used quite often in this course are <code>ggplot2</code> and <code>dplyr</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-basics.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb3-2"><a href="r-basics.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div></li>
+<li><p><strong>NOTE 1</strong>: Packages only need to be installed on your machine once</p></li>
+<li><p><strong>NOTE 2</strong>: If using BGSU’s Virtual Computing Lab, new packages cannot be installed, but the version in the virtual environment has <em>most</em> of the most common packages pre-installed</p></li>
+</ul>
+</div>
+<div id="loading-packages" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Loading Packages</h3>
+<ul>
+<li><p>Once a package is installed, it has to be loaded with the <code>library()</code> function, where the name of the package is in the parentheses, in order to be used</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-basics.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="r-basics.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div></li>
+<li><p><strong>NOTE 1</strong>: It is not uncommon to see a variety of messages when loading a package</p></li>
+<li><p><strong>NOTE 2</strong>: Packages need to be loaded every time you start a new R session</p></li>
+</ul>
+</div>
+</div>
+<div id="getting-help" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Getting Help</h2>
+<ul>
+<li><p>R has built in help to assist with understanding different functions</p></li>
+<li><p>To access the help, type <code>? FUNCTION</code> in the console, and the help page for that function will show up in the lower-right pane under the help tab</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1" aria-hidden="true" tabindex="-1"></a>? mean</span></code></pre></div></li>
+</ul>
+</div>
+<div id="basic-object-types-and-other-important-stuff" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Basic Object Types (and Other Important Stuff)</h2>
+<ul>
+<li><p>Objects in R include variables, data sets, and functions</p></li>
+<li><p>The assignment operator <code>&lt;-</code> assigns a value to a named object</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-basics.html#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span>     <span class="co"># Assign value 100 to object &#39;x&#39;</span></span>
+<span id="cb6-2"><a href="r-basics.html#cb6-2" aria-hidden="true" tabindex="-1"></a>x            <span class="co"># Display object &#39;x&#39;</span></span></code></pre></div>
+<pre class="custom-output"><code>[1] 100</code></pre>
+<p><strong>NOTE</strong>: In RStudio console or script file, <code>Alt</code>+<code>-</code> will automatically paste the assignment operator</p></li>
+<li><p>As stated before, object names are case sensitive</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span>     <span class="co"># Assign value 100 to object &#39;x&#39;</span></span>
+<span id="cb8-2"><a href="r-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a>X            <span class="co"># Display object &#39;X&#39;</span></span></code></pre></div>
+<pre><code>Error in eval(expr, envir, enclos): object &#39;X&#39; not found</code></pre></li>
+<li><p>The <code>print</code> command can also be used to print objects</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 100</code></pre></li>
+</ul>
+<div id="vectors" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Vectors</h3>
+<ul>
+<li><p>Vectors can be created many ways and take many data types</p></li>
+<li><p>One method is to using the <code>c()</code> function, which concatenates individual items</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-basics.html#cb12-1" aria-hidden="true" tabindex="-1"></a>x.Num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">3.14</span>, <span class="fl">5.49</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb12-2"><a href="r-basics.html#cb12-2" aria-hidden="true" tabindex="-1"></a>x.Num</span></code></pre></div>
+<pre class="custom-output"><code>[1]  1.00  3.14  5.49 10.00 20.00</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-basics.html#cb14-1" aria-hidden="true" tabindex="-1"></a>x.Log <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb14-2"><a href="r-basics.html#cb14-2" aria-hidden="true" tabindex="-1"></a>x.Log</span></code></pre></div>
+<pre class="custom-output"><code>[1]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x.Char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fr&quot;</span>, <span class="st">&quot;fr&quot;</span>, <span class="st">&quot;jr&quot;</span>, <span class="st">&quot;so&quot;</span>, <span class="st">&quot;sr&quot;</span>)</span>
+<span id="cb16-2"><a href="r-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>x.Char</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
+<li><p>The class of the vector can be checked with the <code>class()</code> function</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate class functions and print together</span></span>
+<span id="cb18-2"><a href="r-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">class</span>(x.Num), <span class="fu">class</span>(x.Log), <span class="fu">class</span>(x.Char)))</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;numeric&quot;   &quot;logical&quot;   &quot;character&quot;</code></pre></li>
+<li><p>Vectors can only hold a single class/type of value</p>
+<ul>
+<li>When multiple classes are included, the values are coerced to the most general type</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-basics.html#cb20-1" aria-hidden="true" tabindex="-1"></a>x.Mix <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">FALSE</span>, <span class="fl">3.5</span>, <span class="st">&quot;Hello!&quot;</span>)</span>
+<span id="cb20-2"><a href="r-basics.html#cb20-2" aria-hidden="true" tabindex="-1"></a>x.Mix</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;1&quot;      &quot;FALSE&quot;  &quot;3.5&quot;    &quot;Hello!&quot;</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="r-basics.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x.Mix)</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;character&quot;</code></pre></li>
+<li><p>The <code>c()</code> function can be used to add to existing vectors, or combine vectors</p>
+<ul>
+<li>Type coercion will be applied as needed</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r-basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(x.Num, <span class="dv">25</span>, <span class="dv">50</span>)</span>
+<span id="cb24-2"><a href="r-basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a>x.Num</span></code></pre></div>
+<pre class="custom-output"><code>[1]  1.00  3.14  5.49 10.00 20.00</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="r-basics.html#cb26-1" aria-hidden="true" tabindex="-1"></a>x2</span></code></pre></div>
+<pre class="custom-output"><code>[1]  1.00  3.14  5.49 10.00 20.00 25.00 50.00</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="r-basics.html#cb28-1" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">c</span>(x2, <span class="st">&quot;Hello&quot;</span>)</span>
+<span id="cb28-2"><a href="r-basics.html#cb28-2" aria-hidden="true" tabindex="-1"></a>x3</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;1&quot;     &quot;3.14&quot;  &quot;5.49&quot;  &quot;10&quot;    &quot;20&quot;    &quot;25&quot;    &quot;50&quot;    &quot;Hello&quot;</code></pre></li>
+<li><p>Math can be applied directly to vectors</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="r-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a>x.Num</span></code></pre></div>
+<pre class="custom-output"><code>[1]  1.00  3.14  5.49 10.00 20.00</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="r-basics.html#cb32-1" aria-hidden="true" tabindex="-1"></a>x.Num <span class="sc">+</span> <span class="dv">100</span></span></code></pre></div>
+<pre class="custom-output"><code>[1] 101.00 103.14 105.49 110.00 120.00</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="r-basics.html#cb34-1" aria-hidden="true" tabindex="-1"></a>x.Num <span class="sc">*</span> pi</span></code></pre></div>
+<pre class="custom-output"><code>[1]  3.141593  9.864601 17.247344 31.415927 62.831853</code></pre></li>
+<li><p>The <code>length()</code> function provides the length of a vector</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="r-basics.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x.Num)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 5</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="r-basics.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x.Char)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 5</code></pre></li>
+<li><p>The <code>str()</code> function provide the structure of an object</p>
+<ul>
+<li>Class, Length, and Value</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="r-basics.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.Num)</span></code></pre></div>
+<pre class="custom-output"><code> num [1:5] 1 3.14 5.49 10 20</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r-basics.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.Char)</span></code></pre></div>
+<pre class="custom-output"><code> chr [1:5] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
+</ul>
+</div>
+<div id="indexing" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Indexing</h3>
+<ul>
+<li><p>Indexing is used to obtain particular elements of a data structure</p></li>
+<li><p>Vectors are indexed with square brackets, <code>[]</code></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="r-basics.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the third element of the &#39;x.Num&#39; vector</span></span>
+<span id="cb44-2"><a href="r-basics.html#cb44-2" aria-hidden="true" tabindex="-1"></a>x.Num[<span class="dv">3</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1] 5.49</code></pre></li>
+<li><p>Items can be excluded with negative indexing</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="r-basics.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain all elements except the third element of the &#39;x.Num&#39; vector</span></span>
+<span id="cb46-2"><a href="r-basics.html#cb46-2" aria-hidden="true" tabindex="-1"></a>x.Num[<span class="sc">-</span><span class="dv">3</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1]  1.00  3.14 10.00 20.00</code></pre></li>
+<li><p>Indexing also works with logical operators</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="r-basics.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain all elements in &#39;x.Num&#39; greater than 5</span></span>
+<span id="cb48-2"><a href="r-basics.html#cb48-2" aria-hidden="true" tabindex="-1"></a>x.Num[x.Num <span class="sc">&gt;</span> <span class="dv">5</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1]  5.49 10.00 20.00</code></pre></li>
+</ul>
+</div>
+<div id="sequencing" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Sequencing</h3>
+<ul>
+<li><p>Vectors can also be created using sequencing</p></li>
+<li><p>Integer sequencing is done with <code>#:#</code> coding</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="r-basics.html#cb50-1" aria-hidden="true" tabindex="-1"></a>x.Seq <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb50-2"><a href="r-basics.html#cb50-2" aria-hidden="true" tabindex="-1"></a>x.Seq</span></code></pre></div>
+<pre class="custom-output"><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre></li>
+<li><p>Sequences can also be used in indexing</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="r-basics.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the second through fourth element of the &#39;x.Num&#39; vector</span></span>
+<span id="cb52-2"><a href="r-basics.html#cb52-2" aria-hidden="true" tabindex="-1"></a>x.Num[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1]  3.14  5.49 10.00</code></pre></li>
+<li><p>Complex sequencing can be done using the <code>seq()</code> function</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="r-basics.html#cb54-1" aria-hidden="true" tabindex="-1"></a>x.Seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">100</span>, <span class="at">by=</span><span class="dv">20</span>)</span>
+<span id="cb54-2"><a href="r-basics.html#cb54-2" aria-hidden="true" tabindex="-1"></a>x.Seq2</span></code></pre></div>
+<pre class="custom-output"><code>[1]   0  20  40  60  80 100</code></pre>
+<p>Note: the <code>from=</code>, <code>to=</code> and <code>by=</code> can be excluded</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="r-basics.html#cb56-1" aria-hidden="true" tabindex="-1"></a>x.Seq3 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">20</span>)</span>
+<span id="cb56-2"><a href="r-basics.html#cb56-2" aria-hidden="true" tabindex="-1"></a>x.Seq3</span></code></pre></div>
+<pre class="custom-output"><code>[1]   0  20  40  60  80 100</code></pre></li>
+</ul>
+</div>
+<div id="missing-and-other-interesting-values" class="section level3" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Missing (and Other Interesting) Values</h3>
+<ul>
+<li><p>In R, missing values are assigned a special constant, <span style="font-family: Courier;">NA</span></p></li>
+<li><p><span style="font-family: Courier;">NA</span> is not a character value, but a type of its own</p></li>
+<li><p>Any math performed on a value of <span style="font-family: Courier;">NA</span> becomes <span style="font-family: Courier;">NA</span></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="r-basics.html#cb58-1" aria-hidden="true" tabindex="-1"></a>x.Scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">93</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb58-2"><a href="r-basics.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x.Scores)</span></code></pre></div>
+<pre class="custom-output"><code>[1] NA</code></pre></li>
+<li><p>Many commands contain a option, <code>na.rm=TRUE</code>, to ignore <span style="font-family: Courier;">NA</span> data when performing the function</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="r-basics.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x.Scores, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 89</code></pre></li>
+<li><p><span style="font-family: Courier;">NA</span> values can also be removed before performing the function using the <code>na.omit()</code> function</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-basics.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">na.omit</span>(x.Scores))</span></code></pre></div>
+<pre class="custom-output"><code>[1] 89</code></pre></li>
+<li><p>R also has special types for infinity, <span style="font-family: Courier;">Inf</span>, and undefined numbers (i.e., “not a number”), <span style="font-family: Courier;">NaN</span></p>
+<ul>
+<li>To see this in action, take the natural log, <code>log()</code>, of certain numbers</li>
+</ul>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="r-basics.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>Warning in log(-1): NaNs produced</code></pre>
+<pre class="custom-output"><code>[1] NaN</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="r-basics.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code></pre></div>
+<pre class="custom-output"><code>[1] -Inf</code></pre>
+<p>Notice that R provides a warning when the <span style="font-family: Courier;">NaN</span> is found</p></li>
+</ul>
+</div>
+<div id="factors" class="section level3" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Factors</h3>
+<ul>
+<li><p>Character data can be converted into nominal <strong>factors</strong> using the <code>as.factors()</code> function</p></li>
+<li><p>Each unique character value will be a level of the factor</p>
+<ul>
+<li>Behind the scenes, R stores the values as integers, with a separate list of labels</li>
+</ul></li>
+<li><p>When the data type is set as a factor, R knows how to handle it appropriately in the model</p></li>
+<li><p>The levels can be accessed with the <code>levels()</code> function</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="r-basics.html#cb69-1" aria-hidden="true" tabindex="-1"></a>x.Class <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.Char)</span>
+<span id="cb69-2"><a href="r-basics.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.Class)</span></code></pre></div>
+<pre class="custom-output"><code> Factor w/ 4 levels &quot;fr&quot;,&quot;jr&quot;,&quot;so&quot;,..: 1 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="r-basics.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(x.Class)</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
+</ul>
+</div>
+</div>
+<div id="data-frames" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Data Frames</h2>
+<p>Data frames are an object type that deserve special attention</p>
+<div id="overview" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Overview</h3>
+<ul>
+<li>Most common way to handle data sets in R</li>
+<li>Provide data to statistical functions</li>
+<li>Think of it like a spreadsheet, or a rectangular object where:
+<ul>
+<li>Columns are varying data types (i.e., variables)</li>
+<li>Rows are values in each column (i.e, observations)</li>
+</ul></li>
+</ul>
+</div>
+<div id="creating-a-data-frame" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Creating a data frame</h3>
+<ul>
+<li><p>Can construct a data frame with the <code>data.frame()</code> function</p>
+<ul>
+<li>Takes as input a set of vectors of the same length</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="r-basics.html#cb73-1" aria-hidden="true" tabindex="-1"></a>x.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x.Num, x.Log, x.Char)</span>
+<span id="cb73-2"><a href="r-basics.html#cb73-2" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Log x.Char
+1  1.00  TRUE     fr
+2  3.14 FALSE     fr
+3  5.49  TRUE     jr
+4 10.00  TRUE     so
+5 20.00 FALSE     sr</code></pre>
+<ul>
+<li>Note that the column names are inherited from the contributing vector</li>
+</ul></li>
+<li><p>Elements can be indexed using <code>[ROW, COLUMN]</code> notation</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="r-basics.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the first element of the third row of data frame &#39;x.df&#39;</span></span>
+<span id="cb75-2"><a href="r-basics.html#cb75-2" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">3</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1] 5.49</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="r-basics.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the third element of the second row of data frame &#39;x.df&#39;</span></span>
+<span id="cb77-2"><a href="r-basics.html#cb77-2" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;fr&quot;</code></pre></li>
+</ul>
+</div>
+<div id="viewing-a-data-frame" class="section level3" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Viewing a Data Frame</h3>
+<p>There are a few ways to view a data frame</p>
+<ol style="list-style-type: decimal">
+<li><p>Type the data frame name in the console</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="r-basics.html#cb79-1" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Log x.Char
+1  1.00  TRUE     fr
+2  3.14 FALSE     fr
+3  5.49  TRUE     jr
+4 10.00  TRUE     so
+5 20.00 FALSE     sr</code></pre>
+<ul>
+<li>With data frames that have many variables, this is cumbersome</li>
+<li>With data frames with many rows, a “max.print” setting will kick in and not all rows will be shown</li>
+</ul></li>
+<li><p>To view only a few rows of data, the <code>head(DF, n)</code> function can be used, where <span style="font-family: Courier;">DF</span> is the name of the data frame, and <span style="font-family: Courier;">n</span> (optional) is the number of rows to view, with 10 as the default<br>
+<strong>NOTE</strong>: The “Salaries” data frame from the <code>car</code> package is being used as an example</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="r-basics.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Salaries,<span class="dv">5</span>)</span></code></pre></div>
+<pre class="custom-output"><code>      rank discipline yrs.since.phd yrs.service  sex salary
+1     Prof          B            19          18 Male 139750
+2     Prof          B            20          16 Male 173200
+3 AsstProf          B             4           3 Male  79750
+4     Prof          B            45          39 Male 115000
+5     Prof          B            40          41 Male 141500</code></pre></li>
+<li><p>Use the function <code>View()</code> or click on the data frame name in the environment tab to see the data farme in the Source pane See Figure <a href="r-basics.html#fig:viewdf">1.2</a></p>
+<div class="figure"><span style="display:block;" id="fig:viewdf"></span>
+<img src="Images/ViewDF.gif" alt="Viewing a Data Frame in the Source Window"  />
+<p class="caption">
+Figure 1.2: Viewing a Data Frame in the Source Window
+</p>
+</div>
+<h3 id="indexing-and-sequencing">Indexing and Sequencing</h3></li>
+</ol>
+<ul>
+<li><p>Indices can be left blank, which selects <em>all</em> of that dimension</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="r-basics.html#cb83-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>, ]   <span class="co"># Obtain all of row 2</span></span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Log x.Char
+2  3.14 FALSE     fr</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-basics.html#cb85-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="dv">3</span>]   <span class="co"># Obtain all of column 3</span></span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
+<li><p>As with vectors, indexing can be done with sequencing and negative indices to omit rows</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="r-basics.html#cb87-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, ]   <span class="co"># Obtain rows 2 and 3</span></span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Log x.Char
+2  3.14 FALSE     fr
+3  5.49  TRUE     jr</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="r-basics.html#cb89-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="sc">-</span><span class="dv">2</span>]    <span class="co"># Exclude column 2</span></span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Char
+1  1.00     fr
+2  3.14     fr
+3  5.49     jr
+4 10.00     so
+5 20.00     sr</code></pre></li>
+<li><p>Indexing a data frame returns an object, but the object type depends on the indexing</p>
+<ul>
+<li>Choosing <span class="math inline">\(n\)</span> rows and and a single column yields a vector of length <span class="math inline">\(n\)</span></li>
+<li>Choosing multiple columns returns a new data frame</li>
+<li>Use the <code>str()</code> function to verify the new objects structure</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="r-basics.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span>])   <span class="co"># 1 row and 1 column = vector of length 1</span></span></code></pre></div>
+<pre class="custom-output"><code> num 1</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">2</span>]) <span class="co"># 3 rows and 1 column = vector of length 3</span></span></code></pre></div>
+<pre class="custom-output"><code> logi [1:3] TRUE FALSE TRUE</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="r-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="co"># 1 row and 2 columns = 1 x 2 data frame</span></span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   1 obs. of  2 variables:
+ $ x.Num: num 1
+ $ x.Log: logi TRUE</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-basics.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)])  <span class="co">#4 rows and 2 columns = 4 x 2 data frame</span></span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   4 obs. of  2 variables:
+ $ x.Num : num  1 3.14 5.49 10
+ $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot;</code></pre></li>
+<li><p>Data frames can also be indexed using column names after the <code>$</code> character</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="r-basics.html#cb99-1" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>x.Char</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
+</ul>
+</div>
+</div>
+<div id="data-transformations" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Data Transformations</h2>
+<ul>
+<li>Analysts and researchers often need to create new variables from existing ones or transform existing variables</li>
+<li>Data transformations can usually be accomplished in more than one way
+<ul>
+<li>Using base R will be shown first</li>
+<li>After the <code>dplyr</code> package is introduced, a second way will be shown</li>
+</ul></li>
+<li>For the transformations shown below, either a new variable will be added to the data frame, or an existing variable will be changed
+<ul>
+<li>However, it is not always required that the data frame be changed
+<ul>
+<li>Sometimes, a transformation will be done ‘on the fly’ and used only in an analysis, but the data frame remains the same</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="creating-new-variables" class="section level3" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> Creating New Variables</h3>
+<ul>
+<li>Adding a new variable is done using code such as <code>df$new &lt;- SOME FUNCTION</code>, where:
+<ul>
+<li><code>df</code> is the name of the data frame</li>
+<li><code>new</code> is the name for the new variable</li>
+<li><code>SOME FUNCTION</code> is the data transformation to take place</li>
+</ul>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-basics.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new variable &#39;NumSq&#39; that is the square of current variable x.Num</span></span>
+<span id="cb101-2"><a href="r-basics.html#cb101-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>NumSq <span class="ot">&lt;-</span> x.df<span class="sc">$</span>x.Num<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb101-3"><a href="r-basics.html#cb101-3" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
+<pre class="custom-output"><code>  x.Num x.Log x.Char    NumSq
+1  1.00  TRUE     fr   1.0000
+2  3.14 FALSE     fr   9.8596
+3  5.49  TRUE     jr  30.1401
+4 10.00  TRUE     so 100.0000
+5 20.00 FALSE     sr 400.0000</code></pre></li>
+</ul>
+</div>
+<div id="recoding-create-new" class="section level3" number="1.7.2">
+<h3><span class="header-section-number">1.7.2</span> Recoding (Create New)</h3>
+<ul>
+<li><p>In base R, recoding is usually a multi-step process using indexing</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="r-basics.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;x.Num&#39; into three factors</span></span>
+<span id="cb103-2"><a href="r-basics.html#cb103-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="st">&quot;low&quot;</span>   <span class="co"># Create new variable and set all rows to one level</span></span>
+<span id="cb103-3"><a href="r-basics.html#cb103-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;=</span><span class="dv">3</span> <span class="sc">&amp;</span> x.df<span class="sc">$</span>x.Num<span class="sc">&lt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;med&quot;</span>   <span class="co"># Create medium level</span></span>
+<span id="cb103-4"><a href="r-basics.html#cb103-4" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;high&quot;</span>   <span class="co"># Create high level</span></span>
+<span id="cb103-5"><a href="r-basics.html#cb103-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)   <span class="co"># Set new variable as factor</span></span>
+<span id="cb103-6"><a href="r-basics.html#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)   <span class="co"># See structure of data frame with new variable</span></span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   5 obs. of  5 variables:
+ $ x.Num : num  1 3.14 5.49 10 20
+ $ x.Log : logi  TRUE FALSE TRUE TRUE FALSE
+ $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; ...
+ $ NumSq : num  1 9.86 30.14 100 400
+ $ Grp   : Factor w/ 3 levels &quot;high&quot;,&quot;low&quot;,&quot;med&quot;: 2 3 3 2 1</code></pre>
+<p>Notice the <code>&amp;</code> in the code above. It stands for “and,” which tells R that both conditions must be true</p></li>
+</ul>
+</div>
+<div id="recoding-change-existing" class="section level3" number="1.7.3">
+<h3><span class="header-section-number">1.7.3</span> Recoding (Change Existing)</h3>
+<ul>
+<li>Recoding to change an existing variable is done in a similar manner
+<ul>
+<li><strong>NOTE</strong>: Sometimes we have to first change the variable type, such as when the existing variable is a factor</li>
+</ul>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="r-basics.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;Grp&#39; into only two factors</span></span>
+<span id="cb105-2"><a href="r-basics.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Change type to &#39;character&#39;</span></span>
+<span id="cb105-3"><a href="r-basics.html#cb105-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.character</span>(x.df<span class="sc">$</span>Grp)</span>
+<span id="cb105-4"><a href="r-basics.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;low&#39; and &#39;med&#39; to &#39;very low&#39;</span></span>
+<span id="cb105-5"><a href="r-basics.html#cb105-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;low&quot;</span> <span class="sc">|</span> x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;med&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;very low&quot;</span></span>
+<span id="cb105-6"><a href="r-basics.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change back to factor</span></span>
+<span id="cb105-7"><a href="r-basics.html#cb105-7" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)</span>
+<span id="cb105-8"><a href="r-basics.html#cb105-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)</span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   5 obs. of  5 variables:
+ $ x.Num : num  1 3.14 5.49 10 20
+ $ x.Log : logi  TRUE FALSE TRUE TRUE FALSE
+ $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; ...
+ $ NumSq : num  1 9.86 30.14 100 400
+ $ Grp   : Factor w/ 2 levels &quot;high&quot;,&quot;very low&quot;: 2 2 2 2 1</code></pre>
+Notice the <code>|</code> in the code above. It stands for “or,” which tells R that either condition can be true.</li>
+</ul>
+</div>
+</div>
+<div id="loading-and-saving-data" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Loading and Saving Data</h2>
+<p>In this class, the data will be provided to you as an <code>.Rdata</code> file, which are specific to R and the best way to store (and load) objects. If desired, <code>.Rdata</code> files can contain multiple objects. For example, an <code>.Rdata</code> file could contain two different data frames.</p>
+<div id="setting-working-directory" class="section level3" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Setting Working Directory</h3>
+<p>To know where your files are saved to, and to make it easier to load files, it is probably best to have a working directory where existing files are located and where new files will be saved.</p>
+<ul>
+<li><p>Use the <code>getwd()</code> function to see your current working directory</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-basics.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre class="custom-output"><code>[1] &quot;C:/Users/jdmeyer/Docs/RFiles&quot;</code></pre></li>
+<li><p>Set the working directory in one of three ways:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <code>setwd()</code> function:<br>
+<code>setwd("C:/Users/jdmeyer/Doc/RFiles/RTutorial")</code><br>
+<strong>NOTE</strong>: Forward slashes (as shown above) are used in place of backward slashes for directory paths</li>
+<li>Use the menus in RStudio<br>
+<u>S</u>ession→Set <u>W</u>orking Directory→<u>C</u>hoose Directory<br>
+See Figure <a href="r-basics.html#fig:setwd1">1.3</a>
+<div class="figure"><span style="display:block;" id="fig:setwd1"></span>
+<img src="Images/WorkingDirectory1.png" alt="Set Working Direcory using Menus" width="358" />
+<p class="caption">
+Figure 1.3: Set Working Direcory using Menus
+</p>
+</div></li>
+<li>Use the <code>Files</code> tab in the lower-right corner in RStudio<br>
+See Figure <a href="r-basics.html#fig:setwd2">1.4</a>
+<div class="figure"><span style="display:block;" id="fig:setwd2"></span>
+<img src="Images/WorkingDirectory2.gif" alt="Set Working Direcory using Files Tab"  />
+<p class="caption">
+Figure 1.4: Set Working Direcory using Files Tab
+</p>
+</div></li>
+</ol></li>
+</ul>
+</div>
+<div id="loading-.rdata" class="section level3" number="1.8.2">
+<h3><span class="header-section-number">1.8.2</span> Loading .Rdata</h3>
+<ul>
+<li>Use the <code>load("FILE LOCATION/NAME")</code> function to load and <code>.Rdata</code> file
+<ul>
+<li>Suppose the data set used in Topic 1 (<span style="font-family: Courier;">airlinesat.rdata</span>) is in a subdirectory of the working directory called <span style="font-family: Courier;">Data</span></li>
+</ul>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-basics.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div>
+See <a href="r-basics.html#fig:loaddata">1.5</a> for a visual example
+<div class="figure"><span style="display:block;" id="fig:loaddata"></span>
+<img src="Images/LoadData.gif" alt="Loading Data"  />
+<p class="caption">
+Figure 1.5: Loading Data
+</p>
+</div></li>
+</ul>
+</div>
+<div id="saving-.rdata" class="section level3" number="1.8.3">
+<h3><span class="header-section-number">1.8.3</span> Saving .Rdata</h3>
+<ul>
+<li>Use the <code>save(OBJECT, file="SAVENAME")</code> function, where:
+<ul>
+<li><span style="font-family: Courier;">OBJECT</span> is one or more objects in the current environment separated by commas</li>
+<li><span style="font-family: Courier;">SAVENAME</span> is the name of the file the objects will be saved to.</li>
+</ul>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="r-basics.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x.df, <span class="at">file=</span><span class="st">&quot;xdf.rdata&quot;</span>)</span></code></pre></div></li>
+</ul>
+</div>
+</div>
+<div id="package-dplyr" class="section level2" number="1.9">
+<h2><span class="header-section-number">1.9</span> Package <em>dplyr</em></h2>
+<p>The <code>dplyr</code> package (pronounced DEE ply er) is a package that makes data manipulation much easier and more intuitive (for most). <code>dplyr</code> is built around the five main “verbs” shown below that make up a majority of data manipulation. However, there are other functions that <code>dplyr</code> uses to also help with data manipulation.</p>
+<ul>
+<li><code>select</code> is used to subset columns</li>
+<li><code>filter</code> is used to subset rows</li>
+<li><code>arrange</code> is used to sort rows</li>
+<li><code>mutate</code> is used to add new columns based on calculations (usually with other columns)</li>
+<li><code>summarise</code> is use to perform summary calculations (e.g., mean, max, etc.) on data set</li>
+</ul>
+<p>In addition, <code>dplyr</code> uses the pipe, <code>%&gt;%</code>, to string together a series of functions. Think of functions strung together as upstream and downstream functions. The function to the left of <code>%&gt;%</code> is the upstream function, while the function to the right is the downstream function.</p>
+<ul>
+<li>By default, the downstream function assumes the value coming from the upstream function is the first argument in its function
+<ul>
+<li>Therefore, the first argument can be omitted</li>
+</ul></li>
+<li>If the downstream function needs to use the value from from the upstream function assigned to a different argument, a <code>.</code> is simply put in the position of that argument</li>
+</ul>
+<div id="dplyr-examples" class="section level3" number="1.9.1">
+<h3><span class="header-section-number">1.9.1</span> <em>dplyr</em> Examples</h3>
+<p>First, be sure the <code>dplyr</code> package is loaded:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-basics.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>We’ll be using the airlinesat dataset from the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> file for these examples.</p>
+<div id="select-function" class="section level4" number="1.9.1.1">
+<h4><span class="header-section-number">1.9.1.1</span> <code>select()</code> function</h4>
+<ul>
+<li>Usage: <code>select(.data, ...)</code>, where <code>...</code> is one or more unquoted expressions separated by commas</li>
+<li><code>airlinesat</code> has 70 variables, but 46 of them are a series of expectation (<span style="font-family: Courier;">e1</span> to <span style="font-family: Courier;">e23</span>) and satisfaction (<span style="font-family: Courier;">s1</span> to <span style="font-family: Courier;">s23</span>)scales.
+<ul>
+<li>First, we want to create a new data frame with those variables excluded.
+<ul>
+<li>For simplicity, the <code>num_range("prefix", start:finish)</code> selection can be used, and the <code>!</code> takes the complement (i.e., all but these)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="r-basics.html#cb112-1" aria-hidden="true" tabindex="-1"></a>airlinesat.small <span class="ot">&lt;-</span>     <span class="co"># Create new data frame</span></span>
+<span id="cb112-2"><a href="r-basics.html#cb112-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>      <span class="co"># Use airlinesat as the starting data frame</span></span>
+<span id="cb112-3"><a href="r-basics.html#cb112-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>)) <span class="sc">%&gt;%</span>  <span class="co"># Select all but e1 to e23        </span></span>
+<span id="cb112-4"><a href="r-basics.html#cb112-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;s&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>))   <span class="co"># Select all but s1 to s23</span></span>
+<span id="cb112-5"><a href="r-basics.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: the two selects could have been concantendated as:</span></span>
+<span id="cb112-6"><a href="r-basics.html#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="co"># select(!c(num_range(&quot;e&quot;, 1:23), num_range(&quot;s&quot;, 1:23)))</span></span>
+<span id="cb112-7"><a href="r-basics.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.small)</span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   1065 obs. of  24 variables:
+ $ age           : num  30 55 56 43 44 40 39 41 33 51 ...
+ $ country       : Factor w/ 5 levels &quot;at&quot;,&quot;ch&quot;,&quot;de&quot;,..: 2 2 2 4 2 2 2 2 2 3 ...
+ $ flight_class  : Factor w/ 3 levels &quot;Business&quot;,&quot;Economy&quot;,..: 2 1 2 2 1 3 2 1 2 1 ...
+ $ flight_latest : Factor w/ 6 levels &quot;within the last 12 months&quot;,..: 4 3 5 3 6 5 6 3 3 4 ...
+ $ flight_purpose: Factor w/ 2 levels &quot;Business&quot;,&quot;Leisure&quot;: 2 1 1 2 1 2 1 1 2 1 ...
+ $ flight_type   : Factor w/ 2 levels &quot;Domestic&quot;,&quot;International&quot;: 1 2 1 1 2 2 1 2 1 2 ...
+ $ gender        : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 2 1 1 1 2 2 2 2 2 ...
+ $ language      : Factor w/ 3 levels &quot;English&quot;,&quot;French&quot;,..: 2 1 1 2 1 3 2 2 2 3 ...
+ $ nflights      : num  2 6 8 7 25 16 35 9 3 4 ...
+ $ status        : Factor w/ 3 levels &quot;Blue&quot;,&quot;Gold&quot;,..: 1 2 1 1 2 2 1 2 1 2 ...
+ $ nps           : num  6 10 8 8 6 7 8 7 8 8 ...
+ $ sat1          : num  5 6 4 6 4 7 6 5 4 4 ...
+ $ sat2          : num  2 6 2 6 3 2 3 3 4 4 ...
+ $ sat3          : num  4 6 2 4 2 7 5 4 4 3 ...
+ $ loy1          : num  3 6 3 6 3 2 2 4 4 3 ...
+ $ loy2          : num  3 6 4 4 3 3 7 4 4 4 ...
+ $ loy3          : num  3 6 7 5 2 2 7 4 2 3 ...
+ $ loy4          : num  7 5 2 4 2 3 7 5 1 3 ...
+ $ loy5          : num  3 6 4 5 2 2 6 5 2 4 ...
+ $ com1          : num  1 6 7 6 3 7 7 4 3 1 ...
+ $ com2          : num  1 6 7 6 3 6 7 4 3 7 ...
+ $ com3          : num  7 6 7 6 2 3 7 5 3 7 ...
+ $ overall_sat   : num  2 6 2 4 2 4 4 4 4 3 ...
+ $ reputation    : num  3 6 4 6 5 3 3 4 2 4 ...</code></pre>
+<ul>
+<li>Second, we want to create a new data frame with only demographic variables</li>
+</ul>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="r-basics.html#cb114-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="ot">&lt;-</span>    <span class="co"># Create new data frame</span></span>
+<span id="cb114-2"><a href="r-basics.html#cb114-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>     <span class="co"># Use airlinesat as the starting data frame</span></span>
+<span id="cb114-3"><a href="r-basics.html#cb114-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, gender)    <span class="co"># Select only demographic variables</span></span>
+<span id="cb114-4"><a href="r-basics.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.d)</span></code></pre></div>
+<pre class="custom-output"><code>&#39;data.frame&#39;:   1065 obs. of  3 variables:
+ $ age    : num  30 55 56 43 44 40 39 41 33 51 ...
+ $ country: Factor w/ 5 levels &quot;at&quot;,&quot;ch&quot;,&quot;de&quot;,..: 2 2 2 4 2 2 2 2 2 3 ...
+ $ gender : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 2 1 1 1 2 2 2 2 2 ...</code></pre></li>
+</ul>
+</div>
+<div id="filter-function" class="section level4" number="1.9.1.2">
+<h4><span class="header-section-number">1.9.1.2</span> <code>filter()</code> function</h4>
+<ul>
+<li><p>Usage: <code>filter(.data, ...)</code>, where <code>...</code> is an expression that returns a logical value</p></li>
+<li><p>First, we want to select only those rows where the person is from the United States (i.e., <code>country == "us"</code>) using the newly created <code>airlinesat.d</code> data frame</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="r-basics.html#cb116-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dus <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb116-2"><a href="r-basics.html#cb116-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;us&quot;</span>)</span>
+<span id="cb116-3"><a href="r-basics.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dus)</span></code></pre></div>
+<pre class="custom-output"><code>  age country gender
+1  52      us   male
+2  68      us   male
+3  64      us female
+4  47      us   male
+5  57      us   male
+6  43      us   male</code></pre></li>
+<li><p>Second, we want to select only those rows where the person is older than the mean age using the newly created <code>airlinesat.d</code> data frame</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="r-basics.html#cb118-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dold <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="r-basics.html#cb118-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(age <span class="sc">&gt;</span> <span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb118-3"><a href="r-basics.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dold)</span></code></pre></div>
+<pre class="custom-output"><code>  age country gender
+1  55      ch   male
+2  56      ch female
+3  51      de   male
+4  58      de female
+5  53      de   male
+6  53      de   male</code></pre></li>
+</ul>
+</div>
+<div id="arrange-function" class="section level4" number="1.9.1.3">
+<h4><span class="header-section-number">1.9.1.3</span> <code>arrange()</code> function</h4>
+<ul>
+<li><p>Usage: <code>arrange(.data, ..., .by_group = FALSE)</code> where <code>...</code> are variable(s) or functions of variables</p>
+<ul>
+<li>Use <code>desc(...)</code> to sort in a descending order</li>
+<li><code>.by_group = TRUE</code> will sort first by a grouping variable, if one exists; default is <code>FALSE</code></li>
+</ul></li>
+<li><p>First, we want to see the first 10 rows in ascending order of age using the <code>airlinesat.d</code> data frame</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="r-basics.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: A new data frame does not need to be created.</span></span>
+<span id="cb120-2"><a href="r-basics.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The result of the data manipulation can be sent directly</span></span>
+<span id="cb120-3"><a href="r-basics.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to another function, like &#39;head()&#39;</span></span>
+<span id="cb120-4"><a href="r-basics.html#cb120-4" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb120-5"><a href="r-basics.html#cb120-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age) <span class="sc">%&gt;%</span></span>
+<span id="cb120-6"><a href="r-basics.html#cb120-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre class="custom-output"><code>   age country gender
+1   19      de   male
+2   19      de   male
+3   21      de   male
+4   21      de   male
+5   22      de female
+6   22      de   male
+7   22      de   male
+8   22      de female
+9   22      de   male
+10  23      de   male</code></pre></li>
+<li><p>Second, we want to see the first 10 rows of three variables (<span style="font-family: Courier;">age</span>, <span style="font-family: Courier;">country</span>, <span style="font-family: Courier;">nflights</span>) from the original <code>airlinesat</code> data frame, sorted first ascending by <span style="font-family: Courier;">age</span> and second descending by <span style="font-family: Courier;">nflights</span></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="r-basics.html#cb122-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb122-2"><a href="r-basics.html#cb122-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, nflights) <span class="sc">%&gt;%</span></span>
+<span id="cb122-3"><a href="r-basics.html#cb122-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age, <span class="fu">desc</span>(nflights)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-4"><a href="r-basics.html#cb122-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre class="custom-output"><code>   age country nflights
+1   19      de       15
+2   19      de        3
+3   21      de       11
+4   21      de        2
+5   22      de       20
+6   22      de        8
+7   22      de        3
+8   22      de        3
+9   22      de        2
+10  23      de       15</code></pre></li>
+</ul>
+</div>
+<div id="mutate-function" class="section level4" number="1.9.1.4">
+<h4><span class="header-section-number">1.9.1.4</span> <code>mutate()</code> function</h4>
+<ul>
+<li><p>Usage: <code>mutate(.data, ...)</code> where <code>...</code> are name-value pairs. The name gives the name of the new column/variable. The value is some function or formula.</p></li>
+<li><p>First, we want to create a standard normal variable for age using the airlinesat.d data frame</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="r-basics.html#cb124-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="r-basics.html#cb124-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">age_snrm=</span>(age<span class="sc">-</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(age,<span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb124-3"><a href="r-basics.html#cb124-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre class="custom-output"><code>   age country gender    age_snrm
+1   30      ch   male -1.66357002
+2   55      ch   male  0.37315007
+3   56      ch female  0.45461887
+4   43      fr female -0.60447557
+5   44      ch female -0.52300677
+6   40      ch   male -0.84888198
+7   39      ch   male -0.93035079
+8   41      ch   male -0.76741318
+9   33      ch   male -1.41916361
+10  51      de   male  0.04727486</code></pre></li>
+<li><p>Second, we want to use <code>mutate</code> with <code>recode</code> to create a new variable, <span style="font-family: Courier;">continent</span> based on variable <span style="font-family: Courier;">country</span></p>
+<ul>
+<li><code>recode(.x, ...)</code> where <code>.x</code> is the variable to modify and <code>...</code> are the things to recode in <code>old = "new"</code> format separated by commas</li>
+<li>Use <code>recode_factor(.x, ...)</code> to recode factor variables</li>
+</ul>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="r-basics.html#cb126-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="r-basics.html#cb126-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
+<span id="cb126-3"><a href="r-basics.html#cb126-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
+<span id="cb126-4"><a href="r-basics.html#cb126-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb126-5"><a href="r-basics.html#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre class="custom-output"><code>   age country gender continent
+1   30      ch   male    Europe
+2   55      ch   male    Europe
+3   56      ch female    Europe
+4   43      fr female    Europe
+5   44      ch female    Europe
+6   40      ch   male    Europe
+7   39      ch   male    Europe
+8   41      ch   male    Europe
+9   33      ch   male    Europe
+10  51      de   male    Europe</code></pre></li>
+</ul>
+</div>
+<div id="summarise-function" class="section level4" number="1.9.1.5">
+<h4><span class="header-section-number">1.9.1.5</span> <code>summarise()</code> function</h4>
+<ul>
+<li><p>Usage: <code>summarise(.data, ...)</code> where <code>...</code> are name-value pairs of summary functions (e.g., <code>mean()</code>, <code>min()</code>, <code>sum()</code>, <code>n()</code>)</p>
+<ul>
+<li>More than one summary function can be included</li>
+</ul></li>
+<li><p>First, we want to find the mean, standard deviation, and number of valid observations for the <span style="font-family: Courier;">nflights</span> variable</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="r-basics.html#cb128-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
+<span id="cb128-2"><a href="r-basics.html#cb128-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb128-3"><a href="r-basics.html#cb128-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb128-4"><a href="r-basics.html#cb128-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
+<pre class="custom-output"><code>  mean_flights sd_flights valid_n
+1     13.41878   13.41878    1065</code></pre></li>
+<li><p>Second, we want to find the same information as above, but by continent group</p>
+<ul>
+<li>Use the <code>group_by()</code> function before <code>summarise()</code></li>
+</ul>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="r-basics.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The output will be of type &#39;tibble&#39; instead of &#39;data.frame&#39;</span></span>
+<span id="cb130-2"><a href="r-basics.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibbles are like data frames, but occasionally behave differently</span></span>
+<span id="cb130-3"><a href="r-basics.html#cb130-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-4"><a href="r-basics.html#cb130-4" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
+<span id="cb130-5"><a href="r-basics.html#cb130-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
+<span id="cb130-6"><a href="r-basics.html#cb130-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
+<span id="cb130-7"><a href="r-basics.html#cb130-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb130-8"><a href="r-basics.html#cb130-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb130-9"><a href="r-basics.html#cb130-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb130-10"><a href="r-basics.html#cb130-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb130-11"><a href="r-basics.html#cb130-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
+<pre class="custom-output"><code># A tibble: 2 x 4
+  continent     mean_flights sd_flights valid_n
+  &lt;fct&gt;                &lt;dbl&gt;      &lt;dbl&gt;   &lt;int&gt;
+1 Europe                13.7       13.7     870
+2 North America         12.2       12.2     195</code></pre></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examining-and-summarizing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+},
+"number_sections": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

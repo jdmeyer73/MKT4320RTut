@@ -1,0 +1,25 @@
+--- 
+title: "R Tutorial for MKT 4320"
+author: "Jeffrey Meyer"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: 
+- book.bib
+- packages.bib
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This book is a quick and basic R tutorial for MKT 4320.
+link-citations: yes
+# github-repo: rstudio/bookdown-demo
+---
+```{r echo=FALSE}
+knitr::opts_chunk$set(class.output = "custom-output", comment=NA)
+```
+
+# About this tutorial {-}
+
+This tutorial is a quick and basic R tutorial for MKT 4320.  It is not designed to be comprehensive, but will provide you with the basics of R, RStudio, and how to complete the types of analyses covered in the course. At this time, the tutorial is not complete, but will be updated as we move through the topics in the course.
+
+Much of the content in this tutorial is adapted from a variety of sources. Where applicable, the source will be noted.

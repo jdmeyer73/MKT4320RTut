@@ -1,0 +1,22 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+  background: #e6fffd !important;
+  line-height: 1em !important;
+  padding-top: .1em !important;
+  padding-bottom: .1em !important;
+}
+pre code {
+  white-space: inherit;
+}
+
+pre.custom-output {
+  background: #f4fff3 !important;
+}

@@ -1,0 +1,610 @@
+```{r load2, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(scales)
+load("airlinesat.rdata")
+```
+
+# Examining and Summarizing Data
+
+Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th `ggplot2` package. For this part of the tutorial, the [airlinesat.rdata]("airlinesat.rdata") data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe.  You should load this data now:<br>`load("airlinesat.rdata")`
+
+## Visualizations
+
+### Package *ggplot2*
+
+Sources for this chapter:
+
+* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
+
+#### Introduction
+
+* First, make sure the `ggplot2` library is loaded:<br>
+`library(ggplot2)`
+* `ggplot2` is based on the basic idea that for a graph, we need three things:
+    1. Data: `ggplot2` is designed to work with data frames
+    2. Coordinate system: what are the <span style="font-family: Courier;">x</span> and <span style="font-family: Courier;">y</span> variables
+    3. Geoms: how is the data being represented (e.g., points, lines, etc.)  
+
+    **AND** that the plot can be enhance by adding more layers, using `+`
+* When ggplot is used in the console or from a script, the plot appears in the `Viewer` tab of the lower-right corner
+
+#### Usage
+
+* A plot starts with the `ggplot()` function, which requires two arguments:
+    1. Source of the data, which can be piped in (i.e., `%>%`)
+    2. The mapping of the data components
+        * This argument is an aesthetic function, `aes()`, which maps the variable(s) to the coordinate system
+
+    If the `ggplot()` function alone is used, the output is simply the coordinate system, but with nothing plotted
+    * Because a geom hasn't been requested
+    ```{r t2ggplotonly, fig.cap="Call to ggplot() without a geom", cache=TRUE}
+    ggplot(airlinesat,    # Use data frame 'airlinesat'
+           aes(x=country, y=nflights))   # Map 'country' on x and 'nflights' on y
+    ```
+* Other parts of the plot are adding in layers, using `+`
+    * A good analogy is building a house:<br>
+    The call to `ggplot()` is the foundation, but the structure is built one layer at a time
+    * Example: Request a column chart for a discrete <span style="font-family: Courier;">x</span> and a continuous <span style="font-family: Courier;">y</span>
+    ```{r t2simplecolumn, fig.cap="ggplot() + geom_col()", cache=TRUE}
+    ggplot(airlinesat,    # Use data frame 'airlinesat'
+           aes(x=country, y=nflights)) +  # Map 'country' on x and 'nflights' on y
+       geom_col()   # Ask for column chart as the geom
+    ```
+    * **NOTE**: Each geom has a default statistic to plot
+        * In this case, it is summing the `nflights` variable by country
+        * We can use `dplyr` and `ggplot2` together to get a different value, such as the mean
+    ```{r t2dplyrggplot, fig.cap="Using dplyr before ggplot to get mean values", cache=TRUE}
+    # Use airlinesat data
+    airlinesat %>%    
+       # Group data by 'country'
+       group_by(country) %>%
+       # Create summary statistic
+       summarise(mean_nflights=mean(nflights, na.rm=TRUE)) %>%
+       # Pass this results to ggplot and start the plot
+       ggplot(aes(x=country, y=mean_nflights)) +   # Note dataset was `piped`
+         # Request column geom
+         geom_col()
+    ```
+
+Using `ggplot()` can get much more advanced.  As the tutorial progresses, many examples of additional layers to a `ggplot()` will be shown.
+
+### Bar and Column Charts
+
+In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete variable, while column charts, `geom_col()`, are used for plotting a discrete variable on the <span style="font-family: Courier;">x</span> axis and a continuous variable on the <span style="font-family: Courier;">y</span> axis.
+
+#### Bar Charts
+
+* The standard bar chart provides a count of observations of each category of  discrete variable <span style="font-family: Courier;">x</span>
+    ```{r t2bar1, fig.cap="Standard bar chart", cache=TRUE}
+    airlinesat %>%
+       ggplot(aes(x=gender)) +
+         geom_bar()
+    ```
+* To get percentages of each category, we need to summarize the data and calculate the proportion for each category
+    ```{r t2bar2, fig.cap="Bar chart with proportions", cache=TRUE}
+    airlinesat %>%
+       group_by(gender) %>%  # Group data by gender
+       summarise(n=n()) %>%  # Create variable with count of each gender
+       mutate(prop=n/sum(n)) %>%  # Create variable with proportion by gender
+       ggplot(aes(x=gender,  # Variable for the x-axis
+                  y=prop)) + # Use 'prop' instead of default counts for y-axis
+         geom_bar(stat="identity")  # Use the value of y as-is
+    ```
+* To make the chart "pretty", we change the color of each bar we can add layers for axis labels, use the `scales` package to have the y-axis show percent, add labels for the bars etc.
+    ```{r t2bar3, fig.cap="Prettier bar chart", cache=TRUE}
+    airlinesat %>%
+   group_by(gender) %>%  # Group data by gender
+   summarise(n=n()) %>%  # Create variable with count of each gender
+   mutate(prop=n/sum(n)) %>%  # Create variable with proportion by gender
+   ggplot(aes(x=gender,  # Variable for the x-axis
+              y=prop,   # Use 'prop' instead of default counts for y-axis
+              fill=gender)) + # Use different color for each bar
+      geom_bar(show.legend=FALSE, # Hide legend
+               stat="identity", ) +  # Use the value of y as-is
+      scale_y_continuous(labels=scales::label_percent()) + # y-axis labels %
+      labs(x="Gender", y="Percent") +  # Label x- and y-axes
+      geom_text(aes(label=sprintf("%.1f%%", prop*100)), # Format label number
+             vjust=.95, # Vertically adjust the labels
+             fontface="bold",  # Bold typeface
+             color="white") # Text color
+    ```
+
+##### Bar Chart Variations
+
+###### Stacked Bar Chart
+
+Used to show one discrete variable by another discrete variable, such as data you would see in a cross-tab
+* The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable
+* As with other bar charts, the default is to count observations, so some manipulation is needed to get "100% stacked bar charts"
+    ```{r t2barchart3, fig.cap="Stacked bar chart", message=FALSE, cache=TRUE}
+    airlinesat %>%
+    group_by(gender, flight_type) %>%  # Group data by two discrete variables
+    summarise(n=n()) %>%  # Count observations for each combination
+    mutate(prop=n/sum(n)) %>%  # Calculate prop WITHIN first grouping variable
+    ggplot(aes(x=gender, y=prop, fill=flight_type)) +
+      geom_bar(position="fill",  # Stack the bars
+               stat="identity") + # Use the value of y as-is
+      scale_y_continuous(labels=scales::label_percent()) + # y-axis labels %
+      labs(x="Gender", y="Percent",  # Label x- and y-axes 
+           fill="Flight Type") +  # Label legend
+      geom_text(aes(label=sprintf("%.1f%%", prop*100)), # Format data label
+             position=position_stack(vjust=.95), # Adjust the labels
+             fontface="bold",  # Bold typeface
+             color="white") # Text color
+    ```
+
+###### Side-by-Side Bar Chart
+
+Also used to shows one discrete variable by another discrete variable
+
+* Again, default is to count observations, so some manipulation required to get percentages
+    * Percentages can be within a group (like in 100% stacked, see Figure \@ref(fig:t2barchart4)) or percent of overall total (see Figure \@ref(fig:t2barchart5))
+    ```{r t2barchart4, message=FALSE, fig.cap="Side-by-side bar chart (% within group)", cache=TRUE}
+    # NOTE: The code for this chart is nearly identical to the previous figure
+    #       ONLY the changes have been commented on below
+    airlinesat %>%
+    group_by(gender, flight_type) %>%  
+    summarise(n=n()) %>%  
+     mutate(prop=n/sum(n)) %>%  
+    ggplot(aes(x=gender, y=prop, fill=flight_type)) +
+      # NOTE: Use position="dodge" to make bars side-by-side
+      geom_bar(position="dodge",  
+               stat="identity") + 
+      scale_y_continuous(labels=scales::label_percent()) + 
+      labs(x="Gender", y="Percent",   
+           fill="Flight Type") +  
+      # NOTE: Use position=position_dodge(width=1) to position labels
+      #       in center of each bar horizontally; use vjust=.95 to
+      #       position labels at the top of each bar
+      geom_text(aes(label=sprintf("%.1f%%", prop*100)), 
+                position=position_dodge(width=1), 
+                vjust=.95,
+                fontface="bold",
+                color="white")
+    ```
+    ```{r t2barchart5, message=FALSE, fig.cap="Side-by-side bar chart (% of total)", cache=TRUE}
+    # NOTE: The code for this chart is nearly identical to the previous figure
+    #       ONLY the changes have been commented on below
+    airlinesat %>%
+    group_by(gender, flight_type) %>%
+      # NOTE: Use .groups="drop" to remove the grouping structure after
+      #       summarising the data
+      summarise(n=n(), .groups="drop") %>%  
+      mutate(prop=n/sum(n)) %>%  
+      ggplot(aes(x=gender, y=prop, fill=flight_type)) +
+        geom_bar(position="dodge",  
+                 stat="identity") + 
+        scale_y_continuous(labels=scales::label_percent()) + 
+        labs(x="Gender", y="Percent",   
+             fill="Flight Type") +  
+        geom_text(aes(label=sprintf("%.1f%%", prop*100)), 
+                  position=position_dodge(width=1), 
+                  vjust=.95,
+                  fontface="bold",
+                  color="white")
+    ```
+
+#### Column Charts
+
+* The standard column chart provides a sum of continuous variable <span style="font-family: Courier;">y</span> of each category of disrete variable <span style="font-family: Courier;">x</span>
+    ``` {r t2colchart1, fig.cap="Standard column chart", cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=flight_type, y=nflights)) +
+        geom_col()
+    ```
+    
+* To get a different summary statistic, such as mean, we can summarize the data and calculate the summary statistic for each category (and make the graph prettier)
+    ```{r t2colchart2, message=FALSE, fig.cap="Column chart showing means", cache=TRUE}
+    airlinesat %>%
+      group_by(flight_type) %>%
+      summarise(mean=mean(nflights)) %>%
+      ggplot(aes(x=flight_type, y=mean, fill=flight_type)) + 
+        geom_col(show.legend=FALSE) +
+        labs(x="Flight Type", y="Mean Number of Flights") + 
+        geom_text(aes(label=sprintf("%.2f", mean)), # Format label number
+             vjust=.95, # Vertically adjust the labels
+             fontface="bold",  # Bold typeface
+             color="white") # Text color
+    ```
+
+##### Side-by-Side Column Chart
+
+* A side by side column chart can be used to show two discrete variables on the <span style="font-family: Courier;">x</span>-axis
+    ```{r t2colchart3, message=FALSE, fig.cap="Side-by-side column chart", cache=TRUE}
+    airlinesat %>%
+    group_by(flight_type, flight_purpose) %>%  
+    summarise(mean=mean(nflights), .groups="drop") %>%
+    ggplot(aes(x=flight_type, y=mean, fill=flight_purpose)) +
+      geom_col(position="dodge") + 
+      labs(x="Flight Type", y="Mean Number of Flights",   
+           fill="Flight Purpose") +  
+      geom_text(aes(label=sprintf("%.2f", mean)), 
+                position=position_dodge(width=1), 
+                vjust=.95,
+                fontface="bold",
+                color="white")
+    ```
+
+### Histogram
+
+In `ggplot`, histograms are produced with the `geom_histogram()` geom, which produces a histogram of a single continuous variable.
+
+* By default, the <span style="font-family: Courier;">y</span>-axis is a count of observations in each "bin" of the <span style="font-family: Courier;">x</span> variable
+    * A bin is a range of values of the continuous <span style="font-family: Courier;">x</span> variable
+    * By default, `ggplot` will produce a histogram with 30 bins, and a message is produced to that effect unless the bins are changed manually
+    ```{r t2hist1, fig.cap="Standard histogram", cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age)) +
+        geom_histogram()
+    ```
+
+#### Changing Bins
+
+Histograms can look quite different based on the bins used.  Bins can be changed in two ways: (1) number of bins; and (2) bin width
+
+* Changing the number of bins is done with the `bins=` option
+    * For example: `geom_histogram(bins=20)`
+* Changing the bin width is done with the `binwidth=` option
+    * For example; `geom_histogram(binwidth=5)`
+* Use the interactive histograms (Figure \@ref(fig:t2shiny1) and Figure \@ref(fig:t2shiny2) to see how the histograms change
+
+``` {r t2shiny1, echo=FALSE, fig.cap="Interactive histogram for number of bins"}
+knitr::include_app("https://jdmeyer73.shinyapps.io/Histogram/", height="650px")
+```
+``` {r t2shiny2, echo=FALSE, fig.cap="Interactive histogram for bin width"}
+knitr::include_app("https://jdmeyer73.shinyapps.io/Histogram2/", height="650px")
+```
+
+#### Improving the Look
+
+You may find the default histogram a little "blah" or tough to read.  Just as the look of bar and column charts could be changed, so can the look of histograms
+``` {r t2hist2, fig.cap="Prettier histogram", message=FALSE, cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age)) +
+        geom_histogram(color="black",  # Adds red border around each bar
+                       fill="tan") +  # Makes each bar blue
+        labs(x="Age", y="Frequency")
+```
+
+#### Other Options
+
+* Instead of the default count of observations, a density histogram can be created, where the sum of the area of the bars adds up to 1
+* Often, a normal curve is added
+
+look of bar and column charts could be changed, so can the look of histograms
+``` {r t2hist3, fig.cap="Density histogram with normal curve", message=FALSE, cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age)) +
+        geom_histogram(aes(y=..density..), # Request density instead of count
+                       color="black",  # Adds red border around each bar
+                       fill="tan") +  # Makes each bar blue
+        stat_function(fun=function(x)   # Adds normal curve ovarlay
+          dnorm(x, 
+                mean=mean(airlinesat$age, na.rm=TRUE), # Mean of normal dist
+                sd=sd(airlinesat$age, na.rm=TRUE))) +  # StdDev of normal dist
+        labs(x="Age", y="Density")
+```
+
+### Box Plot
+
+Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a box plot for a continuous <span style="font-family: Courier;">y</span> variable, but for each level of a discrete <span style="font-family: Courier;">x</span> variable. In addition, the standard box plot does not contain "whiskers".
+
+* To get a box plot for only the continuous <span style="font-family: Courier;">y</span> variable, use `x=""` as the discrete <span style="font-family: Courier;">x</span> variable
+* To add whiskers, include a `stat_boxplot(geom="errorbar")` layer
+    ```{r t2boxplot1, fig.cap="Single box plot with whiskers", cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x="", y=age)) +
+        geom_boxplot() +
+        stat_boxplot(geom="errorbar") +  # Add whiskers to box plot
+        labs(x="",  # Remove x axis label
+             y="Age")   # Make y axis label nicer
+    ```
+
+* To make comparisons across a discrete <span style="font-family: Courier;">x</span> variable, replaces the `x=""` from before with `x=VARIABLE`
+    ```{r t2boxplot2, fig.cap="Multiple box plot", cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=flight_purpose, y=age)) +
+        geom_boxplot() +
+        stat_boxplot(geom="errorbar") +  # Add whiskers to box plot
+        labs(x="Flight Purpose", y="Age")
+    ```
+
+### Scatterplot
+
+* Scatterplots are drawn with the `geom_point()` geom and are used to show the relationship between two continuous variables
+    * Notice the warning given due to missing values (these warnings will be suppressed in other scatterplots below)
+    ```{r t2scatter1, fig.cap="Standard scatterplot", cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age, y=s10)) + # s10 is satisfaction with condition of airplane
+        geom_point()
+    ```
+
+#### Trendline
+* Scatterplots become more helpful when we add a trend line.
+* The most common trend line is a simple regression line, although others can be used.
+    * Use `geom_smooth(method="lm", se=FALSE)` to add a linear trend line
+    ```{r t2scatter2, fig.cap="Scatterplot with trendline", warning=FALSE, message=FALSE, cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age, y=s10)) + # s10 is satisfaction with condition of airplane
+        geom_point() + 
+        geom_smooth(method="lm", se=FALSE) +  # Add trendline
+        labs(x="Age", y="Satisfaction with Aircraft Condition")
+    ```    
+
+#### Other Options
+* The color, [https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec](shape), and size of the points can be changed
+    * In addition, they can vary by levels of a discrete variable
+        * If a trend line is requested, separate trend lines will be provided for each level of the discrete variable
+    ```{r t2scatter3, fig.cap="Scatterplot with different colors for discrete variable", warning=FALSE, message=FALSE, cache=TRUE}
+    airlinesat %>%
+      ggplot(aes(x=age, y=s10, color=flight_type)) + 
+        geom_point(shape=17) + 
+        geom_smooth(method="lm", se=FALSE) +  # Add trendline
+        labs(x="Age", y="Satisfaction with Aircraft Condition",
+             color="Flight Type")
+    ```    
+
+## Tables and Statistics
+
+### Frequency Table
+
+* The `freq()` command from the package `questionr` produces nice one-way frequency tables (i.e., a frequency table for a single discrete variable)
+    ```{r t2onewayfreq, cache=TRUE}
+    library(questionr)
+    freq(airlinesat$language, # Provide discrete variable
+         cum=TRUE,  # Add cumulative percent column
+         total=TRUE)  # Add total row at bottom
+    ```
+<caption>(\#tab:t2onewayfreq) One-way frequency table</caption> 
+* Use package `htmlTable()` to produce a nicer looking table for output in the viewer (vs. the console)
+    ```{r t2onewayfreq2, cache=TRUE}
+    library(htmlTable)
+    freq(airlinesat$flight_type, 
+         cum=TRUE,  
+         total=TRUE) %>%  # Pass result to htmlTable
+      htmlTable()
+    ```
+<caption>(\#tab:t2onewayfreq2) One-way frequency table using <i>htmlTable</i></caption>
+
+### Crosstabs
+
+#### Base R
+
+* Base R does not do a great job of easily creating cross-tabs and testing for independent of the two variables
+* Using base R, a multistep process is required
+    * Create the two-way frequency table using the `table(rowvar, colvar)` function and assign it to a separate object
+        * Display the two-way freq table by just using the table name
+    * Use the function `proportions(tablename, margin)` on the newly created object to get column, row, or total percentages
+        * `proportions(tablename)` gives total percentages
+        * `proportions(tablename, 1)` gives row percentages
+        * `proportions(tablename, 2)` gives column percentages
+    * Use the function `chisq.test(tablename)` on the newly created object to run the test of independence
+    ```{r t2crosstab1, cache=TRUE}
+    # Create two way table
+    crosstab <- table(airlinesat$flight_purpose, # row Variable
+                      airlinesat$gender)   # Column variable
+    crosstab   # Display 2-way freq table
+    proportions(crosstab, 2)  # Display column percentages
+    chisq.test(crosstab)   # Run test of independence
+    ```
+<caption>(\#tab:t2crosstab1) Cross-tabs using Base R</caption>
+* The look of the tables can be improved with the `htmlTable` package
+    ```{r t2crosstab2, cache=TRUE}
+    htmlTable(crosstab)
+    htmlTable(round(proportions(crosstab,2)*100, 2))
+    ```
+<caption>(\#tab:t2crosstab2) Cross-tabs using <i>htmlTable</i></caption>
+
+#### Alternative Packages
+
+The following packages are not availabe through the BGSU Virtual Computing lab, but can be installed if using R/RStudio on your own machine.  These packages produce nicely formatted crosstabs.
+
+##### Package *sjPlot*
+
+* Use the function `tab_xtab(var.row=, var.col=, show.col.prc=TRUE)` to get a standard crosstab with column percentages
+    ``` {r t2crosstab3, cache=TRUE, message=FALSE}
+    library(sjPlot)
+    tab_xtab(var.row=airlinesat$flight_purpose,
+             var.col=airlinesat$gender,
+             show.col.prc=TRUE)
+    ```
+<caption>(\#tab:t2crosstab3) Cross-tab using <i>sjPlot</i></caption>
+    
+##### Package *gmodels*
+
+* Function`CrossTable(rowvar, colvar, OPTIONS)` has many options similar to SPSS
+    ```{r t2crosstab4, cache=TRUE}
+    library(gmodels)
+    CrossTable(airlinesat$flight_purpose, airlinesat$gender,
+               prop.r=FALSE,  # Exclude row percentages
+               prop.t=FALSE,  # Exclude total percentages,
+               prop.chisq=FALSE, # Exclude cell contribution to chi-sq
+               digits=2,  # 2 digits after decimal point
+               chisq=TRUE,  # Request test of independence
+               format="SPSS")  # Request SPSS formatting
+    ```
+<caption>(\#tab:t2crosstab4) Cross-tab using <i>gmodels</i></caption>
+    
+### Measures of Centrality and Dispersion
+
+#### Base R
+
+* Any individual summary statistic can be easily calculated using Base R with functions such as:
+    * `mean(x)` for mean
+    * `sd(x)` for standard deviation
+    * `quantile(x, .percentile)` for percentiles (e.g., '.50' would be median)
+* For summary statistics except for standard deviation, the `summary(object)` function can be used, where object can be a single variable or an entire data frame
+    ```{r t2summary1, cache=TRUE}
+    # Summary for a single variable
+    summary(airlinesat$nflights)
+    ```
+<caption>(\#tab:t2summary1) Summary statistics in R Base, one variable</caption>
+    ```{r t2summary2, cache=TRUE}
+    # Subset of airlinesat
+    summary(airlinesat[,c("age", "nflights", "s10")])
+    ```
+<caption>(\#tab:t2summary2) Summary statistics in R Base, multiple variables</caption>
+* Summary statistics for a continuous variable by different levels of a discrete variable can also be done in Base R using the `tapply(continuous variable, discrete variable, function)` function
+    ``` {r t2summary3, cache=TRUE}
+    tapply(airlinesat$nflights,  # Continous variable to apply the function to
+           airlinesat$flight_purpose, # Discrete, grouping variable
+           summary)  # R function to apply by group
+    ```
+<caption>(\#tab:t2summary3) Summary statistics in R Base, one variable, grouped</caption>
+
+#### Package *dplyr*
+
+* The `dplyr` package can also be used to manually create tables of summary statistics
+    * One continuous variable
+    ```{r t2summary4, cache=TRUE}
+    airlinesat %>%
+      summarise(mean=mean(age),
+                sd=sd(age),
+                q1=quantile(age, .25),
+                median=quantile(age,.50),
+                q3=quantile(age, .75))
+    ```
+<caption>(\#tab:t2summary4) Summary statistics using <i>dplyr</i>, one variable</caption>
+    * Multiple continuous variables
+    ```{r t2summary5, cache=TRUE}
+    airlinesat %>%
+      select(age, nflights, s10) %>%
+      summary()
+    ```
+<caption>(\#tab:t2summary5) Summary statistics using <i>dplyr</i>, multiple variables</caption>
+    * One continuous variable by a discrete/grouping variable
+    ```{r t2summary6, cache=TRUE, tab.cap="Table Caption"}
+    airlinesat %>%
+      group_by(flight_purpose) %>%
+      summarise(mean=mean(age),
+                sd=sd(age),
+                q1=quantile(age, .25),
+                median=quantile(age,.50),
+                q3=quantile(age, .75))
+    ```
+<caption>(\#tab:t2summary6) Summary statistics using <i>dplyr</i>, one variable, grouped</caption>
+
+#### Package *vtable*
+
+* Package `vtable` produces very nice looking tables of summary statistics, but it isn't available in BGSU's Virtual Computer Lab.
+* Use function `sumtable(data, vars="varname")` to produce the table
+    * One continuous variable
+    ``` {r t2summary7code, eval=FALSE, cache=TRUE, message=FALSE}
+    library(vtable)
+    sumtable(airlinesat, vars="nflights")
+    ```
+    ``` {r t2summary7, echo=FALSE, cache=TRUE, message=FALSE}
+    library(vtable)
+    sumtable(airlinesat, vars="nflights", out="return") %>%
+      kable(caption=NULL)
+    ```
+<caption>(\#tab:t2summary7) Summary statistics using <i>vtable</i>, one variable</caption>
+    * Multiple continuous variables
+    ``` {r t2summary8code, eval=FALSE, cache=TRUE}
+    sumtable(airlinesat, 
+             vars=c("nflights","age","s10"), # Use `c()` for multiple variables
+             add.median=TRUE)  # Request median
+    ```
+    ``` {r t2summary8, echo=FALSE, cache=TRUE}
+    sumtable(airlinesat, 
+             vars=c("nflights","age","s10"), # Use `c()` for multiple variables
+             add.median=TRUE)  # Request median
+    ```
+<caption>(\#tab:t2summary8) Summary statistics using <i>vtable</i>, multiple variable</caption>
+    * One or more continuous variables by a discrete/grouping variable
+    ``` {r t2summary9code, eval=FALSE, cache=TRUE}
+    sumtable(airlinesat, 
+             vars=c("nflights","age","s10"), 
+             add.median=TRUE, 
+             group="flight_purpose")
+    ```
+    ``` {r t2summary9, echo=FALSE, cache=TRUE}
+    sumtable(airlinesat, 
+             vars=c("nflights","age","s10"), 
+             add.median=TRUE, 
+             group="flight_purpose", out="return") %>%
+      kable(caption=NULL)
+    ```
+<caption>(\#tab:t2summary9) Summary statistics using <i>vtable</i>, multiple variables, grouped</caption>
+
+### Correlation
+
+Correlation provides a measure of the strength of association between two continuous variables.
+
+#### Base R
+
+* Base R can easily provide the correlation and a test of the correlation using the `cor.test(variable1, variable2)` function
+    * By default, it includes only observations that are non-missing in both variables
+    ```{r t2corr1, cache=TRUE}
+    cor.test(airlinesat$age, airlinesat$nflights)
+    ```
+<caption>(\#tab:t2corr1) Correlation with test in Base R</caption>
+* Base R can also easily provide a correlation matrix of variables using the `cor(data)` function
+    * By default, correlation will only be calculated for those pairs of variables that have no missing values
+    * Use option `use="pairwise.complete.obs"` to exclude observations that are non-missing in both variables
+    * However, Base R cannot produce a correlation matrix with p-values
+    ```{r t2corr2, cache=TRUE}
+    # First create data frame with only variables wanted
+    mycorr <- airlinesat[,c("age", "nflights", "s10")]
+    # Use function `round` to limit to 3 digits after decimal point
+    round(cor(mycorr, use="pairwise.complete.obs"), 3)
+    ```
+<caption>(\#tab:t2corr2) Correlation matrix in Base R</caption>
+
+#### Package *Hmisc*
+
+* The function `rcorr()` from the package `Hmisc`, which is available in the BGSU Virtual Computing Lab, can be used to create correlation matrices also
+    * The `rcorr()` function requires a matrix, so the data frame of variables must be coerced into a matrix first
+    * By default, `rcorr()` produces three separate matrices: correlation, number of observations, and p-values
+    * Separate tables can be requested
+        * `rcorr(as.matrix(dataframe))]]"r"]]` provides the correlation matrix
+        * `rcorr(as.matrix(dataframe))]]"P"]]` provides the matrix of p-values
+        * Separate tables can used with `htmlTable()` for nicer output
+    ``` {r t2corr3, cache=TRUE, message=FALSE}
+    library(Hmisc)
+    rcorr(as.matrix(mycorr))  # NOTE: 'mycorr' created in previous code
+    ```
+<caption>(\#tab:t2corr3) Correlation matrix using <i>Hmisc</i></caption>
+    ```{r t2corr4code, eval=FALSE, cache=TRUE}
+    # Use 'round()' function to limit digits in output
+    htmlTable(round(rcorr(as.matrix(mycorr))[["r"]],4))
+    htmlTable(round(rcorr(as.matrix(mycorr))[["P"]],5))
+    ```
+    ```{r t2corr41, echo=FALSE, cache=TRUE}
+    htmlTable(round(rcorr(as.matrix(mycorr))[["r"]],4))
+    ```
+    ```{r t2corr42, echo=FALSE, cache=TRUE}
+    htmlTable(round(rcorr(as.matrix(mycorr))[["P"]],5))
+    ```
+<caption>(\#tab:t2corr42) Separate correlation matrix output using <i>Hmisc</i></caption>
+
+#### Package *sjPlot*
+
+* The function `tab_corr()` from the `sjPlot` package produces very nice correlation matrices
+    * `sjPlot` is not available in BGSU's Virtual Computing Lab
+    ```{r t2corr5, cache=TRUE, message=FALSE}
+    library(sjPlot)
+    tab_corr(mycorr,   # Data frame of variables to use; created earlier
+             na.deletion = "pairwise",  # Delete obs if either variable is missing
+             corr.method = "pearson",  # Choose Pearson correlation coefficient
+             show.p = TRUE,  # Show asterisks for significant correlations
+             digits = 3,  # Show three decimal points
+             triangle = "lower",  # Show only lower triangle
+             fade.ns=FALSE)  # Do not fade insignficant correlations)
+    ```
+<caption>(\#tab:t2corr5) Correlation matrix output using <i>sjPlot</i></caption>
+
+#### Package *GGally*
+
+* The `ggpairs()` function from package `GGally` can produce a combination scatterplot and correlation matrix
+    ```{r t2corr6, fig.cap="Combination scatterplot/correlation matrix using <i>GGally</i>", message=FALSE, warning=FALSE}
+    library(GGally)
+    ggpairs(mycorr, # Data frame created earlier
+            lower=list(continuous=wrap("smooth",    # Adds fit lines...
+                                       method="lm", # Using linear regression...
+                                       se=FALSE,    # Without CI bands
+                                       color="blue")),  # Color dots
+            diag=list(continuous="blankDiag"))      # Sets diagonals to be blank
+    ```
+    

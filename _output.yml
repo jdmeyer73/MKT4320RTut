@@ -1,0 +1,10 @@
+bookdown::gitbook:
+  css: style.css
+  toc_depth: 4
+  config:
+    toc:
+      collapse: section
+    edit: null
+    download: false
+    number_sections: false
+  highlight: pygments 
