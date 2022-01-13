@@ -181,7 +181,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="r-basics.html"><a href="r-basics.html#data-frames"><i class="fa fa-check"></i><b>1.6</b> Data Frames</a>
 <ul>
 <li class="chapter" data-level="1.6.1" data-path="r-basics.html"><a href="r-basics.html#overview"><i class="fa fa-check"></i><b>1.6.1</b> Overview</a></li>
-<li class="chapter" data-level="1.6.2" data-path="r-basics.html"><a href="r-basics.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a></li>
+<li class="chapter" data-level="1.6.2" data-path="r-basics.html"><a href="r-basics.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a>
+<ul>
+<li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
+</ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
@@ -269,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
-<li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#standardized-beta-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Beta Coefficients</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#prediction"><i class="fa fa-check"></i><b>3.3</b> Prediction</a></li>
 <li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#margin-plots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots"><i class="fa fa-check"></i><b>3.4.1</b> Separate Margin Plots</a></li>
@@ -828,13 +831,37 @@ isTRUE(x)
 <span id="cb77-2"><a href="r-basics.html#cb77-2" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot;</code></pre></li>
 </ul>
+<div id="using-vectors-in-line" class="section level4" number="1.6.2.1">
+<h4><span class="header-section-number">1.6.2.1</span> Using vectors in-line</h4>
+<ul>
+<li><p>The vectors can be created in line (i.e., not already created)</p></li>
+<li><p>If the vectors are of different length, the shorter vector will be repeated <strong>IF</strong> the longest vector is divisible by the vector</p></li>
+<li><p>If a single value is provided instead of a vector, it is repeated for all rows</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="r-basics.html#cb79-1" aria-hidden="true" tabindex="-1"></a>x2.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var1=</span><span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">10</span>),</span>
+<span id="cb79-2"><a href="r-basics.html#cb79-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">var2=</span><span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>),</span>
+<span id="cb79-3"><a href="r-basics.html#cb79-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">var3=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb79-4"><a href="r-basics.html#cb79-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">var4=</span><span class="dv">100</span>)</span>
+<span id="cb79-5"><a href="r-basics.html#cb79-5" aria-hidden="true" tabindex="-1"></a>x2.df</span></code></pre></div>
+<pre class="custom-output"><code>   var1 var2 var3 var4
+1    10  Yes    1  100
+2    20   No    2  100
+3    30  Yes    3  100
+4    40   No    4  100
+5    50  Yes    5  100
+6    60   No    1  100
+7    70  Yes    2  100
+8    80   No    3  100
+9    90  Yes    4  100
+10  100   No    5  100</code></pre></li>
+</ul>
+</div>
 </div>
 <div id="viewing-a-data-frame" class="section level3" number="1.6.3">
 <h3><span class="header-section-number">1.6.3</span> Viewing a Data Frame</h3>
 <p>There are a few ways to view a data frame</p>
 <ol style="list-style-type: decimal">
 <li><p>Type the data frame name in the console</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="r-basics.html#cb79-1" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="r-basics.html#cb81-1" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
 <pre class="custom-output"><code>  x.Num x.Log x.Char
 1  1.00  TRUE     fr
 2  3.14 FALSE     fr
@@ -847,7 +874,7 @@ isTRUE(x)
 </ul></li>
 <li><p>To view only a few rows of data, the <code>head(DF, n)</code> function can be used, where <span style="font-family: Courier;">DF</span> is the name of the data frame, and <span style="font-family: Courier;">n</span> (optional) is the number of rows to view, with 10 as the default<br>
 <strong>NOTE</strong>: The “Salaries” data frame from the <code>car</code> package is being used as an example</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="r-basics.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Salaries,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="r-basics.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Salaries,<span class="dv">5</span>)</span></code></pre></div>
 <pre class="custom-output"><code>      rank discipline yrs.since.phd yrs.service  sex salary
 1     Prof          B            19          18 Male 139750
 2     Prof          B            20          16 Male 173200
@@ -865,17 +892,17 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 </ol>
 <ul>
 <li><p>Indices can be left blank, which selects <em>all</em> of that dimension</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="r-basics.html#cb83-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>, ]   <span class="co"># Obtain all of row 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-basics.html#cb85-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>, ]   <span class="co"># Obtain all of row 2</span></span></code></pre></div>
 <pre class="custom-output"><code>  x.Num x.Log x.Char
 2  3.14 FALSE     fr</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-basics.html#cb85-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="dv">3</span>]   <span class="co"># Obtain all of column 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="r-basics.html#cb87-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="dv">3</span>]   <span class="co"># Obtain all of column 3</span></span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 <li><p>As with vectors, indexing can be done with sequencing and negative indices to omit rows</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="r-basics.html#cb87-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, ]   <span class="co"># Obtain rows 2 and 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="r-basics.html#cb89-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, ]   <span class="co"># Obtain rows 2 and 3</span></span></code></pre></div>
 <pre class="custom-output"><code>  x.Num x.Log x.Char
 2  3.14 FALSE     fr
 3  5.49  TRUE     jr</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="r-basics.html#cb89-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="sc">-</span><span class="dv">2</span>]    <span class="co"># Exclude column 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="r-basics.html#cb91-1" aria-hidden="true" tabindex="-1"></a>x.df[ ,<span class="sc">-</span><span class="dv">2</span>]    <span class="co"># Exclude column 2</span></span></code></pre></div>
 <pre class="custom-output"><code>  x.Num x.Char
 1  1.00     fr
 2  3.14     fr
@@ -888,20 +915,20 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <li>Choosing multiple columns returns a new data frame</li>
 <li>Use the <code>str()</code> function to verify the new objects structure</li>
 </ul>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="r-basics.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span>])   <span class="co"># 1 row and 1 column = vector of length 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span>])   <span class="co"># 1 row and 1 column = vector of length 1</span></span></code></pre></div>
 <pre class="custom-output"><code> num 1</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">2</span>]) <span class="co"># 3 rows and 1 column = vector of length 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="r-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">2</span>]) <span class="co"># 3 rows and 1 column = vector of length 3</span></span></code></pre></div>
 <pre class="custom-output"><code> logi [1:3] TRUE FALSE TRUE</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="r-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="co"># 1 row and 2 columns = 1 x 2 data frame</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-basics.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="co"># 1 row and 2 columns = 1 x 2 data frame</span></span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   1 obs. of  2 variables:
  $ x.Num: num 1
  $ x.Log: logi TRUE</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-basics.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)])  <span class="co">#4 rows and 2 columns = 4 x 2 data frame</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="r-basics.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)])  <span class="co">#4 rows and 2 columns = 4 x 2 data frame</span></span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   4 obs. of  2 variables:
  $ x.Num : num  1 3.14 5.49 10
  $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot;</code></pre></li>
 <li><p>Data frames can also be indexed using column names after the <code>$</code> character</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="r-basics.html#cb99-1" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>x.Char</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-basics.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>x.Char</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 </ul>
 </div>
@@ -932,9 +959,9 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <li><code>new</code> is the name for the new variable</li>
 <li><code>SOME FUNCTION</code> is the data transformation to take place</li>
 </ul>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-basics.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new variable &#39;NumSq&#39; that is the square of current variable x.Num</span></span>
-<span id="cb101-2"><a href="r-basics.html#cb101-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>NumSq <span class="ot">&lt;-</span> x.df<span class="sc">$</span>x.Num<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb101-3"><a href="r-basics.html#cb101-3" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="r-basics.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new variable &#39;NumSq&#39; that is the square of current variable x.Num</span></span>
+<span id="cb103-2"><a href="r-basics.html#cb103-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>NumSq <span class="ot">&lt;-</span> x.df<span class="sc">$</span>x.Num<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb103-3"><a href="r-basics.html#cb103-3" aria-hidden="true" tabindex="-1"></a>x.df</span></code></pre></div>
 <pre class="custom-output"><code>  x.Num x.Log x.Char    NumSq
 1  1.00  TRUE     fr   1.0000
 2  3.14 FALSE     fr   9.8596
@@ -947,12 +974,12 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <h3><span class="header-section-number">1.7.2</span> Recoding (Create New)</h3>
 <ul>
 <li><p>In base R, recoding is usually a multi-step process using indexing</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="r-basics.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;x.Num&#39; into three factors</span></span>
-<span id="cb103-2"><a href="r-basics.html#cb103-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="st">&quot;low&quot;</span>   <span class="co"># Create new variable and set all rows to one level</span></span>
-<span id="cb103-3"><a href="r-basics.html#cb103-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;=</span><span class="dv">3</span> <span class="sc">&amp;</span> x.df<span class="sc">$</span>x.Num<span class="sc">&lt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;med&quot;</span>   <span class="co"># Create medium level</span></span>
-<span id="cb103-4"><a href="r-basics.html#cb103-4" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;high&quot;</span>   <span class="co"># Create high level</span></span>
-<span id="cb103-5"><a href="r-basics.html#cb103-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)   <span class="co"># Set new variable as factor</span></span>
-<span id="cb103-6"><a href="r-basics.html#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)   <span class="co"># See structure of data frame with new variable</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="r-basics.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;x.Num&#39; into three factors</span></span>
+<span id="cb105-2"><a href="r-basics.html#cb105-2" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="st">&quot;low&quot;</span>   <span class="co"># Create new variable and set all rows to one level</span></span>
+<span id="cb105-3"><a href="r-basics.html#cb105-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;=</span><span class="dv">3</span> <span class="sc">&amp;</span> x.df<span class="sc">$</span>x.Num<span class="sc">&lt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;med&quot;</span>   <span class="co"># Create medium level</span></span>
+<span id="cb105-4"><a href="r-basics.html#cb105-4" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>x.Num<span class="sc">&gt;</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;high&quot;</span>   <span class="co"># Create high level</span></span>
+<span id="cb105-5"><a href="r-basics.html#cb105-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)   <span class="co"># Set new variable as factor</span></span>
+<span id="cb105-6"><a href="r-basics.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)   <span class="co"># See structure of data frame with new variable</span></span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   5 obs. of  5 variables:
  $ x.Num : num  1 3.14 5.49 10 20
  $ x.Log : logi  TRUE FALSE TRUE TRUE FALSE
@@ -969,14 +996,14 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <ul>
 <li><strong>NOTE</strong>: Sometimes we have to first change the variable type, such as when the existing variable is a factor</li>
 </ul>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="r-basics.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;Grp&#39; into only two factors</span></span>
-<span id="cb105-2"><a href="r-basics.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Change type to &#39;character&#39;</span></span>
-<span id="cb105-3"><a href="r-basics.html#cb105-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.character</span>(x.df<span class="sc">$</span>Grp)</span>
-<span id="cb105-4"><a href="r-basics.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;low&#39; and &#39;med&#39; to &#39;very low&#39;</span></span>
-<span id="cb105-5"><a href="r-basics.html#cb105-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;low&quot;</span> <span class="sc">|</span> x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;med&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;very low&quot;</span></span>
-<span id="cb105-6"><a href="r-basics.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change back to factor</span></span>
-<span id="cb105-7"><a href="r-basics.html#cb105-7" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)</span>
-<span id="cb105-8"><a href="r-basics.html#cb105-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-basics.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;Grp&#39; into only two factors</span></span>
+<span id="cb107-2"><a href="r-basics.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Change type to &#39;character&#39;</span></span>
+<span id="cb107-3"><a href="r-basics.html#cb107-3" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.character</span>(x.df<span class="sc">$</span>Grp)</span>
+<span id="cb107-4"><a href="r-basics.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;low&#39; and &#39;med&#39; to &#39;very low&#39;</span></span>
+<span id="cb107-5"><a href="r-basics.html#cb107-5" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp[x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;low&quot;</span> <span class="sc">|</span> x.df<span class="sc">$</span>Grp<span class="sc">==</span><span class="st">&quot;med&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;very low&quot;</span></span>
+<span id="cb107-6"><a href="r-basics.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change back to factor</span></span>
+<span id="cb107-7"><a href="r-basics.html#cb107-7" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>Grp <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x.df<span class="sc">$</span>Grp)</span>
+<span id="cb107-8"><a href="r-basics.html#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.df)</span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   5 obs. of  5 variables:
  $ x.Num : num  1 3.14 5.49 10 20
  $ x.Log : logi  TRUE FALSE TRUE TRUE FALSE
@@ -995,7 +1022,7 @@ Notice the <code>|</code> in the code above. It stands for “or,” which tells
 <p>To know where your files are saved to, and to make it easier to load files, it is probably best to have a working directory where existing files are located and where new files will be saved.</p>
 <ul>
 <li><p>Use the <code>getwd()</code> function to see your current working directory</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-basics.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-basics.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;C:/Users/jdmeyer/Docs/RFiles&quot;</code></pre></li>
 <li><p>Set the working directory in one of three ways:</p>
 <ol style="list-style-type: decimal">
@@ -1029,7 +1056,7 @@ Figure 1.4: Set Working Direcory using Files Tab
 <ul>
 <li>Suppose the data set used in Topic 1 (<span style="font-family: Courier;">airlinesat.rdata</span>) is in a subdirectory of the working directory called <span style="font-family: Courier;">Data</span></li>
 </ul>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-basics.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-basics.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div>
 See <a href="r-basics.html#fig:loaddata">1.5</a> for a visual example
 <div class="figure"><span style="display:block;" id="fig:loaddata"></span>
 <img src="Images/LoadData.gif" alt="Loading Data"  />
@@ -1047,7 +1074,7 @@ Figure 1.5: Loading Data
 <li><span style="font-family: Courier;">OBJECT</span> is one or more objects in the current environment separated by commas</li>
 <li><span style="font-family: Courier;">SAVENAME</span> is the name of the file the objects will be saved to.</li>
 </ul>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="r-basics.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x.df, <span class="at">file=</span><span class="st">&quot;xdf.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="r-basics.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x.df, <span class="at">file=</span><span class="st">&quot;xdf.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1072,15 +1099,15 @@ Figure 1.5: Loading Data
 <ul>
 <li><p>Suppose a function is need to take the square root of a natural log transformation</p></li>
 <li><p>The new function will be named <code>sqlog</code> and will have one argument</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-basics.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the new function</span></span>
-<span id="cb111-2"><a href="r-basics.html#cb111-2" aria-hidden="true" tabindex="-1"></a>sqlog <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {   <span class="co"># Function has one argument, &#39;x&#39;</span></span>
-<span id="cb111-3"><a href="r-basics.html#cb111-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(<span class="fu">log</span>(x))   <span class="co"># What is done with the argument, &#39;x&#39;</span></span>
-<span id="cb111-4"><a href="r-basics.html#cb111-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="r-basics.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the new function</span></span>
+<span id="cb113-2"><a href="r-basics.html#cb113-2" aria-hidden="true" tabindex="-1"></a>sqlog <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {   <span class="co"># Function has one argument, &#39;x&#39;</span></span>
+<span id="cb113-3"><a href="r-basics.html#cb113-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(<span class="fu">log</span>(x))   <span class="co"># What is done with the argument, &#39;x&#39;</span></span>
+<span id="cb113-4"><a href="r-basics.html#cb113-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>Now that the function is created and ran, it can be used. In this case, the output will be printed to the console. The function could have been written in a way that the result is stored as an object.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="r-basics.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqlog</span>(<span class="dv">100</span>)   <span class="co"># Using the function on a single number</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="r-basics.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqlog</span>(<span class="dv">100</span>)   <span class="co"># Using the function on a single number</span></span></code></pre></div>
 <pre class="custom-output"><code>[1] 2.145966</code></pre>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="r-basics.html#cb114-1" aria-hidden="true" tabindex="-1"></a>myvals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">80</span>, <span class="dv">160</span>)  <span class="co"># Creating a vector of values</span></span>
-<span id="cb114-2"><a href="r-basics.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqlog</span>(myvals)   <span class="co"># Using the function on a vector</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="r-basics.html#cb116-1" aria-hidden="true" tabindex="-1"></a>myvals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">80</span>, <span class="dv">160</span>)  <span class="co"># Creating a vector of values</span></span>
+<span id="cb116-2"><a href="r-basics.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqlog</span>(myvals)   <span class="co"># Using the function on a vector</span></span></code></pre></div>
 <pre class="custom-output"><code>[1] 1.268636 1.517427 1.730818 1.920646 2.093329 2.252815</code></pre></li>
 </ul>
 </div>
@@ -1106,7 +1133,7 @@ Figure 1.5: Loading Data
 <div id="dplyr-examples" class="section level3" number="1.10.1">
 <h3><span class="header-section-number">1.10.1</span> <em>dplyr</em> Examples</h3>
 <p>First, be sure the <code>dplyr</code> package is loaded:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="r-basics.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="r-basics.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <p>We’ll be using the airlinesat dataset from the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> file for these examples.</p>
 <div id="select-function" class="section level4" number="1.10.1.1">
 <h4><span class="header-section-number">1.10.1.1</span> <code>select()</code> function</h4>
@@ -1119,13 +1146,13 @@ Figure 1.5: Loading Data
 <li>For simplicity, the <code>num_range("prefix", start:finish)</code> selection can be used, and the <code>!</code> takes the complement (i.e., all but these)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="r-basics.html#cb117-1" aria-hidden="true" tabindex="-1"></a>airlinesat.small <span class="ot">&lt;-</span>     <span class="co"># Create new data frame</span></span>
-<span id="cb117-2"><a href="r-basics.html#cb117-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>      <span class="co"># Use airlinesat as the starting data frame</span></span>
-<span id="cb117-3"><a href="r-basics.html#cb117-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>)) <span class="sc">%&gt;%</span>  <span class="co"># Select all but e1 to e23        </span></span>
-<span id="cb117-4"><a href="r-basics.html#cb117-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;s&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>))   <span class="co"># Select all but s1 to s23</span></span>
-<span id="cb117-5"><a href="r-basics.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: the two selects could have been concantendated as:</span></span>
-<span id="cb117-6"><a href="r-basics.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="co"># select(!c(num_range(&quot;e&quot;, 1:23), num_range(&quot;s&quot;, 1:23)))</span></span>
-<span id="cb117-7"><a href="r-basics.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.small)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="r-basics.html#cb119-1" aria-hidden="true" tabindex="-1"></a>airlinesat.small <span class="ot">&lt;-</span>     <span class="co"># Create new data frame</span></span>
+<span id="cb119-2"><a href="r-basics.html#cb119-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>      <span class="co"># Use airlinesat as the starting data frame</span></span>
+<span id="cb119-3"><a href="r-basics.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>)) <span class="sc">%&gt;%</span>  <span class="co"># Select all but e1 to e23        </span></span>
+<span id="cb119-4"><a href="r-basics.html#cb119-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">!</span><span class="fu">num_range</span>(<span class="st">&quot;s&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">23</span>))   <span class="co"># Select all but s1 to s23</span></span>
+<span id="cb119-5"><a href="r-basics.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: the two selects could have been concantendated as:</span></span>
+<span id="cb119-6"><a href="r-basics.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="co"># select(!c(num_range(&quot;e&quot;, 1:23), num_range(&quot;s&quot;, 1:23)))</span></span>
+<span id="cb119-7"><a href="r-basics.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.small)</span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   1065 obs. of  24 variables:
  $ age           : num  30 55 56 43 44 40 39 41 33 51 ...
  $ country       : Factor w/ 5 levels &quot;at&quot;,&quot;ch&quot;,&quot;de&quot;,..: 2 2 2 4 2 2 2 2 2 3 ...
@@ -1154,10 +1181,10 @@ Figure 1.5: Loading Data
 <ul>
 <li>Second, we want to create a new data frame with only demographic variables</li>
 </ul>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="r-basics.html#cb119-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="ot">&lt;-</span>    <span class="co"># Create new data frame</span></span>
-<span id="cb119-2"><a href="r-basics.html#cb119-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>     <span class="co"># Use airlinesat as the starting data frame</span></span>
-<span id="cb119-3"><a href="r-basics.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, gender)    <span class="co"># Select only demographic variables</span></span>
-<span id="cb119-4"><a href="r-basics.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.d)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="r-basics.html#cb121-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="ot">&lt;-</span>    <span class="co"># Create new data frame</span></span>
+<span id="cb121-2"><a href="r-basics.html#cb121-2" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span>     <span class="co"># Use airlinesat as the starting data frame</span></span>
+<span id="cb121-3"><a href="r-basics.html#cb121-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, gender)    <span class="co"># Select only demographic variables</span></span>
+<span id="cb121-4"><a href="r-basics.html#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airlinesat.d)</span></code></pre></div>
 <pre class="custom-output"><code>&#39;data.frame&#39;:   1065 obs. of  3 variables:
  $ age    : num  30 55 56 43 44 40 39 41 33 51 ...
  $ country: Factor w/ 5 levels &quot;at&quot;,&quot;ch&quot;,&quot;de&quot;,..: 2 2 2 4 2 2 2 2 2 3 ...
@@ -1169,9 +1196,9 @@ Figure 1.5: Loading Data
 <ul>
 <li><p>Usage: <code>filter(.data, ...)</code>, where <code>...</code> is an expression that returns a logical value</p></li>
 <li><p>First, we want to select only those rows where the person is from the United States (i.e., <code>country == "us"</code>) using the newly created <code>airlinesat.d</code> data frame</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="r-basics.html#cb121-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dus <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
-<span id="cb121-2"><a href="r-basics.html#cb121-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;us&quot;</span>)</span>
-<span id="cb121-3"><a href="r-basics.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dus)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="r-basics.html#cb123-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dus <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="r-basics.html#cb123-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;us&quot;</span>)</span>
+<span id="cb123-3"><a href="r-basics.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dus)</span></code></pre></div>
 <pre class="custom-output"><code>  age country gender
 1  52      us   male
 2  68      us   male
@@ -1180,9 +1207,9 @@ Figure 1.5: Loading Data
 5  57      us   male
 6  43      us   male</code></pre></li>
 <li><p>Second, we want to select only those rows where the person is older than the mean age using the newly created <code>airlinesat.d</code> data frame</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="r-basics.html#cb123-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dold <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
-<span id="cb123-2"><a href="r-basics.html#cb123-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(age <span class="sc">&gt;</span> <span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
-<span id="cb123-3"><a href="r-basics.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dold)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="r-basics.html#cb125-1" aria-hidden="true" tabindex="-1"></a>airlinesat.dold <span class="ot">&lt;-</span> airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb125-2"><a href="r-basics.html#cb125-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(age <span class="sc">&gt;</span> <span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb125-3"><a href="r-basics.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlinesat.dold)</span></code></pre></div>
 <pre class="custom-output"><code>  age country gender
 1  55      ch   male
 2  56      ch female
@@ -1201,12 +1228,12 @@ Figure 1.5: Loading Data
 <li><code>.by_group = TRUE</code> will sort first by a grouping variable, if one exists; default is <code>FALSE</code></li>
 </ul></li>
 <li><p>First, we want to see the first 10 rows in ascending order of age using the <code>airlinesat.d</code> data frame</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="r-basics.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: A new data frame does not need to be created.</span></span>
-<span id="cb125-2"><a href="r-basics.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The result of the data manipulation can be sent directly</span></span>
-<span id="cb125-3"><a href="r-basics.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to another function, like &#39;head()&#39;</span></span>
-<span id="cb125-4"><a href="r-basics.html#cb125-4" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
-<span id="cb125-5"><a href="r-basics.html#cb125-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age) <span class="sc">%&gt;%</span></span>
-<span id="cb125-6"><a href="r-basics.html#cb125-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="r-basics.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: A new data frame does not need to be created.</span></span>
+<span id="cb127-2"><a href="r-basics.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The result of the data manipulation can be sent directly</span></span>
+<span id="cb127-3"><a href="r-basics.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to another function, like &#39;head()&#39;</span></span>
+<span id="cb127-4"><a href="r-basics.html#cb127-4" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb127-5"><a href="r-basics.html#cb127-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age) <span class="sc">%&gt;%</span></span>
+<span id="cb127-6"><a href="r-basics.html#cb127-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre class="custom-output"><code>   age country gender
 1   19      de   male
 2   19      de   male
@@ -1219,10 +1246,10 @@ Figure 1.5: Loading Data
 9   22      de   male
 10  23      de   male</code></pre></li>
 <li><p>Second, we want to see the first 10 rows of three variables (<span style="font-family: Courier;">age</span>, <span style="font-family: Courier;">country</span>, <span style="font-family: Courier;">nflights</span>) from the original <code>airlinesat</code> data frame, sorted first ascending by <span style="font-family: Courier;">age</span> and second descending by <span style="font-family: Courier;">nflights</span></p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="r-basics.html#cb127-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb127-2"><a href="r-basics.html#cb127-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, nflights) <span class="sc">%&gt;%</span></span>
-<span id="cb127-3"><a href="r-basics.html#cb127-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age, <span class="fu">desc</span>(nflights)) <span class="sc">%&gt;%</span></span>
-<span id="cb127-4"><a href="r-basics.html#cb127-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="r-basics.html#cb129-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb129-2"><a href="r-basics.html#cb129-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(age, country, nflights) <span class="sc">%&gt;%</span></span>
+<span id="cb129-3"><a href="r-basics.html#cb129-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(age, <span class="fu">desc</span>(nflights)) <span class="sc">%&gt;%</span></span>
+<span id="cb129-4"><a href="r-basics.html#cb129-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre class="custom-output"><code>   age country nflights
 1   19      de       15
 2   19      de        3
@@ -1241,9 +1268,9 @@ Figure 1.5: Loading Data
 <ul>
 <li><p>Usage: <code>mutate(.data, ...)</code> where <code>...</code> are name-value pairs. The name gives the name of the new column/variable. The value is some function or formula.</p></li>
 <li><p>First, we want to create a standard normal variable for age using the airlinesat.d data frame</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="r-basics.html#cb129-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
-<span id="cb129-2"><a href="r-basics.html#cb129-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">age_snrm=</span>(age<span class="sc">-</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(age,<span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb129-3"><a href="r-basics.html#cb129-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="r-basics.html#cb131-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb131-2"><a href="r-basics.html#cb131-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">age_snrm=</span>(age<span class="sc">-</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(age,<span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb131-3"><a href="r-basics.html#cb131-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre class="custom-output"><code>   age country gender    age_snrm
 1   30      ch   male -1.66357002
 2   55      ch   male  0.37315007
@@ -1260,11 +1287,11 @@ Figure 1.5: Loading Data
 <li><code>recode(.x, ...)</code> where <code>.x</code> is the variable to modify and <code>...</code> are the things to recode in <code>old = "new"</code> format separated by commas</li>
 <li>Use <code>recode_factor(.x, ...)</code> to recode factor variables</li>
 </ul>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="r-basics.html#cb131-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
-<span id="cb131-2"><a href="r-basics.html#cb131-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
-<span id="cb131-3"><a href="r-basics.html#cb131-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
-<span id="cb131-4"><a href="r-basics.html#cb131-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb131-5"><a href="r-basics.html#cb131-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="r-basics.html#cb133-1" aria-hidden="true" tabindex="-1"></a>airlinesat.d <span class="sc">%&gt;%</span></span>
+<span id="cb133-2"><a href="r-basics.html#cb133-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
+<span id="cb133-3"><a href="r-basics.html#cb133-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
+<span id="cb133-4"><a href="r-basics.html#cb133-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb133-5"><a href="r-basics.html#cb133-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre class="custom-output"><code>   age country gender continent
 1   30      ch   male    Europe
 2   55      ch   male    Europe
@@ -1286,27 +1313,27 @@ Figure 1.5: Loading Data
 <li>More than one summary function can be included</li>
 </ul></li>
 <li><p>First, we want to find the mean, standard deviation, and number of valid observations for the <span style="font-family: Courier;">nflights</span> variable</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="r-basics.html#cb133-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
-<span id="cb133-2"><a href="r-basics.html#cb133-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb133-3"><a href="r-basics.html#cb133-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
-<span id="cb133-4"><a href="r-basics.html#cb133-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="r-basics.html#cb135-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
+<span id="cb135-2"><a href="r-basics.html#cb135-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb135-3"><a href="r-basics.html#cb135-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb135-4"><a href="r-basics.html#cb135-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
 <pre class="custom-output"><code>  mean_flights sd_flights valid_n
 1     13.41878   13.41878    1065</code></pre></li>
 <li><p>Second, we want to find the same information as above, but by continent group</p>
 <ul>
 <li>Use the <code>group_by()</code> function before <code>summarise()</code></li>
 </ul>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="r-basics.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The output will be of type &#39;tibble&#39; instead of &#39;data.frame&#39;</span></span>
-<span id="cb135-2"><a href="r-basics.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibbles are like data frames, but occasionally behave differently</span></span>
-<span id="cb135-3"><a href="r-basics.html#cb135-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-4"><a href="r-basics.html#cb135-4" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
-<span id="cb135-5"><a href="r-basics.html#cb135-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
-<span id="cb135-6"><a href="r-basics.html#cb135-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
-<span id="cb135-7"><a href="r-basics.html#cb135-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb135-8"><a href="r-basics.html#cb135-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
-<span id="cb135-9"><a href="r-basics.html#cb135-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb135-10"><a href="r-basics.html#cb135-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
-<span id="cb135-11"><a href="r-basics.html#cb135-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="r-basics.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The output will be of type &#39;tibble&#39; instead of &#39;data.frame&#39;</span></span>
+<span id="cb137-2"><a href="r-basics.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibbles are like data frames, but occasionally behave differently</span></span>
+<span id="cb137-3"><a href="r-basics.html#cb137-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="r-basics.html#cb137-4" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span> </span>
+<span id="cb137-5"><a href="r-basics.html#cb137-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">continent=</span><span class="fu">recode_factor</span>(country,</span>
+<span id="cb137-6"><a href="r-basics.html#cb137-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">at=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">ch=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">de=</span><span class="st">&quot;Europe&quot;</span>,</span>
+<span id="cb137-7"><a href="r-basics.html#cb137-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">fr=</span><span class="st">&quot;Europe&quot;</span>, <span class="at">us=</span><span class="st">&quot;North America&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb137-8"><a href="r-basics.html#cb137-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb137-9"><a href="r-basics.html#cb137-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb137-10"><a href="r-basics.html#cb137-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb137-11"><a href="r-basics.html#cb137-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
 <pre class="custom-output"><code># A tibble: 2 x 4
   continent     mean_flights sd_flights valid_n
   &lt;fct&gt;                &lt;dbl&gt;      &lt;dbl&gt;   &lt;int&gt;
@@ -1326,12 +1353,12 @@ Figure 1.5: Loading Data
 <li>Use <code>dmy()</code> if the order is day, month, year, such as “171210” or “5 January 1990”</li>
 </ul>
 <p>The results will be the in the format “YYYY-MM-DD” and have a ‘Date’ class</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="r-basics.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb137-2"><a href="r-basics.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">&quot;20101215&quot;</span>, <span class="st">&quot;16/7/1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="r-basics.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb139-2"><a href="r-basics.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">&quot;20101215&quot;</span>, <span class="st">&quot;16/7/1&quot;</span>))</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;2010-12-15&quot; &quot;2016-07-01&quot;</code></pre>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="r-basics.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="fu">c</span>(<span class="st">&quot;January 25, 2016&quot;</span>, <span class="st">&quot;5/29/1993&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="r-basics.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="fu">c</span>(<span class="st">&quot;January 25, 2016&quot;</span>, <span class="st">&quot;5/29/1993&quot;</span>))</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;2016-01-25&quot; &quot;1993-05-29&quot;</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="r-basics.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="fu">c</span>(<span class="st">&quot;171210&quot;</span>, <span class="st">&quot;5 January 1990&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="r-basics.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="fu">c</span>(<span class="st">&quot;171210&quot;</span>, <span class="st">&quot;5 January 1990&quot;</span>))</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;2010-12-17&quot; &quot;1990-01-05&quot;</code></pre>
 <p>If time is also included in the text string, that can also be parsed out, such as <code>ymd_hms()</code> where <code>hms</code> stands for hours, minutes, seconds</p>
 <p>Additionally, lubridate can easily pull out the specific components that are have class ‘Date’</p>
@@ -1343,23 +1370,23 @@ Figure 1.5: Loading Data
 <li><p><code>wday(x)</code> returns the number of the day in week, where Sunday = 1</p></li>
 <li><p><code>wday(x, label=TRUE)</code> returns the day of the week name (abbreviated)</p></li>
 <li><p><code>yday(x)</code> returns the number of the day of the year</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="r-basics.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lubridate to create a date class object for my birthday (not really)</span></span>
-<span id="cb143-2"><a href="r-basics.html#cb143-2" aria-hidden="true" tabindex="-1"></a>mybday <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">&quot;March 15, 1973&quot;</span>)</span>
-<span id="cb143-3"><a href="r-basics.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(mybday)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="r-basics.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lubridate to create a date class object for my birthday (not really)</span></span>
+<span id="cb145-2"><a href="r-basics.html#cb145-2" aria-hidden="true" tabindex="-1"></a>mybday <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">&quot;March 15, 1973&quot;</span>)</span>
+<span id="cb145-3"><a href="r-basics.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 1973</code></pre>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="r-basics.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(mybday)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="r-basics.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 3</code></pre>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="r-basics.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(mybday, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="r-basics.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(mybday, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre class="custom-output"><code>[1] Mar
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="r-basics.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(mybday)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="r-basics.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="r-basics.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(mybday)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="r-basics.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 5</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="r-basics.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(mybday, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="r-basics.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(mybday, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre class="custom-output"><code>[1] Thu
 Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="r-basics.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yday</span>(mybday)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="r-basics.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yday</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 74</code></pre></li>
 </ul>
 

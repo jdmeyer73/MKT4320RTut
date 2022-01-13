@@ -1,6 +1,7 @@
 ```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
+library(cowplot)
 ```
 # Linear Regression
 
@@ -57,39 +58,21 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
     ```
 <caption>(\#tab:t3lm3) Summary results from `lm()` using `jtools` package</caption>
 
-## Standardized Beta Coefficients
+## Prediction
 
-* To get standardized beta coefficients, a user defined function is created
-* This function can be downloaded ([lm_beta.R]("lm_beta.R")) and saved in the working direction, and then sourced.
-    ```{r t3lm4, cache=TRUE}
-    source("lm_beta.R")
-    ```
-* Or the function can be ran in the current environment
-    ```{r t3lm5, cache=TRUE}
-lm_beta <- function (object) 
-# Function from lm.beta package
-{
-   if (!"lm" %in% attr(object, "class")) 
-      stop("object has to be of class lm")
-   object$standardized.coefficients <- 
-      coef(object) * 
-      apply(as.matrix(model.matrix(object)), 2, function(x) 
-         sqrt(sum((x - mean(x, na.rm = T) * 
-                      attr(attr(object$model, "terms"), 
-                           "intercept"))^2, na.rm = T)))/
-      apply(as.matrix(model.frame(object)[, 1]), 
-            2, function(x) sqrt(sum((x - mean(x, na.rm = T) * 
-                                        attr(attr(object$model, "terms"),
-                                             "intercept"))^2, na.rm = T)))
-   attr(object, "class") <- c("lm.beta", "lm")
-   return(object)
-}
-    ```
-* Either way, the function `lm_beta(model)` take the stored results of the `lm()` model, and returns an vector with the standardized beta coefficients
-    ```{r t3lm6, cache=TRUE}
-    lm_beta(model1)  # Send previously saved 'model1' results to function
-    ```
-<caption>(\#tab:3lm6) Standardized regression coefficients</caption>    
+The function `predict.lm()` can be used to predict the DV based on values of the IVs. This function is used in the margin plots covered in the next two sections. To use this function, we must pass a data frame of values to the function, where the data frame contains ALL of the IVs and the value for each IV that we want.
+
+Suppose we wanted to predict, with a confidence interval, the `nps` of someone that is 45 years old and had 25 flights on the airline, and also someone that is 25 years old and had 45 flights on the airline. First, we create the data frame of values (see \@ref(using-vectors-in-line)):
+```{r t3prediction1, cache=TRUE}
+values <- data.frame(age=c(45, 25), nflights=c(25, 45))  # Create data frame
+values  # Verify values
+```
+Second the data frame is passed to the `predict.lm()` function with confidence intervals requested:
+```{r t3prediction2, cache=TRUE}
+predict.lm(model1,   # The model we are using to predict
+           values,   # The data frame of values to predict with
+           interval="confidence")   # Request confidence interval
+```
 
 ## Margin Plots
 

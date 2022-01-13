@@ -327,18 +327,32 @@ Data frames are an object type that deserve special attention
 
 * Can construct a data frame with the `data.frame()` function
     * Takes as input a set of vectors of the same length
-    ```{r}
+    ```{r, cache=TRUE}
     x.df <- data.frame(x.Num, x.Log, x.Char)
     x.df
     ```
     * Note that the column names are inherited from the contributing vector
 * Elements can be indexed using `[ROW, COLUMN]` notation
-    ```{r}
+    ```{r, cache=TRUE}
     # Obtain the first element of the third row of data frame 'x.df'
     x.df[3,1]
     # Obtain the third element of the second row of data frame 'x.df'
     x.df[2,3]
     ```
+
+#### Using vectors in-line
+
+* The vectors can be created in line (i.e., not already created)
+* If the vectors are of different length, the shorter vector will be repeated **IF** the longest vector is divisible by the vector
+* If a single value is provided instead of a vector, it is repeated for all rows
+    ```{r, cache=TRUE}
+    x2.df <- data.frame(var1=seq(10,100,10),
+                        var2=c("Yes","No"),
+                        var3=1:5,
+                        var4=100)
+    x2.df
+    ```
+    
 
 ### Viewing a Data Frame
 

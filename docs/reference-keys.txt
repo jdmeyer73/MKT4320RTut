@@ -49,7 +49,6 @@ fig:t2corr6
 tab:t3lm1
 tab:t3lm2
 tab:t3lm3
-tab:3lm6
 fig:t3marginplot1
 fig:t3marginplot2
 tab:t3marginplot3
@@ -85,6 +84,7 @@ factors
 data-frames
 overview
 creating-a-data-frame
+using-vectors-in-line
 viewing-a-data-frame
 data-transformations
 creating-new-variables
@@ -145,7 +145,7 @@ package-ggally
 linear-regression
 introduction-3
 the-lm-function
-standardized-beta-coefficients
+prediction
 margin-plots
 separate-margin-plots
 continuous-iv-at-levels-of-factor-iv
