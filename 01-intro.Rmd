@@ -499,6 +499,36 @@ knitr::opts_knit$set(root.dir = "C:/Users/jdmeyer/Dropbox/_DATA/Teaching/MKT4320
     save(x.df, file="xdf.rdata")
     ```
 
+## User Defined Functions
+
+Often, a series of commands is repeated over and over, or there is not an easy, built-in function in R to provide a needed result.  In these case, R makes it relatively easy to create your own functions
+
+### Structure
+
+* A function is constructed in the in the following manner:<br>
+`function.name <- function(arglist) {body}` where
+    * `function.name` is the name of the user defined function
+    * `(arglist)` contains the names of any inputs to the function, separated by commas
+    * `{body}` contains the code that operates on the inputs
+* The function must be executed prior to using it in the current session; alternatively, the function can be saved as a ".R" script file and sourced using the `source()` function in R
+
+### Example
+
+* Suppose a function is need to take the square root of a natural log transformation
+* The new function will be named `sqlog` and will have one argument
+    ``` {r t1function1}
+    # Define the new function
+    sqlog <- function(x) {   # Function has one argument, 'x'
+        sqrt(log(x))   # What is done with the argument, 'x'
+    }
+    ```
+* Now that the function is created and ran, it can be used.  In this case, the output will be printed to the console. The function could have been written in a way that the result is stored as an object.
+    ``` {r t1function2, cache=TRUE}
+    sqlog(100)   # Using the function on a single number
+    myvals <- c(5, 10, 20, 40, 80, 160)  # Creating a vector of values
+    sqlog(myvals)   # Using the function on a vector
+    ```
+
 ## Package *dplyr*
 
 The `dplyr` package (pronounced DEE ply er) is a package that makes data manipulation much easier and more intuitive (for most).  `dplyr` is built around the five main "verbs" shown below that make up a majority of data manipulation. However, there are other functions that `dplyr` uses to also help with data manipulation.
@@ -630,4 +660,44 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
         summarise(mean_flights=mean(nflights, na.rm=TRUE),
                   sd_flights=mean(nflights, na.rm=TRUE), 
                   valid_n=sum(!is.na(nflights)))
-    ```    
+    ```
+
+## Package *lubridate*
+
+The `lubridate` package was created to make working with dates and times a little bit easier.  While the package has a great deal of funcationality, this tutorial will only focus on a some of the most common elements.
+
+Probably the most useful capability of `lubridate` is its ability to quickly parse out parts of a text date string, no matter the form of that string. Fast parsing is done through a series of functions that are based on the order of the parts of date/time in the text string.
+
+* Use `ymd()` if the order is year, month, day, such as "20101215" or "16/7/1"
+* Use `mdy()` if the order is month, day, year, such as "January 25, 2016" or "5/29/1993"
+* Use `dmy()` if the order is day, month, year, such as "171210" or "5 January 1990"
+
+The results will be the in the format "YYYY-MM-DD" and have a 'Date' class
+```{r lubridate, message=FALSE}
+library(lubridate)
+ymd(c("20101215", "16/7/1"))
+mdy(c("January 25, 2016", "5/29/1993"))
+dmy(c("171210", "5 January 1990"))
+```
+If time is also included in the text string, that can also be parsed out, such as `ymd_hms()` where `hms` stands for hours, minutes, seconds
+
+Additionally, lubridate can easily pull out the specific components that are have class 'Date'
+
+* `year(x)` returns the year number
+* `month(x)` returns the number of the month
+* `month(x, label=TRUE)` returns the month name (abbreviated)
+* `day(x)` (or `mday(x)`) returns the number of the day of the month
+* `wday(x)` returns the number of the day in week, where Sunday = 1
+* `wday(x, label=TRUE)` returns the day of the week name (abbreviated)
+* `yday(x)` returns the number of the day of the year
+    ```{r lubridae2, cache=TRUE}
+    # Use lubridate to create a date class object for my birthday (not really)
+    mybday <- mdy("March 15, 1973")
+    year(mybday)
+    month(mybday)
+    month(mybday, label=TRUE)
+    day(mybday)
+    wday(mybday)
+    wday(mybday, label=TRUE)
+    yday(mybday)
+    ```

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Linear Regression | R Tutorial for MKT 4320</title>
+  <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Linear Regression | R Tutorial for MKT 4320" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Linear Regression | R Tutorial for MKT 4320" />
+  
+  <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+<meta name="author" content="Jeffrey Meyer" />
+
+
+<meta name="date" content="2022-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="examining-and-summarizing-data.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this tutorial</a></li>
+<li class="chapter" data-level="1" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>1</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="r-basics.html"><a href="r-basics.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="r-basics.html"><a href="r-basics.html#why-r"><i class="fa fa-check"></i><b>1.1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.1.3" data-path="r-basics.html"><a href="r-basics.html#why-not-r"><i class="fa fa-check"></i><b>1.1.3</b> Why NOT R?</a></li>
+<li class="chapter" data-level="1.1.4" data-path="r-basics.html"><a href="r-basics.html#what-is-rstudio"><i class="fa fa-check"></i><b>1.1.4</b> What is RStudio?</a></li>
+<li class="chapter" data-level="1.1.5" data-path="r-basics.html"><a href="r-basics.html#getting-started"><i class="fa fa-check"></i><b>1.1.5</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="1.1.5.1" data-path="r-basics.html"><a href="r-basics.html#option-1-install-on-your-machine"><i class="fa fa-check"></i><b>1.1.5.1</b> Option 1: Install on your Machine</a></li>
+<li class="chapter" data-level="1.1.5.2" data-path="r-basics.html"><a href="r-basics.html#option-2-use-bgsus-virtual-computing-lab-pilot"><i class="fa fa-check"></i><b>1.1.5.2</b> Option 2: Use BGSU’s Virtual Computing Lab pilot</a></li>
+<li class="chapter" data-level="1.1.5.3" data-path="r-basics.html"><a href="r-basics.html#option-3-use-a-computer-in-an-on-campus-computer-lab"><i class="fa fa-check"></i><b>1.1.5.3</b> Option 3: Use a computer in an on-campus computer lab</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.6" data-path="r-basics.html"><a href="r-basics.html#navigating-rstudio"><i class="fa fa-check"></i><b>1.1.6</b> Navigating RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.6.1" data-path="r-basics.html"><a href="r-basics.html#quadrant-1"><i class="fa fa-check"></i><b>1.1.6.1</b> <span style="color: #ff9600;">Quadrant 1</span></a></li>
+<li class="chapter" data-level="1.1.6.2" data-path="r-basics.html"><a href="r-basics.html#quadrant-2"><i class="fa fa-check"></i><b>1.1.6.2</b> <span style="color: #ff0000;">Quadrant 2</span></a></li>
+<li class="chapter" data-level="1.1.6.3" data-path="r-basics.html"><a href="r-basics.html#quadrant-3"><i class="fa fa-check"></i><b>1.1.6.3</b> <span style="color: #0018ff;">Quadrant 3</span></a></li>
+<li class="chapter" data-level="1.1.6.4" data-path="r-basics.html"><a href="r-basics.html#quadrant-4"><i class="fa fa-check"></i><b>1.1.6.4</b> <span style="color: #4f2c1d;">Quadrant 4</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="r-basics.html"><a href="r-basics.html#r-language"><i class="fa fa-check"></i><b>1.2</b> R Language</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="r-basics.html"><a href="r-basics.html#basics-of-r-commands"><i class="fa fa-check"></i><b>1.2.1</b> Basics of R Commands</a></li>
+<li class="chapter" data-level="1.2.2" data-path="r-basics.html"><a href="r-basics.html#operators"><i class="fa fa-check"></i><b>1.2.2</b> Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-basics.html"><a href="r-basics.html#packages"><i class="fa fa-check"></i><b>1.3</b> Packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="r-basics.html"><a href="r-basics.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="r-basics.html"><a href="r-basics.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting Help</a></li>
+<li class="chapter" data-level="1.5" data-path="r-basics.html"><a href="r-basics.html#basic-object-types-and-other-important-stuff"><i class="fa fa-check"></i><b>1.5</b> Basic Object Types (and Other Important Stuff)</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-basics.html"><a href="r-basics.html#indexing"><i class="fa fa-check"></i><b>1.5.2</b> Indexing</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-basics.html"><a href="r-basics.html#sequencing"><i class="fa fa-check"></i><b>1.5.3</b> Sequencing</a></li>
+<li class="chapter" data-level="1.5.4" data-path="r-basics.html"><a href="r-basics.html#missing-and-other-interesting-values"><i class="fa fa-check"></i><b>1.5.4</b> Missing (and Other Interesting) Values</a></li>
+<li class="chapter" data-level="1.5.5" data-path="r-basics.html"><a href="r-basics.html#factors"><i class="fa fa-check"></i><b>1.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basics.html"><a href="r-basics.html#data-frames"><i class="fa fa-check"></i><b>1.6</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="r-basics.html"><a href="r-basics.html#overview"><i class="fa fa-check"></i><b>1.6.1</b> Overview</a></li>
+<li class="chapter" data-level="1.6.2" data-path="r-basics.html"><a href="r-basics.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a></li>
+<li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="r-basics.html"><a href="r-basics.html#creating-new-variables"><i class="fa fa-check"></i><b>1.7.1</b> Creating New Variables</a></li>
+<li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
+<li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<ul>
+<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html"><i class="fa fa-check"></i><b>2</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#visualizations"><i class="fa fa-check"></i><b>2.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggplot2"><i class="fa fa-check"></i><b>2.2.1</b> Package <em>ggplot2</em></a>
+<ul>
+<li class="chapter" data-level="2.2.1.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#introduction-2"><i class="fa fa-check"></i><b>2.2.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2.1.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#usage"><i class="fa fa-check"></i><b>2.2.1.2</b> Usage</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-and-column-charts"><i class="fa fa-check"></i><b>2.2.2</b> Bar and Column Charts</a>
+<ul>
+<li class="chapter" data-level="2.2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-charts"><i class="fa fa-check"></i><b>2.2.2.1</b> Bar Charts</a></li>
+<li class="chapter" data-level="2.2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#column-charts"><i class="fa fa-check"></i><b>2.2.2.2</b> Column Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#histogram"><i class="fa fa-check"></i><b>2.2.3</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="2.2.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#changing-bins"><i class="fa fa-check"></i><b>2.2.3.1</b> Changing Bins</a></li>
+<li class="chapter" data-level="2.2.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#improving-the-look"><i class="fa fa-check"></i><b>2.2.3.2</b> Improving the Look</a></li>
+<li class="chapter" data-level="2.2.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options"><i class="fa fa-check"></i><b>2.2.3.3</b> Other Options</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#box-plot"><i class="fa fa-check"></i><b>2.2.4</b> Box Plot</a></li>
+<li class="chapter" data-level="2.2.5" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#scatterplot"><i class="fa fa-check"></i><b>2.2.5</b> Scatterplot</a>
+<ul>
+<li class="chapter" data-level="2.2.5.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#trendline"><i class="fa fa-check"></i><b>2.2.5.1</b> Trendline</a></li>
+<li class="chapter" data-level="2.2.5.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options-1"><i class="fa fa-check"></i><b>2.2.5.2</b> Other Options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#tables-and-statistics"><i class="fa fa-check"></i><b>2.3</b> Tables and Statistics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#frequency-table"><i class="fa fa-check"></i><b>2.3.1</b> Frequency Table</a></li>
+<li class="chapter" data-level="2.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#crosstabs"><i class="fa fa-check"></i><b>2.3.2</b> Crosstabs</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r"><i class="fa fa-check"></i><b>2.3.2.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#alternative-packages"><i class="fa fa-check"></i><b>2.3.2.2</b> Alternative Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#measures-of-centrality-and-dispersion"><i class="fa fa-check"></i><b>2.3.3</b> Measures of Centrality and Dispersion</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-1"><i class="fa fa-check"></i><b>2.3.3.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-dplyr-1"><i class="fa fa-check"></i><b>2.3.3.2</b> Package <em>dplyr</em></a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-vtable"><i class="fa fa-check"></i><b>2.3.3.3</b> Package <em>vtable</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#correlation"><i class="fa fa-check"></i><b>2.3.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.3.4.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-2"><i class="fa fa-check"></i><b>2.3.4.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.4.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-hmisc"><i class="fa fa-check"></i><b>2.3.4.2</b> Package <em>Hmisc</em></a></li>
+<li class="chapter" data-level="2.3.4.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-sjplot-1"><i class="fa fa-check"></i><b>2.3.4.3</b> Package <em>sjPlot</em></a></li>
+<li class="chapter" data-level="2.3.4.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggally"><i class="fa fa-check"></i><b>2.3.4.4</b> Package <em>GGally</em></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#standardized-beta-coefficients"><i class="fa fa-check"></i><b>3.3</b> Standardized Beta Coefficients</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#margin-plots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots"><i class="fa fa-check"></i><b>3.4.1</b> Separate Margin Plots</a></li>
+<li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-at-levels-of-factor-iv"><i class="fa fa-check"></i><b>3.4.2</b> Continuous IV at Levels of Factor IV</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Tutorial for MKT 4320</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-regression" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Linear Regression</h1>
+<p>Sources for this chapter:</p>
+<ul>
+<li></li>
+</ul>
+<p>Data for this chapter:</p>
+<ul>
+<li><p>Once again, the <a href="%22Data/airlinesat.rdata%22">airlinesat.rdata</a> is used. Load it now.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="linear-regression.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb217-2"><a href="linear-regression.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div></li>
+</ul>
+<div id="introduction-3" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>Base R is typically sufficient for performing most regression tasks. Some additional packages may be used for “prettier” tables or extracting results to make useful plots.</p>
+</div>
+<div id="the-lm-function" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> The <code>lm()</code> Function</h2>
+<ul>
+<li><p>Basic linear regression is performed using the <code>lm()</code> function.</p></li>
+<li><p>Usage: <code>lm(formula, data)</code></p></li>
+<li><p>In R, a <span style="font-family: Courier;">formula</span> is represented by dependent variables on the left side separated from the independent variables on the right side by a tilde(<code>~</code>), such as: <code>dv ~ iv1 + iv2</code></p>
+<ul>
+<li>For interactions between independent variables, use either <code>*</code> or <code>:</code>
+<ul>
+<li><code>*</code> will include the interaction term AND each main effect</li>
+<li><code>:</code> will include ONLY the iteraction term</li>
+<li>Examples:
+<ul>
+<li><code>y ~ x1 + x2*x3</code> is the same as:<br>
+<span class="math inline">\(y=x_1+x_2+x_3+(x_2\times x_3)\)</span></li>
+<li><code>y ~ x1 + x2:x3</code> is the same as:<br>
+<span class="math inline">\(y=x_1+(x_2\times x_3)\)</span></li>
+<li><code>y ~ x1 + x2 + x2:x3</code> is the same as:<br>
+<span class="math inline">\(y=x_1+x_2+(x_2\times x_3)\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>If <code>lm()</code> is run by itself, R only outputs the coefficients</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="linear-regression.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(nps <span class="sc">~</span> age <span class="sc">+</span> nflights, airlinesat)</span></code></pre></div>
+<pre class="custom-output"><code>
+Call:
+lm(formula = nps ~ age + nflights, data = airlinesat)
+
+Coefficients:
+(Intercept)          age     nflights  
+   6.786100     0.016985    -0.009112  </code></pre>
+<caption>
+<p><span id="tab:t3lm1">Table 3.1: </span> Coefficients from <code>lm()</code> call</p>
+</caption></li>
+<li><p>However, if the results of the <code>lm()</code> call are assigned to an object, the <code>summary()</code> function can be used to get much more detailed output</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="linear-regression.html#cb220-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nps <span class="sc">~</span> age <span class="sc">+</span> nflights, airlinesat)</span>
+<span id="cb220-2"><a href="linear-regression.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre class="custom-output"><code>
+Call:
+lm(formula = nps ~ age + nflights, data = airlinesat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.988 -1.316  0.440  1.725  7.682 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  6.786100   0.310554  21.852  &lt; 2e-16 ***
+age          0.016985   0.005815   2.921  0.00357 ** 
+nflights    -0.009112   0.003529  -2.582  0.00995 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2.313 on 1062 degrees of freedom
+Multiple R-squared:  0.01591,   Adjusted R-squared:  0.01406 
+F-statistic: 8.587 on 2 and 1062 DF,  p-value: 0.0001997</code></pre>
+<caption>
+<p><span id="tab:t3lm2">Table 3.2: </span> Summary results from <code>lm()</code> call</p>
+</caption></li>
+<li><p>For “nicer” looking results, the package <code>jtools</code> can be used</p>
+<ul>
+<li>NOTE: <code>jtools</code> is no available in BGSU’s Virtual Computing Lab</li>
+</ul>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="linear-regression.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb222-2"><a href="linear-regression.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(model1,   <span class="co"># Saved object from before</span></span>
+<span id="cb222-3"><a href="linear-regression.html#cb222-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">digits=</span><span class="dv">4</span>, <span class="co"># How many digits to display in each column</span></span>
+<span id="cb222-4"><a href="linear-regression.html#cb222-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">model.info =</span> <span class="cn">FALSE</span>)  <span class="co"># Suppress extraneous information</span></span></code></pre></div>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>F(2,1062)</p>
+</td>
+<td style="text-align:right;">
+<p>8.5875</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>R²</p>
+</td>
+<td style="text-align:right;">
+<p>0.0159</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>Adj. R²</p>
+</td>
+<td style="text-align:right;">
+<p>0.0141</p>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<p>Est.</p>
+</th>
+<th style="text-align:right;">
+<p>S.E.</p>
+</th>
+<th style="text-align:right;">
+<p>t val.</p>
+</th>
+<th style="text-align:right;">
+<p>p</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>(Intercept)</p>
+</td>
+<td style="text-align:right;">
+<p>6.7861</p>
+</td>
+<td style="text-align:right;">
+<p>0.3106</p>
+</td>
+<td style="text-align:right;">
+<p>21.8516</p>
+</td>
+<td style="text-align:right;">
+<p>0.0000</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>age</p>
+</td>
+<td style="text-align:right;">
+<p>0.0170</p>
+</td>
+<td style="text-align:right;">
+<p>0.0058</p>
+</td>
+<td style="text-align:right;">
+<p>2.9208</p>
+</td>
+<td style="text-align:right;">
+<p>0.0036</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+<p>nflights</p>
+</td>
+<td style="text-align:right;">
+<p>-0.0091</p>
+</td>
+<td style="text-align:right;">
+<p>0.0035</p>
+</td>
+<td style="text-align:right;">
+<p>-2.5822</p>
+</td>
+<td style="text-align:right;">
+<p>0.0100</p>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<p><sup></sup> Standard errors: OLS</p>
+</td>
+</tr>
+</tfoot>
+</table>
+<caption>
+<p><span id="tab:t3lm3">Table 3.3: </span> Summary results from <code>lm()</code> using <code>jtools</code> package</p>
+</caption></li>
+</ul>
+</div>
+<div id="standardized-beta-coefficients" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Standardized Beta Coefficients</h2>
+<ul>
+<li><p>To get standardized beta coefficients, a user defined function is created</p></li>
+<li><p>This function can be downloaded (<a href="%22lm_beta.R%22">lm_beta.R</a>) and saved in the working direction, and then sourced.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="linear-regression.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;lm_beta.R&quot;</span>)</span></code></pre></div></li>
+<li><p>Or the function can be ran in the current environment</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="linear-regression.html#cb224-1" aria-hidden="true" tabindex="-1"></a>lm_beta <span class="ot">&lt;-</span> <span class="cf">function</span> (object) </span>
+<span id="cb224-2"><a href="linear-regression.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Function from lm.beta package</span></span>
+<span id="cb224-3"><a href="linear-regression.html#cb224-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb224-4"><a href="linear-regression.html#cb224-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;lm&quot;</span> <span class="sc">%in%</span> <span class="fu">attr</span>(object, <span class="st">&quot;class&quot;</span>)) </span>
+<span id="cb224-5"><a href="linear-regression.html#cb224-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">&quot;object has to be of class lm&quot;</span>)</span>
+<span id="cb224-6"><a href="linear-regression.html#cb224-6" aria-hidden="true" tabindex="-1"></a>   object<span class="sc">$</span>standardized.coefficients <span class="ot">&lt;-</span> </span>
+<span id="cb224-7"><a href="linear-regression.html#cb224-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(object) <span class="sc">*</span> </span>
+<span id="cb224-8"><a href="linear-regression.html#cb224-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="fu">as.matrix</span>(<span class="fu">model.matrix</span>(object)), <span class="dv">2</span>, <span class="cf">function</span>(x) </span>
+<span id="cb224-9"><a href="linear-regression.html#cb224-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> T) <span class="sc">*</span> </span>
+<span id="cb224-10"><a href="linear-regression.html#cb224-10" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">attr</span>(<span class="fu">attr</span>(object<span class="sc">$</span>model, <span class="st">&quot;terms&quot;</span>), </span>
+<span id="cb224-11"><a href="linear-regression.html#cb224-11" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;intercept&quot;</span>))<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> T)))<span class="sc">/</span></span>
+<span id="cb224-12"><a href="linear-regression.html#cb224-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="fu">as.matrix</span>(<span class="fu">model.frame</span>(object)[, <span class="dv">1</span>]), </span>
+<span id="cb224-13"><a href="linear-regression.html#cb224-13" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> T) <span class="sc">*</span> </span>
+<span id="cb224-14"><a href="linear-regression.html#cb224-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">attr</span>(<span class="fu">attr</span>(object<span class="sc">$</span>model, <span class="st">&quot;terms&quot;</span>),</span>
+<span id="cb224-15"><a href="linear-regression.html#cb224-15" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">&quot;intercept&quot;</span>))<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> T)))</span>
+<span id="cb224-16"><a href="linear-regression.html#cb224-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">attr</span>(object, <span class="st">&quot;class&quot;</span>) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;lm.beta&quot;</span>, <span class="st">&quot;lm&quot;</span>)</span>
+<span id="cb224-17"><a href="linear-regression.html#cb224-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(object)</span>
+<span id="cb224-18"><a href="linear-regression.html#cb224-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p>Either way, the function <code>lm_beta(model)</code> take the stored results of the <code>lm()</code> model, and returns an vector with the standardized beta coefficients</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="linear-regression.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm_beta</span>(model1)  <span class="co"># Send previously saved &#39;model1&#39; results to function</span></span></code></pre></div>
+<pre class="custom-output"><code>        age    nflights 
+ 0.08951221 -0.07913561 </code></pre>
+<caption>
+<p><span id="tab:3lm6">Table 3.4: </span> Standardized regression coefficients</p>
+</caption></li>
+</ul>
+</div>
+<div id="margin-plots" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Margin Plots</h2>
+<p>In R, margin plots are a multistep process:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a data frame of IV values to use in the prediction.</p>
+<ol style="list-style-type: decimal">
+<li>For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum</li>
+<li>For other variables in the model:
+<ol style="list-style-type: decimal">
+<li>Continuous variables are usually evaluated an the sample mean</li>
+<li>Factor variables are usually evaluated at each level of the factor</li>
+</ol></li>
+</ol></li>
+<li><p>Use the <code>predict.lm()</code> function to use the model results to predict the linear fit of the “simulated” observations in the new data frame</p></li>
+<li><p>Use <code>ggplot</code> to create the margin plot</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="linear-regression.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Want to predict &#39;nps&#39; for different levels of &#39;age&#39;</span></span>
+<span id="cb227-2"><a href="linear-regression.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     when &#39;nflights&#39; is at the mean</span></span>
+<span id="cb227-3"><a href="linear-regression.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First, create a data frame of values to predict, using the &#39;crossing&#39;</span></span>
+<span id="cb227-4"><a href="linear-regression.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     function from the &#39;tidyr&#39; package</span></span>
+<span id="cb227-5"><a href="linear-regression.html#cb227-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)   <span class="co"># Load tidyr</span></span>
+<span id="cb227-6"><a href="linear-regression.html#cb227-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: variable names must be EXACTLY the same as in original model</span></span>
+<span id="cb227-7"><a href="linear-regression.html#cb227-7" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>),  <span class="co"># Different values of &#39;age&#39;</span></span>
+<span id="cb227-8"><a href="linear-regression.html#cb227-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nflights=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>nflights,  <span class="co"># mean &#39;nflights&#39;</span></span>
+<span id="cb227-9"><a href="linear-regression.html#cb227-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">na.rm=</span><span class="cn">TRUE</span>))   <span class="co"># remove missing values</span></span>
+<span id="cb227-10"><a href="linear-regression.html#cb227-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb227-11"><a href="linear-regression.html#cb227-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the model results to predict &#39;nps&#39; for values in &#39;pred_iv&#39; data frame</span></span>
+<span id="cb227-12"><a href="linear-regression.html#cb227-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     Predicted values and confidence intervals get appended to data frame</span></span>
+<span id="cb227-13"><a href="linear-regression.html#cb227-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     New variables are called:</span></span>
+<span id="cb227-14"><a href="linear-regression.html#cb227-14" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$fit&#39; = linear prediction from model</span></span>
+<span id="cb227-15"><a href="linear-regression.html#cb227-15" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$lwr&#39; = lower confidence interval for prediction</span></span>
+<span id="cb227-16"><a href="linear-regression.html#cb227-16" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$upr&#39; = upper confidcent interval for prediction</span></span>
+<span id="cb227-17"><a href="linear-regression.html#cb227-17" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb227-18"><a href="linear-regression.html#cb227-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model1, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb227-19"><a href="linear-regression.html#cb227-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb227-20"><a href="linear-regression.html#cb227-20" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;pred_iv&#39; now contains all necessary information for margin plot</span></span>
+<span id="cb227-21"><a href="linear-regression.html#cb227-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb227-22"><a href="linear-regression.html#cb227-22" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="sc">%&gt;%</span></span>
+<span id="cb227-23"><a href="linear-regression.html#cb227-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,   <span class="co"># Age on x-axis</span></span>
+<span id="cb227-24"><a href="linear-regression.html#cb227-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span>   <span class="co"># &#39;nps&#39; prediction on y-axis</span></span>
+<span id="cb227-25"><a href="linear-regression.html#cb227-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
+<span id="cb227-26"><a href="linear-regression.html#cb227-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,  <span class="co"># Draws the confidence interval bands</span></span>
+<span id="cb227-27"><a href="linear-regression.html#cb227-27" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>pred<span class="sc">$</span>upr),</span>
+<span id="cb227-28"><a href="linear-regression.html#cb227-28" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
+<span id="cb227-29"><a href="linear-regression.html#cb227-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:t3marginplot1"></span>
+<img src="_main_files/figure-html/t3marginplot1-1.png" alt="Single margin plot" width="672" />
+<p class="caption">
+Figure 3.1: Single margin plot
+</p>
+</div></li>
+</ol>
+<div id="separate-margin-plots" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Separate Margin Plots</h3>
+<ul>
+<li>If creating separate plots for each continuous IV, it is best to have the prediction (<span style="font-family: Courier;">y</span>) variable have the same scale
+<ul>
+<li>Doing so might take some trial and error after looking at graphs once</li>
+</ul></li>
+<li>Use the function <code>plot_grid()</code> from the <code>cowplot</code> package to make the plots appear in the same figure
+<ul>
+<li>Save each plot as an object, then pass the objects to <code>plot_grid()</code></li>
+</ul>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="linear-regression.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb228-2"><a href="linear-regression.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for min and max of the 95% confidence bands to adjust y-axis</span></span>
+<span id="cb228-3"><a href="linear-regression.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>lwr)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 6.491185</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="linear-regression.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>upr)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 9.085342</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="linear-regression.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save previous plot (for &#39;age&#39;) as plot 1</span></span>
+<span id="cb232-2"><a href="linear-regression.html#cb232-2" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> pred_iv <span class="sc">%&gt;%</span></span>
+<span id="cb232-3"><a href="linear-regression.html#cb232-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,   <span class="co"># Age on x-axis</span></span>
+<span id="cb232-4"><a href="linear-regression.html#cb232-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span>   <span class="co"># &#39;nps&#39; prediction on y-axis</span></span>
+<span id="cb232-5"><a href="linear-regression.html#cb232-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
+<span id="cb232-6"><a href="linear-regression.html#cb232-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,  <span class="co"># Draws the confidence interval bands</span></span>
+<span id="cb232-7"><a href="linear-regression.html#cb232-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>pred<span class="sc">$</span>upr),</span>
+<span id="cb232-8"><a href="linear-regression.html#cb232-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
+<span id="cb232-9"><a href="linear-regression.html#cb232-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>) <span class="sc">+</span></span>
+<span id="cb232-10"><a href="linear-regression.html#cb232-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">5.25</span>,<span class="fl">9.25</span>))  <span class="co"># Set scale limits for y-axis</span></span>
+<span id="cb232-11"><a href="linear-regression.html#cb232-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-12"><a href="linear-regression.html#cb232-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second plot for &#39;nflights&#39; and save as plot 2</span></span>
+<span id="cb232-13"><a href="linear-regression.html#cb232-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-14"><a href="linear-regression.html#cb232-14" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">nflights=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">150</span>, <span class="dv">15</span>),</span>
+<span id="cb232-15"><a href="linear-regression.html#cb232-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">age=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb232-16"><a href="linear-regression.html#cb232-16" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb232-17"><a href="linear-regression.html#cb232-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model1, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb232-18"><a href="linear-regression.html#cb232-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-19"><a href="linear-regression.html#cb232-19" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>lwr)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 5.319659</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="linear-regression.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>upr)</span></code></pre></div>
+<pre class="custom-output"><code>[1] 7.809707</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="linear-regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> pred_iv <span class="sc">%&gt;%</span></span>
+<span id="cb236-2"><a href="linear-regression.html#cb236-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>nflights, <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span></span>
+<span id="cb236-3"><a href="linear-regression.html#cb236-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb236-4"><a href="linear-regression.html#cb236-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,<span class="at">ymax=</span>pred<span class="sc">$</span>upr),<span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb236-5"><a href="linear-regression.html#cb236-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Number of Flights&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb236-6"><a href="linear-regression.html#cb236-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">5.25</span>,<span class="fl">9.25</span>))  <span class="co"># Set scale limits for y-axis</span></span>
+<span id="cb236-7"><a href="linear-regression.html#cb236-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-8"><a href="linear-regression.html#cb236-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(plot1,plot2)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:t3marginplot2"></span>
+<img src="_main_files/figure-html/t3marginplot2-1.png" alt="Separate margin plots" width="672" />
+<p class="caption">
+Figure 3.2: Separate margin plots
+</p>
+</div></li>
+</ul>
+</div>
+<div id="continuous-iv-at-levels-of-factor-iv" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Continuous IV at Levels of Factor IV</h3>
+<ul>
+<li><p>Margin plots when one of the variables is a factor variable are done in much the same way, but require an <code>aes(color=factor)</code> to produce different lines for each level of the factor</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="linear-regression.html#cb237-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nps <span class="sc">~</span> age<span class="sc">*</span>flight_purpose, airlinesat)</span>
+<span id="cb237-2"><a href="linear-regression.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre class="custom-output"><code>
+Call:
+lm(formula = nps ~ age * flight_purpose, data = airlinesat)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.9197 -1.0779  0.3226  1.8153  4.1003 
+
+Coefficients:
+                          Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                5.51007    0.50217  10.973  &lt; 2e-16 ***
+age                        0.03563    0.01015   3.512 0.000463 ***
+flight_purposeLeisure      1.98261    0.63238   3.135 0.001765 ** 
+age:flight_purposeLeisure -0.02986    0.01238  -2.411 0.016072 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2.302 on 1061 degrees of freedom
+Multiple R-squared:  0.0262,    Adjusted R-squared:  0.02345 
+F-statistic: 9.516 on 3 and 1061 DF,  p-value: 3.322e-06</code></pre>
+<caption>
+<p><span id="tab:t3marginplot3">Table 3.5: </span> Summary results of model with interaction</p>
+</caption>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="linear-regression.html#cb239-1" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>),  <span class="co"># Different values of &#39;age&#39;</span></span>
+<span id="cb239-2"><a href="linear-regression.html#cb239-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">flight_purpose=</span><span class="fu">c</span>(<span class="st">&quot;Leisure&quot;</span>, <span class="st">&quot;Business&quot;</span>))  <span class="co"># factor levels</span></span>
+<span id="cb239-3"><a href="linear-regression.html#cb239-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-4"><a href="linear-regression.html#cb239-4" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb239-5"><a href="linear-regression.html#cb239-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model2, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb239-6"><a href="linear-regression.html#cb239-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-7"><a href="linear-regression.html#cb239-7" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="sc">%&gt;%</span></span>
+<span id="cb239-8"><a href="linear-regression.html#cb239-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use &#39;color&#39; aesthetic for separate lines for &#39;flight purpose&#39;</span></span>
+<span id="cb239-9"><a href="linear-regression.html#cb239-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>pred<span class="sc">$</span>fit, <span class="at">color=</span><span class="fu">as.factor</span>(flight_purpose))) <span class="sc">+</span></span>
+<span id="cb239-10"><a href="linear-regression.html#cb239-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb239-11"><a href="linear-regression.html#cb239-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use &#39;fill&#39; aesthetic for separate colors for the CI bands</span></span>
+<span id="cb239-12"><a href="linear-regression.html#cb239-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr, <span class="at">ymax=</span>pred<span class="sc">$</span>upr, </span>
+<span id="cb239-13"><a href="linear-regression.html#cb239-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill=</span><span class="fu">as.factor</span>(flight_purpose)), <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb239-14"><a href="linear-regression.html#cb239-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>, </span>
+<span id="cb239-15"><a href="linear-regression.html#cb239-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">color=</span><span class="st">&quot;Flight Purpose&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:t3marginplot4"></span>
+<img src="_main_files/figure-html/t3marginplot4-1.png" alt="Margin plot with factor variable" width="672" />
+<p class="caption">
+Figure 3.3: Margin plot with factor variable
+</p>
+</div></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="examining-and-summarizing-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+},
+"number_sections": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

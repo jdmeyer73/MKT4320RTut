@@ -2,20 +2,24 @@
 library(ggplot2)
 library(dplyr)
 library(scales)
-load("airlinesat.rdata")
+load("Data/airlinesat.rdata")
 ```
 
 # Examining and Summarizing Data
 
-Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th `ggplot2` package. For this part of the tutorial, the [airlinesat.rdata]("airlinesat.rdata") data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe.  You should load this data now:<br>`load("airlinesat.rdata")`
+Sources for this chapter:
+
+* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
+
+## Introduction
+
+Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th `ggplot2` package. For this part of the tutorial, the [airlinesat.rdata]("Data/airlinesat.rdata") data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe.  You should load this data now:<br>`load("airlinesat.rdata")`
 
 ## Visualizations
 
 ### Package *ggplot2*
 
-Sources for this chapter:
 
-* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
 
 #### Introduction
 

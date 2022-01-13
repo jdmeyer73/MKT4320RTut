@@ -1,0 +1,204 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+# Linear Regression
+
+Sources for this chapter:
+
+* 
+
+Data for this chapter:
+
+* Once again, the [airlinesat.rdata]("Data/airlinesat.rdata") is used. Load it now.
+    ```{r t3loaddata}
+    # You may need to change the directory
+    load("Data/airlinesat.rdata")
+    ```
+
+## Introduction
+
+Base R is typically sufficient for performing most regression tasks.  Some additional packages may be used for "prettier" tables or extracting results to make useful plots.
+
+## The `lm()` Function
+
+* Basic linear regression is performed using the `lm()` function.
+* Usage: `lm(formula, data)`
+* In R, a <span style="font-family: Courier;">formula</span> is represented by dependent variables on the left side separated from the independent variables on the right side by a tilde(`~`), such as: `dv ~ iv1 + iv2`
+    * For interactions between independent variables, use either `*` or `:`
+        * `*` will include the interaction term AND each main effect
+        * `:` will include ONLY the iteraction term
+        * Examples:
+            * `y ~ x1 + x2*x3` is the same as:<br>
+            $y=x_1+x_2+x_3+(x_2\times x_3)$
+            * `y ~ x1 + x2:x3` is the same as:<br>
+            $y=x_1+(x_2\times x_3)$
+            * `y ~ x1 + x2 + x2:x3` is the same as:<br>
+            $y=x_1+x_2+(x_2\times x_3)$
+* If `lm()` is run by itself, R only outputs the coefficients
+    ```{r t3lm1}
+    lm(nps ~ age + nflights, airlinesat)
+    ```
+<caption>(\#tab:t3lm1) Coefficients from `lm()` call</caption>
+
+* However, if the results of the `lm()` call are assigned to an object, the `summary()` function can be used to get much more detailed output
+    ```{r t3lm2, cache=TRUE}
+    model1 <- lm(nps ~ age + nflights, airlinesat)
+    summary(model1)
+    ```
+<caption>(\#tab:t3lm2) Summary results from `lm()` call</caption>
+* For "nicer" looking results, the package `jtools` can be used
+    * NOTE: `jtools` is no available in BGSU's Virtual Computing Lab
+    ```{r t3lm3, cache=TRUE}
+    library(jtools)
+    summ(model1,   # Saved object from before
+         digits=4, # How many digits to display in each column
+         model.info = FALSE)  # Suppress extraneous information
+    ```
+<caption>(\#tab:t3lm3) Summary results from `lm()` using `jtools` package</caption>
+
+## Standardized Beta Coefficients
+
+* To get standardized beta coefficients, a user defined function is created
+* This function can be downloaded ([lm_beta.R]("lm_beta.R")) and saved in the working direction, and then sourced.
+    ```{r t3lm4, cache=TRUE}
+    source("lm_beta.R")
+    ```
+* Or the function can be ran in the current environment
+    ```{r t3lm5, cache=TRUE}
+lm_beta <- function (object) 
+# Function from lm.beta package
+{
+   if (!"lm" %in% attr(object, "class")) 
+      stop("object has to be of class lm")
+   object$standardized.coefficients <- 
+      coef(object) * 
+      apply(as.matrix(model.matrix(object)), 2, function(x) 
+         sqrt(sum((x - mean(x, na.rm = T) * 
+                      attr(attr(object$model, "terms"), 
+                           "intercept"))^2, na.rm = T)))/
+      apply(as.matrix(model.frame(object)[, 1]), 
+            2, function(x) sqrt(sum((x - mean(x, na.rm = T) * 
+                                        attr(attr(object$model, "terms"),
+                                             "intercept"))^2, na.rm = T)))
+   attr(object, "class") <- c("lm.beta", "lm")
+   return(object)
+}
+    ```
+* Either way, the function `lm_beta(model)` take the stored results of the `lm()` model, and returns an vector with the standardized beta coefficients
+    ```{r t3lm6, cache=TRUE}
+    lm_beta(model1)  # Send previously saved 'model1' results to function
+    ```
+<caption>(\#tab:3lm6) Standardized regression coefficients</caption>    
+
+## Margin Plots
+
+In R, margin plots are a multistep process:
+
+1. Create a data frame of IV values to use in the prediction.
+    1. For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum
+    2. For other variables in the model:
+        1. Continuous variables are usually evaluated an the sample mean
+        2. Factor variables are usually evaluated at each level of the factor
+2. Use the `predict.lm()` function to use the model results to predict the linear fit of the "simulated" observations in the new data frame
+3. Use `ggplot` to create the margin plot
+
+    ``` {r t3marginplot1, message=FALSE, fig.cap="Single margin plot"}
+    # Want to predict 'nps' for different levels of 'age'
+    #     when 'nflights' is at the mean
+    # First, create a data frame of values to predict, using the 'crossing'
+    #     function from the 'tidyr' package
+    library(tidyr)   # Load tidyr
+    # NOTE: variable names must be EXACTLY the same as in original model
+    pred_iv <- crossing(age=seq(15, 105, 10),  # Different values of 'age'
+                        nflights=mean(airlinesat$nflights,  # mean 'nflights'
+                                      na.rm=TRUE))   # remove missing values
+
+    # Use the model results to predict 'nps' for values in 'pred_iv' data frame
+    #     Predicted values and confidence intervals get appended to data frame
+    #     New variables are called:
+    #          'pred$fit' = linear prediction from model
+    #          'pred$lwr' = lower confidence interval for prediction
+    #          'pred$upr' = upper confidcent interval for prediction
+    pred_iv$pred <- as.data.frame(
+        predict.lm(model1, pred_iv, interval="confidence"))
+
+    # 'pred_iv' now contains all necessary information for margin plot
+
+    pred_iv %>%
+        ggplot(aes(x=age,   # Age on x-axis
+                   y=pred$fit)) +   # 'nps' prediction on y-axis
+            geom_line(size=1) +   # Draw predicted line
+            geom_ribbon(aes(ymin=pred$lwr,  # Draws the confidence interval bands
+                            ymax=pred$upr),
+                        alpha=0.2) + # Sets transparency level
+            labs(x="Age", y="Linear Prediciton")
+    ```
+
+### Separate Margin Plots
+
+* If creating separate plots for each continuous IV, it is best to have the prediction (<span style="font-family: Courier;">y</span>) variable have the same scale
+    * Doing so might take some trial and error after looking at graphs once
+* Use the function `plot_grid()` from the `cowplot` package to make the plots appear in the same figure
+    * Save each plot as an object, then pass the objects to `plot_grid()`
+    ```{r t3marginplot2, message=FALSE, fig.cap="Separate margin plots"}
+    library(cowplot)
+    # Ask for min and max of the 95% confidence bands to adjust y-axis
+    min(pred_iv$pred$lwr)
+    max(pred_iv$pred$upr)
+    # Save previous plot (for 'age') as plot 1
+    plot1 <- pred_iv %>%
+        ggplot(aes(x=age,   # Age on x-axis
+                   y=pred$fit)) +   # 'nps' prediction on y-axis
+            geom_line(size=1) +   # Draw predicted line
+            geom_ribbon(aes(ymin=pred$lwr,  # Draws the confidence interval bands
+                            ymax=pred$upr),
+                        alpha=0.2) + # Sets transparency level
+            labs(x="Age", y="Linear Prediciton") +
+            scale_y_continuous(limits=c(5.25,9.25))  # Set scale limits for y-axis
+    
+    # Create second plot for 'nflights' and save as plot 2
+    
+    pred_iv <- crossing(nflights=seq(0, 150, 15),
+                        age=mean(airlinesat$age, na.rm=TRUE))
+    pred_iv$pred <- as.data.frame(
+        predict.lm(model1, pred_iv, interval="confidence"))
+
+    min(pred_iv$pred$lwr)
+    max(pred_iv$pred$upr)
+    
+    plot2 <- pred_iv %>%
+        ggplot(aes(x=nflights, y=pred$fit)) +
+            geom_line(size=1) +
+            geom_ribbon(aes(ymin=pred$lwr,ymax=pred$upr),alpha=0.2) +
+            labs(x="Number of Flights", y="Linear Prediciton")  +
+            scale_y_continuous(limits=c(5.25,9.25))  # Set scale limits for y-axis
+    
+    plot_grid(plot1,plot2)
+    ```
+    
+### Continuous IV at Levels of Factor IV
+
+* Margin plots when one of the variables is a factor variable are done in much the same way, but require an `aes(color=factor)` to produce different lines for each level of the factor
+    ```{r t3marginplot3, cache=TRUE, message=FALSE}
+    model2 <- lm(nps ~ age*flight_purpose, airlinesat)
+    summary(model2)
+    ```
+<caption>(\#tab:t3marginplot3) Summary results of model with interaction</caption>
+    ```{r t3marginplot4, cache=TRUE, message=FALSE, fig.cap="Margin plot with factor variable"}
+    pred_iv <- crossing(age=seq(15, 105, 10),  # Different values of 'age'
+                        flight_purpose=c("Leisure", "Business"))  # factor levels
+
+    pred_iv$pred <- as.data.frame(
+        predict.lm(model2, pred_iv, interval="confidence"))
+
+    pred_iv %>%
+        # Use 'color' aesthetic for separate lines for 'flight purpose'
+        ggplot(aes(x=age, y=pred$fit, color=as.factor(flight_purpose))) +
+            geom_line(size=1) +
+            # Use 'fill' aesthetic for separate colors for the CI bands
+            geom_ribbon(aes(ymin=pred$lwr, ymax=pred$upr, 
+                            fill=as.factor(flight_purpose)), alpha=0.2) + 
+            labs(x="Age", y="Linear Prediciton", 
+                 fill="Flight Purpose", color="Flight Purpose")
+    ```
