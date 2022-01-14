@@ -4,6 +4,12 @@ fig:viewdf
 fig:setwd1
 fig:setwd2
 fig:loaddata
+fig:yamlheader
+fig:insertcodechunk
+fig:typecodechunk
+fig:chunkerror
+fig:runchunk
+fig:knitto
 fig:t2ggplotonly
 fig:t2simplecolumn
 fig:t2dplyrggplot
@@ -105,6 +111,13 @@ arrange-function
 mutate-function
 summarise-function
 package-lubridate
+rmarkdown
+yaml-header
+markdown-syntax
+code-chunks
+inserting-a-code-chunk
+using-code-chunks
+knitting-the-results
 examining-and-summarizing-data
 introduction-1
 visualizations

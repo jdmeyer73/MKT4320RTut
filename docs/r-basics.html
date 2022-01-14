@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-13" />
+<meta name="date" content="2022-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -216,6 +216,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<ul>
+<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html"><i class="fa fa-check"></i><b>2</b> Examining and Summarizing Data</a>
 <ul>
@@ -1389,7 +1400,160 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="r-basics.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yday</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 74</code></pre></li>
 </ul>
+</div>
+<div id="rmarkdown" class="section level2" number="1.12">
+<h2><span class="header-section-number">1.12</span> RMarkdown</h2>
+<p>RMarkdown allows users to create documents that combine code and text. Ultimately, they are used for “reproducible research.” That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.</p>
+<p>In this class, RMarkdown will be used for the lab assignments. You will write your code in the RMarkdown file, and answer the assignment questions with the code your have written.</p>
+<p>While RMarkdown has a great deal of functionality, we will focus on a select few of those features. This <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf">cheatsheet</a> may be beneficial.</p>
+<div id="yaml-header" class="section level3" number="1.12.1">
+<h3><span class="header-section-number">1.12.1</span> YAML Header</h3>
+<p>The top of every RMarkdown is a section called the YAML header, which is enclosed at the top and bottom with <code>---</code>. For this class, the only think in the YAML header that you will need to change is the <code>author:</code> section.</p>
+<div class="figure"><span style="display:block;" id="fig:yamlheader"></span>
+<img src="Images/YAMLHeader.gif" alt="Change Author in YAML Header"  />
+<p class="caption">
+Figure 1.6: Change Author in YAML Header
+</p>
+</div>
+</div>
+<div id="markdown-syntax" class="section level3" number="1.12.2">
+<h3><span class="header-section-number">1.12.2</span> Markdown Syntax</h3>
+<p>When writing text in RMarkdown, there isn’t a “point and click” menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of “markdown” syntax. The most commonly used are provided below:</p>
+<hr />
+<pre><code>Plain text</code></pre>
+<p>Plain text</p>
+<hr />
+<pre><code>*Italic*</code></pre>
+<p><em>Italic</em></p>
+<hr />
+<pre><code>**Bold**</code></pre>
+<p><strong>Bold</strong></p>
+<hr />
+<pre><code>***Bold and Italic***</code></pre>
+<p><strong><em>Bold and Italic</em></strong></p>
+<hr />
+<pre><code># Header 1</code></pre>
+<p style="font-size: 34px;">
+Header 1
+</p>
+<hr />
+<pre><code>## Header 2</code></pre>
+<p style="font-size: 28px;">
+Header 2
+</p>
+<hr />
+<pre><code>### Header 3</code></pre>
+<p style="font-size: 22px;">
+Header 3
+</p>
+<hr />
+<pre><code>#### Header 4</code></pre>
+<p style="font-size: 18px;">
+Header 4
+</p>
+<hr />
+<pre><code>* Unordered list item
+* Item 2
+    * Item 2a (indent 4 spaces)
+    * Item 2b</code></pre>
+<ul>
+<li>Unordered list item</li>
+<li>Item 2
+<ul>
+<li>Item 2a (indent 4 spaces)</li>
+<li>Item 2b</li>
+</ul></li>
+</ul>
+<hr />
+<pre><code>1. Ordered list item
+2. Item 2
+    1. Item 2a (indent 4 spaces)
+    2. Item 2b</code></pre>
+<ol style="list-style-type: decimal">
+<li>Ordered list item</li>
+<li>Item 2
+<ol style="list-style-type: decimal">
+<li>Item 2a (indent 4 spaces)</li>
+<li>Item 2b</li>
+</ol></li>
+</ol>
+<hr />
+<pre><code>`verbatim code`</code></pre>
+<p><code>vertabim code</code></p>
+<hr />
+<pre><code>equation: $y=\alpha+\betax$</code></pre>
+<p>equation: <span class="math inline">\(y=\alpha+\beta x\)</span></p>
+<p>(See <a href="https://www.caam.rice.edu/~heinken/latex/symbols.pdf">this file</a> for symbols)</p>
+</div>
+<div id="code-chunks" class="section level3" number="1.12.3">
+<h3><span class="header-section-number">1.12.3</span> Code Chunks</h3>
+<p>One of the greatest things about RMarkdown files is the ability to include code, and run the code, within the RMarkdown file. Putting code in the file is done with code chunks.</p>
+<div id="inserting-a-code-chunk" class="section level4" number="1.12.3.1">
+<h4><span class="header-section-number">1.12.3.1</span> Inserting a Code Chunk</h4>
+<p>Code chunks can be inserted by clicking on the “Insert Chunk” button in the document toolbar (see Figure <a href="r-basics.html#fig:insertcodechunk">1.7</a>) or by manually typing in the code chunk (see Figure <a href="r-basics.html#fig:typecodechunk">1.8</a>)</p>
+<div class="figure"><span style="display:block;" id="fig:insertcodechunk"></span>
+<img src="Images/InsertCodeChunk.gif" alt="Inserting a Code Chunk from the Toolbar"  />
+<p class="caption">
+Figure 1.7: Inserting a Code Chunk from the Toolbar
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:typecodechunk"></span>
+<img src="Images/TypeRChunk.gif" alt="Inserting a Code Chunk Manually"  />
+<p class="caption">
+Figure 1.8: Inserting a Code Chunk Manually
+</p>
+</div>
+</div>
+<div id="using-code-chunks" class="section level4" number="1.12.3.2">
+<h4><span class="header-section-number">1.12.3.2</span> Using Code Chunks</h4>
+<ul>
+<li>RMarkdown doesn’t pay attention to anything else going on in your R/RStudio session
+<ul>
+<li>Any objects, data, packages, or user defined scripts must be in a code chunk in RMarkdown</li>
+<li>However, once they are loaded in a chunk, they do not need to be loaded again in subsequent chunks</li>
+</ul></li>
+<li>To run a code chunk, click on the green triangle (<img src="Images/RunChunk.jpg">
+<ul>
+<li>If you run a chunk that does have the necessary object, data, etc., you will get an error message (see Figure <a href="r-basics.html#fig:chunkerror">1.9</a>)
+<div class="figure"><span style="display:block;" id="fig:chunkerror"></span>
+<img src="Images/CodeChunkError.gif" alt="Chunk Error"  />
+<p class="caption">
+Figure 1.9: Chunk Error
+</p>
+</div></li>
+<li>If you need to run previous chunks to load data or packages, click on the gray triangle with the green bar underneath (<img src="Images/RunPreviousChunks.jpg">) first, then click on the green triangle (see Figure <a href="r-basics.html#fig:runchunk">1.10</a>)
+<div class="figure"><span style="display:block;" id="fig:runchunk"></span>
+<img src="Images/RunChunks.gif" alt="Run Previous Chunks, then Run Chunk"  />
+<p class="caption">
+Figure 1.10: Run Previous Chunks, then Run Chunk
+</p>
+</div></li>
+</ul></li>
+<li>Once the chunk runs correctly, the result will be shown under the chunk
+<ul>
+<li>To clear the result, click on the ‘x’ in the upper right hand corner of the results</li>
+</ul></li>
+</ul>
+</div>
+<div id="knitting-the-results" class="section level4" number="1.12.3.3">
+<h4><span class="header-section-number">1.12.3.3</span> “Knitting” the Results</h4>
+<p>At any time, you can “Knit” the RMarkdown file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking (and for this course, required to turn in the lab assignment).</p>
+<ul>
+<li>To “Knit” the file, click on the down arrow next to “Knit” in the document toolbar, and select how you would like to product the document (see Figure <a href="r-basics.html#fig:knitto">1.11</a>)
+<ul>
+<li>By default, a document knitted to HTML will be viewable in the “Viewer” window in the lower right hand side of RStudio.</li>
+<li>For documents knitted to PDF, RStudio generally opens up a new window with the knitted PDF, from which the file can be saved to a local directory
+<div class="figure"><span style="display:block;" id="fig:knitto"></span>
+<img src="Images/Knit.gif" alt="Knit a Document"  />
+<p class="caption">
+Figure 1.11: Knit a Document
+</p>
+</div></li>
+</ul></li>
+</ul>
 
+</div>
+</div>
 </div>
 </div>
             </section>
