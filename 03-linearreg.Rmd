@@ -7,7 +7,9 @@ library(cowplot)
 
 Sources for this chapter:
 
-* 
+* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
 
 Data for this chapter:
 

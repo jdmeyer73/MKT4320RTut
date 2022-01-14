@@ -704,7 +704,7 @@ Additionally, lubridate can easily pull out the specific components that are hav
 * `wday(x)` returns the number of the day in week, where Sunday = 1
 * `wday(x, label=TRUE)` returns the day of the week name (abbreviated)
 * `yday(x)` returns the number of the day of the year
-    ```{r lubridae2, cache=TRUE}
+    ```{r lubridate2, cache=TRUE}
     # Use lubridate to create a date class object for my birthday (not really)
     mybday <- mdy("March 15, 1973")
     year(mybday)
@@ -714,4 +714,166 @@ Additionally, lubridate can easily pull out the specific components that are hav
     wday(mybday)
     wday(mybday, label=TRUE)
     yday(mybday)
+    ```
+    
+## RMarkdown
+
+RMarkdown allows users to create documents that combine code and text.  Ultimately, they are used for "reproducible research".  That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.
+
+In this class, RMarkdown will be used for the lab assignments. You will write your code in the RMarkdown file, and answer the assignment questions with the code your have written.
+
+While RMarkdown has a great deal of functionality, we will focus on a select few of those features.  This [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf) may be beneficial.
+
+### YAML Header
+
+The top of every RMarkdown is a section called the YAML header, which is enclosed at the top and bottom with `---`. For this class, the only think in the YAML header that you will need to change is the `author:` section.
+
+``` {r yamlheader, echo=FALSE, fig.cap="Change Author in YAML Header"}
+knitr::include_graphics("Images/YAMLHeader.gif")
+```
+
+### Markdown Syntax
+
+When writing text in RMarkdown, there isn't a "point and click" menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of "markdown" syntax.  The most commonly used are provided below:
+
+---
+
+```
+Plain text
+```
+Plain text
+
+---
+
+```
+*Italic*
+```
+*Italic*
+
+---
+
+```
+**Bold**
+```
+**Bold**
+
+---
+
+```
+***Bold and Italic***
+```
+***Bold and Italic***
+
+---
+
+```
+# Header 1
+```
+<p style="font-size: 34px;">Header 1</p>
+
+---
+
+```
+## Header 2
+```
+<p style="font-size: 28px;">Header 2</p>
+
+---
+
+```
+### Header 3
+```
+<p style="font-size: 22px;">Header 3</p>
+
+---
+
+```
+#### Header 4
+```
+<p style="font-size: 18px;">Header 4</p>
+
+---
+
+```
+* Unordered list item
+* Item 2
+    * Item 2a (indent 4 spaces)
+    * Item 2b
+```
+* Unordered list item
+* Item 2
+    * Item 2a (indent 4 spaces)
+    * Item 2b
+    
+---
+
+```
+1. Ordered list item
+2. Item 2
+    1. Item 2a (indent 4 spaces)
+    2. Item 2b
+```
+1. Ordered list item
+2. Item 2
+    1. Item 2a (indent 4 spaces)
+    2. Item 2b
+
+---
+
+```
+`verbatim code`
+```
+`vertabim code`
+
+---
+
+```
+equation: $y=\alpha+\betax$
+```
+equation: $y=\alpha+\beta x$
+
+(See [this file](https://www.caam.rice.edu/~heinken/latex/symbols.pdf) for symbols)
+
+### Code Chunks
+
+One of the greatest things about RMarkdown files is the ability to include code, and run the code, within the RMarkdown file. Putting code in the file is done with code chunks.
+
+#### Inserting a Code Chunk
+
+Code chunks can be inserted by clicking on the "Insert Chunk" button in the document toolbar (see Figure \@ref(fig:insertcodechunk)) or by manually typing in the code chunk (see Figure \@ref(fig:typecodechunk))
+
+``` {r insertcodechunk, echo=FALSE, fig.cap="Inserting a Code Chunk from the Toolbar"}
+knitr::include_graphics("Images/InsertCodeChunk.gif")
+```
+
+``` {r typecodechunk, echo=FALSE, fig.cap="Inserting a Code Chunk Manually"}
+knitr::include_graphics("Images/TypeRChunk.gif")
+```
+
+#### Using Code Chunks
+
+* RMarkdown doesn't pay attention to anything else going on in your R/RStudio session
+    * Any objects, data, packages, or user defined scripts must be in a code chunk in RMarkdown
+    * However, once they are loaded in a chunk, they do not need to be loaded again in subsequent chunks
+* To run a code chunk, click on the green triangle (<img src="Images/RunChunk.jpg">
+    * If you run a chunk that does have the necessary object, data, etc., you will get an error message (see Figure \@ref(fig:chunkerror))
+    ``` {r chunkerror, echo=FALSE, fig.cap="Chunk Error"}
+    knitr::include_graphics("Images/CodeChunkError.gif")
+    ```
+    * If you need to run previous chunks to load data or packages, click on the gray triangle with the green bar underneath (<img src="Images/RunPreviousChunks.jpg">) first, then click on the green triangle (see Figure \@ref(fig:runchunk))
+    ``` {r runchunk, echo=FALSE, fig.cap="Run Previous Chunks, then Run Chunk"}
+    knitr::include_graphics("Images/RunChunks.gif")
+    ```
+* Once the chunk runs correctly, the result will be shown under the chunk
+    * To clear the result, click on the 'x' in the upper right hand corner of the results
+
+#### "Knitting" the Results
+
+At any time, you can "Knit" the RMarkdown file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking (and for this course, required to turn in the lab assignment).
+
+* To "Knit" the file, click on the down arrow next to "Knit" in the document toolbar, and select how you would like to product the document (see Figure \@ref(fig:knitto))
+    * By default, a document knitted to HTML will be viewable in the "Viewer" window in the lower right hand side of RStudio.
+    * For documents knitted to PDF, RStudio generally opens up a new window with the knitted PDF, from which the file can be saved to a local directory
+    ``` {r knitto, echo=FALSE, fig.cap="Knit a Document"}
+    knitr::include_graphics("Images/Knit.gif")
     ```
