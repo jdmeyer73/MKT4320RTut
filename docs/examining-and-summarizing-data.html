@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-17" />
+<meta name="date" content="2022-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -474,30 +474,31 @@ Figure 2.6: Prettier bar chart
 <h5><span class="header-section-number">2.2.2.1.1</span> Bar Chart Variations</h5>
 <div id="stacked-bar-chart" class="section level6" number="2.2.2.1.1.1">
 <h6><span class="header-section-number">2.2.2.1.1.1</span> Stacked Bar Chart</h6>
-<p>Used to show one discrete variable by another discrete variable, such as data you would see in a cross-tab
-* The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable
-* As with other bar charts, the default is to count observations, so some manipulation is needed to get “100% stacked bar charts”</p>
-<pre><code>```r
-airlinesat %&gt;%
-group_by(gender, flight_type) %&gt;%  # Group data by two discrete variables
-summarise(n=n()) %&gt;%  # Count observations for each combination
-mutate(prop=n/sum(n)) %&gt;%  # Calculate prop WITHIN first grouping variable
-ggplot(aes(x=gender, y=prop, fill=flight_type)) +
-  geom_bar(position=&quot;fill&quot;,  # Stack the bars
-           stat=&quot;identity&quot;) + # Use the value of y as-is
-  scale_y_continuous(labels=scales::label_percent()) + # y-axis labels %
-  labs(x=&quot;Gender&quot;, y=&quot;Percent&quot;,  # Label x- and y-axes 
-       fill=&quot;Flight Type&quot;) +  # Label legend
-  geom_text(aes(label=sprintf(&quot;%.1f%%&quot;, prop*100)), # Format data label
-         position=position_stack(vjust=.95), # Adjust the labels
-         fontface=&quot;bold&quot;,  # Bold typeface
-         color=&quot;white&quot;) # Text color
-```
-
-&lt;div class=&quot;figure&quot;&gt;
-&lt;img src=&quot;_main_files/figure-html/t2barchart3-1.png&quot; alt=&quot;Stacked bar chart&quot; width=&quot;672&quot; /&gt;
-&lt;p class=&quot;caption&quot;&gt;(\#fig:t2barchart3)Stacked bar chart&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+<p>Used to show one discrete variable by another discrete variable, such as data you would see in a cross-tab</p>
+<ul>
+<li>The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable</li>
+<li>As with other bar charts, the default is to count observations, so some manipulation is needed to get “100% stacked bar charts”</li>
+</ul>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="examining-and-summarizing-data.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb177-2"><a href="examining-and-summarizing-data.html#cb177-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span>  <span class="co"># Group data by two discrete variables</span></span>
+<span id="cb177-3"><a href="examining-and-summarizing-data.html#cb177-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count observations for each combination</span></span>
+<span id="cb177-4"><a href="examining-and-summarizing-data.html#cb177-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Calculate prop WITHIN first grouping variable</span></span>
+<span id="cb177-5"><a href="examining-and-summarizing-data.html#cb177-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
+<span id="cb177-6"><a href="examining-and-summarizing-data.html#cb177-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;fill&quot;</span>,  <span class="co"># Stack the bars</span></span>
+<span id="cb177-7"><a href="examining-and-summarizing-data.html#cb177-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> <span class="co"># Use the value of y as-is</span></span>
+<span id="cb177-8"><a href="examining-and-summarizing-data.html#cb177-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> <span class="co"># y-axis labels %</span></span>
+<span id="cb177-9"><a href="examining-and-summarizing-data.html#cb177-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,  <span class="co"># Label x- and y-axes </span></span>
+<span id="cb177-10"><a href="examining-and-summarizing-data.html#cb177-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  <span class="co"># Label legend</span></span>
+<span id="cb177-11"><a href="examining-and-summarizing-data.html#cb177-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), <span class="co"># Format data label</span></span>
+<span id="cb177-12"><a href="examining-and-summarizing-data.html#cb177-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span>.<span class="dv">95</span>), <span class="co"># Adjust the labels</span></span>
+<span id="cb177-13"><a href="examining-and-summarizing-data.html#cb177-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
+<span id="cb177-14"><a href="examining-and-summarizing-data.html#cb177-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:t2barchart3"></span>
+<img src="_main_files/figure-html/t2barchart3-1.png" alt="Stacked bar chart" width="672" />
+<p class="caption">
+Figure 2.7: Stacked bar chart
+</p>
+</div>
 </div>
 <div id="side-by-side-bar-chart" class="section level6" number="2.2.2.1.1.2">
 <h6><span class="header-section-number">2.2.2.1.1.2</span> Side-by-Side Bar Chart</h6>
@@ -505,7 +506,7 @@ ggplot(aes(x=gender, y=prop, fill=flight_type)) +
 <ul>
 <li>Again, default is to count observations, so some manipulation required to get percentages
 <ul>
-<li>Percentages can be within a group (like in 100% stacked, see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart4">2.7</a>) or percent of overall total (see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart5">2.8</a>)</li>
+<li>Percentages can be within a group (like in 100% stacked, see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart4">2.8</a>) or percent of overall total (see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart5">2.9</a>)</li>
 </ul>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="examining-and-summarizing-data.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
 <span id="cb178-2"><a href="examining-and-summarizing-data.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="co">#       ONLY the changes have been commented on below</span></span>
@@ -531,7 +532,7 @@ ggplot(aes(x=gender, y=prop, fill=flight_type)) +
 <div class="figure"><span style="display:block;" id="fig:t2barchart4"></span>
 <img src="_main_files/figure-html/t2barchart4-1.png" alt="Side-by-side bar chart (% within group)" width="672" />
 <p class="caption">
-Figure 2.7: Side-by-side bar chart (% within group)
+Figure 2.8: Side-by-side bar chart (% within group)
 </p>
 </div>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="examining-and-summarizing-data.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
@@ -556,7 +557,7 @@ Figure 2.7: Side-by-side bar chart (% within group)
 <div class="figure"><span style="display:block;" id="fig:t2barchart5"></span>
 <img src="_main_files/figure-html/t2barchart5-1.png" alt="Side-by-side bar chart (% of total)" width="672" />
 <p class="caption">
-Figure 2.8: Side-by-side bar chart (% of total)
+Figure 2.9: Side-by-side bar chart (% of total)
 </p>
 </div></li>
 </ul>
@@ -573,7 +574,7 @@ Figure 2.8: Side-by-side bar chart (% of total)
 <div class="figure"><span style="display:block;" id="fig:t2colchart1"></span>
 <img src="_main_files/figure-html/t2colchart1-1.png" alt="Standard column chart" width="672" />
 <p class="caption">
-Figure 2.9: Standard column chart
+Figure 2.10: Standard column chart
 </p>
 </div></li>
 <li><p>To get a different summary statistic, such as mean, we can summarize the data and calculate the summary statistic for each category (and make the graph prettier)</p>
@@ -590,7 +591,7 @@ Figure 2.9: Standard column chart
 <div class="figure"><span style="display:block;" id="fig:t2colchart2"></span>
 <img src="_main_files/figure-html/t2colchart2-1.png" alt="Column chart showing means" width="672" />
 <p class="caption">
-Figure 2.10: Column chart showing means
+Figure 2.11: Column chart showing means
 </p>
 </div></li>
 </ul>
@@ -613,7 +614,7 @@ Figure 2.10: Column chart showing means
 <div class="figure"><span style="display:block;" id="fig:t2colchart3"></span>
 <img src="_main_files/figure-html/t2colchart3-1.png" alt="Side-by-side column chart" width="672" />
 <p class="caption">
-Figure 2.11: Side-by-side column chart
+Figure 2.12: Side-by-side column chart
 </p>
 </div></li>
 </ul>
@@ -636,7 +637,7 @@ Figure 2.11: Side-by-side column chart
 <div class="figure"><span style="display:block;" id="fig:t2hist1"></span>
 <img src="_main_files/figure-html/t2hist1-1.png" alt="Standard histogram" width="672" />
 <p class="caption">
-Figure 2.12: Standard histogram
+Figure 2.13: Standard histogram
 </p>
 </div></li>
 </ul>
@@ -652,20 +653,20 @@ Figure 2.12: Standard histogram
 <ul>
 <li>For example; <code>geom_histogram(binwidth=5)</code></li>
 </ul></li>
-<li>Use the interactive histograms (Figure <a href="examining-and-summarizing-data.html#fig:t2shiny1">2.13</a> and Figure <a href="examining-and-summarizing-data.html#fig:t2shiny2">2.14</a> to see how the histograms change</li>
+<li>Use the interactive histograms (Figure <a href="examining-and-summarizing-data.html#fig:t2shiny1">2.14</a> and Figure <a href="examining-and-summarizing-data.html#fig:t2shiny2">2.15</a> to see how the histograms change</li>
 </ul>
 <div class="figure"><span style="display:block;" id="fig:t2shiny1"></span>
 <iframe src="https://jdmeyer73.shinyapps.io/Histogram/?showcase=0" width="672" height="650px" data-external="1">
 </iframe>
 <p class="caption">
-Figure 2.13: Interactive histogram for number of bins
+Figure 2.14: Interactive histogram for number of bins
 </p>
 </div>
 <div class="figure"><span style="display:block;" id="fig:t2shiny2"></span>
 <iframe src="https://jdmeyer73.shinyapps.io/Histogram2/?showcase=0" width="672" height="650px" data-external="1">
 </iframe>
 <p class="caption">
-Figure 2.14: Interactive histogram for bin width
+Figure 2.15: Interactive histogram for bin width
 </p>
 </div>
 </div>
@@ -680,7 +681,7 @@ Figure 2.14: Interactive histogram for bin width
 <div class="figure"><span style="display:block;" id="fig:t2hist2"></span>
 <img src="_main_files/figure-html/t2hist2-1.png" alt="Prettier histogram" width="672" />
 <p class="caption">
-Figure 2.15: Prettier histogram
+Figure 2.16: Prettier histogram
 </p>
 </div>
 </div>
@@ -704,7 +705,7 @@ Figure 2.15: Prettier histogram
 <div class="figure"><span style="display:block;" id="fig:t2hist3"></span>
 <img src="_main_files/figure-html/t2hist3-1.png" alt="Density histogram with normal curve" width="672" />
 <p class="caption">
-Figure 2.16: Density histogram with normal curve
+Figure 2.17: Density histogram with normal curve
 </p>
 </div>
 </div>
@@ -724,7 +725,7 @@ Figure 2.16: Density histogram with normal curve
 <div class="figure"><span style="display:block;" id="fig:t2boxplot1"></span>
 <img src="_main_files/figure-html/t2boxplot1-1.png" alt="Single box plot with whiskers" width="672" />
 <p class="caption">
-Figure 2.17: Single box plot with whiskers
+Figure 2.18: Single box plot with whiskers
 </p>
 </div></li>
 <li><p>To make comparisons across a discrete <span style="font-family: Courier;">x</span> variable, replaces the <code>x=""</code> from before with <code>x=VARIABLE</code></p>
@@ -736,7 +737,7 @@ Figure 2.17: Single box plot with whiskers
 <div class="figure"><span style="display:block;" id="fig:t2boxplot2"></span>
 <img src="_main_files/figure-html/t2boxplot2-1.png" alt="Multiple box plot" width="672" />
 <p class="caption">
-Figure 2.18: Multiple box plot
+Figure 2.19: Multiple box plot
 </p>
 </div></li>
 </ul>
@@ -755,7 +756,7 @@ Figure 2.18: Multiple box plot
 <div class="figure"><span style="display:block;" id="fig:t2scatter1"></span>
 <img src="_main_files/figure-html/t2scatter1-1.png" alt="Standard scatterplot" width="672" />
 <p class="caption">
-Figure 2.19: Standard scatterplot
+Figure 2.20: Standard scatterplot
 </p>
 </div></li>
 </ul>
@@ -775,7 +776,7 @@ Figure 2.19: Standard scatterplot
 <div class="figure"><span style="display:block;" id="fig:t2scatter2"></span>
 <img src="_main_files/figure-html/t2scatter2-1.png" alt="Scatterplot with trendline" width="672" />
 <p class="caption">
-Figure 2.20: Scatterplot with trendline
+Figure 2.21: Scatterplot with trendline
 </p>
 </div></li>
 </ul>
@@ -799,7 +800,7 @@ Figure 2.20: Scatterplot with trendline
 <div class="figure"><span style="display:block;" id="fig:t2scatter3"></span>
 <img src="_main_files/figure-html/t2scatter3-1.png" alt="Scatterplot with different colors for discrete variable" width="672" />
 <p class="caption">
-Figure 2.21: Scatterplot with different colors for discrete variable
+Figure 2.22: Scatterplot with different colors for discrete variable
 </p>
 </div></li>
 </ul>
@@ -1953,7 +1954,7 @@ Computed correlation used pearson-method with pairwise-deletion.
 <div class="figure"><span style="display:block;" id="fig:t2corr6"></span>
 <img src="_main_files/figure-html/t2corr6-1.png" alt="Combination scatterplot/correlation matrix using &lt;i&gt;GGally&lt;/i&gt;" width="672" />
 <p class="caption">
-Figure 2.22: Combination scatterplot/correlation matrix using <i>GGally</i>
+Figure 2.23: Combination scatterplot/correlation matrix using <i>GGally</i>
 </p>
 </div></li>
 </ul>

@@ -16,6 +16,7 @@ fig:t2dplyrggplot
 fig:t2bar1
 fig:t2bar2
 fig:t2bar3
+fig:t2barchart3
 fig:t2barchart4
 fig:t2barchart5
 fig:t2colchart1

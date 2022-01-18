@@ -119,9 +119,11 @@ In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete v
 ###### Stacked Bar Chart
 
 Used to show one discrete variable by another discrete variable, such as data you would see in a cross-tab
+
 * The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable
 * As with other bar charts, the default is to count observations, so some manipulation is needed to get "100% stacked bar charts"
-    ```{r t2barchart3, fig.cap="Stacked bar chart", message=FALSE, cache=TRUE}
+
+```{r t2barchart3, fig.cap="Stacked bar chart", message=FALSE, cache=TRUE}
     airlinesat %>%
     group_by(gender, flight_type) %>%  # Group data by two discrete variables
     summarise(n=n()) %>%  # Count observations for each combination
@@ -136,7 +138,7 @@ Used to show one discrete variable by another discrete variable, such as data yo
              position=position_stack(vjust=.95), # Adjust the labels
              fontface="bold",  # Bold typeface
              color="white") # Text color
-    ```
+```
 
 ###### Side-by-Side Bar Chart
 
