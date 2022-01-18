@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-14" />
+<meta name="date" content="2022-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="examining-and-summarizing-data.html"/>
-
+<link rel="next" href="logistic-regression-binary.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -55,6 +55,7 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -289,6 +290,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots"><i class="fa fa-check"></i><b>3.4.1</b> Separate Margin Plots</a></li>
 <li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-at-levels-of-factor-iv"><i class="fa fa-check"></i><b>3.4.2</b> Continuous IV at Levels of Factor IV</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression (Binary)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#introduction-4"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#the-glm-function"><i class="fa fa-check"></i><b>4.2</b> The <code>glm()</code> Function</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#logistic-regression-using-glm"><i class="fa fa-check"></i><b>4.3</b> Logistic Regression using <code>glm()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#estimate-with-training-sample-only"><i class="fa fa-check"></i><b>4.4</b> Estimate with Training Sample Only</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#creating-train-and-test-samples"><i class="fa fa-check"></i><b>4.4.1</b> Creating <code>train</code> and <code>test</code> Samples</a></li>
+<li class="chapter" data-level="4.4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#run-model-with-only-training-sample"><i class="fa fa-check"></i><b>4.4.2</b> Run Model with only Training Sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.5</b> Classification Matrix</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.6</b> ROC Curve</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.7</b> Gain/Lift Charts and Tables</a></li>
+<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.8</b> Sensitivity/Specificity Plot</a></li>
 </ul></li>
 </ul>
 
@@ -690,8 +706,8 @@ Figure 3.3: Margin plot with factor variable
           </div>
         </div>
       </div>
-<a href="examining-and-summarizing-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="examining-and-summarizing-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression-binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

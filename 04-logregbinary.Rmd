@@ -1,0 +1,229 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(cowplot)
+library(flextable)
+library(jtools)
+```
+# Logistic Regression (Binary)
+
+Sources for this chapter:
+
+* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
+
+Data for this chapter:
+
+* The [directmktg.rdata]("Data/directmktg.rdata") is used. Load it now.
+    ```{r t4loaddata}
+    # You may need to change the directory
+    load("Data/directmktg.rdata")
+    ```
+
+## Introduction
+
+Base R is typically sufficient for performing the basics of logisitic regression, but to get some of the outputs required, I have created some user defined functions.  You should download these functions and save them in your working directory.
+
+* [or_table.R]("or_table.R") produces Odds Ratio Coefficients
+* [logreg_cm.R]("logreg_cm.R") produces the Classification Matrix
+* [logreg_roc.R]("logreg_roc.R") produces the ROC Curves
+* [gainlift.R]("gainlift.R") produces Gain/Lift tables and charts
+* [logreg_cut.R]("logreg_cut.R") produces the Sensitivity/Specificity Plot
+
+Once saved in your working directory, it is good practice to source them.
+``` {r t4sourceudf}
+source("or_table.R")
+source("logreg_cm.R")
+source("logreg_roc.R")
+source("gainlift.R")
+source("logreg_cut.R")
+```
+
+## The `glm()` Function
+
+* `glm` stands for Generalized Linear Model, and this function can be used with a variety of dependent variables by specifying different `family="FAMILY"` options
+    *`lm(dv ~ iv1 + iv2, data)` is the same as<br>
+    `glm(dv ~ iv1 + iv2, data, family="gaussian")
+* Usage: `glm(formula, data, family)`
+
+## Logistic Regression using `glm()`
+
+* Binary logistic regression is performed using the `glm()` function when the `family="binomial"` is specified.
+* Usage: `glm(formula, data, family="binonmial")`
+    * `family="binomial"` tells R to use logistic regression on a binary dependent variable
+* If `glm(formula, data, family="binomial")` is run by itself, R only outputs the **Logit formulation* coefficients (and some other measures)
+    ```{r t4lr1}
+    glm(buy ~ age + gender, directmktg, family="binomial")
+    ```
+<caption>(\#tab:t4lr1) Logit Coefficients from `glm()` call</caption>
+
+* However, if the results of the `glm()` call are assigned to an object, the `summary()` function can be used to get much more detailed output
+    ```{r t4lr2, cache=TRUE}
+    prelim <- glm(buy ~ age + gender, directmktg, family="binomial")
+    summary(prelim)
+    ```
+<caption>(\#tab:t4lr2) Summary results from `glm()` call</caption>
+* For "nicer" looking results, the package `jtools` can be used
+    * NOTE: `jtools` is not available in BGSU's Virtual Computing Lab
+    ```{r t4lr3, cache=TRUE}
+    library(jtools)
+    summ(prelim,   # Saved object from before
+         digits=4, # How many digits to display in each column
+         model.info = FALSE)  # Suppress extraneous information
+    ```
+<caption>(\#tab:t4lr3) Summary results from `glm()` using `jtools` package</caption>
+
+* To get the Odds Ratio coefficients, use the user defined function `or_table.R`
+* Usage: `or_table(MODEL, DIGITS, CONF)`
+    * `MODEL` is the name of the object with results of the `glm()` call
+    * `DIGITS` is the number of digits to round the values to in the table
+    * `CONF` is the confidence interval level (e.g., 95 = 95%)
+    ``` {r t4or1, cache=TRUE}
+    flextable(           # Wrapping it with 'flextable' for nicer output
+        or_table(prelim,  # Saved logistic regression model from above
+                 4,      # Number of digits to round output to
+                 95))    # Level of confidence
+    ```
+<caption>(\#tab:t4or1) Odds Ratio Coefficients</caption>
+    
+## Estimate with Training Sample Only
+
+Generally, it is good practice to use a training sample and a testing/holdout sample to see how well the model performs "out of sample".  To do this, the data must be split into two groups: `train` and `test`
+
+### Creating `train` and `test` Samples
+
+* While this can be done in a number of ways, the package `caret` has a very useful function that attempts to balance the percent of "positive" cases in both samples, while still creating random samples
+* After running this procedure, two new data frames will be created
+    * One containing the training data, `train`
+    * One containing the testing/holdout data, `test`
+    ``` {r t4trtstsample, message=FALSE}
+    # Use 'caret' package to create training and test/holdout samples
+    # This will create two separate dataframes: train and test
+    
+    library(caret)    # Load the 'caret package'
+    
+    # Start by setting a random number seed so that the same samples
+    # will be created each time
+    set.seed(4320)
+    
+    # Create a dataframe of row numbers that should be in the 'train' sample
+    inTrain <- createDataPartition(y=directmktg$buy, # Outcome variable
+                                   p=.75, # Percent of sample to be in 'train'
+                                   list=FALSE)  # Put result in matrix
+    
+    # Select only rows from data that are in 'inTrain'; assign to 'train'
+    train <- directmktg[inTrain,]
+    # Select only rows from data that not in 'inTrain'; assign to 'test'
+    test <- directmktg[-inTrain,]
+    ```
+
+### Run Model with only Training Sample
+
+* Once completed, run the model on the training sample only
+    ``` {r t4lrtrainonly1}
+    model <- glm(buy ~ age + gender, train, family="binomial")
+    summ(model,   # 'jtools' results; use 'summary' for Base R
+         4, model.info=FALSE)
+    flextable(or_table(model))
+    ```
+<caption>(\#tab:t4lrtrainonly1) Logistic Regression Results for Training Sample</caption>
+    
+## Classification Matrix
+
+* To get the Classification Matrix, use the user defined function `logreg_cm.R`
+* Usage: `logreg_cm(MOD, DATA, "POS", CUTOFF=)`
+    * `MOD` is the name of the object with results of the `glm()` call
+    * `DATA` is the data set for which the Classification Matrix should be produced (i.e., original, training, or testing)
+    * `"POS"` is the level of the factor variable that is the <span style="font-family: Courier;">SUCCESS</span> level
+    * `CUTOFF=` is the cutoff threshold; default is 0.5
+* This function requires the package `caret`, which should already be loaded from the splitting of the data
+    ```{r t4classmat1}
+    # Classification Matrix for training sample
+    logreg_cm(model,   # Name of the results object
+              train,   # Use training sample
+              "Yes")   # Level of 'buy' that represents success/true
+    ```
+<caption>(\#tab:t4classmat1) Classification Matrix for Training Sample
+
+## ROC Curve
+
+* To get the ROC curve, use the user defined function `logreg_roc.R`
+* Usage: `logreg_roc(MOD, DATA)`
+    * `MOD` is the name of the object with results of the `glm()` call
+    * `DATA` is the data set for which the ROC should be produced (i.e., original, training, or testing)
+* This function requires the package `pROC`, which needs to be loaded
+    ```{r t4roc1, message=FALSE, fig.cap="ROC Curve for Training Sample"}
+    # Load 'pROC' package
+    library(pROC)
+    
+    # ROC Curve for the training sample
+    logreg_roc(model,   # Name of the results object
+               train)   # Use training sample
+    ```
+    
+## Gain/Lift Charts and Tables
+
+* To get the Gain/Lift charts and tables , use the user defined function `gainlift.R`
+* Usage: `OBJ.NAME <- gainlift(MOD, TRAIN, TEST, "POS")`
+    * `OBJ.NAME` is the name of the object to assign the results to
+    * `MOD` is the name of the object with results of the `glm()` call
+    * `TRAIN` is the name of the data frame containing the training sample
+    * `TEST` is the name of the data frame containing the test/holdout sample
+    * `"POS"` is the level of the factor variable that is the <span style="font-family: Courier;">SUCCESS</span> level
+* This function requires the `ggplot2`, `dplyr`, and `tidyr` packages, which need to be loaded first
+* This user defined function returns a list of four objects
+    * To use, assign the result to an object name, and then call one of the four objects returned from the function
+    ```{r t4gainlift00}
+     # Load necessary packages (if not already loaded)
+    library(ggplot2)
+    library(dplyr)
+    library(tidyr)
+    
+    # Call the function and assign to object named 'glresults'
+    glresults <- gainlift(model,  # Name of the glm results object
+                          train,  # Name of the training data frame
+                          test,   # Name of the testing data frame
+                          "Yes")  # Level that represents success/true
+    ```
+
+    * `OBJ.NAME$gaintable` returns the Gain table
+        
+    ```{r t4gainlift01}
+    glresults$gaintable
+    ```
+<caption>(\#tab:t4gainlift01) Gain Table
+
+    * `OBJ.NAME$gainplot` returns the Gain plot
+    ```{r t4gainlift02, fig.cap="Gain Plot"}
+    glresults$gainplot
+    ```
+
+    * `OBJ.NAME$lifttable` returns the Lift table
+    ```{r t4gainlift03}
+    glresults$lifttable
+    ```
+<caption>(\#tab:t4gainlift03) Lift Table
+
+    * `OBJ.NAME$liftplot` returns the Lift plot
+    ```{r t4gainlift04, fig.cap="Lift Plot"}
+    glresults$liftplot
+    ```
+
+## Sensitivity/Specificity Plot
+
+* To get the Sensitivity/Specificity plot, use the user defined function `logreg_cut.R`
+* Usage: `logreg_cut.r(MOD, DATA, "POS")`
+    * `MOD` is the name of the object with results of the `glm()` call
+    * `DATA` is the data set for which the plot should be produced (i.e., original, training, or testing)
+    * `"POS"` is the level of the factor variable that is the <span style="font-family: Courier;">SUCCESS</span> level
+* This function requires the `ggplot2` package, which needs to be loaded first
+    ```{r t4sensspec, fig.cap="Sensitivity/Specificity Plot for Training Sample"}
+    # Load necessary packages
+    library(ggplot2)
+    
+    # Sensitivity/Specificity Plot for Training Sample
+    logreg_cut(model,  # Name of the results object
+              train,   # Use training sample
+              "Yes")   # Level of 'buy' that represents success/true
+    ```
