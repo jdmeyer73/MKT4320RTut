@@ -58,10 +58,13 @@ source("logreg_cut.R")
     ```
 <caption>(\#tab:t4lr1) Logit Coefficients from `glm()` call</caption>
 
-* However, if the results of the `glm()` call are assigned to an object, the `summary()` function can be used to get much more detailed output
+* However, if the results of the `glm()` call are assigned to an object, the Base R `summary()` function can be used to get much more detailed output, but requires manual calculation of McFadden's Pseudo-$R^2$
     ```{r t4lr2, cache=TRUE}
     prelim <- glm(buy ~ age + gender, directmktg, family="binomial")
     summary(prelim)
+    # Manually calculate McFadden's Pseudo R-sq
+    Mrsq <- 1-prelim$deviance/prelim$null.deviance
+    cat("McFadden's Pseudo-Rsquared = ", Mrsq)
     ```
 <caption>(\#tab:t4lr2) Summary results from `glm()` call</caption>
 * For "nicer" looking results, the package `jtools` can be used
