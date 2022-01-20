@@ -56,6 +56,7 @@ fig:t2corr6
 tab:t3lm1
 tab:t3lm2
 tab:t3lm3
+tab:t3lmbeta
 fig:t3marginplot1
 fig:t3marginplot2
 tab:t3marginplot3

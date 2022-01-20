@@ -60,6 +60,15 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
     ```
 <caption>(\#tab:t3lm3) Summary results from `lm()` using `jtools` package</caption>
 
+* To get standardized beta coefficients, use the [lm_beta](./lm_beta.R) user defined function. 
+    ```{r t3lmbeta}
+    source("lm_beta.R")  # Download lm_beta.R and put in working directory
+    lm_beta(model1, # Saved object with results
+            digits=4)  # Number of digits to diplsy
+    
+    ```
+<caption>(\#tab:t3lmbeta) Standardized Beta Coefficients</caption>
+
 ## Prediction
 
 The function `predict.lm()` can be used to predict the DV based on values of the IVs. This function is used in the margin plots covered in the next two sections. To use this function, we must pass a data frame of values to the function, where the data frame contains ALL of the IVs and the value for each IV that we want.
