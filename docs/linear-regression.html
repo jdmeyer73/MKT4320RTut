@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-19" />
+<meta name="date" content="2022-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -555,7 +555,7 @@ nflights     -0.0791</code></pre>
 <h2><span class="header-section-number">3.4</span> Margin Plots</h2>
 <p>In R, margin plots are a multistep process:</p>
 <ol style="list-style-type: decimal">
-<li><p>Create a data frame of IV values to use in the prediction.</p>
+<li>Create a data frame of IV values to use in the prediction.
 <ol style="list-style-type: decimal">
 <li>For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum</li>
 <li>For other variables in the model:
@@ -564,44 +564,51 @@ nflights     -0.0791</code></pre>
 <li>Factor variables are usually evaluated at each level of the factor</li>
 </ol></li>
 </ol></li>
-<li><p>Use the <code>predict.lm()</code> function to use the model results to predict the linear fit of the “simulated” observations in the new data frame</p></li>
-<li><p>Use <code>ggplot</code> to create the margin plot</p>
+<li>Use the <code>predict.lm()</code> function to use the model results to predict the linear fit of the “simulated” observations in the new data frame</li>
+<li>Use <code>ggplot</code> to create the margin plot</li>
+</ol>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="linear-regression.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Want to predict &#39;nps&#39; for different levels of &#39;age&#39;</span></span>
 <span id="cb243-2"><a href="linear-regression.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     when &#39;nflights&#39; is at the mean</span></span>
-<span id="cb243-3"><a href="linear-regression.html#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First, create a data frame of values to predict, using the &#39;crossing&#39;</span></span>
-<span id="cb243-4"><a href="linear-regression.html#cb243-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     function from the &#39;tidyr&#39; package</span></span>
-<span id="cb243-5"><a href="linear-regression.html#cb243-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)   <span class="co"># Load tidyr</span></span>
-<span id="cb243-6"><a href="linear-regression.html#cb243-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: variable names must be EXACTLY the same as in original model</span></span>
-<span id="cb243-7"><a href="linear-regression.html#cb243-7" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>),  <span class="co"># Different values of &#39;age&#39;</span></span>
-<span id="cb243-8"><a href="linear-regression.html#cb243-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nflights=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>nflights,  <span class="co"># mean &#39;nflights&#39;</span></span>
-<span id="cb243-9"><a href="linear-regression.html#cb243-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">na.rm=</span><span class="cn">TRUE</span>))   <span class="co"># remove missing values</span></span>
-<span id="cb243-10"><a href="linear-regression.html#cb243-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-11"><a href="linear-regression.html#cb243-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the model results to predict &#39;nps&#39; for values in &#39;pred_iv&#39; data frame</span></span>
-<span id="cb243-12"><a href="linear-regression.html#cb243-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     Predicted values and confidence intervals get appended to data frame</span></span>
-<span id="cb243-13"><a href="linear-regression.html#cb243-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     New variables are called:</span></span>
-<span id="cb243-14"><a href="linear-regression.html#cb243-14" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$fit&#39; = linear prediction from model</span></span>
-<span id="cb243-15"><a href="linear-regression.html#cb243-15" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$lwr&#39; = lower confidence interval for prediction</span></span>
-<span id="cb243-16"><a href="linear-regression.html#cb243-16" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pred$upr&#39; = upper confidcent interval for prediction</span></span>
-<span id="cb243-17"><a href="linear-regression.html#cb243-17" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb243-18"><a href="linear-regression.html#cb243-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model1, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
-<span id="cb243-19"><a href="linear-regression.html#cb243-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-20"><a href="linear-regression.html#cb243-20" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;pred_iv&#39; now contains all necessary information for margin plot</span></span>
-<span id="cb243-21"><a href="linear-regression.html#cb243-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-22"><a href="linear-regression.html#cb243-22" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="sc">%&gt;%</span></span>
-<span id="cb243-23"><a href="linear-regression.html#cb243-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,   <span class="co"># Age on x-axis</span></span>
-<span id="cb243-24"><a href="linear-regression.html#cb243-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span>   <span class="co"># &#39;nps&#39; prediction on y-axis</span></span>
-<span id="cb243-25"><a href="linear-regression.html#cb243-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
-<span id="cb243-26"><a href="linear-regression.html#cb243-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,  <span class="co"># Draws the confidence interval bands</span></span>
-<span id="cb243-27"><a href="linear-regression.html#cb243-27" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>pred<span class="sc">$</span>upr),</span>
-<span id="cb243-28"><a href="linear-regression.html#cb243-28" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
-<span id="cb243-29"><a href="linear-regression.html#cb243-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>)</span></code></pre></div>
+<span id="cb243-3"><a href="linear-regression.html#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Because we often do this for other continuous variables, we first</span></span>
+<span id="cb243-4"><a href="linear-regression.html#cb243-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     create a df with mean values of all continuous variables at</span></span>
+<span id="cb243-5"><a href="linear-regression.html#cb243-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     different levels of the factor variable (if there are any)</span></span>
+<span id="cb243-6"><a href="linear-regression.html#cb243-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: variable names must be EXACTLY the same as in model</span></span>
+<span id="cb243-7"><a href="linear-regression.html#cb243-7" aria-hidden="true" tabindex="-1"></a>m.ivs <span class="ot">&lt;-</span> airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb243-8"><a href="linear-regression.html#cb243-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>() <span class="sc">%&gt;%</span>   <span class="co"># </span><span class="al">NOTE</span><span class="co">: No factor variables for this model</span></span>
+<span id="cb243-9"><a href="linear-regression.html#cb243-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">age=</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb243-10"><a href="linear-regression.html#cb243-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">nflights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb243-11"><a href="linear-regression.html#cb243-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-12"><a href="linear-regression.html#cb243-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Second, create a df of values to predict with, using &#39;merge&#39;</span></span>
+<span id="cb243-13"><a href="linear-regression.html#cb243-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     &#39;merge&#39; simply merges data frames</span></span>
+<span id="cb243-14"><a href="linear-regression.html#cb243-14" aria-hidden="true" tabindex="-1"></a>age.pred <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>)), <span class="co"># Variable of interest</span></span>
+<span id="cb243-15"><a href="linear-regression.html#cb243-15" aria-hidden="true" tabindex="-1"></a>                  m.ivs[,<span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>)]) <span class="co"># Mean levels of other variables</span></span>
+<span id="cb243-16"><a href="linear-regression.html#cb243-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-17"><a href="linear-regression.html#cb243-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Third, use model results to predict DV for values in &#39;age.pred&#39; data frame</span></span>
+<span id="cb243-18"><a href="linear-regression.html#cb243-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     Predicted values and confidence intervals get appended to data frame</span></span>
+<span id="cb243-19"><a href="linear-regression.html#cb243-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     New variables are called:</span></span>
+<span id="cb243-20"><a href="linear-regression.html#cb243-20" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;pfit&#39;  = linear prediction from model</span></span>
+<span id="cb243-21"><a href="linear-regression.html#cb243-21" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;p$lwr&#39; = lower confidence interval for prediction</span></span>
+<span id="cb243-22"><a href="linear-regression.html#cb243-22" aria-hidden="true" tabindex="-1"></a><span class="co">#          &#39;p$upr&#39; = upper confidcent interval for prediction</span></span>
+<span id="cb243-23"><a href="linear-regression.html#cb243-23" aria-hidden="true" tabindex="-1"></a>age.pred<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb243-24"><a href="linear-regression.html#cb243-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">predict.lm</span>(model1,    <span class="co"># Object with model results    </span></span>
+<span id="cb243-25"><a href="linear-regression.html#cb243-25" aria-hidden="true" tabindex="-1"></a>              age.pred,  <span class="co"># df of IV values to predict with</span></span>
+<span id="cb243-26"><a href="linear-regression.html#cb243-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))   <span class="co"># Request CIs</span></span>
+<span id="cb243-27"><a href="linear-regression.html#cb243-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-28"><a href="linear-regression.html#cb243-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Last, use &#39;age.pred&#39; for margin plot</span></span>
+<span id="cb243-29"><a href="linear-regression.html#cb243-29" aria-hidden="true" tabindex="-1"></a>age.pred <span class="sc">%&gt;%</span></span>
+<span id="cb243-30"><a href="linear-regression.html#cb243-30" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,   <span class="co"># Age on x-axis</span></span>
+<span id="cb243-31"><a href="linear-regression.html#cb243-31" aria-hidden="true" tabindex="-1"></a>              <span class="at">y=</span>p<span class="sc">$</span>fit)) <span class="sc">+</span>   <span class="co"># &#39;nps&#39; prediction on y-axis</span></span>
+<span id="cb243-32"><a href="linear-regression.html#cb243-32" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
+<span id="cb243-33"><a href="linear-regression.html#cb243-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>p<span class="sc">$</span>lwr,  <span class="co"># Draws the confidence interval bands</span></span>
+<span id="cb243-34"><a href="linear-regression.html#cb243-34" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ymax=</span>p<span class="sc">$</span>upr),</span>
+<span id="cb243-35"><a href="linear-regression.html#cb243-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
+<span id="cb243-36"><a href="linear-regression.html#cb243-36" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t3marginplot1"></span>
 <img src="_main_files/figure-html/t3marginplot1-1.png" alt="Single margin plot" width="672" />
 <p class="caption">
 Figure 3.1: Single margin plot
 </p>
-</div></li>
-</ol>
+</div>
 <div id="separate-margin-plots" class="section level3" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Separate Margin Plots</h3>
 <ul>
@@ -612,102 +619,125 @@ Figure 3.1: Single margin plot
 <li>Use the function <code>plot_grid()</code> from the <code>cowplot</code> package to make the plots appear in the same figure
 <ul>
 <li>Save each plot as an object, then pass the objects to <code>plot_grid()</code></li>
+</ul></li>
 </ul>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="linear-regression.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
 <span id="cb244-2"><a href="linear-regression.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for min and max of the 95% confidence bands to adjust y-axis</span></span>
-<span id="cb244-3"><a href="linear-regression.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>lwr)</span></code></pre></div>
+<span id="cb244-3"><a href="linear-regression.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(age.pred<span class="sc">$</span>p<span class="sc">$</span>lwr)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 6.491185</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="linear-regression.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>upr)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="linear-regression.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(age.pred<span class="sc">$</span>p<span class="sc">$</span>upr)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 9.085342</code></pre>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="linear-regression.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save previous plot (for &#39;age&#39;) as plot 1</span></span>
-<span id="cb248-2"><a href="linear-regression.html#cb248-2" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> pred_iv <span class="sc">%&gt;%</span></span>
-<span id="cb248-3"><a href="linear-regression.html#cb248-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,   <span class="co"># Age on x-axis</span></span>
-<span id="cb248-4"><a href="linear-regression.html#cb248-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span>   <span class="co"># &#39;nps&#39; prediction on y-axis</span></span>
-<span id="cb248-5"><a href="linear-regression.html#cb248-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
-<span id="cb248-6"><a href="linear-regression.html#cb248-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,  <span class="co"># Draws the confidence interval bands</span></span>
-<span id="cb248-7"><a href="linear-regression.html#cb248-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>pred<span class="sc">$</span>upr),</span>
-<span id="cb248-8"><a href="linear-regression.html#cb248-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
-<span id="cb248-9"><a href="linear-regression.html#cb248-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>) <span class="sc">+</span></span>
-<span id="cb248-10"><a href="linear-regression.html#cb248-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">5.25</span>,<span class="fl">9.25</span>))  <span class="co"># Set scale limits for y-axis</span></span>
-<span id="cb248-11"><a href="linear-regression.html#cb248-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-12"><a href="linear-regression.html#cb248-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second plot for &#39;nflights&#39; and save as plot 2</span></span>
-<span id="cb248-13"><a href="linear-regression.html#cb248-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-14"><a href="linear-regression.html#cb248-14" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">nflights=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">150</span>, <span class="dv">15</span>),</span>
-<span id="cb248-15"><a href="linear-regression.html#cb248-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">age=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
-<span id="cb248-16"><a href="linear-regression.html#cb248-16" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb248-17"><a href="linear-regression.html#cb248-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model1, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
-<span id="cb248-18"><a href="linear-regression.html#cb248-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-19"><a href="linear-regression.html#cb248-19" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>lwr)</span></code></pre></div>
+<span id="cb248-2"><a href="linear-regression.html#cb248-2" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> age.pred <span class="sc">%&gt;%</span></span>
+<span id="cb248-3"><a href="linear-regression.html#cb248-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,<span class="at">y=</span>p<span class="sc">$</span>fit)) <span class="sc">+</span></span>
+<span id="cb248-4"><a href="linear-regression.html#cb248-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb248-5"><a href="linear-regression.html#cb248-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>p<span class="sc">$</span>lwr, <span class="at">ymax=</span>p<span class="sc">$</span>upr), <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb248-6"><a href="linear-regression.html#cb248-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>) <span class="sc">+</span></span>
+<span id="cb248-7"><a href="linear-regression.html#cb248-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">5.25</span>,<span class="fl">9.25</span>))  <span class="co"># Set scale limits for y-axis</span></span>
+<span id="cb248-8"><a href="linear-regression.html#cb248-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb248-9"><a href="linear-regression.html#cb248-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second plot for &#39;nflights&#39; using procedure above</span></span>
+<span id="cb248-10"><a href="linear-regression.html#cb248-10" aria-hidden="true" tabindex="-1"></a>nflights.pred <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(<span class="at">nflights=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">150</span>, <span class="dv">15</span>)),</span>
+<span id="cb248-11"><a href="linear-regression.html#cb248-11" aria-hidden="true" tabindex="-1"></a>                       m.ivs[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)])</span>
+<span id="cb248-12"><a href="linear-regression.html#cb248-12" aria-hidden="true" tabindex="-1"></a>nflights.pred<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict.lm</span>(model1, nflights.pred,</span>
+<span id="cb248-13"><a href="linear-regression.html#cb248-13" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb248-14"><a href="linear-regression.html#cb248-14" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(nflights.pred<span class="sc">$</span>p<span class="sc">$</span>lwr)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 5.319659</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="linear-regression.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(pred_iv<span class="sc">$</span>pred<span class="sc">$</span>upr)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="linear-regression.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(nflights.pred<span class="sc">$</span>p<span class="sc">$</span>upr)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 7.809707</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="linear-regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> pred_iv <span class="sc">%&gt;%</span></span>
-<span id="cb252-2"><a href="linear-regression.html#cb252-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>nflights, <span class="at">y=</span>pred<span class="sc">$</span>fit)) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="linear-regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> nflights.pred <span class="sc">%&gt;%</span></span>
+<span id="cb252-2"><a href="linear-regression.html#cb252-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>nflights, <span class="at">y=</span>p<span class="sc">$</span>fit)) <span class="sc">+</span></span>
 <span id="cb252-3"><a href="linear-regression.html#cb252-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb252-4"><a href="linear-regression.html#cb252-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr,<span class="at">ymax=</span>pred<span class="sc">$</span>upr),<span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb252-4"><a href="linear-regression.html#cb252-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>p<span class="sc">$</span>lwr,<span class="at">ymax=</span>p<span class="sc">$</span>upr),<span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb252-5"><a href="linear-regression.html#cb252-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Number of Flights&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>)  <span class="sc">+</span></span>
 <span id="cb252-6"><a href="linear-regression.html#cb252-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">5.25</span>,<span class="fl">9.25</span>))  <span class="co"># Set scale limits for y-axis</span></span>
-<span id="cb252-7"><a href="linear-regression.html#cb252-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-8"><a href="linear-regression.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(plot1,plot2)</span></code></pre></div>
+<span id="cb252-7"><a href="linear-regression.html#cb252-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb252-8"><a href="linear-regression.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use &#39;cowplot&#39; function &#39;plot_grid&#39; to combine plots</span></span>
+<span id="cb252-9"><a href="linear-regression.html#cb252-9" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(plot1,plot2)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t3marginplot2"></span>
 <img src="_main_files/figure-html/t3marginplot2-1.png" alt="Separate margin plots" width="672" />
 <p class="caption">
 Figure 3.2: Separate margin plots
 </p>
-</div></li>
-</ul>
+</div>
 </div>
 <div id="continuous-iv-at-levels-of-factor-iv" class="section level3" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Continuous IV at Levels of Factor IV</h3>
 <ul>
-<li><p>Margin plots when one of the variables is a factor variable are done in much the same way, but require an <code>aes(color=factor)</code> to produce different lines for each level of the factor</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="linear-regression.html#cb253-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nps <span class="sc">~</span> age<span class="sc">*</span>flight_purpose, airlinesat)</span>
-<span id="cb253-2"><a href="linear-regression.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<li>Margin plots when one of the variables is a factor variable are done in much the same way, but require an <code>aes(color=factor)</code> to produce different lines for each level of the factor</li>
+</ul>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="linear-regression.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run new model with &#39;age&#39; and &#39;flight_purpose&#39; interaction</span></span>
+<span id="cb253-2"><a href="linear-regression.html#cb253-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nps <span class="sc">~</span> age<span class="sc">*</span>flight_purpose <span class="sc">+</span> nflights, airlinesat)</span>
+<span id="cb253-3"><a href="linear-regression.html#cb253-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
 <pre class="custom-output"><code>
 Call:
-lm(formula = nps ~ age * flight_purpose, data = airlinesat)
+lm(formula = nps ~ age * flight_purpose + nflights, data = airlinesat)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--6.9197 -1.0779  0.3226  1.8153  4.1003 
+-6.9177 -1.0298  0.3193  1.8402  6.1721 
 
 Coefficients:
-                          Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                5.51007    0.50217  10.973  &lt; 2e-16 ***
-age                        0.03563    0.01015   3.512 0.000463 ***
-flight_purposeLeisure      1.98261    0.63238   3.135 0.001765 ** 
-age:flight_purposeLeisure -0.02986    0.01238  -2.411 0.016072 *  
+                           Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                5.675998   0.510101  11.127  &lt; 2e-16 ***
+age                        0.034704   0.010148   3.420 0.000651 ***
+flight_purposeLeisure      1.912145   0.632942   3.021 0.002579 ** 
+nflights                  -0.006487   0.003616  -1.794 0.073088 .  
+age:flight_purposeLeisure -0.029724   0.012372  -2.403 0.016450 *  
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 2.302 on 1061 degrees of freedom
-Multiple R-squared:  0.0262,    Adjusted R-squared:  0.02345 
-F-statistic: 9.516 on 3 and 1061 DF,  p-value: 3.322e-06</code></pre>
+Residual standard error: 2.299 on 1060 degrees of freedom
+Multiple R-squared:  0.02915,   Adjusted R-squared:  0.02549 
+F-statistic: 7.957 on 4 and 1060 DF,  p-value: 2.551e-06</code></pre>
 <caption>
-<p><span id="tab:t3marginplot3">Table 3.5: </span> Summary results of model with interaction</p>
+<span id="tab:t3marginplot3">Table 3.5: </span> Summary results of model with interaction
 </caption>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="linear-regression.html#cb255-1" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>),  <span class="co"># Different values of &#39;age&#39;</span></span>
-<span id="cb255-2"><a href="linear-regression.html#cb255-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">flight_purpose=</span><span class="fu">c</span>(<span class="st">&quot;Leisure&quot;</span>, <span class="st">&quot;Business&quot;</span>))  <span class="co"># factor levels</span></span>
-<span id="cb255-3"><a href="linear-regression.html#cb255-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-4"><a href="linear-regression.html#cb255-4" aria-hidden="true" tabindex="-1"></a>pred_iv<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb255-5"><a href="linear-regression.html#cb255-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict.lm</span>(model2, pred_iv, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
-<span id="cb255-6"><a href="linear-regression.html#cb255-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-7"><a href="linear-regression.html#cb255-7" aria-hidden="true" tabindex="-1"></a>pred_iv <span class="sc">%&gt;%</span></span>
-<span id="cb255-8"><a href="linear-regression.html#cb255-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use &#39;color&#39; aesthetic for separate lines for &#39;flight purpose&#39;</span></span>
-<span id="cb255-9"><a href="linear-regression.html#cb255-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>pred<span class="sc">$</span>fit, <span class="at">color=</span><span class="fu">as.factor</span>(flight_purpose))) <span class="sc">+</span></span>
-<span id="cb255-10"><a href="linear-regression.html#cb255-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb255-11"><a href="linear-regression.html#cb255-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use &#39;fill&#39; aesthetic for separate colors for the CI bands</span></span>
-<span id="cb255-12"><a href="linear-regression.html#cb255-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>pred<span class="sc">$</span>lwr, <span class="at">ymax=</span>pred<span class="sc">$</span>upr, </span>
-<span id="cb255-13"><a href="linear-regression.html#cb255-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill=</span><span class="fu">as.factor</span>(flight_purpose)), <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb255-14"><a href="linear-regression.html#cb255-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>, </span>
-<span id="cb255-15"><a href="linear-regression.html#cb255-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">color=</span><span class="st">&quot;Flight Purpose&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="linear-regression.html#cb255-1" aria-hidden="true" tabindex="-1"></a>m.ivs <span class="ot">&lt;-</span> airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb255-2"><a href="linear-regression.html#cb255-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(flight_purpose) <span class="sc">%&gt;%</span>   <span class="co"># Factor variable in model</span></span>
+<span id="cb255-3"><a href="linear-regression.html#cb255-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">age=</span><span class="fu">mean</span>(age, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb255-4"><a href="linear-regression.html#cb255-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">nflights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb255-5"><a href="linear-regression.html#cb255-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-6"><a href="linear-regression.html#cb255-6" aria-hidden="true" tabindex="-1"></a>age.pred <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">15</span>, <span class="dv">105</span>, <span class="dv">10</span>)), <span class="co"># Variable of interest</span></span>
+<span id="cb255-7"><a href="linear-regression.html#cb255-7" aria-hidden="true" tabindex="-1"></a>                  m.ivs[,<span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>, <span class="st">&quot;flight_purpose&quot;</span>)]) <span class="co"># Other variables</span></span>
+<span id="cb255-8"><a href="linear-regression.html#cb255-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-9"><a href="linear-regression.html#cb255-9" aria-hidden="true" tabindex="-1"></a>age.pred<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict.lm</span>(model2, age.pred,</span>
+<span id="cb255-10"><a href="linear-regression.html#cb255-10" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb255-11"><a href="linear-regression.html#cb255-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-12"><a href="linear-regression.html#cb255-12" aria-hidden="true" tabindex="-1"></a>nflights.pred <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(<span class="at">nflights=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">150</span>, <span class="dv">15</span>)),</span>
+<span id="cb255-13"><a href="linear-regression.html#cb255-13" aria-hidden="true" tabindex="-1"></a>                       m.ivs[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;flight_purpose&quot;</span>)])</span>
+<span id="cb255-14"><a href="linear-regression.html#cb255-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-15"><a href="linear-regression.html#cb255-15" aria-hidden="true" tabindex="-1"></a>nflights.pred<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict.lm</span>(model2, nflights.pred,</span>
+<span id="cb255-16"><a href="linear-regression.html#cb255-16" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>))</span>
+<span id="cb255-17"><a href="linear-regression.html#cb255-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-18"><a href="linear-regression.html#cb255-18" aria-hidden="true" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> age.pred <span class="sc">%&gt;%</span></span>
+<span id="cb255-19"><a href="linear-regression.html#cb255-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,<span class="at">y=</span>p<span class="sc">$</span>fit, </span>
+<span id="cb255-20"><a href="linear-regression.html#cb255-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="fu">factor</span>(flight_purpose))) <span class="sc">+</span> <span class="co"># Different lines for factor</span></span>
+<span id="cb255-21"><a href="linear-regression.html#cb255-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>     </span>
+<span id="cb255-22"><a href="linear-regression.html#cb255-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>p<span class="sc">$</span>lwr, <span class="at">ymax=</span>p<span class="sc">$</span>upr,</span>
+<span id="cb255-23"><a href="linear-regression.html#cb255-23" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill=</span><span class="fu">factor</span>(flight_purpose)),  <span class="co"># Different fill color </span></span>
+<span id="cb255-24"><a href="linear-regression.html#cb255-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb255-25"><a href="linear-regression.html#cb255-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>, </span>
+<span id="cb255-26"><a href="linear-regression.html#cb255-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">color=</span><span class="st">&quot;Flight Purpose&quot;</span>) <span class="sc">+</span></span>
+<span id="cb255-27"><a href="linear-regression.html#cb255-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb255-28"><a href="linear-regression.html#cb255-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="fl">10.5</span>))</span>
+<span id="cb255-29"><a href="linear-regression.html#cb255-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-30"><a href="linear-regression.html#cb255-30" aria-hidden="true" tabindex="-1"></a>plot4 <span class="ot">&lt;-</span> nflights.pred <span class="sc">%&gt;%</span></span>
+<span id="cb255-31"><a href="linear-regression.html#cb255-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>nflights,<span class="at">y=</span>p<span class="sc">$</span>fit, <span class="at">color=</span><span class="fu">factor</span>(flight_purpose))) <span class="sc">+</span> </span>
+<span id="cb255-32"><a href="linear-regression.html#cb255-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>     </span>
+<span id="cb255-33"><a href="linear-regression.html#cb255-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>p<span class="sc">$</span>lwr, <span class="at">ymax=</span>p<span class="sc">$</span>upr,</span>
+<span id="cb255-34"><a href="linear-regression.html#cb255-34" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill=</span><span class="fu">factor</span>(flight_purpose)),<span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb255-35"><a href="linear-regression.html#cb255-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Number of Flights&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediciton&quot;</span>, </span>
+<span id="cb255-36"><a href="linear-regression.html#cb255-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">color=</span><span class="st">&quot;Flight Purpose&quot;</span>) <span class="sc">+</span></span>
+<span id="cb255-37"><a href="linear-regression.html#cb255-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb255-38"><a href="linear-regression.html#cb255-38" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="fl">10.5</span>))</span>
+<span id="cb255-39"><a href="linear-regression.html#cb255-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-40"><a href="linear-regression.html#cb255-40" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(plot3, plot4)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t3marginplot4"></span>
 <img src="_main_files/figure-html/t3marginplot4-1.png" alt="Margin plot with factor variable" width="672" />
 <p class="caption">
 Figure 3.3: Margin plot with factor variable
 </p>
-</div></li>
-</ul>
+</div>
 
 </div>
 </div>
