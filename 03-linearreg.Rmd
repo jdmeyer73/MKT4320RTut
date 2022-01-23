@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 ```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -28,6 +23,7 @@ Data for this chapter:
 
 Base R is typically sufficient for performing most regression tasks.  Some additional packages may be used for "prettier" tables or extracting results to make useful plots.
 
+\newpage
 ## The `lm()` Function
 
 * Basic linear regression is performed using the `lm()` function.
@@ -74,6 +70,7 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
     ```
 <caption>(\#tab:t3lmbeta) Standardized Beta Coefficients</caption>
 
+\newpage
 ## Prediction
 
 The function `predict.lm()` can be used to predict the DV based on values of the IVs. This function is used in the margin plots covered in the next two sections. To use this function, we must pass a data frame of values to the function, where the data frame contains ALL of the IVs and the value for each IV that we want.
@@ -90,6 +87,7 @@ predict.lm(model1,   # The model we are using to predict
            interval="confidence")   # Request confidence interval
 ```
 
+\newpage
 ## Margin Plots
 
 In R, margin plots are a multistep process:
@@ -97,8 +95,8 @@ In R, margin plots are a multistep process:
 1. Create a data frame of IV values to use in the prediction.
     1. For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum
     2. For other variables in the model:
-        1. Continuous variables are usually evaluated an the sample mean
-        2. Factor variables are usually evaluated at each level of the factor
+        1. Factor variables are usually evaluated at each level of the factor
+        2. Continuous variables are usually evaluated an the sample mean for each level of the factor variable (if factor variables are present)
 2. Use the `predict.lm()` function to use the model results to predict the linear fit of the "simulated" observations in the new data frame
 3. Use `ggplot` to create the margin plot
 

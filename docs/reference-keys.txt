@@ -183,6 +183,7 @@ logistic-regression-using-glm
 estimate-with-training-sample-only
 creating-train-and-test-samples
 run-model-with-only-training-sample
+margin-plots-1
 classification-matrix
 roc-curve
 gainlift-charts-and-tables

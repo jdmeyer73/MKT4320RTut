@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-20" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -301,10 +301,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#creating-train-and-test-samples"><i class="fa fa-check"></i><b>4.4.1</b> Creating <code>train</code> and <code>test</code> Samples</a></li>
 <li class="chapter" data-level="4.4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#run-model-with-only-training-sample"><i class="fa fa-check"></i><b>4.4.2</b> Run Model with only Training Sample</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.5</b> Classification Matrix</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.6</b> ROC Curve</a></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.7</b> Gain/Lift Charts and Tables</a></li>
-<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.8</b> Sensitivity/Specificity Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#margin-plots-1"><i class="fa fa-check"></i><b>4.5</b> Margin Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.6</b> Classification Matrix</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.7</b> ROC Curve</a></li>
+<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.8</b> Gain/Lift Charts and Tables</a></li>
+<li class="chapter" data-level="4.9" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.9</b> Sensitivity/Specificity Plot</a></li>
 </ul></li>
 </ul>
 
@@ -442,6 +443,7 @@ Figure 1.1: RStudio Layout
 <li>The <code>Help</code> tab contains the help menu.</li>
 <li>The <code>Viewer</code> tab contains output from code if the code directs it to be displayed there.</li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -619,6 +621,7 @@ isTRUE(x)
 </tr>
 </tbody>
 </table>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="packages" class="section level2" number="1.3">
@@ -644,6 +647,7 @@ isTRUE(x)
 <li><p><strong>NOTE 1</strong>: It is not uncommon to see a variety of messages when loading a package</p></li>
 <li><p><strong>NOTE 2</strong>: Packages need to be loaded every time you start a new R session</p></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="getting-help" class="section level2" number="1.4">
@@ -653,6 +657,7 @@ isTRUE(x)
 <li><p>To access the help, type <code>? FUNCTION</code> in the console, and the help page for that function will show up in the lower-right pane under the help tab</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1" aria-hidden="true" tabindex="-1"></a>? mean</span></code></pre></div></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="basic-object-types-and-other-important-stuff" class="section level2" number="1.5">
 <h2><span class="header-section-number">1.5</span> Basic Object Types (and Other Important Stuff)</h2>
@@ -815,6 +820,7 @@ isTRUE(x)
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="r-basics.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(x.Class)</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="data-frames" class="section level2" number="1.6">
@@ -958,6 +964,7 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-basics.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>x.Char</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="data-transformations" class="section level2" number="1.7">
@@ -1039,6 +1046,7 @@ Figure 1.2: Viewing a Data Frame in the Source Window
  $ Grp   : Factor w/ 2 levels &quot;high&quot;,&quot;very low&quot;: 2 2 2 2 1</code></pre>
 Notice the <code>|</code> in the code above. It stands for “or,” which tells R that either condition can be true.</li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="loading-and-saving-data" class="section level2" number="1.8">
@@ -1103,6 +1111,7 @@ Figure 1.5: Loading Data
 </ul>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="r-basics.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x.df, <span class="at">file=</span><span class="st">&quot;xdf.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="user-defined-functions" class="section level2" number="1.9">
@@ -1137,6 +1146,7 @@ Figure 1.5: Loading Data
 <span id="cb116-2"><a href="r-basics.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqlog</span>(myvals)   <span class="co"># Using the function on a vector</span></span></code></pre></div>
 <pre class="custom-output"><code>[1] 1.268636 1.517427 1.730818 1.920646 2.093329 2.252815</code></pre></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="package-dplyr" class="section level2" number="1.10">
@@ -1367,6 +1377,7 @@ Figure 1.5: Loading Data
 1 Europe                13.7       13.7     870
 2 North America         12.2       12.2     195</code></pre></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -1416,6 +1427,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="r-basics.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yday</span>(mybday)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 74</code></pre></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="rmarkdown" class="section level2" number="1.12">
 <h2><span class="header-section-number">1.12</span> RMarkdown</h2>

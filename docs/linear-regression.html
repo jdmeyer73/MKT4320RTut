@@ -24,7 +24,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-01-20" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -301,10 +301,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#creating-train-and-test-samples"><i class="fa fa-check"></i><b>4.4.1</b> Creating <code>train</code> and <code>test</code> Samples</a></li>
 <li class="chapter" data-level="4.4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#run-model-with-only-training-sample"><i class="fa fa-check"></i><b>4.4.2</b> Run Model with only Training Sample</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.5</b> Classification Matrix</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.6</b> ROC Curve</a></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.7</b> Gain/Lift Charts and Tables</a></li>
-<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.8</b> Sensitivity/Specificity Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#margin-plots-1"><i class="fa fa-check"></i><b>4.5</b> Margin Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.6</b> Classification Matrix</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.7</b> ROC Curve</a></li>
+<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.8</b> Gain/Lift Charts and Tables</a></li>
+<li class="chapter" data-level="4.9" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.9</b> Sensitivity/Specificity Plot</a></li>
 </ul></li>
 </ul>
 
@@ -342,6 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introduction-3" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
 <p>Base R is typically sufficient for performing most regression tasks. Some additional packages may be used for “prettier” tables or extracting results to make useful plots.</p>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="the-lm-function" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> The <code>lm()</code> Function</h2>
@@ -533,6 +535,7 @@ nflights     -0.0791</code></pre>
 <p><span id="tab:t3lmbeta">Table 3.4: </span> Standardized Beta Coefficients</p>
 </caption></li>
 </ul>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="prediction" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Prediction</h2>
@@ -550,6 +553,7 @@ nflights     -0.0791</code></pre>
 <pre class="custom-output"><code>       fit      lwr      upr
 1 7.322601 7.153951 7.491252
 2 6.800657 6.431058 7.170255</code></pre>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="margin-plots" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Margin Plots</h2>
@@ -560,8 +564,8 @@ nflights     -0.0791</code></pre>
 <li>For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum</li>
 <li>For other variables in the model:
 <ol style="list-style-type: decimal">
-<li>Continuous variables are usually evaluated an the sample mean</li>
 <li>Factor variables are usually evaluated at each level of the factor</li>
+<li>Continuous variables are usually evaluated an the sample mean for each level of the factor variable (if factor variables are present)</li>
 </ol></li>
 </ol></li>
 <li>Use the <code>predict.lm()</code> function to use the model results to predict the linear fit of the “simulated” observations in the new data frame</li>

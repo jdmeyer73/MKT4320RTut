@@ -97,6 +97,7 @@ The bottom-right corner also contains several tabs, all of which are used at dif
 * The `Help` tab contains the help menu.
 * The `Viewer` tab contains output from code if the code directs it to be displayed there.
 
+\newpage
 ## R Language
 
 ### Basics of R Commands
@@ -127,6 +128,7 @@ operators %>%
    pack_rows(index=c("Mathematical"=5, "Logical"= 10))
 ```
 
+\newpage
 ## Packages
 
 Packages are collections of functions that have been written to expand the functionality of R.  Packages are not automatically included, and if a command is given that is not part of a package installed and loaded, R will give an error message.  Therefore, the package must first be installed, and then loaded.
@@ -152,6 +154,7 @@ Packages are collections of functions that have been written to expand the funct
 * **NOTE 1**: It is not uncommon to see a variety of messages when loading a package
 * **NOTE 2**: Packages need to be loaded every time you start a new R session
 
+\newpage
 ## Getting Help
 
 * R has built in help to assist with understanding different functions
@@ -160,6 +163,7 @@ Packages are collections of functions that have been written to expand the funct
     ? mean
     ```
 
+\newpage
 ## Basic Object Types (and Other Important Stuff)
 
 * Objects in R include variables, data sets, and functions
@@ -311,6 +315,7 @@ Packages are collections of functions that have been written to expand the funct
     levels(x.Class)
     ```
     
+\newpage
 ## Data Frames
 
 Data frames are an object type that deserve special attention
@@ -352,7 +357,6 @@ Data frames are an object type that deserve special attention
                         var4=100)
     x2.df
     ```
-    
 
 ### Viewing a Data Frame
 
@@ -404,6 +408,7 @@ data(Salaries)
     x.df$x.Char
     ```
 
+\newpage
 ## Data Transformations
 
 * Analysts and researchers often need to create new variables from existing ones or transform existing variables
@@ -454,7 +459,8 @@ data(Salaries)
     str(x.df)
     ```
     Notice the `|` in the code above. It stands for "or", which tells R that either condition can be true.
-    
+
+\newpage    
 ## Loading and Saving Data
 
 In this class, the data will be provided to you as an `.Rdata` file, which are specific to R and the best way to store (and load) objects. If desired, `.Rdata` files can contain multiple objects. For example, an `.Rdata` file could contain two different data frames.
@@ -513,6 +519,7 @@ knitr::opts_knit$set(root.dir = "C:/Users/jdmeyer/Dropbox/_DATA/Teaching/MKT4320
     save(x.df, file="xdf.rdata")
     ```
 
+\newpage
 ## User Defined Functions
 
 Often, a series of commands is repeated over and over, or there is not an easy, built-in function in R to provide a needed result.  In these case, R makes it relatively easy to create your own functions
@@ -543,6 +550,7 @@ Often, a series of commands is repeated over and over, or there is not an easy, 
     sqlog(myvals)   # Using the function on a vector
     ```
 
+\newpage
 ## Package *dplyr*
 
 The `dplyr` package (pronounced DEE ply er) is a package that makes data manipulation much easier and more intuitive (for most).  `dplyr` is built around the five main "verbs" shown below that make up a majority of data manipulation. However, there are other functions that `dplyr` uses to also help with data manipulation.
@@ -676,6 +684,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
                   valid_n=sum(!is.na(nflights)))
     ```
 
+\newpage
 ## Package *lubridate*
 
 The `lubridate` package was created to make working with dates and times a little bit easier.  While the package has a great deal of funcationality, this tutorial will only focus on a some of the most common elements.
@@ -715,7 +724,8 @@ Additionally, lubridate can easily pull out the specific components that are hav
     wday(mybday, label=TRUE)
     yday(mybday)
     ```
-    
+
+\newpage    
 ## RMarkdown
 
 RMarkdown allows users to create documents that combine code and text.  Ultimately, they are used for "reproducible research".  That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.

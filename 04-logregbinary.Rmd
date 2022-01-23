@@ -132,6 +132,48 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     ```
 <caption>(\#tab:t4lrtrainonly1) Logistic Regression Results for Training Sample</caption>
     
+## Margin Plots
+
+* Margin plots are done in much the same way as with linear regression
+    * The biggest difference is the function use to predict
+
+1. Create a data frame of IV values to use in the prediction.
+    1. For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum
+    2. For other variables in the model:
+        1. Factor variables are usually evaluated at each level of the factor
+        2. Continuous variables are usually evaluated an the sample mean for each level of the factor variable (if factor variables are present)
+2. Use the `predict()` function with the `type="link"` option to use the model results to predict the log-odds fit of the "simulated" observations in the new data frame
+3. Use `ggplot` to create the margin plot
+
+    ```{r t4marginplot1}
+    # Create new data for prediction with 'age' as focus
+    age.pred <- merge(data.frame(age=seq(18,60,2)),
+                      data.frame(gender=c("Male", "Female")))
+    
+    # Create data frame with predicted values and confidence bands
+    train.pred <- 
+        # 'cbind' combines objects by columns
+        cbind(age.pred, 
+              predict(model, # Model to predict values with
+                      age.pred, # New data to use for IVs
+                      type="link", # Return log-odds predictions
+                      se=TRUE)) %>%  # Get std.err. for CIs
+    mutate(pred=plogis(fit), # Calculate pr(buy)
+           upr=plogis(fit+(qnorm(0.975)*se.fit)),  # Upper CI
+           lwr=plogis(fit-(qnorm(0.975)*se.fit)))  # Lower CI
+    
+    # Create Plot(s)
+    ggplot(aes(x=age, y=pred), data=train.pred) +
+        geom_line(aes(color=gender), size=1) +
+        geom_ribbon(aes(ymin=lwr, ymax=upr, 
+                        color=gender, fill=gender), alpha=.2) +
+        facet_grid(~gender) + # Creates separate plots for each gender
+        theme(legend.position="none") +
+        scale_color_manual(values=c("red4", "navy")) +
+        scale_fill_manual(values=c("pink", "cyan")) +
+        labs(x="Age", y="Pr(Buy)")
+    ```
+    
 ## Classification Matrix
 
 * To get the Classification Matrix, use the user defined function `logreg_cm.R`

@@ -15,11 +15,10 @@ Sources for this chapter:
 
 Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th `ggplot2` package. For this part of the tutorial, the [airlinesat.rdata]("Data/airlinesat.rdata") data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe.  You should load this data now:<br>`load("airlinesat.rdata")`
 
+\newpage
 ## Visualizations
 
 ### Package *ggplot2*
-
-
 
 #### Introduction
 
@@ -351,6 +350,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
              color="Flight Type")
     ```    
 
+\newpage
 ## Tables and Statistics
 
 ### Frequency Table
