@@ -515,7 +515,9 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
     ``` {r t2summary8, echo=FALSE, cache=TRUE}
     sumtable(airlinesat, 
              vars=c("nflights","age","s10"), # Use `c()` for multiple variables
-             add.median=TRUE)  # Request median
+             out="return", 
+             add.median=TRUE) %>%  # Request median
+      kable(caption=NULL)
     ```
 <caption>(\#tab:t2summary8) Summary statistics using <i>vtable</i>, multiple variable</caption>
     * One or more continuous variables by a discrete/grouping variable

@@ -88,88 +88,72 @@ predict.lm(model1,   # The model we are using to predict
 ```
 
 \newpage
-## Margin Plots
+## Margin Plots {#linregmarginplots}
 
 In R, margin plots are a multistep process:
 
-1. Create a data frame of IV values to use in the prediction.
-    1. For the variable of interest, this is usually a sequence of values from about the minimum to about the maximum
-    2. For other variables in the model:
-        1. Factor variables are usually evaluated at each level of the factor
-        2. Continuous variables are usually evaluated an the sample mean for each level of the factor variable (if factor variables are present)
-2. Use the `predict.lm()` function to use the model results to predict the linear fit of the "simulated" observations in the new data frame
-3. Use `ggplot` to create the margin plot
+1. Use the `predictorEffect` function from the `effects` package to create a data frame of predicted values for different values of the focal variable.
+    * For continuous focal variables, predictions will be made for 50 evenly-spaced values of the focal variable at mean values of the other variables.
+        * If the model has an interaction between a continuous focal variable and a factor variable, predictions will be made for each level of the factor variable.
+        * If the model has an interaction between a continuous focal variable and another continuous variable, predictions will be made for 5 evenly-spaced values of the other continuous variable.
+    * For factor focal variables, predictions will be made for each level of the factor variable at mean values of the other variables.
+        * If the model has an interaction between a factor focal variable and a continuous variable, predictions will be made for 5 evenly-spaced values of the the continuous variable.
+        * If the model has an interaction between a factor focal variable and another factor variable, predictions will be made for every combination of the two factor variables.
+    * By default, the dataframe will contain the predicted value (`fit`) and values for a $95\%$ confidence interval (`lower` and `upper`)
+2. Use `ggplot` to create the margin plot
 
-``` {r t3marginplot1, message=FALSE, fig.cap="Single margin plot"}
+### Continuous IV (No Interaction)
+
+``` {r t3marginplot1, message=FALSE, fig.cap="Margin plot (continuous IV)"}
+library(effects)  # Load package 'effects'
+
 # Want to predict 'nps' for different levels of 'age'
-#     when 'nflights' is at the mean
-# Because we often do this for other continuous variables, we first
-#     create a df with mean values of all continuous variables at
-#     different levels of the factor variable (if there are any)
-# NOTE: variable names must be EXACTLY the same as in model
-m.ivs <- airlinesat %>%
-   group_by() %>%   # NOTE: No factor variables for this model
-   summarise(age=mean(age, na.rm=TRUE),
-             nflights=mean(nflights, na.rm=TRUE))
+age.pred <- data.frame(predictorEffect("age",  # Focal variable
+                                       model1))
 
-# Second, create a df of values to predict with, using 'merge'
-#     'merge' simply merges data frames
-age.pred <- merge(data.frame(age=seq(15, 105, 10)), # Variable of interest
-                  m.ivs[,c("nflights")]) # Mean levels of other variables
-
-# Third, use model results to predict DV for values in 'age.pred' data frame
-#     Predicted values and confidence intervals get appended to data frame
-#     New variables are called:
-#          'pfit'  = linear prediction from model
-#          'p$lwr' = lower confidence interval for prediction
-#          'p$upr' = upper confidcent interval for prediction
-age.pred$p <- as.data.frame(
-   predict.lm(model1,    # Object with model results    
-              age.pred,  # df of IV values to predict with
-              interval="confidence"))   # Request CIs
-
-# Last, use 'age.pred' for margin plot
+# Use 'age.pred' for margin plot
 age.pred %>%
    ggplot(aes(x=age,   # Age on x-axis
-              y=p$fit)) +   # 'nps' prediction on y-axis
+              y=fit)) +   # 'nps' prediction on y-axis
    geom_line(size=1) +   # Draw predicted line
-   geom_ribbon(aes(ymin=p$lwr,  # Draws the confidence interval bands
-                   ymax=p$upr),
+   geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
+                   ymax=upper),
                alpha=0.2) + # Sets transparency level
    labs(x="Age", y="Linear Prediciton")
 ```
 
-### Separate Margin Plots
+### Separate Margin Plots (No Interaction)
 
 * If creating separate plots for each continuous IV, it is best to have the prediction (<span style="font-family: Courier;">y</span>) variable have the same scale
     * Doing so might take some trial and error after looking at graphs once
 * Use the function `plot_grid()` from the `cowplot` package to make the plots appear in the same figure
     * Save each plot as an object, then pass the objects to `plot_grid()`
-```{r t3marginplot2, message=FALSE, fig.cap="Separate margin plots"}
+```{r t3marginplot2, message=FALSE, fig.cap="Separate margin plots (continuous factor IVs)"}
 library(cowplot)
-# Ask for min and max of the 95% confidence bands to adjust y-axis
-min(age.pred$p$lwr)
-max(age.pred$p$upr)
+# Using dataframe from previous chunk, ask for min/max of the 95% CI adjust axis
+min(age.pred$lower)
+max(age.pred$upper)
 # Save previous plot (for 'age') as plot 1
 plot1 <- age.pred %>%
-    ggplot(aes(x=age,y=p$fit)) +
+    ggplot(aes(x=age,y=fit)) +
         geom_line(size=1) + 
-        geom_ribbon(aes(ymin=p$lwr, ymax=p$upr), alpha=0.2) +
+        geom_ribbon(aes(ymin=lower, ymax=upper), alpha=0.2) +
         labs(x="Age", y="Linear Prediciton") +
         scale_y_continuous(limits=c(5.25,9.25))  # Set scale limits for y-axis
 
 # Create second plot for 'nflights' using procedure above
-nflights.pred <- merge(data.frame(nflights=seq(0, 150, 15)),
-                       m.ivs[,c("age")])
-nflights.pred$p <- as.data.frame(predict.lm(model1, nflights.pred,
-                                            interval="confidence"))
-min(nflights.pred$p$lwr)
-max(nflights.pred$p$upr)
+# Because of outliers in 'nflights', use the 'focal.levels=' option for more
+#    realistic predictions
+nflights.pred <- data.frame(predictorEffect("nflights",  # Focal variable
+                                            model1, 
+                                            focal.levels=seq(0,150,3)))
+min(nflights.pred$lower)
+max(nflights.pred$upper)
     
 plot2 <- nflights.pred %>%
-    ggplot(aes(x=nflights, y=p$fit)) +
+    ggplot(aes(x=nflights, y=fit)) +
         geom_line(size=1) +
-        geom_ribbon(aes(ymin=p$lwr,ymax=p$upr),alpha=0.2) +
+        geom_ribbon(aes(ymin=lower,ymax=upper),alpha=0.2) +
         labs(x="Number of Flights", y="Linear Prediciton")  +
         scale_y_continuous(limits=c(5.25,9.25))  # Set scale limits for y-axis
     
@@ -177,54 +161,100 @@ plot2 <- nflights.pred %>%
 cowplot::plot_grid(plot1,plot2)
 ```
     
-### Continuous IV at Levels of Factor IV
+### Factor IV (No Interaction)
 
-* Margin plots when one of the variables is a factor variable are done in much the same way, but require an `aes(color=factor)` to produce different lines for each level of the factor
-```{r t3marginplot3, cache=TRUE, message=FALSE}
-# Run new model with 'age' and 'flight_purpose' interaction
-model2 <- lm(nps ~ age*flight_purpose + nflights, airlinesat)
+* Margin plots for a factor IV without an interaction consist of a point and $95\%$ confidence interval error bars
+```{r t3marginplot2b1, cache=TRUE, message=FALSE}
+# Run new model with flight_purpose included
+model2 <- lm(nps ~ age + nflights + flight_purpose, airlinesat)
 summary(model2)
 ```
-<caption>(\#tab:t3marginplot3) Summary results of model with interaction</caption>
-```{r t3marginplot4, cache=TRUE, message=FALSE, fig.cap="Margin plot with factor variable"}
-m.ivs <- airlinesat %>%
-   group_by(flight_purpose) %>%   # Factor variable in model
-   summarise(age=mean(age, na.rm=TRUE),
-             nflights=mean(nflights, na.rm=TRUE))
+<caption>(\#tab:t3marginplot2b1) Summary results of model with factor variable</caption>
+```{r t3marginplot2b2, cache=TRUE, message=FALSE, fig.cap="Margin plot (factor IV)"}
+# Create data frame with values to be plotted
+fp.pred <- data.frame(predictorEffect("flight_purpose", model2))
 
-age.pred <- merge(data.frame(age=seq(15, 105, 10)), # Variable of interest
-                  m.ivs[,c("nflights", "flight_purpose")]) # Other variables
+# Create plot
 
-age.pred$p <- as.data.frame(predict.lm(model2, age.pred,
-                                       interval="confidence"))
+fp.pred %>%
+    ggplot(aes(x=flight_purpose, y=fit, 
+               group=1)) +   # Need to draw line between points
+        geom_point(size=4) + 
+        geom_line(color="orange") + 
+        geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
+        labs(x="Flight Purpose", y="Linear Prediction")
+```
 
-nflights.pred <- merge(data.frame(nflights=seq(0, 150, 15)),
-                       m.ivs[,c("age", "flight_purpose")])
+### Continuous IV (Interaction with Factor IV)
 
-nflights.pred$p <- as.data.frame(predict.lm(model2, nflights.pred,
-                                            interval="confidence"))
+* Margin plots when for a continuous IV interaction with a factor IV are done in much the same way, but require an `aes(color=factor, fill=factor)` to produce different colored lines for each level of the factor
+```{r t3marginplot3, cache=TRUE, message=FALSE}
+# Run new model with 'age' and 'flight_purpose' interaction
+model3 <- lm(nps ~ age*flight_purpose + nflights, airlinesat)
+summary(model3)
+```
+<caption>(\#tab:t3marginplot3) Summary results of model with continuous IV and factor IV interaction</caption>
+```{r t3marginplot4, cache=TRUE, message=FALSE, fig.cap="Margin plot (continuous IV with factor IV interaction)"}
+# Create data frame with values to be plotted
+age.pred <- data.frame(predictorEffect("age", model3))
 
-plot3 <- age.pred %>%
-    ggplot(aes(x=age,y=p$fit, 
-              color=factor(flight_purpose))) + # Different lines for factor
-        geom_line(size=1) +     
-        geom_ribbon(aes(ymin=p$lwr, ymax=p$upr,
-                        fill=factor(flight_purpose)),  # Different fill color 
-                    alpha=0.2) +
-        labs(x="Age", y="Linear Prediciton", 
-             fill="Flight Purpose", color="Flight Purpose") +
-        theme(legend.position="bottom") +
-        scale_y_continuous(limits=c(5,10.5))
+# Create plot
 
-plot4 <- nflights.pred %>%
-    ggplot(aes(x=nflights,y=p$fit, color=factor(flight_purpose))) + 
-        geom_line(size=1) +     
-        geom_ribbon(aes(ymin=p$lwr, ymax=p$upr,
-                   fill=factor(flight_purpose)),alpha=0.2) +
-        labs(x="Number of Flights", y="Linear Prediciton", 
-             fill="Flight Purpose", color="Flight Purpose") +
-        theme(legend.position="bottom") +
-        scale_y_continuous(limits=c(5,10.5))
+age.pred %>%
+   ggplot(aes(x=age, y=fit,
+              color=flight_purpose, fill=flight_purpose)) +   # color based on factor
+    geom_line(size=1) +   # Draw predicted line
+    geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
+                   ymax=upper),
+                alpha=0.2) + # Sets transparency level
+    labs(x="Age", y="Linear Prediciton", color="Flight Purpose", fill="Flight Purpose") +
+    theme(legend.position="bottom")
+```
 
-cowplot::plot_grid(plot3, plot4)
+### Factor IV (Interaction with Continuous IV)
+
+* Margin plots for a factor IV interaction with a continuous IV are done in much the same way, but require an `facet_wrap(~continuousIV)` to produce different different plots for evenly-spaced values of the continuous IV
+
+```{r t3marginplot5, cache=TRUE, message=FALSE, fig.cap="Margin plot (factor IV with continuous IV interaction)"}
+# Create data frame with values to be plotted
+#   By default, 5 evenly-spaced values for 'age' will be created, but for use
+#   with 'facet_wrap', set 'xlevels=4'
+fp.pred <- data.frame(predictorEffect("flight_purpose", model3, xlevels=4))
+
+# Create plot
+
+fp.pred %>%
+    ggplot(aes(x=flight_purpose, y=fit, group=1)) +
+        geom_point(size=4) + 
+        geom_line(color="orange") + 
+        geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
+        facet_wrap(~age) +
+        labs(x="Flight Purpose", y="Linear Prediction")
+```
+
+### Continuous IV (Interaction with Continuous IV)
+
+```{r t3marginplot6, cache=TRUE, message=FALSE}
+# Run new model with 'age' and 'overall_sat' interaction
+model4 <- lm(nps ~ age*overall_sat + nflights, airlinesat)
+summary(model4)
+```
+<caption>(\#tab:t3marginplot6) Summary results of model with continuous IV and continuous IV interaction</caption>
+```{r t3marginplot7, cache=TRUE, message=FALSE, fig.cap="Margin plot (continuous IV with continuous IV interaction)"}
+# Create data frame with values to be plotted
+#   By default, 5 evenly-spaced values for 'overall_sat' will be created, but for 
+#   easier interpretation, set 'xlevels=4'
+age.pred <- data.frame(predictorEffect("age", model4, xlevels=4))
+
+# Create plot
+
+age.pred %>%
+   ggplot(aes(x=age, y=fit,
+              color=factor(overall_sat), fill=factor(overall_sat))) +   # color based on factor
+    geom_line(size=1) +   # Draw predicted line
+    geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
+                   ymax=upper),
+                alpha=0.2) + # Sets transparency level
+    labs(x="Age", y="Linear Prediciton", color="Overall Satisfaction", fill="Overall Satisfaction") +
+    theme(legend.position="bottom")
 ```
