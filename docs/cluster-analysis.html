@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Cluster Analysis | R Tutorial for MKT 4320</title>
+  <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Cluster Analysis | R Tutorial for MKT 4320" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Cluster Analysis | R Tutorial for MKT 4320" />
+  
+  <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
+  
+
+<meta name="author" content="Jeffrey Meyer" />
+
+
+<meta name="date" content="2022-02-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="logistic-regression-binary.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this tutorial</a></li>
+<li class="chapter" data-level="1" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>1</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="r-basics.html"><a href="r-basics.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="r-basics.html"><a href="r-basics.html#why-r"><i class="fa fa-check"></i><b>1.1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.1.3" data-path="r-basics.html"><a href="r-basics.html#why-not-r"><i class="fa fa-check"></i><b>1.1.3</b> Why NOT R?</a></li>
+<li class="chapter" data-level="1.1.4" data-path="r-basics.html"><a href="r-basics.html#what-is-rstudio"><i class="fa fa-check"></i><b>1.1.4</b> What is RStudio?</a></li>
+<li class="chapter" data-level="1.1.5" data-path="r-basics.html"><a href="r-basics.html#getting-started"><i class="fa fa-check"></i><b>1.1.5</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="1.1.5.1" data-path="r-basics.html"><a href="r-basics.html#option-1-install-on-your-machine"><i class="fa fa-check"></i><b>1.1.5.1</b> Option 1: Install on your Machine</a></li>
+<li class="chapter" data-level="1.1.5.2" data-path="r-basics.html"><a href="r-basics.html#option-2-use-bgsus-virtual-computing-lab-pilot"><i class="fa fa-check"></i><b>1.1.5.2</b> Option 2: Use BGSU’s Virtual Computing Lab pilot</a></li>
+<li class="chapter" data-level="1.1.5.3" data-path="r-basics.html"><a href="r-basics.html#option-3-use-a-computer-in-an-on-campus-computer-lab"><i class="fa fa-check"></i><b>1.1.5.3</b> Option 3: Use a computer in an on-campus computer lab</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.6" data-path="r-basics.html"><a href="r-basics.html#navigating-rstudio"><i class="fa fa-check"></i><b>1.1.6</b> Navigating RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.6.1" data-path="r-basics.html"><a href="r-basics.html#quadrant-1"><i class="fa fa-check"></i><b>1.1.6.1</b> <span style="color: #ff9600;">Quadrant 1</span></a></li>
+<li class="chapter" data-level="1.1.6.2" data-path="r-basics.html"><a href="r-basics.html#quadrant-2"><i class="fa fa-check"></i><b>1.1.6.2</b> <span style="color: #ff0000;">Quadrant 2</span></a></li>
+<li class="chapter" data-level="1.1.6.3" data-path="r-basics.html"><a href="r-basics.html#quadrant-3"><i class="fa fa-check"></i><b>1.1.6.3</b> <span style="color: #0018ff;">Quadrant 3</span></a></li>
+<li class="chapter" data-level="1.1.6.4" data-path="r-basics.html"><a href="r-basics.html#quadrant-4"><i class="fa fa-check"></i><b>1.1.6.4</b> <span style="color: #4f2c1d;">Quadrant 4</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="r-basics.html"><a href="r-basics.html#r-language"><i class="fa fa-check"></i><b>1.2</b> R Language</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="r-basics.html"><a href="r-basics.html#basics-of-r-commands"><i class="fa fa-check"></i><b>1.2.1</b> Basics of R Commands</a></li>
+<li class="chapter" data-level="1.2.2" data-path="r-basics.html"><a href="r-basics.html#operators"><i class="fa fa-check"></i><b>1.2.2</b> Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-basics.html"><a href="r-basics.html#packages"><i class="fa fa-check"></i><b>1.3</b> Packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="r-basics.html"><a href="r-basics.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="r-basics.html"><a href="r-basics.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting Help</a></li>
+<li class="chapter" data-level="1.5" data-path="r-basics.html"><a href="r-basics.html#basic-object-types-and-other-important-stuff"><i class="fa fa-check"></i><b>1.5</b> Basic Object Types (and Other Important Stuff)</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-basics.html"><a href="r-basics.html#indexing"><i class="fa fa-check"></i><b>1.5.2</b> Indexing</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-basics.html"><a href="r-basics.html#sequencing"><i class="fa fa-check"></i><b>1.5.3</b> Sequencing</a></li>
+<li class="chapter" data-level="1.5.4" data-path="r-basics.html"><a href="r-basics.html#missing-and-other-interesting-values"><i class="fa fa-check"></i><b>1.5.4</b> Missing (and Other Interesting) Values</a></li>
+<li class="chapter" data-level="1.5.5" data-path="r-basics.html"><a href="r-basics.html#factors"><i class="fa fa-check"></i><b>1.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basics.html"><a href="r-basics.html#data-frames"><i class="fa fa-check"></i><b>1.6</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="r-basics.html"><a href="r-basics.html#overview"><i class="fa fa-check"></i><b>1.6.1</b> Overview</a></li>
+<li class="chapter" data-level="1.6.2" data-path="r-basics.html"><a href="r-basics.html#creating-a-data-frame"><i class="fa fa-check"></i><b>1.6.2</b> Creating a data frame</a>
+<ul>
+<li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="r-basics.html"><a href="r-basics.html#creating-new-variables"><i class="fa fa-check"></i><b>1.7.1</b> Creating New Variables</a></li>
+<li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
+<li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<ul>
+<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<ul>
+<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html"><i class="fa fa-check"></i><b>2</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#visualizations"><i class="fa fa-check"></i><b>2.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggplot2"><i class="fa fa-check"></i><b>2.2.1</b> Package <em>ggplot2</em></a>
+<ul>
+<li class="chapter" data-level="2.2.1.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#introduction-2"><i class="fa fa-check"></i><b>2.2.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2.1.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#usage"><i class="fa fa-check"></i><b>2.2.1.2</b> Usage</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-and-column-charts"><i class="fa fa-check"></i><b>2.2.2</b> Bar and Column Charts</a>
+<ul>
+<li class="chapter" data-level="2.2.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-charts"><i class="fa fa-check"></i><b>2.2.2.1</b> Bar Charts</a></li>
+<li class="chapter" data-level="2.2.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#column-charts"><i class="fa fa-check"></i><b>2.2.2.2</b> Column Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#histogram"><i class="fa fa-check"></i><b>2.2.3</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="2.2.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#changing-bins"><i class="fa fa-check"></i><b>2.2.3.1</b> Changing Bins</a></li>
+<li class="chapter" data-level="2.2.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#improving-the-look"><i class="fa fa-check"></i><b>2.2.3.2</b> Improving the Look</a></li>
+<li class="chapter" data-level="2.2.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options"><i class="fa fa-check"></i><b>2.2.3.3</b> Other Options</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#box-plot"><i class="fa fa-check"></i><b>2.2.4</b> Box Plot</a></li>
+<li class="chapter" data-level="2.2.5" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#scatterplot"><i class="fa fa-check"></i><b>2.2.5</b> Scatterplot</a>
+<ul>
+<li class="chapter" data-level="2.2.5.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#trendline"><i class="fa fa-check"></i><b>2.2.5.1</b> Trendline</a></li>
+<li class="chapter" data-level="2.2.5.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#other-options-1"><i class="fa fa-check"></i><b>2.2.5.2</b> Other Options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#tables-and-statistics"><i class="fa fa-check"></i><b>2.3</b> Tables and Statistics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#frequency-table"><i class="fa fa-check"></i><b>2.3.1</b> Frequency Table</a></li>
+<li class="chapter" data-level="2.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#crosstabs"><i class="fa fa-check"></i><b>2.3.2</b> Crosstabs</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r"><i class="fa fa-check"></i><b>2.3.2.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#alternative-packages"><i class="fa fa-check"></i><b>2.3.2.2</b> Alternative Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#measures-of-centrality-and-dispersion"><i class="fa fa-check"></i><b>2.3.3</b> Measures of Centrality and Dispersion</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-1"><i class="fa fa-check"></i><b>2.3.3.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-dplyr-1"><i class="fa fa-check"></i><b>2.3.3.2</b> Package <em>dplyr</em></a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-vtable"><i class="fa fa-check"></i><b>2.3.3.3</b> Package <em>vtable</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#correlation"><i class="fa fa-check"></i><b>2.3.4</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="2.3.4.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#base-r-2"><i class="fa fa-check"></i><b>2.3.4.1</b> Base R</a></li>
+<li class="chapter" data-level="2.3.4.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-hmisc"><i class="fa fa-check"></i><b>2.3.4.2</b> Package <em>Hmisc</em></a></li>
+<li class="chapter" data-level="2.3.4.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-sjplot-1"><i class="fa fa-check"></i><b>2.3.4.3</b> Package <em>sjPlot</em></a></li>
+<li class="chapter" data-level="2.3.4.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#package-ggally"><i class="fa fa-check"></i><b>2.3.4.4</b> Package <em>GGally</em></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#prediction"><i class="fa fa-check"></i><b>3.3</b> Prediction</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-no-interaction"><i class="fa fa-check"></i><b>3.4.1</b> Continuous IV (No Interaction)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots-no-interaction"><i class="fa fa-check"></i><b>3.4.2</b> Separate Margin Plots (No Interaction)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="linear-regression.html"><a href="linear-regression.html#factor-iv-no-interaction"><i class="fa fa-check"></i><b>3.4.3</b> Factor IV (No Interaction)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-factor-iv"><i class="fa fa-check"></i><b>3.4.4</b> Continuous IV (Interaction with Factor IV)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="linear-regression.html"><a href="linear-regression.html#factor-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.5</b> Factor IV (Interaction with Continuous IV)</a></li>
+<li class="chapter" data-level="3.4.6" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.6</b> Continuous IV (Interaction with Continuous IV)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression (Binary)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#introduction-4"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#the-glm-function"><i class="fa fa-check"></i><b>4.2</b> The <code>glm()</code> Function</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#logistic-regression-using-glm"><i class="fa fa-check"></i><b>4.3</b> Logistic Regression using <code>glm()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#estimate-with-training-sample-only"><i class="fa fa-check"></i><b>4.4</b> Estimate with Training Sample Only</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#creating-train-and-test-samples"><i class="fa fa-check"></i><b>4.4.1</b> Creating <code>train</code> and <code>test</code> Samples</a></li>
+<li class="chapter" data-level="4.4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#run-model-with-only-training-sample"><i class="fa fa-check"></i><b>4.4.2</b> Run Model with only Training Sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#margin-plots"><i class="fa fa-check"></i><b>4.5</b> Margin Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.6</b> Classification Matrix</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.7</b> ROC Curve</a></li>
+<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.8</b> Gain/Lift Charts and Tables</a></li>
+<li class="chapter" data-level="4.9" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.9</b> Sensitivity/Specificity Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cluster-analysis.html"><a href="cluster-analysis.html"><i class="fa fa-check"></i><b>5</b> Cluster Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#introduction-5"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#preparation"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="cluster-analysis.html"><a href="cluster-analysis.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>5.3</b> Hierarchical Agglomerative Clustering</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#base-r-3"><i class="fa fa-check"></i><b>5.3.1</b> Base R</a>
+<ul>
+<li class="chapter" data-level="5.3.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#creating-the-similaritydissimilarity-matrix"><i class="fa fa-check"></i><b>5.3.1.1</b> Creating the similarity/dissimilarity matrix</a></li>
+<li class="chapter" data-level="5.3.1.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#perform-hierarchical-clustering"><i class="fa fa-check"></i><b>5.3.1.2</b> Perform hierarchical clustering</a></li>
+<li class="chapter" data-level="5.3.1.3" data-path="cluster-analysis.html"><a href="cluster-analysis.html#create-a-dendrogram"><i class="fa fa-check"></i><b>5.3.1.3</b> Create a dendrogram</a></li>
+<li class="chapter" data-level="5.3.1.4" data-path="cluster-analysis.html"><a href="cluster-analysis.html#stopping-indices"><i class="fa fa-check"></i><b>5.3.1.4</b> Stopping indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#user-defined-functions-1"><i class="fa fa-check"></i><b>5.3.2</b> User Defined Functions</a></li>
+<li class="chapter" data-level="5.3.3" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cluster-membership"><i class="fa fa-check"></i><b>5.3.3</b> Cluster membership</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="cluster-analysis.html"><a href="cluster-analysis.html#k-means-clustering"><i class="fa fa-check"></i><b>5.4</b> <span class="math inline">\(k\)</span>-Means Clustering</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#base-r-4"><i class="fa fa-check"></i><b>5.4.1</b> Base R</a>
+<ul>
+<li class="chapter" data-level="5.4.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#scree-plot"><i class="fa fa-check"></i><b>5.4.1.1</b> Scree plot</a></li>
+<li class="chapter" data-level="5.4.1.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cluster-sizes"><i class="fa fa-check"></i><b>5.4.1.2</b> Cluster sizes</a></li>
+<li class="chapter" data-level="5.4.1.3" data-path="cluster-analysis.html"><a href="cluster-analysis.html#kmeans-function"><i class="fa fa-check"></i><b>5.4.1.3</b> kmeans function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="cluster-analysis.html"><a href="cluster-analysis.html#describing-clusters"><i class="fa fa-check"></i><b>5.5</b> Describing clusters</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cldescr.r"><i class="fa fa-check"></i><b>5.5.1</b> <code>cldescr.R</code></a></li>
+<li class="chapter" data-level="5.5.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#kcenters.r"><i class="fa fa-check"></i><b>5.5.2</b> <code>kcenters.R</code></a></li>
+<li class="chapter" data-level="5.5.3" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples"><i class="fa fa-check"></i><b>5.5.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Tutorial for MKT 4320</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cluster-analysis" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Cluster Analysis</h1>
+<p>Sources for this chapter:</p>
+<ul>
+<li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
+<ul>
+<li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
+</ul></li>
+</ul>
+<p>Data for this chapter:</p>
+<ul>
+<li><p>The <a href="%22Data/directmktg.rdata%22">directmktg.rdata</a> is used. Load it now.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="cluster-analysis.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb288-2"><a href="cluster-analysis.html#cb288-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/ffseg.rdata&quot;</span>)</span></code></pre></div></li>
+</ul>
+<div id="introduction-5" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>Base R is typically sufficient for performing the basics of both hierarchical and <em>k</em>-means cluster analysis, but to get some of the outputs required more easily and more efficiently, I have created some user defined functions. You should download these functions and save them in your working directory.</p>
+<ul>
+<li><a href="%22clustop.R%22">clustop.R</a> provides Duda-Hart and psuedo-<span class="math inline">\(T^2\)</span> indices for hierarchical agglomerative clustering</li>
+<li><a href="%22cldescr.R%22">cldescr.R</a> describes variables based on cluster membership</li>
+<li><a href="%22myhc.R%22">myhc.R</a> produces a dendrogram and cluster sizes and percents for hierarchical agglomerative clustering</li>
+<li><a href="%22wssplot.R%22">wssplot.R</a> produces a scree plot for <span class="math inline">\(k\)</span>-means</li>
+<li><a href="%22ksize.R%22">ksize.R</a> produces cluster size and proportion tables for <span class="math inline">\(k\)</span>-means</li>
+<li><a href="%22kcenters.R%22">kcenters.R</a> produces cluster center table and plot from <span class="math inline">\(k\)</span>-means</li>
+</ul>
+<p>Once saved in your working directory, it is good practice to source them.</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="cluster-analysis.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;clustop.R&quot;</span>)</span>
+<span id="cb289-2"><a href="cluster-analysis.html#cb289-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;cldescr.R&quot;</span>)</span>
+<span id="cb289-3"><a href="cluster-analysis.html#cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;myhc.R&quot;</span>)</span>
+<span id="cb289-4"><a href="cluster-analysis.html#cb289-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;wssplot.R&quot;</span>)</span>
+<span id="cb289-5"><a href="cluster-analysis.html#cb289-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;ksize.R&quot;</span>)</span>
+<span id="cb289-6"><a href="cluster-analysis.html#cb289-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;kcenters.R&quot;</span>)</span></code></pre></div>
+</div>
+<div id="preparation" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Preparation</h2>
+<ul>
+<li>For both hierarchical agglomerative and <em>k</em>-means clustering, we usually prepare our data for clustering
+<ul>
+<li>In other words, choose which variable to use for clustering</li>
+<li>Package <code>dplyr</code> is usually the best tool for this</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="cluster-analysis.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb290-2"><a href="cluster-analysis.html#cb290-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;segvar&#39;</span></span>
+<span id="cb290-3"><a href="cluster-analysis.html#cb290-3" aria-hidden="true" tabindex="-1"></a>clvar <span class="ot">&lt;-</span> ffseg <span class="sc">%&gt;%</span>   </span>
+<span id="cb290-4"><a href="cluster-analysis.html#cb290-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(quality, price, healthy, variety, speed)</span></code></pre></div>
+<pre><code>* To standardize the clustering variables, use the `scale` function
+    * Usage: `scale(data)`
+    * To store as a data frame, wrap the command in `data.frame()`</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="cluster-analysis.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize &#39;clvar&#39; df and store as &#39;sc.clvar&#39;</span></span>
+<span id="cb292-2"><a href="cluster-analysis.html#cb292-2" aria-hidden="true" tabindex="-1"></a>sc.clvar <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(clvar))  </span></code></pre></div>
+</div>
+<div id="hierarchical-agglomerative-clustering" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Hierarchical Agglomerative Clustering</h2>
+<div id="base-r-3" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Base R</h3>
+<ul>
+<li>In Base R, hierarchical cluster analysis is done in multiple steps,
+<ol style="list-style-type: decimal">
+<li>Use the <code>dist()</code> function to create a similarity/dissimilarity matrix</li>
+<li>Use the <code>hclust()</code> function to perform hierarchical cluster analysis on the matrix from (1)</li>
+<li>Determine how many clusters are desired using a dendrogram and/or the stopping indices from package <code>NbClust</code></li>
+</ol></li>
+</ul>
+<div id="creating-the-similaritydissimilarity-matrix" class="section level4" number="5.3.1.1">
+<h4><span class="header-section-number">5.3.1.1</span> Creating the similarity/dissimilarity matrix</h4>
+<ul>
+<li>Usage: <code>dist(data, method="")</code> where:
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>method=""</code> indicates the distance measure:
+<ul>
+<li><code>method="euclidean"</code> provides Euclidean distance</li>
+<li><code>method="maximum"</code> provides Maximum distance</li>
+<li><code>method="manhattan"</code> provides Absolute distance</li>
+<li><code>method="binary"</code> provides a distance measure for a set of binary-only variables</li>
+<li>NOTE: other choices exist, but for MKT 4320, our focus is on these four</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="cluster-analysis.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the similarity/dissimilarity matrix and save as object &#39;dist&#39;</span></span>
+<span id="cb293-2"><a href="cluster-analysis.html#cb293-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(sc.clvar,   <span class="co"># Scaled data from earlier</span></span>
+<span id="cb293-3"><a href="cluster-analysis.html#cb293-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)    <span class="co"># Euclidean distance measure</span></span></code></pre></div>
+</div>
+<div id="perform-hierarchical-clustering" class="section level4" number="5.3.1.2">
+<h4><span class="header-section-number">5.3.1.2</span> Perform hierarchical clustering</h4>
+<ul>
+<li>Usage: <code>hclust(d, method="") where:     *</code>d<code>is the similarity/dissimilarity matrix     *</code>method="“<code>indicates the linkage method:         *</code>method=”single“<code>provides Single linkage         *</code>method=”complete“<code>provides Complete linkage         *</code>method=”average“<code>provides Average linkage         *</code>method=”ward.D"` provides Ward’s linkage
+* NOTE: other choices exist, but for MKT 4320, our focus is on these four</li>
+</ul>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="cluster-analysis.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preform hierarchical clustering and save as object &#39;hc&#39;</span></span>
+<span id="cb294-2"><a href="cluster-analysis.html#cb294-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist,  <span class="co"># similarity/dissimilarity matrix from earlier</span></span>
+<span id="cb294-3"><a href="cluster-analysis.html#cb294-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)   <span class="co"># Ward&#39;s linkage method</span></span>
+<span id="cb294-4"><a href="cluster-analysis.html#cb294-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-5"><a href="cluster-analysis.html#cb294-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The similarity/dissimilarity matrix can be done within the call</span></span>
+<span id="cb294-6"><a href="cluster-analysis.html#cb294-6" aria-hidden="true" tabindex="-1"></a><span class="co">#       to &#39;hclust&#39;</span></span>
+<span id="cb294-7"><a href="cluster-analysis.html#cb294-7" aria-hidden="true" tabindex="-1"></a>hc1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(sc.clvar, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>), <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)</span></code></pre></div>
+</div>
+<div id="create-a-dendrogram" class="section level4" number="5.3.1.3">
+<h4><span class="header-section-number">5.3.1.3</span> Create a dendrogram</h4>
+<ul>
+<li>Usage: <code>plot(x)</code> where:
+<ul>
+<li><code>x</code> is a hierarchical clustering object</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="cluster-analysis.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dendrogram of object hc</span></span>
+<span id="cb295-2"><a href="cluster-analysis.html#cb295-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+</div>
+<div id="stopping-indices" class="section level4" number="5.3.1.4">
+<h4><span class="header-section-number">5.3.1.4</span> Stopping indices</h4>
+<ul>
+<li>To get the Duda-Hart index, and the pseudo-<span class="math inline">\(T^2\)</span>, the <code>NbClust</code> package is used
+<ul>
+<li>This package is not available in BGSU’s Virtual Computing Lab</li>
+</ul></li>
+<li>Usage: <code>NbClust(data, distance="", method="", min.nc=, max.nc=, index="")$All.index</code> where:
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>distance=""</code> indicates the distance measure using the same options from the <code>dist</code> function above</li>
+<li><code>method=""</code> indicates the linkage method using the same options from the <code>hclust</code> option above</li>
+<li><code>min.nc=</code> and <code>max.nc=</code> indicate the minimum and maximum number of clusters to examine</li>
+<li><code>index=""</code> indicates what measure is wanted:
+<ul>
+<li><code>index="duda"</code> uses the Duda-Hart index</li>
+<li><code>index="pseudot2</code> uses the pseudo-<span class="math inline">\(T^2\)</span> index</li>
+</ul></li>
+<li><code>$All.index</code> requests only the index values be returned</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="cluster-analysis.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After installing package for the first time, load the &#39;NbClust&#39; package</span></span>
+<span id="cb296-2"><a href="cluster-analysis.html#cb296-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NbClust)</span>
+<span id="cb296-3"><a href="cluster-analysis.html#cb296-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Duda-Hart Index</span></span>
+<span id="cb296-4"><a href="cluster-analysis.html#cb296-4" aria-hidden="true" tabindex="-1"></a><span class="fu">NbClust</span>(sc.clvar,   <span class="co"># Scaled cluster variable data from earlier</span></span>
+<span id="cb296-5"><a href="cluster-analysis.html#cb296-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">distance=</span><span class="st">&quot;euclidean&quot;</span>,   <span class="co"># Euclidean distance measure</span></span>
+<span id="cb296-6"><a href="cluster-analysis.html#cb296-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>,   <span class="co"># Ward&#39;s linkage</span></span>
+<span id="cb296-7"><a href="cluster-analysis.html#cb296-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">min.nc=</span><span class="dv">1</span>,   <span class="co"># Show between 1 and...</span></span>
+<span id="cb296-8"><a href="cluster-analysis.html#cb296-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">max.nc=</span><span class="dv">10</span>,  <span class="co"># ... 10 clusters</span></span>
+<span id="cb296-9"><a href="cluster-analysis.html#cb296-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">index=</span><span class="st">&quot;duda&quot;</span>)<span class="sc">$</span>All.index   <span class="co"># Request Duda-Hart index</span></span></code></pre></div>
+<pre class="custom-output"><code>     1      2      3      4      5      6      7      8      9     10 
+0.7974 0.8367 0.8435 0.8490 0.7448 0.8628 0.8222 0.8206 0.6950 0.6470 </code></pre>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="cluster-analysis.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get pseudo-T2</span></span>
+<span id="cb298-2"><a href="cluster-analysis.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="fu">NbClust</span>(sc.clvar, <span class="at">distance=</span><span class="st">&quot;euclidean&quot;</span>, <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>,</span>
+<span id="cb298-3"><a href="cluster-analysis.html#cb298-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min.nc=</span><span class="dv">1</span>, <span class="at">max.nc=</span><span class="dv">10</span>, <span class="at">index=</span><span class="st">&quot;pseudot2&quot;</span>)<span class="sc">$</span>All.index</span></code></pre></div>
+<pre class="custom-output"><code>       1        2        3        4        5        6        7        8 
+190.5756  88.3818  54.7376  50.5151  58.5770  41.3604  36.1142  40.0002 
+       9       10 
+ 46.9583  40.9146 </code></pre>
+</div>
+</div>
+<div id="user-defined-functions-1" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> User Defined Functions</h3>
+<ul>
+<li><p>The <code>myhc.R</code> user defined function can produce the results with one or two passes of the function</p>
+<ul>
+<li>Requires the following packages:
+<ul>
+<li><code>dendextend</code></li>
+<li><code>dplyr</code></li>
+<li><code>NbClust</code></li>
+</ul></li>
+</ul></li>
+<li><p>The results should be saved to an object</p></li>
+<li><p>Usage: <code>myhc(data, dist="", method="", cuts, clustop="")</code> where:</p>
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>dist=""</code> indicates the distance measure:
+<ul>
+<li><code>dist="euc"</code> provides Euclidean distance</li>
+<li><code>dist="euc2"</code> provides Euclidean Squared distance</li>
+<li><code>dist="max"</code> provides Maximum distance</li>
+<li><code>dist="abs"</code> provides Absolute distance</li>
+<li><code>dist="bin"</code> provides a distance measure for a set of binary-only variables</li>
+</ul></li>
+<li><code>method=""</code> indicates the linkage method:
+<ul>
+<li><code>method="single"</code> provides Single linkage</li>
+<li><code>method="complete"</code> provides Complete linkage</li>
+<li><code>method="average"</code> provides Average linkage</li>
+<li><code>method="ward"</code> provides Ward’s linkage</li>
+</ul></li>
+<li><code>cuts</code> indicates how many clusters (optional):
+<ul>
+<li>Examples: <code>cuts=3</code>; <code>cuts=c(2,4,5)</code></li>
+</ul></li>
+<li><code>clustop=""</code> indicates if stopping indices are wanted
+<ul>
+<li><code>clustop="Y"</code> if indices are wanted</li>
+<li><code>clustop="N"</code> if indices are not wanted</li>
+</ul></li>
+</ul></li>
+<li><p>Objects returned:</p>
+<ul>
+<li>If <code>cuts</code> are provided:
+<ul>
+<li>Dendrogram of the top <span class="math inline">\(n\)</span> branches, where <span class="math inline">\(n\)</span> is the highest number of clusters provided by <code>cuts</code></li>
+<li>Table of cluster sizes (<code>$kcount</code>)</li>
+<li>Table of cluster size percentages (<code>$kperc</code>)</li>
+<li><code>hclust</code> object (<code>$hc</code>)</li>
+<li>Stopping indices for 1 to 10 clusters, if requested (<code>$stop</code>)</li>
+</ul></li>
+<li>If <code>cuts</code> are not provided:
+<ul>
+<li>Dendrogram with all branches</li>
+<li>Stopping indices for 1 to 10 clusters, if requested (<code>$stop</code>)</li>
+</ul></li>
+</ul></li>
+<li><p>Examples:</p>
+<ul>
+<li>No cuts with stopping indices</li>
+</ul>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="cluster-analysis.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Both myhc.R and clustop.R need to be &quot;sourced&quot;</span></span>
+<span id="cb300-2"><a href="cluster-analysis.html#cb300-2" aria-hidden="true" tabindex="-1"></a>eg1 <span class="ot">&lt;-</span> <span class="fu">myhc</span>(sc.clvar, <span class="st">&quot;euc&quot;</span>, <span class="st">&quot;ward&quot;</span>, <span class="at">clustop=</span><span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<pre><code>Loading required package: dendextend</code></pre>
+<pre><code>
+---------------------
+Welcome to dendextend version 1.15.2
+Type citation(&#39;dendextend&#39;) for how to cite the package.
+
+Type browseVignettes(package = &#39;dendextend&#39;) for the package vignette.
+The github page is: https://github.com/talgalili/dendextend/
+
+Suggestions and bug-reports can be submitted at: https://github.com/talgalili/dendextend/issues
+You may ask questions at stackoverflow, use the r and dendextend tags: 
+     https://stackoverflow.com/questions/tagged/dendextend
+
+    To suppress this message use:  suppressPackageStartupMessages(library(dendextend))
+---------------------</code></pre>
+<pre><code>
+Attaching package: &#39;dendextend&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:flextable&#39;:
+
+    rotate</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    cutree</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="cluster-analysis.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dendrogram will get produced automatically</span></span>
+<span id="cb306-2"><a href="cluster-analysis.html#cb306-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Call eg1$stop to get table of stopping indices</span></span>
+<span id="cb306-3"><a href="cluster-analysis.html#cb306-3" aria-hidden="true" tabindex="-1"></a>eg1<span class="sc">$</span>stop</span></code></pre></div>
+<pre class="custom-output"><code>   Num.Clusters Duda.Hart pseudo.t.2
+1             1    0.7974   190.5756
+2             2    0.8367    88.3818
+3             3    0.8435    54.7376
+4             4    0.8490    50.5151
+5             5    0.7448    58.5770
+6             6    0.8628    41.3604
+7             7    0.8222    36.1142
+8             8    0.8206    40.0002
+9             9    0.6950    46.9583
+10           10    0.6470    40.9146</code></pre>
+<ul>
+<li>One cut without stopping indices</li>
+</ul>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="cluster-analysis.html#cb308-1" aria-hidden="true" tabindex="-1"></a>eg2 <span class="ot">&lt;-</span> <span class="fu">myhc</span>(sc.clvar, <span class="st">&quot;max&quot;</span>, <span class="st">&quot;ward&quot;</span>, <span class="at">cuts=</span><span class="dv">5</span>, <span class="at">clustop=</span><span class="st">&quot;N&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="cluster-analysis.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dendrogram will get produced automatically</span></span>
+<span id="cb309-2"><a href="cluster-analysis.html#cb309-2" aria-hidden="true" tabindex="-1"></a><span class="co"># call eg2$kcount and eg2$kperc to get cluster sizes</span></span>
+<span id="cb309-3"><a href="cluster-analysis.html#cb309-3" aria-hidden="true" tabindex="-1"></a>eg2<span class="sc">$</span>kcount</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster k_5_Count
+1       1       244
+2       2       229
+3       3       127
+4       4        91
+5       5        61</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="cluster-analysis.html#cb311-1" aria-hidden="true" tabindex="-1"></a>eg2<span class="sc">$</span>kperc</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster k_5_Percent
+1       1       32.45
+2       2       30.45
+3       3       16.89
+4       4       12.10
+5       5        8.11</code></pre>
+<ul>
+<li>Multiple cuts without stopping indices</li>
+</ul>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="cluster-analysis.html#cb313-1" aria-hidden="true" tabindex="-1"></a>eg3 <span class="ot">&lt;-</span> <span class="fu">myhc</span>(sc.clvar, <span class="st">&quot;abs&quot;</span>, <span class="st">&quot;ward&quot;</span>, <span class="at">cuts=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>), <span class="at">clustop=</span><span class="st">&quot;N&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="cluster-analysis.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dendrogram will get produced automatically</span></span>
+<span id="cb314-2"><a href="cluster-analysis.html#cb314-2" aria-hidden="true" tabindex="-1"></a><span class="co"># call eg3$kcount and eg3$kperc to get cluster sizes</span></span>
+<span id="cb314-3"><a href="cluster-analysis.html#cb314-3" aria-hidden="true" tabindex="-1"></a>eg3<span class="sc">$</span>kcount</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster k_2_Count k_3_Count k_4_Count k_6_Count
+1       1       537       344       215       205
+2       2       215       215       205       153
+3       3        NA       193       193       139
+4       4        NA        NA       139       120
+5       5        NA        NA        NA        73
+6       6        NA        NA        NA        62</code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="cluster-analysis.html#cb316-1" aria-hidden="true" tabindex="-1"></a>eg3<span class="sc">$</span>kperc</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster k_2_Percent k_3_Percent k_4_Percent k_6_Percent
+1       1       71.41       45.74       28.59       27.26
+2       2       28.59       28.59       27.26       20.35
+3       3          NA       25.66       25.66       18.48
+4       4          NA          NA       18.48       15.96
+5       5          NA          NA          NA        9.71
+6       6          NA          NA          NA        8.24</code></pre></li>
+</ul>
+</div>
+<div id="cluster-membership" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Cluster membership</h3>
+<ul>
+<li>Use the <code>cutree()</code> function to get cluster membership for the specified number of clusters</li>
+<li>Usage: <code>cutree(tree, k=)</code> where:
+<ul>
+<li><code>tree</code> is an <code>hclust</code> object from Base R methods or from <code>myhc</code> function</li>
+<li><code>k=</code> is the number of clusters to retrieve</li>
+</ul></li>
+<li>Assign cluster membership to original data, cluster variables, or both</li>
+</ul>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="cluster-analysis.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new variables in original data based on cluster membership</span></span>
+<span id="cb318-2"><a href="cluster-analysis.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Need to use &#39;as.factor()&#39; to classify variable as factor</span></span>
+<span id="cb318-3"><a href="cluster-analysis.html#cb318-3" aria-hidden="true" tabindex="-1"></a>ffseg<span class="sc">$</span>K3 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc,  <span class="co"># &#39;hclust&#39; object from Base R earlier</span></span>
+<span id="cb318-4"><a href="cluster-analysis.html#cb318-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">k=</span><span class="dv">3</span>))   <span class="co"># Number of clusters to retrieve</span></span>
+<span id="cb318-5"><a href="cluster-analysis.html#cb318-5" aria-hidden="true" tabindex="-1"></a>ffseg<span class="sc">$</span>K4 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(eg3<span class="sc">$</span>hc, <span class="co"># &#39;hclust&#39; object from call to &#39;myhc&#39; earlier</span></span>
+<span id="cb318-6"><a href="cluster-analysis.html#cb318-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">k=</span><span class="dv">4</span>))   <span class="co"># Number of clusters to retrieve</span></span>
+<span id="cb318-7"><a href="cluster-analysis.html#cb318-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-8"><a href="cluster-analysis.html#cb318-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new data frame of scaled clustering variables</span></span>
+<span id="cb318-9"><a href="cluster-analysis.html#cb318-9" aria-hidden="true" tabindex="-1"></a><span class="co"># with cluster membership appended</span></span>
+<span id="cb318-10"><a href="cluster-analysis.html#cb318-10" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;cbind&#39; stands for column bind</span></span>
+<span id="cb318-11"><a href="cluster-analysis.html#cb318-11" aria-hidden="true" tabindex="-1"></a>sc.cldesc <span class="ot">&lt;-</span> <span class="fu">cbind</span>(sc.clvar,  <span class="co"># Scaled cluster variables</span></span>
+<span id="cb318-12"><a href="cluster-analysis.html#cb318-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">K3=</span><span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="at">k=</span><span class="dv">3</span>)))  <span class="co"># Cluster membership variable</span></span></code></pre></div>
+</div>
+</div>
+<div id="k-means-clustering" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> <span class="math inline">\(k\)</span>-Means Clustering</h2>
+<div id="base-r-4" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Base R</h3>
+<ul>
+<li><span class="math inline">\(k\)</span>-Means clustering is done mostly in Base R, but there is a couple user defined functions to help</li>
+<li>Process:
+<ul>
+<li>Run <code>wssplot.R</code> user defined function to get a scree plot</li>
+<li>Based on scree plot, use <code>ksize()</code> user defined function to examine the cluster sizes for several solutions</li>
+<li>Run <code>kmeans()</code> for desired solution</li>
+<li>Assign cluster membership for desired number of clusters to original data, cluster variables, or both</li>
+</ul></li>
+</ul>
+<div id="scree-plot" class="section level4" number="5.4.1.1">
+<h4><span class="header-section-number">5.4.1.1</span> Scree plot</h4>
+<ul>
+<li>The <code>wssplot.R</code> user defined function produces a scree plot for 1 to <span class="math inline">\(n\)</span> clusters
+<ul>
+<li>Requires the <code>ggplot2</code> package</li>
+</ul></li>
+<li>Usage: <code>wssplot(data, nc=, seed=)</code> where:
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>nc=</code> takes an integer value and is the maximum number of clusters to plot; default is 15</li>
+<li><code>seed=</code> is a random number seed for reproducible results; default is 4320</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="cluster-analysis.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;wssplot.R&#39; must first be sourced (if not already)</span></span>
+<span id="cb319-2"><a href="cluster-analysis.html#cb319-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wssplot</span>(sc.clvar)  <span class="co"># Produces scree plot with default 15 clusters and 4320 seed</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+</div>
+<div id="cluster-sizes" class="section level4" number="5.4.1.2">
+<h4><span class="header-section-number">5.4.1.2</span> Cluster sizes</h4>
+<ul>
+<li>The <code>ksize.R</code> user defined function produces a count and proportion tables for the selected <span class="math inline">\(k\)</span> solutions</li>
+<li>The results should be saved to an object</li>
+<li>Usage: <code>ksize(data, centers=, nstart=, seed=)</code> where:
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>centers=</code> takes one or more integers for the <span class="math inline">\(k\)</span> cluster solutions to be examined</li>
+<li><code>nstart=</code> takes an integer value for the number of random starting points to try; default is 25</li>
+<li><code>seed=</code> is a random number seed for reproducible results; default is 4320</li>
+</ul></li>
+<li>Objects returned:
+<ul>
+<li>Table of cluster sizes (<code>$kcount</code>)</li>
+<li>Table of cluster size percentages (<code>$kperc</code>)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="cluster-analysis.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;ksize.R&#39; must first be sourced (if not already)</span></span>
+<span id="cb320-2"><a href="cluster-analysis.html#cb320-2" aria-hidden="true" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="fu">ksize</span>(sc.clvar,   <span class="co"># Scaled cluster variables from earlier</span></span>
+<span id="cb320-3"><a href="cluster-analysis.html#cb320-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">centers=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),   <span class="co"># Request for 3, 4, and 5 cluster solutions</span></span>
+<span id="cb320-4"><a href="cluster-analysis.html#cb320-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">nstart=</span><span class="dv">25</span>,  <span class="co"># Request 25 random starting sets</span></span>
+<span id="cb320-5"><a href="cluster-analysis.html#cb320-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">seed=</span><span class="dv">4320</span>)  <span class="co"># Set seed to 4320 for reproducible results</span></span>
+<span id="cb320-6"><a href="cluster-analysis.html#cb320-6" aria-hidden="true" tabindex="-1"></a>ks<span class="sc">$</span>kcount   <span class="co"># Cluster sizes</span></span></code></pre></div>
+<pre class="custom-output"><code>  Num_Clusters k_3_Count k_4_Count k_5_Count
+1            1       308       211       205
+2            2       238       191       167
+3            3       206       187       150
+4            4        NA       163       124
+5            5        NA        NA       106</code></pre>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="cluster-analysis.html#cb322-1" aria-hidden="true" tabindex="-1"></a>ks<span class="sc">$</span>kperc     <span class="co"># Cluster percentages</span></span></code></pre></div>
+<pre class="custom-output"><code>  Num_Clusters k_3_Percent k_4_Percent k_5_Percent
+1            1       40.96       28.06       27.26
+2            2       31.65       25.40       22.21
+3            3       27.39       24.87       19.95
+4            4          NA       21.68       16.49
+5            5          NA          NA       14.10</code></pre>
+</div>
+<div id="kmeans-function" class="section level4" number="5.4.1.3">
+<h4><span class="header-section-number">5.4.1.3</span> kmeans function</h4>
+<ul>
+<li>Usage: <code>kmeans(data, centers=, nstart=)</code> where:
+<ul>
+<li><code>data</code> is the (scaled) cluster variable data</li>
+<li><code>centers=</code> takes an integer value for the number of clusters desired</li>
+<li><code>nstart=</code> takes an integer value for the number of random starting points to try</li>
+</ul></li>
+<li>Results should be assigned to an object</li>
+<li>NOTE 1: For reproducible results, <code>set.seed()</code> should be run immediately before running <code>kmeans()</code></li>
+<li>NOTE 2: <code>nstart=</code> should be same value as above</li>
+<li>Use the saved <code>$cluster</code> object to assign cluster membership</li>
+</ul>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="cluster-analysis.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4320</span>)  <span class="co"># Set random number seed</span></span>
+<span id="cb324-2"><a href="cluster-analysis.html#cb324-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Run kmeans() for 4 clusters and assign to object k3</span></span>
+<span id="cb324-3"><a href="cluster-analysis.html#cb324-3" aria-hidden="true" tabindex="-1"></a>k4 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sc.clvar,   <span class="co"># Scaled cluster variables from earlier</span></span>
+<span id="cb324-4"><a href="cluster-analysis.html#cb324-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">centers=</span><span class="dv">4</span>,  <span class="co"># Request 3-cluster solution</span></span>
+<span id="cb324-5"><a href="cluster-analysis.html#cb324-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">nstart=</span><span class="dv">25</span>)  <span class="co"># Request 25 random starting sets</span></span>
+<span id="cb324-6"><a href="cluster-analysis.html#cb324-6" aria-hidden="true" tabindex="-1"></a>ffseg<span class="sc">$</span>KM4 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(k4<span class="sc">$</span>cluster)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="describing-clusters" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Describing clusters</h2>
+<div id="cldescr.r" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> <code>cldescr.R</code></h3>
+<ul>
+<li>The <code>cldescr.R</code> user defined function can be used to describe the clusters on both cluster variables and other variables that may be in the dataset</li>
+<li>The results should be assigned to an object</li>
+<li>Usage: <code>cldescr(data, var="", vtype=c("F", "C"), cvar=""</code> where:
+<ul>
+<li><code>data</code> is the original data or (scaled) cluster variable data with cluster membership attached</li>
+<li><code>var=""</code> contains the name of the variable to examine by cluster membership</li>
+<li><code>vtype=""</code> takes “F” if <code>var</code> is a factor variable or “C” if <code>var</code> is a continuous variable</li>
+<li><code>cvar=""</code> contains the name of the cluster membership variable</li>
+</ul></li>
+<li>If <code>vtype="F"</code> with more than two levels, the factor variable is split into dummy variables (1=True, 0=False) for each level of the factor</li>
+<li>If <code>vtype="F"</code> with only two levels, the only the first level of the factor variable is shown as a dummy variable (1=True, 0=False)</li>
+<li>If <code>vtype="C"</code> a list (using <code>c()</code>) of variables can be provided</li>
+<li>Objects returned
+<ul>
+<li>Table of means (<code>$means</code>)
+<ul>
+<li>If <code>vtype="F"</code>, one column per level of factor</li>
+</ul></li>
+<li>Table of ANOVA p-values (<code>$aovp</code>)</li>
+<li>Table(s) of Tukey HSD multiple comparisons for any variables where the ANOVA p-value<span class="math inline">\(&lt;0.1\)</span> (<code>tukey</code>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="kcenters.r" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> <code>kcenters.R</code></h3>
+<ul>
+<li>For <span class="math inline">\(k\)</span>-Means, the <code>kcenters.R</code> user defined function can be used to describe the cluster centers
+<ul>
+<li>Requires <code>ggplot2</code> package</li>
+</ul></li>
+<li>The results should be assigned to an object</li>
+<li>Usage: <code>kcenters(kobject)</code> where:
+<ul>
+<li><code>kobject</code> is the name of a saved <span class="math inline">\(k\)</span>-means object</li>
+</ul></li>
+<li>Objects returned
+<ul>
+<li>Table of means (<code>$table</code>)</li>
+<li><code>ggplot</code> object (<code>$plot</code>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="examples" class="section level3" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Examples</h3>
+<ul>
+<li>Describing hierarchical clustering using clustering variables</li>
+</ul>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="cluster-analysis.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;cldescr.R&#39; must first be sourced (done above)</span></span>
+<span id="cb325-2"><a href="cluster-analysis.html#cb325-2" aria-hidden="true" tabindex="-1"></a>hc.cv <span class="ot">&lt;-</span> <span class="fu">cldescr</span>(sc.cldesc,    <span class="co"># Scaled cluster variables w/ cluster membership</span></span>
+<span id="cb325-3"><a href="cluster-analysis.html#cb325-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var=</span><span class="fu">c</span>(<span class="st">&quot;quality&quot;</span>, <span class="st">&quot;price&quot;</span>, <span class="st">&quot;healthy&quot;</span>, <span class="co"># List of cluster variables</span></span>
+<span id="cb325-4"><a href="cluster-analysis.html#cb325-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;variety&quot;</span>, <span class="st">&quot;speed&quot;</span>),</span>
+<span id="cb325-5"><a href="cluster-analysis.html#cb325-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vtype=</span><span class="st">&quot;C&quot;</span>,  <span class="co"># All variables are continuous</span></span>
+<span id="cb325-6"><a href="cluster-analysis.html#cb325-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cvar=</span><span class="st">&quot;K3&quot;</span>)  <span class="co"># Cluster membership variable</span></span>
+<span id="cb325-7"><a href="cluster-analysis.html#cb325-7" aria-hidden="true" tabindex="-1"></a>hc.cv<span class="sc">$</span>means</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster quality   price healthy variety   speed
+1       1  0.7033  0.0515  0.7903  0.5729  0.3159
+2       2 -0.5419  0.5722 -0.5865 -0.3641  0.0258
+3       3 -0.3189 -1.0589 -0.3964 -0.3907 -0.5989</code></pre>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="cluster-analysis.html#cb327-1" aria-hidden="true" tabindex="-1"></a>hc.cv<span class="sc">$</span>aovp</span></code></pre></div>
+<pre class="custom-output"><code>  Variable p.value
+1  quality       0
+2    price       0
+3  healthy       0
+4  variety       0
+5    speed       0</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="cluster-analysis.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hc.cv$tukey   # NOT SHOWN BECAUSE USUALLY ALL SIGNIFICANTLY DIFFERENT </span></span></code></pre></div>
+<ul>
+<li>Describing hierarchical clustering or <span class="math inline">\(k\)</span>-means using non-clustering continuous variables done the same as previous example</li>
+<li>Describing hierarchical clustering or <span class="math inline">\(k\)</span>-means using non-clustering factor variables</li>
+</ul>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="cluster-analysis.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Factor variable &#39;live&#39; on k-means solution</span></span>
+<span id="cb330-2"><a href="cluster-analysis.html#cb330-2" aria-hidden="true" tabindex="-1"></a>km.fv <span class="ot">&lt;-</span> <span class="fu">cldescr</span>(ffseg, <span class="at">var=</span><span class="st">&quot;live&quot;</span>, <span class="at">vtype=</span><span class="st">&quot;F&quot;</span>, <span class="at">cvar=</span><span class="st">&quot;KM4&quot;</span>)</span>
+<span id="cb330-3"><a href="cluster-analysis.html#cb330-3" aria-hidden="true" tabindex="-1"></a>km.fv<span class="sc">$</span>means</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster Commuter Off.Campus On.Campus
+1       1   0.1123     0.4545    0.4332
+2       2   0.0613     0.4417    0.4969
+3       3   0.1623     0.3665    0.4712
+4       4   0.0758     0.4929    0.4313</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="cluster-analysis.html#cb332-1" aria-hidden="true" tabindex="-1"></a>km.fv<span class="sc">$</span>aovp</span></code></pre></div>
+<pre class="custom-output"><code>    Variable p.value
+1   Commuter  0.0069
+2 Off.Campus  0.0805
+3  On.Campus  0.5349</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="cluster-analysis.html#cb334-1" aria-hidden="true" tabindex="-1"></a>km.fv<span class="sc">$</span>tukey</span></code></pre></div>
+<pre class="custom-output"><code>$Commuter
+       diff  p adj
+2-1 -0.0509 0.3977
+3-1  0.0500 0.3776
+4-1 -0.0365 0.6286
+3-2  0.1010 0.0101
+4-2  0.0145 0.9681
+4-3 -0.0865 0.0229
+
+$Off.Campus
+       diff  p adj
+2-1 -0.0128 0.9950
+3-1 -0.0881 0.3101
+4-1  0.0383 0.8677
+3-2 -0.0752 0.4848
+4-2  0.0512 0.7550
+4-3  0.1264 0.0528</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="cluster-analysis.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Factor variable &#39;gender&#39; on hierarchcial clustering solution</span></span>
+<span id="cb336-2"><a href="cluster-analysis.html#cb336-2" aria-hidden="true" tabindex="-1"></a>hc.fv <span class="ot">&lt;-</span> <span class="fu">cldescr</span>(ffseg, <span class="at">var=</span><span class="st">&quot;gender&quot;</span>, <span class="at">vtype=</span><span class="st">&quot;F&quot;</span>, <span class="at">cvar=</span><span class="st">&quot;K3&quot;</span>)</span>
+<span id="cb336-3"><a href="cluster-analysis.html#cb336-3" aria-hidden="true" tabindex="-1"></a>hc.fv<span class="sc">$</span>means</span></code></pre></div>
+<pre class="custom-output"><code>  Cluster Female
+1       1 0.8182
+2       2 0.6783
+3       3 0.5917</code></pre>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="cluster-analysis.html#cb338-1" aria-hidden="true" tabindex="-1"></a>hc.fv<span class="sc">$</span>aovp</span></code></pre></div>
+<pre class="custom-output"><code>  Variable p.value
+1   Female       0</code></pre>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="cluster-analysis.html#cb340-1" aria-hidden="true" tabindex="-1"></a>hc.fv<span class="sc">$</span>tukey</span></code></pre></div>
+<pre class="custom-output"><code>       diff  p adj
+2-1 -0.1399 0.0004
+3-1 -0.2265 0.0000
+3-2 -0.0866 0.1100</code></pre>
+<ul>
+<li>Describing <span class="math inline">\(k\)</span>-means clustering using cluster centers</li>
+</ul>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="cluster-analysis.html#cb342-1" aria-hidden="true" tabindex="-1"></a>km.cent <span class="ot">&lt;-</span> <span class="fu">kcenters</span>(k4)</span>
+<span id="cb342-2"><a href="cluster-analysis.html#cb342-2" aria-hidden="true" tabindex="-1"></a>km.cent<span class="sc">$</span>table</span></code></pre></div>
+<pre class="custom-output"><code>      quality      price    healthy     variety      speed Cluster
+1  0.86830982  0.5282993  0.8952494  0.93322588  0.5295407       1
+2 -1.15981355 -0.1062743 -0.9446355 -0.91358591 -0.4716217       2
+3  0.22194885 -0.9606064  0.3494969 -0.16288116 -0.5958141       3
+4 -0.07448606  0.4834435 -0.3800472  0.02612117  0.4343635       4</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="cluster-analysis.html#cb344-1" aria-hidden="true" tabindex="-1"></a>km.cent<span class="sc">$</span>plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression-binary.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+},
+"number_sections": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

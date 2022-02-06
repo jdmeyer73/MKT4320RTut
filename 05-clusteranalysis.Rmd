@@ -1,0 +1,374 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+# Cluster Analysis
+
+Sources for this chapter:
+
+* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+
+Data for this chapter:
+
+* The [directmktg.rdata]("Data/directmktg.rdata") is used. Load it now.
+    ```{r}
+    # You may need to change the directory
+    load("Data/ffseg.rdata")
+    ```
+
+## Introduction
+
+Base R is typically sufficient for performing the basics of both hierarchical and *k*-means cluster analysis, but to get some of the outputs required more easily and more efficiently, I have created some user defined functions.  You should download these functions and save them in your working directory.
+
+* [clustop.R]("clustop.R") provides Duda-Hart and psuedo-$T^2$ indices for hierarchical agglomerative clustering
+* [cldescr.R]("cldescr.R") describes variables based on cluster membership
+* [myhc.R]("myhc.R") produces a dendrogram and cluster sizes and percents for hierarchical agglomerative clustering
+* [wssplot.R]("wssplot.R") produces a scree plot for $k$-means
+* [ksize.R]("ksize.R") produces cluster size and proportion tables for $k$-means
+* [kcenters.R]("kcenters.R") produces cluster center table and plot from $k$-means
+
+
+Once saved in your working directory, it is good practice to source them.
+``` {r}
+source("clustop.R")
+source("cldescr.R")
+source("myhc.R")
+source("wssplot.R")
+source("ksize.R")
+source("kcenters.R")
+```
+
+## Preparation
+
+* For both hierarchical agglomerative and *k*-means clustering, we usually prepare our data for clustering
+    * In other words, choose which variable to use for clustering
+    * Package `dplyr` is usually the best tool for this
+    
+```{r}
+library(dplyr)
+# Store variables selected using dplyr to 'segvar'
+clvar <- ffseg %>%   
+    select(quality, price, healthy, variety, speed)
+```
+    
+    * To standardize the clustering variables, use the `scale` function
+        * Usage: `scale(data)`
+        * To store as a data frame, wrap the command in `data.frame()`
+    
+```{r}
+# Standardize 'clvar' df and store as 'sc.clvar'
+sc.clvar <- data.frame(scale(clvar))  
+```
+
+## Hierarchical Agglomerative Clustering
+
+### Base R
+
+* In Base R, hierarchical cluster analysis is done in multiple steps, 
+    1. Use the `dist()` function to create a similarity/dissimilarity matrix
+    2. Use the `hclust()` function to perform hierarchical cluster analysis on the matrix from (1)
+    3. Determine how many clusters are desired using a dendrogram and/or the stopping indices from package `NbClust`
+
+#### Creating the similarity/dissimilarity matrix
+
+* Usage: `dist(data, method="")` where:
+    * `data` is the (scaled) cluster variable data
+    * `method=""` indicates the distance measure:
+        * `method="euclidean"` provides Euclidean distance
+        * `method="maximum"` provides Maximum distance
+        * `method="manhattan"` provides Absolute distance
+        * `method="binary"` provides a distance measure for a set of binary-only variables
+        * NOTE: other choices exist, but for MKT 4320, our focus is on these four
+        
+```{r}
+# Create the similarity/dissimilarity matrix and save as object 'dist'
+dist <- dist(sc.clvar,   # Scaled data from earlier
+             method="euclidean")    # Euclidean distance measure
+```
+
+#### Perform hierarchical clustering
+
+* Usage: `hclust(d, method="") where:
+    * `d` is the similarity/dissimilarity matrix
+    * `method=""` indicates the linkage method:
+        * `method="single"` provides Single linkage
+        * `method="complete"` provides Complete linkage
+        * `method="average"` provides Average linkage
+        * `method="ward.D"` provides Ward's linkage
+        * NOTE: other choices exist, but for MKT 4320, our focus is on these four
+
+```{r}
+# Preform hierarchical clustering and save as object 'hc'
+hc <- hclust(dist,  # similarity/dissimilarity matrix from earlier
+             method="ward.D")   # Ward's linkage method
+
+# NOTE: The similarity/dissimilarity matrix can be done within the call
+#       to 'hclust'
+hc1 <- hclust(dist(sc.clvar, method="euclidean"), method="ward.D")
+```
+
+#### Create a dendrogram
+
+* Usage: `plot(x)` where:
+    * `x` is a hierarchical clustering object
+    
+```{r}
+# Create dendrogram of object hc
+plot(hc)
+```
+
+#### Stopping indices
+
+* To get the Duda-Hart index, and the pseudo-$T^2$, the `NbClust` package is used
+    * This package is not available in BGSU's Virtual Computing Lab
+* Usage: `NbClust(data, distance="", method="", min.nc=, max.nc=, index="")$All.index` where:
+    * `data` is the (scaled) cluster variable data
+    * `distance=""` indicates the distance measure using the same options from the `dist` function above
+    * `method=""` indicates the linkage method using the same options from the `hclust` option above
+    * `min.nc=` and `max.nc=` indicate the minimum and maximum number of clusters to examine
+    * `index=""` indicates what measure is wanted:
+        * `index="duda"` uses the Duda-Hart index
+        * `index="pseudot2` uses the pseudo-$T^2$ index
+    * `$All.index` requests only the index values be returned
+        
+```{r}
+# After installing package for the first time, load the 'NbClust' package
+library(NbClust)
+# Get Duda-Hart Index
+NbClust(sc.clvar,   # Scaled cluster variable data from earlier
+        distance="euclidean",   # Euclidean distance measure
+        method="ward.D",   # Ward's linkage
+        min.nc=1,   # Show between 1 and...
+        max.nc=10,  # ... 10 clusters
+        index="duda")$All.index   # Request Duda-Hart index
+# Get pseudo-T2
+NbClust(sc.clvar, distance="euclidean", method="ward.D",
+        min.nc=1, max.nc=10, index="pseudot2")$All.index
+```
+
+### User Defined Functions
+
+* The `myhc.R` user defined function can produce the results with one or two passes of the function
+    * Requires the following packages:
+        * `dendextend`
+        * `dplyr`
+        * `NbClust`
+* The results should be saved to an object
+* Usage: `myhc(data, dist="", method="", cuts, clustop="")` where:
+    * `data` is the (scaled) cluster variable data
+    * `dist=""` indicates the distance measure:
+        * `dist="euc"` provides Euclidean distance
+        * `dist="euc2"` provides Euclidean Squared distance
+        * `dist="max"` provides Maximum distance
+        * `dist="abs"` provides Absolute distance
+        * `dist="bin"` provides a distance measure for a set of binary-only variables
+    * `method=""` indicates the linkage method:
+        * `method="single"` provides Single linkage
+        * `method="complete"` provides Complete linkage
+        * `method="average"` provides Average linkage
+        * `method="ward"` provides Ward's linkage
+    * `cuts` indicates how many clusters (optional):
+        * Examples: `cuts=3`; `cuts=c(2,4,5)`
+    * `clustop=""` indicates if stopping indices are wanted
+        * `clustop="Y"` if indices are wanted
+        * `clustop="N"` if indices are not wanted
+* Objects returned: 
+    * If `cuts` are provided:
+        * Dendrogram of the top $n$ branches, where $n$ is the highest number of clusters provided by `cuts`
+        * Table of cluster sizes (`$kcount`) 
+        * Table of cluster size percentages (`$kperc`)
+        * `hclust` object (`$hc`)
+        * Stopping indices for 1 to 10 clusters, if requested (`$stop`)
+    * If `cuts` are not provided:
+        * Dendrogram with all branches
+        * Stopping indices for 1 to 10 clusters, if requested (`$stop`)
+* Examples:
+    * No cuts with stopping indices
+    ```{r, messages=FALSE}
+    # Both myhc.R and clustop.R need to be "sourced"
+    eg1 <- myhc(sc.clvar, "euc", "ward", clustop="Y")
+    # Dendrogram will get produced automatically
+    # Call eg1$stop to get table of stopping indices
+    eg1$stop
+    ```
+    * One cut without stopping indices
+    ```{r}
+    eg2 <- myhc(sc.clvar, "max", "ward", cuts=5, clustop="N")
+    # Dendrogram will get produced automatically
+    # call eg2$kcount and eg2$kperc to get cluster sizes
+    eg2$kcount
+    eg2$kperc
+    ```
+    * Multiple cuts without stopping indices
+    ```{r}
+    eg3 <- myhc(sc.clvar, "abs", "ward", cuts=c(2,3,4,6), clustop="N")
+    # Dendrogram will get produced automatically
+    # call eg3$kcount and eg3$kperc to get cluster sizes
+    eg3$kcount
+    eg3$kperc
+    ```
+    
+### Cluster membership
+
+* Use the `cutree()` function to get cluster membership for the specified number of clusters
+* Usage: `cutree(tree, k=)` where:
+    * `tree` is an `hclust` object from Base R methods or from `myhc` function
+    * `k=` is the number of clusters to retrieve
+* Assign cluster membership to original data, cluster variables, or both
+
+```{r}
+# Create new variables in original data based on cluster membership
+# Need to use 'as.factor()' to classify variable as factor
+ffseg$K3 <- as.factor(cutree(hc,  # 'hclust' object from Base R earlier
+                             k=3))   # Number of clusters to retrieve
+ffseg$K4 <- as.factor(cutree(eg3$hc, # 'hclust' object from call to 'myhc' earlier
+                             k=4))   # Number of clusters to retrieve
+
+# Create new data frame of scaled clustering variables
+# with cluster membership appended
+# 'cbind' stands for column bind
+sc.cldesc <- cbind(sc.clvar,  # Scaled cluster variables
+                   K3=as.factor(cutree(hc, k=3)))  # Cluster membership variable
+```
+
+## $k$-Means Clustering
+
+### Base R
+
+* $k$-Means clustering is done mostly in Base R, but there is a couple user defined functions to help
+* Process:
+    * Run `wssplot.R` user defined function to get a scree plot
+    * Based on scree plot, use `ksize()` user defined function to examine the cluster sizes for several solutions
+    * Run `kmeans()` for desired solution 
+    * Assign cluster membership for desired number of clusters to original data, cluster variables, or both
+    
+#### Scree plot
+
+* The `wssplot.R` user defined function produces a scree plot for 1 to $n$ clusters
+    * Requires the `ggplot2` package
+* Usage: `wssplot(data, nc=, seed=)` where:
+    * `data` is the (scaled) cluster variable data
+    * `nc=` takes an integer value and is the maximum number of clusters to plot; default is 15
+    * `seed=` is a random number seed for reproducible results; default is 4320
+    
+```{r}
+# 'wssplot.R' must first be sourced (if not already)
+wssplot(sc.clvar)  # Produces scree plot with default 15 clusters and 4320 seed
+```
+
+#### Cluster sizes
+
+* The `ksize.R` user defined function produces a count and proportion tables for the selected $k$ solutions
+* The results should be saved to an object
+* Usage: `ksize(data, centers=, nstart=, seed=)` where:
+    * `data` is the (scaled) cluster variable data
+    * `centers=` takes one or more integers for the $k$ cluster solutions to be examined
+    * `nstart=` takes an integer value for the number of random starting points to try; default is 25
+    * `seed=` is a random number seed for reproducible results; default is 4320
+* Objects returned: 
+    * Table of cluster sizes (`$kcount`) 
+    * Table of cluster size percentages (`$kperc`)
+
+```{r}
+# 'ksize.R' must first be sourced (if not already)
+ks <- ksize(sc.clvar,   # Scaled cluster variables from earlier
+            centers=c(3,4,5),   # Request for 3, 4, and 5 cluster solutions
+            nstart=25,  # Request 25 random starting sets
+            seed=4320)  # Set seed to 4320 for reproducible results
+ks$kcount   # Cluster sizes
+ks$kperc     # Cluster percentages
+```
+
+#### kmeans function
+
+* Usage: `kmeans(data, centers=, nstart=)` where:
+    * `data` is the (scaled) cluster variable data
+    * `centers=` takes an integer value for the number of clusters desired
+    * `nstart=` takes an integer value for the number of random starting points to try
+* Results should be assigned to an object
+* NOTE 1: For reproducible results, `set.seed()` should be run immediately before running `kmeans()`
+* NOTE 2: `nstart=` should be same value as above
+* Use the saved `$cluster` object to assign cluster membership
+
+```{r}
+set.seed(4320)  # Set random number seed
+# Run kmeans() for 4 clusters and assign to object k3
+k4 <- kmeans(sc.clvar,   # Scaled cluster variables from earlier
+             centers=4,  # Request 3-cluster solution
+             nstart=25)  # Request 25 random starting sets
+ffseg$KM4 <- as.factor(k4$cluster)
+```
+
+## Describing clusters
+
+### `cldescr.R`
+
+* The `cldescr.R` user defined function can be used to describe the clusters on both cluster variables and other variables that may be in the dataset
+* The results should be assigned to an object
+* Usage: `cldescr(data, var="", vtype=c("F", "C"), cvar=""` where:
+    * `data` is the original data or (scaled) cluster variable data with cluster membership attached
+    * `var=""` contains the name of the variable to examine by cluster membership
+    * `vtype=""` takes "F" if `var` is a factor variable or "C" if `var` is a continuous variable
+    * `cvar=""` contains the name of the cluster membership variable
+* If `vtype="F"` with more than two levels, the factor variable is split into dummy variables (1=True, 0=False) for each level of the factor
+* If `vtype="F"` with only two levels, the only the first level of the factor variable is shown as a dummy variable (1=True, 0=False)
+* If `vtype="C"` a list (using `c()`) of variables can be provided
+* Objects returned
+    * Table of means (`$means`)
+        * If `vtype="F"`, one column per level of factor
+    * Table of ANOVA p-values (`$aovp`)
+    * Table(s) of Tukey HSD multiple comparisons for any variables where the ANOVA p-value$<0.1$ (`tukey`)
+
+### `kcenters.R`
+
+* For $k$-Means, the `kcenters.R` user defined function can be used to describe the cluster centers
+    * Requires `ggplot2` package
+* The results should be assigned to an object
+* Usage: `kcenters(kobject)` where:
+    * `kobject` is the name of a saved $k$-means object
+* Objects returned
+    * Table of means (`$table`)
+    * `ggplot` object (`$plot`)
+
+### Examples
+
+* Describing hierarchical clustering using clustering variables
+
+```{r}
+# 'cldescr.R' must first be sourced (done above)
+hc.cv <- cldescr(sc.cldesc,    # Scaled cluster variables w/ cluster membership
+                 var=c("quality", "price", "healthy", # List of cluster variables
+                   "variety", "speed"),
+                 vtype="C",  # All variables are continuous
+                 cvar="K3")  # Cluster membership variable
+hc.cv$means
+hc.cv$aovp
+# hc.cv$tukey   # NOT SHOWN BECAUSE USUALLY ALL SIGNIFICANTLY DIFFERENT 
+```
+
+* Describing hierarchical clustering or $k$-means using non-clustering continuous variables done the same as previous example
+* Describing hierarchical clustering or $k$-means using non-clustering factor variables
+
+```{r}
+#  Factor variable 'live' on k-means solution
+km.fv <- cldescr(ffseg, var="live", vtype="F", cvar="KM4")
+km.fv$means
+km.fv$aovp
+km.fv$tukey
+```
+```{r}
+#  Factor variable 'gender' on hierarchcial clustering solution
+hc.fv <- cldescr(ffseg, var="gender", vtype="F", cvar="K3")
+hc.fv$means
+hc.fv$aovp
+hc.fv$tukey
+```
+
+* Describing $k$-means clustering using cluster centers
+
+```{r}
+km.cent <- kcenters(k4)
+km.cent$table
+km.cent$plot
+```
