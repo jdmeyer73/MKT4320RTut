@@ -232,7 +232,7 @@ sc.cldesc <- cbind(sc.clvar,  # Scaled cluster variables
                    K3=as.factor(cutree(hc, k=3)))  # Cluster membership variable
 ```
 
-## $k$-Means Clustering
+## *k*-Means Clustering
 
 ### Base R
 
