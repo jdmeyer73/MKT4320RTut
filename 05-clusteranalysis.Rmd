@@ -11,7 +11,7 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* The [directmktg.rdata]("Data/directmktg.rdata") is used. Load it now.
+* The [ffseg.rdata]("Data/ffseg.rdata") is used. Load it now.
     ```{r}
     # You may need to change the directory
     load("Data/ffseg.rdata")
