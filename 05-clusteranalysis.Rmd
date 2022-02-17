@@ -21,12 +21,12 @@ Data for this chapter:
 
 Base R is typically sufficient for performing the basics of both hierarchical and *k*-means cluster analysis, but to get some of the outputs required more easily and more efficiently, I have created some user defined functions.  You should download these functions and save them in your working directory.
 
-* [clustop.R]("clustop.R") provides Duda-Hart and psuedo-$T^2$ indices for hierarchical agglomerative clustering
-* [cldescr.R]("cldescr.R") describes variables based on cluster membership
-* [myhc.R]("myhc.R") produces a dendrogram and cluster sizes and percents for hierarchical agglomerative clustering
-* [wssplot.R]("wssplot.R") produces a scree plot for $k$-means
-* [ksize.R]("ksize.R") produces cluster size and proportion tables for $k$-means
-* [kcenters.R]("kcenters.R") produces cluster center table and plot from $k$-means
+* [clustop.R](clustop.R) provides Duda-Hart and psuedo-$T^2$ indices for hierarchical agglomerative clustering
+* [cldescr.R](cldescr.R) describes variables based on cluster membership
+* [myhc.R](myhc.R) produces a dendrogram and cluster sizes and percents for hierarchical agglomerative clustering
+* [wssplot.R](wssplot.R) produces a scree plot for $k$-means
+* [ksize.R](ksize.R) produces cluster size and proportion tables for $k$-means
+* [kcenters.R](kcenters.R) produces cluster center table and plot from $k$-means
 
 
 Once saved in your working directory, it is good practice to source them.
