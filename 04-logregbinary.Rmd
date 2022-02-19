@@ -15,7 +15,7 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* The [directmktg.rdata]("Data/directmktg.rdata") is used. Load it now.
+* The [directmktg.rdata](Data/directmktg.rdata) is used. Load it now.
     ```{r t4loaddata}
     # You may need to change the directory
     load("Data/directmktg.rdata")
@@ -25,11 +25,11 @@ Data for this chapter:
 
 Base R is typically sufficient for performing the basics of logisitic regression, but to get some of the outputs required, I have created some user defined functions.  You should download these functions and save them in your working directory.
 
-* [or_table.R]("or_table.R") produces Odds Ratio Coefficients
-* [logreg_cm.R]("logreg_cm.R") produces the Classification Matrix
-* [logreg_roc.R]("logreg_roc.R") produces the ROC Curves
-* [gainlift.R]("gainlift.R") produces Gain/Lift tables and charts
-* [logreg_cut.R]("logreg_cut.R") produces the Sensitivity/Specificity Plot
+* [or_table.R](or_table.R) produces Odds Ratio Coefficients
+* [logreg_cm.R](logreg_cm.R) produces the Classification Matrix
+* [logreg_roc.R](logreg_roc.R) produces the ROC Curves
+* [gainlift.R](gainlift.R) produces Gain/Lift tables and charts
+* [logreg_cut.R](logreg_cut.R) produces the Sensitivity/Specificity Plot
 
 Once saved in your working directory, it is good practice to source them.
 ``` {r t4sourceudf}

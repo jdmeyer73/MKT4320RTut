@@ -13,7 +13,7 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* Once again, the [airlinesat.rdata]("Data/airlinesat.rdata") is used. Load it now.
+* Once again, the [airlinesat.rdata](Data/airlinesat.rdata) is used. Load it now.
     ```{r t3loaddata}
     # You may need to change the directory
     load("Data/airlinesat.rdata")

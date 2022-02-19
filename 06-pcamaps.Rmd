@@ -1,0 +1,148 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+# Principal Components Analysis
+
+Sources for this chapter:
+
+* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+
+Data for this chapter:
+
+* The [ffseg.rdata]("Data/ffseg.rdata") is used. Load it now.
+    ```{r}
+    # You may need to change the directory
+    load("Data/greekbrands.rdata")
+    ```
+
+## Introduction
+
+Base R is typically sufficient for performing the basics of principal components analysis, but to get some of the outputs required more easily and more efficiently, I have created a user defined function.  You should download this function and save it in your working directory.
+
+* [pcaex.R](pcaex.R) provides eigenvalue table, scree plot, unrotated and rotated factor loading tables, and the principal components R object
+
+Once saved in your working directory, it is good practice to source user defined functions.
+``` {r}
+source("pcaex.R")
+```
+
+## Preparation
+
+* For principal components analysis (PCA), we need to pass a data frame to the user defined function containing the variables to be used.
+    * Although we can pass a dataframe with additional variables, I find it easier to create a new dataframe with only those variables we want to include ( and maybe a preference and group/brand variable, see below)
+    * In our class, the data set will often be used for creating a perceptual map, so we may also have a grouping variable (e.g., brand or product name) and a preference variable
+    * Package `dplyr` is usually the best tool for this
+* For this tutorial, we will perform a PCA using the `greekbrands` dataframe
+    * We will use only the following attributes:
+        * $perform$, $leader$, $fun$, $serious$, $bargain$, $value$
+        * The data also has a preference variable, $pref$ and a brand variable, $brand$
+    
+```{r}
+library(dplyr)
+# Store variables selected using dplyr to 'segvar'
+pcadata <- greekbrands %>%   
+    select(perform, leader, fun, serious, bargain, value,
+           pref, brand)
+```
+
+## Base R
+
+### `prcomp()` function
+
+The `prcomp()` function performs PCA
+* Usage: `prcomp(formula, data=, scale=TRUE, rank=)` where:
+    * `formula` is a formula with no response variables, but rather only the numeric variables to be included if not all variables in `data` are to be included
+        * No response variable means the formula is written as:<br>
+        `~var1 + var2 + var3 + ... + var4`
+    * `data=` is the name of the dataframe
+    * `scale=TRUE` standardizes the variables before running the PCA
+    * `rank=` is the number of components to retain; default is all
+* When saved to an object, the following components are saved:
+    * `$sdev` is the standard deviations of the principal components (i.e., the square roots of the eigenvalues)
+    * `$rotation` is the unroated factor loadings
+    * `$x` is the factor scores
+* Example: perform PCA on $serious$, $fun$, $bargain$, $trendy$, and $value$ with only two components retained
+
+    ```{r}
+    pcaout <- prcomp(~serious+fun+bargain+trendy+value, # Variables to include
+                     data=greekbrands,  # Data frame to use
+                     scale=TRUE,   # Standardize the variables
+                     rank=2)   # Retain only first two components
+    ```
+
+### Eigenvalue table
+
+* To get the eigenvalue table, we must square the `$sdev` component of the PCA object
+
+    ```{r}
+    eigtable <- data.frame(components=seq(1:5), # column with component #'s
+                           pcaout$sdev^2)  # Eigenvalues
+    eigtable
+    ```
+
+### Unrotated loadings
+
+* Unrotated factor loadings are in the `$rotation` component of the PCA object
+
+    ``` {r}
+    pcaout$rotation
+    ```
+### Rotated loadings
+
+* Rotated loadings are not automatically created. Instead, we must use the `varimax(pcaobject$rotation)$loadings` command to obtain them. By default, only rotated loadings greater than 0.4 are shown.
+
+    ``` {r}
+    varimax(pcaout$rotation)$loadings
+    ```
+
+## User Defined Function
+
+* The `pcaex.R` user defined function can produce the results with one or two passes of the function
+    * Requires the following packages:
+        * `ggplot2`
+        * `dplyr`
+* The results should be saved to an object
+* Usage: `pcaex(data, group="", pref="", comp=)` where:
+    * `data` is the PCA variable data
+    * `group=""` is the name of the grouping variable
+        * Can be excluded if no grouping variable
+    * `pref=""` is the name of the preference variable
+        * Can be excluded if no preference variable
+    * `comp=` is the number of components to retain
+        * Default is `NULL` if all components are wanted
+* Objects returned: 
+    * If `comp` is NOT provided:
+        * Scree plot (`$plot`) 
+        * Table of eigenvalues (`$table`) 
+    * If `comp` is provided:
+        * Table of eigenvalues (`$table`)
+        * Unrotated factor loading table (`$unrotated`)
+        * Rotated factor loading table (`$rotated`)
+        * PCA object (`$pcaobj`)
+* Examples:
+    * All components
+    ```{r, messages=FALSE}
+    # pcaex.R need to be "sourced"
+    gb.all <- pcaex(pcadata,    # PCA data created earlier
+                    group="brand",   # Grouping variable
+                    pref="pref")    # Preference variable
+    # Do not include 'comp' to get all components
+    # Call gb.all$table to get eigenvalue table
+    gb.all$table
+    # Call gb.all$plot to get scree plot
+    gb.all$plot
+    ```
+    * Two components
+    ```{r}
+    gb.2comp <- pcaex(pcadata,    # PCA data created earlier
+                    group="brand",   # Grouping variable
+                    pref="pref",    # Preference variable
+                    comp=2)   # Request 2 components
+
+    # Call gb.2comp$unrotated to get unrotated factor loadings
+    gb.2comp$unrotated
+    # Call gb.2comp$rotated to get rotated factor loadings
+    gb.2comp$rotated
+    ```

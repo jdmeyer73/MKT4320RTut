@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Tutorial for MKT 4320</title>
+  <title>Chapter 7 Principal Components Analysis | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Tutorial for MKT 4320" />
+  <meta property="og:title" content="Chapter 7 Principal Components Analysis | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Tutorial for MKT 4320" />
+  <meta name="twitter:title" content="Chapter 7 Principal Components Analysis | R Tutorial for MKT 4320" />
   
   <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="r-basics.html"/>
+<link rel="prev" href="principal-components-analysis.html"/>
+<link rel="next" href="pca-perceptual-maps.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -398,24 +398,225 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Tutorial for MKT 4320</h1>
-<p class="author"><em>Jeffrey Meyer</em></p>
-<p class="date"><em>2022-02-19</em></p>
+<div id="principal-components-analysis-1" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Principal Components Analysis</h1>
+<p>Sources for this chapter:</p>
+<ul>
+<li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
+<ul>
+<li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
+</ul></li>
+</ul>
+<p>Data for this chapter:</p>
+<ul>
+<li><p>The <a href="Data/greekbrands.rdata">greekbrands.rdata</a> is used. Load it now.</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="principal-components-analysis-1.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb362-2"><a href="principal-components-analysis-1.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
+</ul>
+<div id="introduction-7" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Base R is typically sufficient for performing the basics of principal components analysis, but to get some of the outputs required more easily and more efficiently, I have created a user defined function. You should download this function and save it in your working directory.</p>
+<ul>
+<li><a href="pcaex.R">pcaex.R</a> provides eigenvalue table, scree plot, unrotated and rotated factor loading tables, and the principal components R object</li>
+</ul>
+<p>Once saved in your working directory, it is good practice to source user defined functions.</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="principal-components-analysis-1.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;pcaex.R&quot;</span>)</span></code></pre></div>
 </div>
-<div id="about-this-tutorial" class="section level1 unnumbered">
-<h1>About this tutorial</h1>
-<p>This tutorial is a quick and basic R tutorial for MKT 4320. It is not designed to be comprehensive, but will provide you with the basics of R, RStudio, and how to complete the types of analyses covered in the course. At this time, the tutorial is not complete, but will be updated as we move through the topics in the course.</p>
-<p>Much of the content in this tutorial is adapted from a variety of sources. Where applicable, the source will be noted.</p>
+<div id="preparation-2" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Preparation</h2>
+<ul>
+<li>For principal components analysis (PCA), we need to pass a data frame to the user defined function containing the variables to be used.
+<ul>
+<li>Although we can pass a dataframe with additional variables, I find it easier to create a new dataframe with only those variables we want to include ( and maybe a preference and group/brand variable, see below)</li>
+<li>In our class, the data set will often be used for creating a perceptual map, so we may also have a grouping variable (e.g., brand or product name) and a preference variable</li>
+<li>Package <code>dplyr</code> is usually the best tool for this</li>
+</ul></li>
+<li>For this tutorial, we will perform a PCA using the <code>greekbrands</code> dataframe
+<ul>
+<li>We will use only the following attributes:
+<ul>
+<li><span class="math inline">\(perform\)</span>, <span class="math inline">\(leader\)</span>, <span class="math inline">\(fun\)</span>, <span class="math inline">\(serious\)</span>, <span class="math inline">\(bargain\)</span>, <span class="math inline">\(value\)</span></li>
+<li>The data also has a preference variable, <span class="math inline">\(pref\)</span> and a brand variable, <span class="math inline">\(brand\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="principal-components-analysis-1.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb364-2"><a href="principal-components-analysis-1.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;segvar&#39;</span></span>
+<span id="cb364-3"><a href="principal-components-analysis-1.html#cb364-3" aria-hidden="true" tabindex="-1"></a>pcadata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span>   </span>
+<span id="cb364-4"><a href="principal-components-analysis-1.html#cb364-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value,</span>
+<span id="cb364-5"><a href="principal-components-analysis-1.html#cb364-5" aria-hidden="true" tabindex="-1"></a>           pref, brand)</span></code></pre></div>
+</div>
+<div id="base-r-6" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Base R</h2>
+<div id="prcomp-function-1" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> <code>prcomp()</code> function</h3>
+<p>The <code>prcomp()</code> function performs PCA
+* Usage: <code>prcomp(formula, data=, scale=TRUE, rank=)</code> where:
+* <code>formula</code> is a formula with no response variables, but rather only the numeric variables to be included if not all variables in <code>data</code> are to be included
+* No response variable means the formula is written as:<br>
+<code>~var1 + var2 + var3 + ... + var4</code>
+* <code>data=</code> is the name of the dataframe
+* <code>scale=TRUE</code> standardizes the variables before running the PCA
+* <code>rank=</code> is the number of components to retain; default is all
+* When saved to an object, the following components are saved:
+* <code>$sdev</code> is the standard deviations of the principal components (i.e., the square roots of the eigenvalues)
+* <code>$rotation</code> is the unroated factor loadings
+* <code>$x</code> is the factor scores
+* Example: perform PCA on <span class="math inline">\(serious\)</span>, <span class="math inline">\(fun\)</span>, <span class="math inline">\(bargain\)</span>, <span class="math inline">\(trendy\)</span>, and <span class="math inline">\(value\)</span> with only two components retained</p>
+<pre><code>```r
+pcaout &lt;- prcomp(~serious+fun+bargain+trendy+value, # Variables to include
+                 data=greekbrands,  # Data frame to use
+                 scale=TRUE,   # Standardize the variables
+                 rank=2)   # Retain only first two components
+```</code></pre>
+</div>
+<div id="eigenvalue-table-1" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Eigenvalue table</h3>
+<ul>
+<li><p>To get the eigenvalue table, we must square the <code>$sdev</code> component of the PCA object</p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="principal-components-analysis-1.html#cb366-1" aria-hidden="true" tabindex="-1"></a>eigtable <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">components=</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="co"># column with component #&#39;s</span></span>
+<span id="cb366-2"><a href="principal-components-analysis-1.html#cb366-2" aria-hidden="true" tabindex="-1"></a>                       pcaout<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>)  <span class="co"># Eigenvalues</span></span>
+<span id="cb366-3"><a href="principal-components-analysis-1.html#cb366-3" aria-hidden="true" tabindex="-1"></a>eigtable</span></code></pre></div>
+<pre class="custom-output"><code>  components pcaout.sdev.2
+1          1     2.0722697
+2          2     1.2747721
+3          3     0.8111322
+4          4     0.5913799
+5          5     0.2504461</code></pre></li>
+</ul>
+</div>
+<div id="unrotated-loadings-1" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Unrotated loadings</h3>
+<ul>
+<li><p>Unrotated factor loadings are in the <code>$rotation</code> component of the PCA object</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="principal-components-analysis-1.html#cb368-1" aria-hidden="true" tabindex="-1"></a>pcaout<span class="sc">$</span>rotation</span></code></pre></div>
+<pre class="custom-output"><code>                 PC1         PC2
+serious  0.006484917 -0.73514845
+fun     -0.179503188  0.65827780
+bargain  0.596338877  0.07600771
+trendy  -0.469318304 -0.14191980
+value    0.625984684  0.01756980</code></pre>
+<h3 id="rotated-loadings-1">Rotated loadings</h3></li>
+<li><p>Rotated loadings are not automatically created. Instead, we must use the <code>varimax(pcaobject$rotation)$loadings</code> command to obtain them. By default, only rotated loadings greater than 0.4 are shown.</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="principal-components-analysis-1.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varimax</span>(pcaout<span class="sc">$</span>rotation)<span class="sc">$</span>loadings</span></code></pre></div>
+<pre class="custom-output"><code>
+Loadings:
+        PC1    PC2   
+serious -0.101 -0.728
+fun             0.677
+bargain  0.601       
+trendy  -0.485       
+value    0.622       
 
+               PC1 PC2
+SS loadings    1.0 1.0
+Proportion Var 0.2 0.2
+Cumulative Var 0.2 0.4</code></pre></li>
+</ul>
+</div>
+</div>
+<div id="user-defined-function-1" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> User Defined Function</h2>
+<ul>
+<li>The <code>pcaex.R</code> user defined function can produce the results with one or two passes of the function
+<ul>
+<li>Requires the following packages:
+<ul>
+<li><code>ggplot2</code></li>
+<li><code>dplyr</code></li>
+</ul></li>
+</ul></li>
+<li>The results should be saved to an object</li>
+<li>Usage: <code>pcaex(data, group="", pref="", comp=)</code> where:
+<ul>
+<li><code>data</code> is the PCA variable data</li>
+<li><code>group=""</code> is the name of the grouping variable
+<ul>
+<li>Can be excluded if no grouping variable</li>
+</ul></li>
+<li><code>pref=""</code> is the name of the preference variable
+<ul>
+<li>Can be excluded if no preference variable</li>
+</ul></li>
+<li><code>comp=</code> is the number of components to retain
+<ul>
+<li>Default is <code>NULL</code> if all components are wanted</li>
+</ul></li>
+</ul></li>
+<li>Objects returned:
+<ul>
+<li>If <code>comp</code> is NOT provided:
+<ul>
+<li>Scree plot (<code>$plot</code>)</li>
+<li>Table of eigenvalues (<code>$table</code>)</li>
+</ul></li>
+<li>If <code>comp</code> is provided:
+<ul>
+<li>Table of eigenvalues (<code>$table</code>)</li>
+<li>Unrotated factor loading table (<code>$unrotated</code>)</li>
+<li>Rotated factor loading table (<code>$rotated</code>)</li>
+<li>PCA object (<code>$pcaobj</code>)</li>
+</ul></li>
+</ul></li>
+<li>When a <code>group=</code> variable is provided, the PCA will be performed on an aggregated data frame (i.e., mean values by group)</li>
+<li>Examples:
+<ul>
+<li>All components</li>
+</ul>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="principal-components-analysis-1.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pcaex.R need to be &quot;sourced&quot;</span></span>
+<span id="cb372-2"><a href="principal-components-analysis-1.html#cb372-2" aria-hidden="true" tabindex="-1"></a>gb.all <span class="ot">&lt;-</span> <span class="fu">pcaex</span>(pcadata,    <span class="co"># PCA data created earlier</span></span>
+<span id="cb372-3"><a href="principal-components-analysis-1.html#cb372-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">group=</span><span class="st">&quot;brand&quot;</span>,   <span class="co"># Grouping variable</span></span>
+<span id="cb372-4"><a href="principal-components-analysis-1.html#cb372-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)    <span class="co"># Preference variable</span></span>
+<span id="cb372-5"><a href="principal-components-analysis-1.html#cb372-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not include &#39;comp&#39; to get all components</span></span>
+<span id="cb372-6"><a href="principal-components-analysis-1.html#cb372-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call gb.all$table to get eigenvalue table</span></span>
+<span id="cb372-7"><a href="principal-components-analysis-1.html#cb372-7" aria-hidden="true" tabindex="-1"></a>gb.all<span class="sc">$</span>table</span></code></pre></div>
+<pre class="custom-output"><code>  Component Eigenvalue Difference Proporation Cumulative
+1         1     3.4180     1.5468      0.5697     0.5697
+2         2     1.8712     1.4213      0.3119     0.8815
+3         3     0.4500     0.2527      0.0750     0.9565
+4         4     0.1973     0.1567      0.0329     0.9894
+5         5     0.0405     0.0175      0.0068     0.9962
+6         6     0.0231         NA      0.0038     1.0000</code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="principal-components-analysis-1.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call gb.all$plot to get scree plot</span></span>
+<span id="cb374-2"><a href="principal-components-analysis-1.html#cb374-2" aria-hidden="true" tabindex="-1"></a>gb.all<span class="sc">$</span>plot</span></code></pre></div>
+<img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" />
+<ul>
+<li>Two components</li>
+</ul>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="principal-components-analysis-1.html#cb375-1" aria-hidden="true" tabindex="-1"></a>gb<span class="fl">.2</span>comp <span class="ot">&lt;-</span> <span class="fu">pcaex</span>(pcadata,    <span class="co"># PCA data created earlier</span></span>
+<span id="cb375-2"><a href="principal-components-analysis-1.html#cb375-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">group=</span><span class="st">&quot;brand&quot;</span>,   <span class="co"># Grouping variable</span></span>
+<span id="cb375-3"><a href="principal-components-analysis-1.html#cb375-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>,    <span class="co"># Preference variable</span></span>
+<span id="cb375-4"><a href="principal-components-analysis-1.html#cb375-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">comp=</span><span class="dv">2</span>)   <span class="co"># Request 2 components</span></span>
+<span id="cb375-5"><a href="principal-components-analysis-1.html#cb375-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb375-6"><a href="principal-components-analysis-1.html#cb375-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call gb.2comp$unrotated to get unrotated factor loadings</span></span>
+<span id="cb375-7"><a href="principal-components-analysis-1.html#cb375-7" aria-hidden="true" tabindex="-1"></a>gb<span class="fl">.2</span>comp<span class="sc">$</span>unrotated</span></code></pre></div>
+<pre class="custom-output"><code>            PC1     PC2 Unexplained
+perform  0.4455  0.0934      0.3054
+leader   0.4970  0.1817      0.0941
+fun     -0.5005 -0.0351      0.1416
+serious  0.4712  0.2503      0.1239
+bargain  0.1718 -0.6815      0.0299
+value    0.2293 -0.6557      0.0159</code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="principal-components-analysis-1.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call gb.2comp$rotated to get rotated factor loadings</span></span>
+<span id="cb377-2"><a href="principal-components-analysis-1.html#cb377-2" aria-hidden="true" tabindex="-1"></a>gb<span class="fl">.2</span>comp<span class="sc">$</span>rotated</span></code></pre></div>
+<pre class="custom-output"><code>            PC1     PC2 Unexplained
+perform  0.4533 -0.0409      0.3054
+leader   0.5284  0.0284      0.0941
+fun     -0.4889  0.1127      0.1416
+serious  0.5238  0.1016      0.1239
+bargain -0.0350 -0.7020      0.0299
+value    0.0275 -0.6941      0.0159</code></pre></li>
+</ul>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="r-basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="principal-components-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pca-perceptual-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

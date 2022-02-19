@@ -1,0 +1,110 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+# PCA Perceptual Maps
+
+Sources for this chapter:
+
+* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+
+Data for this chapter:
+
+* The [greekbrands.rdata](Data/greekbrands.rdata) is used. Load it now.
+    ```{r}
+    # You may need to change the directory
+    load("Data/greekbrands.rdata")
+    ```
+
+## Introduction
+
+Base R can produce basic perceptual maps from a PCA object, but cannot create a joint-space map easily. For joint-space maps, better looking perceptual maps, and to make the process easier, user defined function has been created
+
+* [percmap.R](percmap.R) returns a `ggplot` created percpetual (or joint-space) map.
+
+Once saved in your working directory, it is good practice to source user defined functions.
+``` {r}
+source("percmap.R")
+```
+
+## Base R
+
+### Preparation
+
+* For PCA perceptual maps with a grouping variable (e.g., brand or product name), it is best to use a dataframe of aggregated means by the grouping variable.
+* For this tutorial, we will create a PCA perceptual map using the `greekbrands` dataframe
+    * We will use only the following attributes:
+        * $perform$, $leader$, $fun$, $serious$, $bargain$, $value$
+        * The grouping variable is $brand$
+    
+```{r}
+library(dplyr)
+# Store variables selected using dplyr to 'pmdata'
+pmdata <- greekbrands %>% 
+    select(perform, leader, fun, serious, bargain, value, brand) %>%
+    group_by(brand) %>%
+    summarise_all(mean)
+```
+
+### Perform PCA first
+
+* To create the perceptual map, we must first run and store a PCA object on our data frame
+
+    ```{r}
+    pcaout <- prcomp(~perform+leader+fun+serious+bargain+value, 
+                     data=pmdata, 
+                     scale=TRUE,   
+                     rank=2)  
+    ```
+
+### Create map using `biplot`
+
+* The map is created using the `biplot` function with the PCA object passed to it along with group variable labels
+
+``` {r}
+biplot(pcaout,  # PCA object from above
+       xlabs=pmdata$brand)   # Grouping variable labels
+```
+
+## User Defined Function
+
+### Preparation
+
+* For the user defined function, we must pass the function a data frame with the variables to be used in creating the principal components, the grouping variable (i.e., brand/product name), and if applicable, the preference variable
+    * The data frame does not need to be aggregated, but must contain ONLY those variables
+    
+```{r}
+library(dplyr)
+# For a perceptual map, store variables selected using dplyr to 'pmdata'
+pmdata <- greekbrands %>% 
+    select(perform, leader, fun, serious, bargain, value, brand)
+
+# For a joint space map, store variable selected using dplyr to 'jsmdata'
+jsmdata <- greekbrands %>%
+    select(perform, leader, fun, serious, bargain, value, pref, brand)
+```
+
+* The `percmap.R` user defined function can easily product a perceptual map or joint-space map based on the first two principal components
+    * Requires the following packages:
+        * `ggplot2`
+        * `dplyr`
+* Usage: `percmap(data, group="", pref="")` where:
+    * `data` is the PCA variable data
+    * `group=""` is the name of the grouping variable
+    * `pref=""` is the name of the preference variable
+        * Can be excluded if no preference variable
+* Returns:
+    * A perceptual map if `pref` is not included
+    * A joint space map if `pref` is included
+* Examples:
+    * Perceptual Map
+    ```{r}
+    source("percmap.R")
+    percmap(pmdata, group="brand")
+    ```
+    * Joint Space Map
+    ```{r}
+    percmap(jsmdata, group="brand", pref="pref")
+    ```
