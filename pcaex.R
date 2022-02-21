@@ -3,9 +3,11 @@ pcaex <- function(data, group, pref, comp=NULL) {
    if(missing(group)) {
       if(missing(pref)) {
          pcadata <- data
+         denom <- ncol(pcadata)
       } else {
          prefcnum <- grep(pref,colnames(data))
          pcadata <- data[-prefcnum]
+         denom <- ncol(pcadata)
       }
    } else {
       grpcnum <- grep(group, colnames(data))
@@ -14,17 +16,19 @@ pcaex <- function(data, group, pref, comp=NULL) {
             group_by(data[grpcnum]) %>% 
             summarise_all(mean) %>%
             select(-1)
+         denom <- ncol(pcadata)
       } else {
          prefcnum <- grep(pref,colnames(data))
          pcadata <- data[-prefcnum] %>% 
             group_by(data[grpcnum]) %>% 
             summarise_all(mean) %>%
             select(-1)
+         denom <- ncol(pcadata)
       }
    }
    if(missing(comp)) {
       require(ggplot2)
-      pcaobj <- prcomp(pcadata,scale=TRUE)
+      pcaobj <- prcomp(pcadata,scale=TRUE, tol=0)
       eigtable <- data.frame(Component=integer(),
                              Eigenvalue=double(),
                              Difference=double(),
@@ -39,11 +43,11 @@ pcaex <- function(data, group, pref, comp=NULL) {
          } else {
             eigtable[i,3] <- NA
          }
-         eigtable[i,4] <- (pcaobj$sdev[i]^2)/len
+         eigtable[i,4] <- (pcaobj$sdev[i]^2)/denom
          if(i==1) {
-            eigtable[i,5] <- (pcaobj$sdev[i]^2)/len
+            eigtable[i,5] <- (pcaobj$sdev[i]^2)/denom
          } else {
-            eigtable[i,5] <- (pcaobj$sdev[i]^2)/len + eigtable[i-1,5]
+            eigtable[i,5] <- (pcaobj$sdev[i]^2)/denom + eigtable[i-1,5]
          }
       }
       eigtable <- cbind("Component"=eigtable[,1], round(eigtable[,2:5],4))
@@ -68,11 +72,11 @@ pcaex <- function(data, group, pref, comp=NULL) {
          } else {
             eigtable[i,3] <- NA
          }
-         eigtable[i,4] <- (pcaobj$sdev[i]^2)/len
+         eigtable[i,4] <- (pcaobj$sdev[i]^2)/denom
          if(i==1) {
-            eigtable[i,5] <- (pcaobj$sdev[i]^2)/len
+            eigtable[i,5] <- (pcaobj$sdev[i]^2)/denom
          } else {
-            eigtable[i,5] <- (pcaobj$sdev[i]^2)/len + eigtable[i-1,5]
+            eigtable[i,5] <- (pcaobj$sdev[i]^2)/denom + eigtable[i-1,5]
          }
       }
       unex <- 1-(pcaobj$rotation^2)%*%(matrix(pcaobj$sdev[1:comp]^2))

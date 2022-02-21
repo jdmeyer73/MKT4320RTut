@@ -86,6 +86,8 @@ jsmdata <- greekbrands %>%
     select(perform, leader, fun, serious, bargain, value, pref, brand)
 ```
 
+### Using the function
+
 * The `percmap.R` user defined function can easily product a perceptual map or joint-space map based on the first two principal components
     * Requires the following packages:
         * `ggplot2`
