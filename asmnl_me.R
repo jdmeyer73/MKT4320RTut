@@ -1,4 +1,5 @@
 asmnl_me <- function(mod) {
+   require(mlogit)
    mlen <- length(mod$model) - 3
    mlen2 <- mlen + 1
    mdata <- mod$model[,1:mlen2]

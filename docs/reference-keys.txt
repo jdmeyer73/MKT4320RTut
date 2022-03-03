@@ -242,3 +242,8 @@ standard-mnl-using-multinom
 stmnl-user-defined-function
 classification-matrix-1
 average-predicted-probabilities
+alt-specific-mnl
+introduction-9
+alt-spec-mnl-using-user-defined-function
+marginal-effects
+margin-plots-1

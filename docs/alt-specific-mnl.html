@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320</title>
+  <title>Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320" />
+  <meta property="og:title" content="Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320" />
+  <meta name="twitter:title" content="Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320" />
   
   <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="principal-components-analysis.html"/>
-<link rel="next" href="standard-mnl.html"/>
+<link rel="prev" href="standard-mnl.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -407,129 +407,162 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pca-perceptual-maps" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> PCA Perceptual Maps</h1>
-<p>Sources for this chapter:</p>
-<ul>
-<li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
-<ul>
-<li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
-</ul></li>
-</ul>
+<div id="alt-specific-mnl" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Alt-Specific MNL</h1>
 <p>Data for this chapter:</p>
 <ul>
-<li><p>The <a href="Data/greekbrands.rdata">greekbrands.rdata</a> is used. Load it now.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="pca-perceptual-maps.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb362-2"><a href="pca-perceptual-maps.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
+<li><p>The <a href="Data/yogurt.rdata">yogurt.rdata</a> is used. Load it now. Because of how the data is arranged, the training and holdout samples are both included in the file: <code>train.yog</code> and <code>test.yog</code>.</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="alt-specific-mnl.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb391-2"><a href="alt-specific-mnl.html#cb391-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/yogurt.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
-<div id="introduction-7" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Introduction</h2>
-<p>Base R can produce basic perceptual maps from a PCA object, but cannot create a joint-space map easily. For joint-space maps, better looking perceptual maps, and to make the process easier, user defined function has been created</p>
-<ul>
-<li><a href="percmap.R">percmap.R</a> returns a <code>ggplot</code> created percpetual (or joint-space) map.</li>
-</ul>
-<p>Once saved in your working directory, it is good practice to source user defined functions.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="pca-perceptual-maps.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span></code></pre></div>
+<div id="introduction-9" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>Base R is not good for alternative specific multinomial logistic regression (MNL). The best package that I have found for alternative specific MNL is <code>mlogit</code> with its <code>mlogit</code> function. Use <code>install.packages("mlogit")</code> to install the package on your machine, then load it using the <code>library</code> function when needed.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="alt-specific-mnl.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
+<pre><code>Loading required package: dfidx</code></pre>
+<pre><code>
+Attaching package: &#39;dfidx&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    filter</code></pre>
+<p>However, even that is not very user friendly (in my opinion). Therefore, I have written a few user defined functions to help with getting the necessary results from an alternative specific MNLInstall that package <code>install.packages("nnet")</code> and load it.
+* <a href="asmnl_est.R">asmnl_est.R</a> produces Odds Ratio coefficients table, overall model significance, McFadden’s Pseudo-<span class="math inline">\(R^2\)</span>, and classification matrices for both the training data and the test/holdout data
+* <a href="stmnl_cm.R">asmnl_me.R</a> produces marginal effects tables for all IVs
+* <a href="stmnl_pp.R">asmnl_mp.R</a> produces margin plots for case-specific IVs</p>
 </div>
-<div id="base-r-6" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Base R</h2>
-<div id="preparation-2" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Preparation</h3>
+<div id="alt-spec-mnl-using-user-defined-function" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Alt-Spec MNL using User Defined Function</h2>
 <ul>
-<li>For PCA perceptual maps with a grouping variable (e.g., brand or product name), it is best to use a dataframe of aggregated means by the grouping variable.</li>
-<li>For this tutorial, we will create a PCA perceptual map using the <code>greekbrands</code> dataframe
+<li>Alternative Specific MNL is performed using the <code>asmnl_est.R</code> user defined function</li>
+<li>Usage: <code>asmnl_est(formula, data, id="", alt="", choice="", testdata)</code>
 <ul>
-<li>We will use only the following attributes:
+<li><code>formula</code> is an object with a saved formula. The formula is represented by a DV on the left side separated from the IVs on the right side by a tilde(<code>~</code>). The IVs are further separated by having choice-specific variables on the left and the case-specific variables on the right, separated by a vertical line, <code>|</code>. For example:
 <ul>
-<li><span class="math inline">\(perform\)</span>, <span class="math inline">\(leader\)</span>, <span class="math inline">\(fun\)</span>, <span class="math inline">\(serious\)</span>, <span class="math inline">\(bargain\)</span>, <span class="math inline">\(value\)</span></li>
-<li>The grouping variable is <span class="math inline">\(brand\)</span></li>
+<li><code>myform = choice ~ chvar1 + chvar2 | casvar1 + casvar2</code></li>
 </ul></li>
+<li><code>data</code> is the name of the training data</li>
+<li><code>id</code> is the variable that identifies the case (in quotes)</li>
+<li><code>alt</code> is the variable that identifies the choice (in quotes)</li>
+<li><code>choice</code> is the variable that identifies if <code>alt</code> was selected or not</li>
+<li><code>testdata</code> is the name of the test data</li>
+</ul></li>
+<li>The function will display the coefficients table, overall model significance, McFadden’s Pseudo-<span class="math inline">\(R^2\)</span>, and classification matrices for both the training data and the test/holdout data</li>
+<li>In addition, the results should be saved to an object to be used in other user defined functions</li>
+<li>NOTE 1: To work properly, all factor IVs should already be in dummy variable coding</li>
+<li>NOTE 2: This function also requires the <code>broom</code> package</li>
+</ul>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="alt-specific-mnl.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
+<span id="cb396-2"><a href="alt-specific-mnl.html#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
+<span id="cb396-3"><a href="alt-specific-mnl.html#cb396-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
+<span id="cb396-4"><a href="alt-specific-mnl.html#cb396-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb396-5"><a href="alt-specific-mnl.html#cb396-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_est.R&quot;</span>)</span>
+<span id="cb396-6"><a href="alt-specific-mnl.html#cb396-6" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
+<span id="cb396-7"><a href="alt-specific-mnl.html#cb396-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
+<span id="cb396-8"><a href="alt-specific-mnl.html#cb396-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb396-9"><a href="alt-specific-mnl.html#cb396-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
+<span id="cb396-10"><a href="alt-specific-mnl.html#cb396-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
+<span id="cb396-11"><a href="alt-specific-mnl.html#cb396-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
+<pre class="custom-output"><code>
+
+---------
+Model Fit
+---------
+
+Log-Likelihood: -1618.4208
+McFadden R^2: 0.2397
+Likelihood ratio test: chisq = 1020.5649 (p.value &lt; .0001)
+
+---------------------
+OR Estimation Results
+---------------------
+
+                term estimate std.error statistic p.value
+  (Intercept):Hiland   2.1355    0.5677    1.3365  0.1814
+  (Intercept):Weight   0.9740    0.2079   -0.1269  0.8990
+ (Intercept):Yoplait   0.0185    0.2680  -14.8845  0.0000
+                feat   1.5267    0.1491    2.8371  0.0046
+               price   0.6425    0.0296  -14.9691  0.0000
+       income:Hiland   0.8975    0.0149   -7.2464  0.0000
+       income:Weight   0.9886    0.0038   -3.0436  0.0023
+      income:Yoplait   1.0756    0.0040   18.1030  0.0000
+
+---------------------------------------
+Classification Matrix for Training Data
+---------------------------------------
+0.6207 = Hit Ratio
+0.3299 = PCC
+
+          T.Dannon T.Hiland T.Weight T.Yoplait Total
+P.Dannon       577       39      324        97  1037
+P.Hiland         1       12        0         2    15
+P.Weight        18        2       38        18    76
+P.Yoplait      132        1       53       497   683
+Total          728       54      415       614  1811
+
+--------------------------------------
+Classification Matrix for Holdout Data
+--------------------------------------
+0.6073 = Hit Ratio
+0.3309 = PCC
+
+          T.Dannon T.Hiland T.Weight T.Yoplait Total
+P.Dannon       199       14      104        38   355
+P.Hiland         2        2        1         1     6
+P.Weight         8        1       12        13    34
+P.Yoplait       33        0       21       152   206
+Total          242       17      138       204   601</code></pre>
+<div id="marginal-effects" class="section level3" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Marginal Effects</h3>
+<ul>
+<li>The <code>asmnl_me.R</code> user defined function will be used to get the marginal effects of the IVs</li>
+<li>Usage: <code>asmnl_me(mod)</code>
+<ul>
+<li><code>mod</code> is the object containing the result of the <code>mlogit</code> call using the <code>asmnl_est</code> user defined function</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="pca-perceptual-maps.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb364-2"><a href="pca-perceptual-maps.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb364-3"><a href="pca-perceptual-maps.html#cb364-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb364-4"><a href="pca-perceptual-maps.html#cb364-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand) <span class="sc">%&gt;%</span></span>
-<span id="cb364-5"><a href="pca-perceptual-maps.html#cb364-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(brand) <span class="sc">%&gt;%</span></span>
-<span id="cb364-6"><a href="pca-perceptual-maps.html#cb364-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean)</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="alt-specific-mnl.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_me.R&quot;</span>)</span>
+<span id="cb398-2"><a href="alt-specific-mnl.html#cb398-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
+<pre class="custom-output"><code>
+--------------------------------
+Predicted Probabilities at Means
+--------------------------------
+ Dannon  Hiland  Weight Yoplait 
+ 0.4832  0.0048  0.2571  0.2549 
+
+ ------------------------- 
+ Marginal effects for feat 
+ ------------------------- 
+          Dannon   Hiland   Weight  Yoplait
+Dannon   0.10565 -0.00098 -0.05256 -0.05212
+Hiland  -0.00098  0.00201 -0.00052 -0.00052
+Weight  -0.05256 -0.00052  0.08080 -0.02773
+Yoplait -0.05212 -0.00052 -0.02773  0.08036
+
+ -------------------------- 
+ Marginal effects for price 
+ -------------------------- 
+          Dannon   Hiland   Weight  Yoplait
+Dannon  -0.11049  0.00102  0.05496  0.05450
+Hiland   0.00102 -0.00211  0.00054  0.00054
+Weight   0.05496  0.00054 -0.08450  0.02899
+Yoplait  0.05450  0.00054  0.02899 -0.08404
+
+ --------------------------- 
+ Marginal effects for income 
+ --------------------------- 
+  Dannon   Hiland   Weight  Yoplait 
+-0.00731 -0.00059 -0.00684  0.01473 </code></pre>
 </div>
-<div id="perform-pca-first" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Perform PCA first</h3>
+<div id="margin-plots-1" class="section level3" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Margin Plots</h3>
 <ul>
-<li><p>To create the perceptual map, we must first run and store a PCA object on our data frame</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="pca-perceptual-maps.html#cb365-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>perform<span class="sc">+</span>leader<span class="sc">+</span>fun<span class="sc">+</span>serious<span class="sc">+</span>bargain<span class="sc">+</span>value, </span>
-<span id="cb365-2"><a href="pca-perceptual-maps.html#cb365-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>pmdata, </span>
-<span id="cb365-3"><a href="pca-perceptual-maps.html#cb365-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   </span>
-<span id="cb365-4"><a href="pca-perceptual-maps.html#cb365-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)  </span></code></pre></div></li>
+<li>The <code>asmnl_mp.R</code> user defined function will create margin plots for a case-specific IV</li>
+<li>Usage: <code>almnl_mp(mod, focal="", type="")     *</code>mod<code>is the object containing the result of the</code>mlogit<code>call using the</code>asmnl_est<code>user defined function     *</code>focal<code>is the case-specific IV for which a margin plot is wanted (in quotes)     *</code>type<code>is the type of IV; must be either</code>“C”<code>for continuous or</code>“D”` for dummy</li>
+<li>NOTE: This function requires the <code>ggplot2</code> package</li>
 </ul>
-</div>
-<div id="create-map-using-biplot" class="section level3" number="7.2.3">
-<h3><span class="header-section-number">7.2.3</span> Create map using <code>biplot</code></h3>
-<ul>
-<li>The map is created using the <code>biplot</code> function with the PCA object passed to it along with group variable labels</li>
-</ul>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="pca-perceptual-maps.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pcaout,  <span class="co"># PCA object from above</span></span>
-<span id="cb366-2"><a href="pca-perceptual-maps.html#cb366-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlabs=</span>pmdata<span class="sc">$</span>brand)   <span class="co"># Grouping variable labels</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
-</div>
-</div>
-<div id="user-defined-function-1" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> User Defined Function</h2>
-<div id="preparation-3" class="section level3" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Preparation</h3>
-<ul>
-<li>For the user defined function, we must pass the function a data frame with the variables to be used in creating the principal components, the grouping variable (i.e., brand/product name), and if applicable, the preference variable
-<ul>
-<li>The data frame does not need to be aggregated, but must contain ONLY those variables</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="pca-perceptual-maps.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb367-2"><a href="pca-perceptual-maps.html#cb367-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb367-3"><a href="pca-perceptual-maps.html#cb367-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb367-4"><a href="pca-perceptual-maps.html#cb367-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
-<span id="cb367-5"><a href="pca-perceptual-maps.html#cb367-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb367-6"><a href="pca-perceptual-maps.html#cb367-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
-<span id="cb367-7"><a href="pca-perceptual-maps.html#cb367-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
-<span id="cb367-8"><a href="pca-perceptual-maps.html#cb367-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
-</div>
-<div id="using-the-function" class="section level3" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Using the function</h3>
-<ul>
-<li>The <code>percmap.R</code> user defined function can easily product a perceptual map or joint-space map based on the first two principal components
-<ul>
-<li>Requires the following packages:
-<ul>
-<li><code>ggplot2</code></li>
-<li><code>dplyr</code></li>
-</ul></li>
-</ul></li>
-<li>Usage: <code>percmap(data, group="", pref="")</code> where:
-<ul>
-<li><code>data</code> is the PCA variable data</li>
-<li><code>group=""</code> is the name of the grouping variable</li>
-<li><code>pref=""</code> is the name of the preference variable
-<ul>
-<li>Can be excluded if no preference variable</li>
-</ul></li>
-</ul></li>
-<li>Returns:
-<ul>
-<li>A perceptual map if <code>pref</code> is not included</li>
-<li>A joint space map if <code>pref</code> is included</li>
-</ul></li>
-<li>Examples:
-<ul>
-<li>Perceptual Map</li>
-</ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="pca-perceptual-maps.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span>
-<span id="cb368-2"><a href="pca-perceptual-maps.html#cb368-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
-<img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" />
-<ul>
-<li>Joint Space Map</li>
-</ul>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="pca-perceptual-maps.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
-<img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></li>
-</ul>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="alt-specific-mnl.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_mp.R&quot;</span>)</span>
+<span id="cb400-2"><a href="alt-specific-mnl.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -539,8 +572,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="principal-components-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="standard-mnl.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="standard-mnl.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
