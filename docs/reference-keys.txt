@@ -235,3 +235,10 @@ create-map-using-biplot
 user-defined-function-1
 preparation-3
 using-the-function
+standard-mnl
+introduction-8
+data-preparation
+standard-mnl-using-multinom
+stmnl-user-defined-function
+classification-matrix-1
+average-predicted-probabilities
