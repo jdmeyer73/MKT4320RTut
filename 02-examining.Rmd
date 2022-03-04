@@ -355,6 +355,18 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
 
 ### Frequency Table
 
+#### Base R
+
+* The `table(data$variable)` function can produce a one-way frequency table
+    * Wrapping the call to `table` with `proportions` will create the table with proportions (i.e., percent in each category)
+    ```{r}
+    table(airlinesat$language)   # One way frequency table (counts)
+    proportions(table(airlinesat$language))   # One way table of proportions
+    ```
+<caption>(\#tab:t2onewayfreq1) One-way frequency table using Base R</caption> 
+
+#### Package *questionr*
+
 * The `freq()` command from the package `questionr` produces nice one-way frequency tables (i.e., a frequency table for a single discrete variable)
     ```{r t2onewayfreq, cache=TRUE}
     library(questionr)
@@ -362,7 +374,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
          cum=TRUE,  # Add cumulative percent column
          total=TRUE)  # Add total row at bottom
     ```
-<caption>(\#tab:t2onewayfreq) One-way frequency table</caption> 
+<caption>(\#tab:t2onewayfreq2) One-way frequency table using `questionr`</caption> 
 * Use package `htmlTable()` to produce a nicer looking table for output in the viewer (vs. the console)
     ```{r t2onewayfreq2, cache=TRUE}
     library(htmlTable)
@@ -371,7 +383,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
          total=TRUE) %>%  # Pass result to htmlTable
       htmlTable()
     ```
-<caption>(\#tab:t2onewayfreq2) One-way frequency table using <i>htmlTable</i></caption>
+<caption>(\#tab:t2onewayfreq3) One-way frequency table using <i>htmlTable</i></caption>
 
 ### Crosstabs
 
