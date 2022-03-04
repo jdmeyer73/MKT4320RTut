@@ -355,7 +355,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
 
 ### Frequency Table
 
-#### Base R
+#### Base R {#freqbaser}
 
 * The `table(data$variable)` function can produce a one-way frequency table
     * Wrapping the call to `table` with `proportions` will create the table with proportions (i.e., percent in each category)
