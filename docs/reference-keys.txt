@@ -250,3 +250,12 @@ introduction-9
 alt-spec-mnl-using-user-defined-function
 marginal-effects
 margin-plots-1
+conjoint-analysis
+introduction-10
+tradca-user-defined-function
+cademo-user-defined-function
+preparation-4
+function-usage
+capred-user-defined-function
+preparation-5
+function-usage-1
