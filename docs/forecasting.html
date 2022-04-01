@@ -417,8 +417,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="forecasting.html"><a href="forecasting.html#tsplot-user-defined-function"><i class="fa fa-check"></i><b>11.2</b> <code>tsplot</code> User Defined Function</a></li>
 <li class="chapter" data-level="11.3" data-path="forecasting.html"><a href="forecasting.html#naivefc-user-defined-function"><i class="fa fa-check"></i><b>11.3</b> <code>naivefc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.4" data-path="forecasting.html"><a href="forecasting.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>linregfc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.5" data-path="forecasting.html"><a href="forecasting.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>fccompare</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.4" data-path="forecasting.html"><a href="forecasting.html#smoothfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>smoothfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.5" data-path="forecasting.html"><a href="forecasting.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>linregfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.6" data-path="forecasting.html"><a href="forecasting.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.6</b> <code>fccompare</code> User Defined Function</a></li>
 </ul></li>
 </ul>
 
@@ -540,8 +541,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 3       Seas.Naive 133.710 127.417 0.459
 4 Seas.Naive.Drift  45.769  41.417 0.149</code></pre>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="forecasting.html#cb433-1" aria-hidden="true" tabindex="-1"></a>naive<span class="sc">$</span>fcresplot</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-126-2.png" width="672" />
-## <code>smoothfc</code> User Defined Function</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-126-2.png" width="672" /></p>
+</div>
+<div id="smoothfc-user-defined-function" class="section level2" number="11.4">
+<h2><span class="header-section-number">11.4</span> <code>smoothfc</code> User Defined Function</h2>
 <ul>
 <li>Usage: <code>smoothfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
 <ul>
@@ -584,8 +587,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="forecasting.html#cb437-1" aria-hidden="true" tabindex="-1"></a>smooth<span class="sc">$</span>fcresplot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-127-2.png" width="672" /></p>
 </div>
-<div id="linregfc-user-defined-function" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> <code>linregfc</code> User Defined Function</h2>
+<div id="linregfc-user-defined-function" class="section level2" number="11.5">
+<h2><span class="header-section-number">11.5</span> <code>linregfc</code> User Defined Function</h2>
 <ul>
 <li>Usage: <code>linregfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
 <ul>
@@ -624,8 +627,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="forecasting.html#cb441-1" aria-hidden="true" tabindex="-1"></a>linreg<span class="sc">$</span>fcresplot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
 </div>
-<div id="fccompare-user-defined-function" class="section level2" number="11.5">
-<h2><span class="header-section-number">11.5</span> <code>fccompare</code> User Defined Function</h2>
+<div id="fccompare-user-defined-function" class="section level2" number="11.6">
+<h2><span class="header-section-number">11.6</span> <code>fccompare</code> User Defined Function</h2>
 <ul>
 <li>Usage: <code>fccompare(results, models)</code>
 <ul>

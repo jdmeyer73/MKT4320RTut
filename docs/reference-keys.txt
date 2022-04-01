@@ -264,5 +264,6 @@ introduction-11
 packages-1
 tsplot-user-defined-function
 naivefc-user-defined-function
+smoothfc-user-defined-function
 linregfc-user-defined-function
 fccompare-user-defined-function

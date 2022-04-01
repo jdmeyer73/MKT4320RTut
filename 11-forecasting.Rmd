@@ -94,6 +94,7 @@ naive$plot
 naive$acc
 naive$fcresplot
 ```
+
 ## `smoothfc` User Defined Function
 
 * Usage: `smoothfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )`
