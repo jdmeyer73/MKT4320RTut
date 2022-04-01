@@ -1,0 +1,169 @@
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(fpp3)
+library(slider)
+library(purrr)
+library(ggplot2)
+library(dplyr)
+```
+
+# Forecasting
+
+Data for this chapter:
+
+* The [msales.rdata](Data/msales.rdata) and [qsales.rdata](Data/qsales.rdata) are used. Load them now.
+```{r}
+# You may need to change the directory
+load("Data/msales.rdata")
+load("Data/qsales.rdata")
+```
+
+## Introduction
+
+While Base R does have some time-series forecasting capabilities, there are several packages that make working with the data and running the analysis easier. For our class, we will be mainly using the `fpp3` package inside of some user-defined functions. The user-defined functions are described briefly below, and then in detail in their own sections.
+
+* [tsplot.R](tsplot.R) produces a time series plot of the data
+* [naivefc.R](naivefc.R) analyzes the data using naive forecasting methods
+* [smoothfc.R](smoothfc.R) analyzes the data using smoothing forecasting methods
+* [linregfc.R](linregfc.R) analyzes the data using regression-based forecasting methods
+* [fccompare.R](fccompare.R) compares models from saved results after running the methods functions
+
+### Packages
+
+You must have the following packages installed to use all of the user-defined functions. If you do not have them installed, you should do so now.
+
+* `fpp3`
+* `slider`
+* `purrr`
+* `dplyr`
+* `ggplot2`
+
+```{r, eval=FALSE}
+# Load necessary packages
+library(fpp3)
+library(slider)
+library(purrr)
+library(ggplot2)
+library(dplyr)
+```
+
+## `tsplot` User Defined Function
+
+* Usage: `tsplot(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+* Output: A time series plot
+
+``` {r}
+source("tsplot.R")
+tsplot(msales, "t", "sales", "ym", 12)
+tsplot(qsales, "t", "sales", "yq", 8)
+```
+
+## `naivefc` User Defined Function
+
+* Usage: `naivefc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+* NOTE 1: The results of this function should be saved to an object.  When doing so, the following objects are returned:
+    * `$plot` contains the naive methods plot
+    * `$acc` contains the accuracy measures
+    * `$fcresplot` contains a plot of the holdout period residuals
+    * `$fcresid` is a dataframe of the holdout period residuals (seldom used separately)
+* Note 2: The model names are:
+    * **Naive** for the naive model
+    * **Naive.Drift** for the naive model with drift
+    * **Seas.Naive** for the seasonal naive model
+    * **Seas.Naive.Drift** for the seasonal naive model with drift
+
+``` {r}
+source("naivefc.R")
+naive <- naivefc(msales, "t", "sales", "ym", 12)
+naive$plot
+naive$acc
+naive$fcresplot
+```
+## `smoothfc` User Defined Function
+
+* Usage: `smoothfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+* NOTE 1: The results of this function should be saved to an object.  When doing so, the following objects are returned:
+    * `$plot` contains the smoothing methods plot
+    * `$acc` contains the accuracy measures
+    * `$fcresplot` contains a plot of the holdout period residuals
+    * `$fcresid` is a dataframe of the holdout period residuals (seldom used separately)
+* Note 2: The model names are:
+    * **Mov.Ave** for the moving average model
+    * **Exp.Smooth** for the exponential smoothing model
+    * **H-W.Add** for the Holt-Winters Additive model
+    * **H-W.Mult** for Hold-Winters Multiplicative model
+
+``` {r}
+source("smoothfc.R")
+smooth <- smoothfc(msales, "t", "sales", "ym", 12)
+smooth$plot
+smooth$acc
+smooth$fcresplot
+```
+
+## `linregfc` User Defined Function
+
+* Usage: `linregfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+* NOTE 1: The results of this function should be saved to an object.  When doing so, the following objects are returned:
+    * `$plot` contains the regression methods plot
+    * `$acc` contains the accuracy measures
+    * `$fcresplot` contains a plot of the holdout period residuals
+    * `$fcresid` is a dataframe of the holdout period residuals (seldom used separately)
+* Note 2: The model names are:
+    * **Lin.Reg.Trend** for the linear regression with trend model
+    * **Line.Reg.Seas.Trend** for linear regression with trend and seasonlity model
+    
+``` {r}
+source("linregfc.R")
+linreg <- linregfc(msales, "t", "sales", "ym", 12)
+linreg$plot
+linreg$acc
+linreg$fcresplot
+```
+
+## `fccompare` User Defined Function
+
+* Usage: `fccompare(results, models)`
+    * `results` is a list of the stored methods results; create the list with the `list` function, such as:<br>`results <- list(naive, smooth, linreg)`
+    * `models` is a vector of the models you want to compare; create the vector with the `c()` function, such as:<br>`models <- c("Naive", "Mov.Ave", "Lin.Reg.Trend")`
+* NOTE 1: The function returns two items that will be directly displayed or can be saved to an object:  
+    * `$acc` contains the accuracy measures
+    * `$fcresplot` contains a plot of the holdout period residuals
+
+``` {r}
+source("fccompare.R")
+results <- list(naive, smooth, linreg)
+models <- c("Naive", "Mov.Ave", "Lin.Reg.Trend")
+fccompare(results, models)
+```

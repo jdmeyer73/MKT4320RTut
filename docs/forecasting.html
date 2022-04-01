@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | R Tutorial for MKT 4320</title>
+  <title>Chapter 11 Forecasting | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | R Tutorial for MKT 4320" />
+  <meta property="og:title" content="Chapter 11 Forecasting | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | R Tutorial for MKT 4320" />
+  <meta name="twitter:title" content="Chapter 11 Forecasting | R Tutorial for MKT 4320" />
   
   <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="conjoint-analysis.html"/>
 
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -436,18 +436,228 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="forecasting" class="section level1" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Forecasting</h1>
+<p>Data for this chapter:</p>
+<ul>
+<li>The <a href="Data/msales.rdata">msales.rdata</a> and <a href="Data/qsales.rdata">qsales.rdata</a> are used. Load them now.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="forecasting.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb1-2"><a href="forecasting.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/msales.rdata&quot;</span>)</span>
+<span id="cb1-3"><a href="forecasting.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/qsales.rdata&quot;</span>)</span></code></pre></div>
+<div id="introduction-11" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Introduction</h2>
+<p>While Base R does have some time-series forecasting capabilities, there are several packages that make working with the data and running the analysis easier. For our class, we will be mainly using the <code>fpp3</code> package inside of some user-defined functions. The user-defined functions are described briefly below, and then in detail in their own sections.</p>
+<ul>
+<li><a href="tsplot.R">tsplot.R</a> produces a time series plot of the data</li>
+<li><a href="naivefc.R">naivefc.R</a> analyzes the data using naive forecasting methods</li>
+<li><a href="smoothfc.R">smoothfc.R</a> analyzes the data using smoothing forecasting methods</li>
+<li><a href="linregfc.R">linregfc.R</a> analyzes the data using regression-based forecasting methods</li>
+<li><a href="fccompare.R">fccompare.R</a> compares models from saved results after running the methods functions</li>
+</ul>
+<div id="packages-1" class="section level3" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Packages</h3>
+<p>You must have the following packages installed to use all of the user-defined functions. If you do not have them installed, you should do so now.</p>
+<ul>
+<li><code>fpp3</code></li>
+<li><code>slider</code></li>
+<li><code>purrr</code></li>
+<li><code>dplyr</code></li>
+<li><code>ggplot2</code></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="forecasting.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<span id="cb2-2"><a href="forecasting.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
+<span id="cb2-3"><a href="forecasting.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slider)</span>
+<span id="cb2-4"><a href="forecasting.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb2-5"><a href="forecasting.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-6"><a href="forecasting.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+</div>
+</div>
+<div id="tsplot-user-defined-function" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> <code>tsplot</code> User Defined Function</h2>
+<ul>
+<li>Usage: <code>tsplot(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
+<ul>
+<li><code>data</code> is the name of the dataframe with the time variable and measure variable</li>
+<li><code>tvar</code> is the variable that identifies the time period (in quotes)</li>
+<li><code>obs</code> is the variable that identifies the measure (in quotes)</li>
+<li><code>datetype</code> can be one of three options:
+<ul>
+<li><code>"ym"</code> if the time period is year-month</li>
+<li><code>"yq"</code> if the time period is year-quarter</li>
+<li><code>"yw"</code> if the time period is year-week</li>
+</ul></li>
+<li><code>h</code> is an integer indicating the number of holdout/forecast periods</li>
+</ul></li>
+<li>Output: A time series plot</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="forecasting.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;tsplot.R&quot;</span>)</span>
+<span id="cb3-2"><a href="forecasting.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tsplot</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="forecasting.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsplot</span>(qsales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;yq&quot;</span>, <span class="dv">8</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+</div>
+<div id="naivefc-user-defined-function" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> <code>naivefc</code> User Defined Function</h2>
+<ul>
+<li>Usage: <code>naivefc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
+<ul>
+<li><code>data</code> is the name of the dataframe with the time variable and measure variable</li>
+<li><code>tvar</code> is the variable that identifies the time period (in quotes)</li>
+<li><code>obs</code> is the variable that identifies the measure (in quotes)</li>
+<li><code>datetype</code> can be one of three options:
+<ul>
+<li><code>"ym"</code> if the time period is year-month</li>
+<li><code>"yq"</code> if the time period is year-quarter</li>
+<li><code>"yw"</code> if the time period is year-week</li>
+</ul></li>
+<li><code>h</code> is an integer indicating the number of holdout/forecast periods</li>
+</ul></li>
+<li>NOTE 1: The results of this function should be saved to an object. When doing so, the following objects are returned:
+<ul>
+<li><code>$plot</code> contains the naive methods plot</li>
+<li><code>$acc</code> contains the accuracy measures</li>
+<li><code>$fcresplot</code> contains a plot of the holdout period residuals</li>
+<li><code>$fcresid</code> is a dataframe of the holdout period residuals (seldom used separately)</li>
+</ul></li>
+<li>Note 2: The model names are:
+<ul>
+<li><strong>Naive</strong> for the naive model</li>
+<li><strong>Naive.Drift</strong> for the naive model with drift</li>
+<li><strong>Seas.Naive</strong> for the seasonal naive model</li>
+<li><strong>Seas.Naive.Drift</strong> for the seasonal naive model with drift</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="forecasting.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;naivefc.R&quot;</span>)</span>
+<span id="cb5-2"><a href="forecasting.html#cb5-2" aria-hidden="true" tabindex="-1"></a>naive <span class="ot">&lt;-</span> <span class="fu">naivefc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb5-3"><a href="forecasting.html#cb5-3" aria-hidden="true" tabindex="-1"></a>naive<span class="sc">$</span>plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="forecasting.html#cb6-1" aria-hidden="true" tabindex="-1"></a>naive<span class="sc">$</span>acc</span></code></pre></div>
+<pre class="custom-output"><code>             Model    RMSE     MAE  MAPE
+1            Naive 323.496 263.917 0.945
+2      Naive.Drift 253.103 185.868 0.665
+3       Seas.Naive 133.710 127.417 0.459
+4 Seas.Naive.Drift  45.769  41.417 0.149</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="forecasting.html#cb8-1" aria-hidden="true" tabindex="-1"></a>naive<span class="sc">$</span>fcresplot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-2.png" width="672" />
+## <code>smoothfc</code> User Defined Function</p>
+<ul>
+<li>Usage: <code>smoothfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
+<ul>
+<li><code>data</code> is the name of the dataframe with the time variable and measure variable</li>
+<li><code>tvar</code> is the variable that identifies the time period (in quotes)</li>
+<li><code>obs</code> is the variable that identifies the measure (in quotes)</li>
+<li><code>datetype</code> can be one of three options:
+<ul>
+<li><code>"ym"</code> if the time period is year-month</li>
+<li><code>"yq"</code> if the time period is year-quarter</li>
+<li><code>"yw"</code> if the time period is year-week</li>
+</ul></li>
+<li><code>h</code> is an integer indicating the number of holdout/forecast periods</li>
+</ul></li>
+<li>NOTE 1: The results of this function should be saved to an object. When doing so, the following objects are returned:
+<ul>
+<li><code>$plot</code> contains the smoothing methods plot</li>
+<li><code>$acc</code> contains the accuracy measures</li>
+<li><code>$fcresplot</code> contains a plot of the holdout period residuals</li>
+<li><code>$fcresid</code> is a dataframe of the holdout period residuals (seldom used separately)</li>
+</ul></li>
+<li>Note 2: The model names are:
+<ul>
+<li><strong>Mov.Ave</strong> for the moving average model</li>
+<li><strong>Exp.Smooth</strong> for the exponential smoothing model</li>
+<li><strong>H-W.Add</strong> for the Holt-Winters Additive model</li>
+<li><strong>H-W.Mult</strong> for Hold-Winters Multiplicative model</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="forecasting.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;smoothfc.R&quot;</span>)</span>
+<span id="cb9-2"><a href="forecasting.html#cb9-2" aria-hidden="true" tabindex="-1"></a>smooth <span class="ot">&lt;-</span> <span class="fu">smoothfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb9-3"><a href="forecasting.html#cb9-3" aria-hidden="true" tabindex="-1"></a>smooth<span class="sc">$</span>plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="forecasting.html#cb10-1" aria-hidden="true" tabindex="-1"></a>smooth<span class="sc">$</span>acc</span></code></pre></div>
+<pre class="custom-output"><code>       Model    RMSE     MAE  MAPE
+1 Exp.Smooth 323.495 263.915 0.945
+2    H-W.Add  54.469  46.754 0.168
+3   H-W.Mult  43.857  40.626 0.146
+4    Mov.Ave 225.685 191.245 0.686</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="forecasting.html#cb12-1" aria-hidden="true" tabindex="-1"></a>smooth<span class="sc">$</span>fcresplot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+<div id="linregfc-user-defined-function" class="section level2" number="11.4">
+<h2><span class="header-section-number">11.4</span> <code>linregfc</code> User Defined Function</h2>
+<ul>
+<li>Usage: <code>linregfc(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= )</code>
+<ul>
+<li><code>data</code> is the name of the dataframe with the time variable and measure variable</li>
+<li><code>tvar</code> is the variable that identifies the time period (in quotes)</li>
+<li><code>obs</code> is the variable that identifies the measure (in quotes)</li>
+<li><code>datetype</code> can be one of three options:
+<ul>
+<li><code>"ym"</code> if the time period is year-month</li>
+<li><code>"yq"</code> if the time period is year-quarter</li>
+<li><code>"yw"</code> if the time period is year-week</li>
+</ul></li>
+<li><code>h</code> is an integer indicating the number of holdout/forecast periods</li>
+</ul></li>
+<li>NOTE 1: The results of this function should be saved to an object. When doing so, the following objects are returned:
+<ul>
+<li><code>$plot</code> contains the regression methods plot</li>
+<li><code>$acc</code> contains the accuracy measures</li>
+<li><code>$fcresplot</code> contains a plot of the holdout period residuals</li>
+<li><code>$fcresid</code> is a dataframe of the holdout period residuals (seldom used separately)</li>
+</ul></li>
+<li>Note 2: The model names are:
+<ul>
+<li><strong>Lin.Reg.Trend</strong> for the linear regression with trend model</li>
+<li><strong>Line.Reg.Seas.Trend</strong> for linear regression with trend and seasonlity model</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="forecasting.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;linregfc.R&quot;</span>)</span>
+<span id="cb13-2"><a href="forecasting.html#cb13-2" aria-hidden="true" tabindex="-1"></a>linreg <span class="ot">&lt;-</span> <span class="fu">linregfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb13-3"><a href="forecasting.html#cb13-3" aria-hidden="true" tabindex="-1"></a>linreg<span class="sc">$</span>plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="forecasting.html#cb14-1" aria-hidden="true" tabindex="-1"></a>linreg<span class="sc">$</span>acc</span></code></pre></div>
+<pre class="custom-output"><code>               Model    RMSE     MAE  MAPE
+1 Lin.Reg.Seas.Trend  55.212  47.898 0.172
+2      Lin.Reg.Trend 199.198 168.985 0.607</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="forecasting.html#cb16-1" aria-hidden="true" tabindex="-1"></a>linreg<span class="sc">$</span>fcresplot</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+</div>
+<div id="fccompare-user-defined-function" class="section level2" number="11.5">
+<h2><span class="header-section-number">11.5</span> <code>fccompare</code> User Defined Function</h2>
+<ul>
+<li>Usage: <code>fccompare(results, models)</code>
+<ul>
+<li><code>results</code> is a list of the stored methods results; create the list with the <code>list</code> function, such as:<br><code>results &lt;- list(naive, smooth, linreg)</code></li>
+<li><code>models</code> is a vector of the models you want to compare; create the vector with the <code>c()</code> function, such as:<br><code>models &lt;- c("Naive", "Mov.Ave", "Lin.Reg.Trend")</code></li>
+</ul></li>
+<li>NOTE 1: The function returns two items that will be directly displayed or can be saved to an object:
+<ul>
+<li><code>$acc</code> contains the accuracy measures</li>
+<li><code>$fcresplot</code> contains a plot of the holdout period residuals</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="forecasting.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;fccompare.R&quot;</span>)</span>
+<span id="cb17-2"><a href="forecasting.html#cb17-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>(naive, smooth, linreg)</span>
+<span id="cb17-3"><a href="forecasting.html#cb17-3" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Naive&quot;</span>, <span class="st">&quot;Mov.Ave&quot;</span>, <span class="st">&quot;Lin.Reg.Trend&quot;</span>)</span>
+<span id="cb17-4"><a href="forecasting.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fccompare</span>(results, models)</span></code></pre></div>
+<pre class="custom-output"><code>$acc
+           Model    RMSE     MAE  MAPE
+1          Naive 323.496 263.917 0.945
+8        Mov.Ave 225.685 191.245 0.686
+10 Lin.Reg.Trend 199.198 168.985 0.607
+
+$fcresplot</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="conjoint-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
