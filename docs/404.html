@@ -53,6 +53,9 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -184,7 +187,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
-<li class="chapter" data-level="1.6.4" data-path="r-basics.html"><a href="r-basics.html#indexing-and-sequencing"><i class="fa fa-check"></i><b>1.6.4</b> Indexing and Sequencing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
 <ul>
@@ -354,7 +356,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#prcomp-function"><i class="fa fa-check"></i><b>6.3.1</b> <code>prcomp()</code> function</a></li>
 <li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenvalue-table"><i class="fa fa-check"></i><b>6.3.2</b> Eigenvalue table</a></li>
 <li class="chapter" data-level="6.3.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#unrotated-loadings"><i class="fa fa-check"></i><b>6.3.3</b> Unrotated loadings</a></li>
-<li class="chapter" data-level="6.3.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#rotated-loadings"><i class="fa fa-check"></i><b>6.3.4</b> Rotated loadings</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#user-defined-function"><i class="fa fa-check"></i><b>6.4</b> User Defined Function</a></li>
 </ul></li>
@@ -500,6 +501,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

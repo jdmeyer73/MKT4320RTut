@@ -259,8 +259,6 @@ function-usage
 capred-user-defined-function
 preparation-5
 function-usage-1
-indexing-and-sequencing
-rotated-loadings
 forecasting
 introduction-11
 packages-1
