@@ -21,10 +21,21 @@ load("Data/qsales.rdata")
 
 While Base R does have some time-series forecasting capabilities, there are several packages that make working with the data and running the analysis easier. For our class, we will be mainly using the `fpp3` package inside of some user-defined functions. The user-defined functions are described briefly below, and then in detail in their own sections.
 
-* [tsplot.R](tsplot.R) produces a time series plot of the data
+### User-Defined Functions for Forecasting I
+
 * [naivefc.R](naivefc.R) analyzes the data using naive forecasting methods
 * [smoothfc.R](smoothfc.R) analyzes the data using smoothing forecasting methods
 * [linregfc.R](linregfc.R) analyzes the data using regression-based forecasting methods
+
+### User-Defined Functions for Forecasting II
+
+* [acplots.R](acplots.R) creates ACF and PACF plots needed for ARIMA forecasting
+* [tswh.noise.R](tswh.noise.R) creates a cumulative periodogram and white noise test needed for ARIMA forecasting
+* [autoarima.R](autoarima.R) runs an ARIMA model as specified by the user and an automatic search for the "best" model if requested
+
+### User-Defined Functions for Both
+
+* [tsplot.R](tsplot.R) produces a time series plot of the data
 * [fccompare.R](fccompare.R) compares models from saved results after running the methods functions
 
 ### Packages
@@ -36,6 +47,9 @@ You must have the following packages installed to use all of the user-defined fu
 * `purrr`
 * `dplyr`
 * `ggplot2`
+* `ggfortify`
+* `stringr`
+* `cowplot`
 
 ```{r, eval=FALSE}
 # Load necessary packages
@@ -44,6 +58,9 @@ library(slider)
 library(purrr)
 library(ggplot2)
 library(dplyr)
+library(ggfortify)
+library(stringr)
+library(cowplot)
 ```
 
 ## `tsplot` User Defined Function
@@ -61,7 +78,11 @@ library(dplyr)
 
 ``` {r}
 source("tsplot.R")
-tsplot(msales, "t", "sales", "ym", 12)
+tsplot(msales,  # Dataframe
+       "t",     # Date variable
+       "sales", # Measure variable
+       "ym",    # Date type
+       12)      # Holdout periods
 tsplot(qsales, "t", "sales", "yq", 8)
 ```
 
@@ -143,7 +164,7 @@ smooth$fcresplot
     * `$fcresid` is a dataframe of the holdout period residuals (seldom used separately)
 * Note 2: The model names are:
     * **Lin.Reg.Trend** for the linear regression with trend model
-    * **Line.Reg.Seas.Trend** for linear regression with trend and seasonlity model
+    * **Line.Reg.Seas.Trend** for linear regression with trend and seasonality model
     
 ``` {r}
 source("linregfc.R")
@@ -151,6 +172,114 @@ linreg <- linregfc(msales, "t", "sales", "ym", 12)
 linreg$plot
 linreg$acc
 linreg$fcresplot
+```
+
+## `acplots` User Defined Function
+
+* Usage: `acplots(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= , lags=, d=, D=c(0,1))`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+    * `lags` is an integer indicating how many lags should be shown on the plot; default is 25
+    * `d` is the order of non-seasonal differencing; default is 0
+    * `D` is the order of seasonal differencing; default is 0
+* NOTE: The results of this function can be saved to an object.  When doing so, the following objects are returned:
+    * `$acf` contains the ACF plot
+    * `$pacf` contains the PACF plot
+
+``` {r}
+source("acplots.R")
+out <- acplots(msales, "t", "sales", "ym", 12,
+               lags=25,   # Number of lags to plot
+               d=0,       # Non-seasonal differencing
+               D=1)       # Seasonal differencing
+out$acf
+out$pacf
+```
+
+## `tswh.noise` User Defined Function
+
+* Usage: `tswh.noise(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= , arima=c(p,d,q), sarima=c(P,D,Q))`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+    * `lags` is an integer indicating how many lags should be shown on the plot; default is 25
+    * `arima=(p,d,q)` provides the non-seasonal autoregressive ($p$), differencing ($d$), and moving average ($q$) parameters, in the form of `c(p,d,q)` where the parameters are integers
+    * `sarima=(P,D,Q)` provides the seasonal autoregressive ($P$), differencing ($D$), and moving average ($Q$) parameters, in the form of `c(P,D,Q)` where the parameters are integers
+* The function will return a cumulative periodogram and results of the Ljung-Box White Noise test
+
+``` {r}
+source("tswh.noise.R")
+tswh.noise(msales, "t", "sales", "ym", 12,
+           arima=c(0,0,0),     # Seasonal parameters
+           sarima=c(0,0,0))    # Non-seasonal parameters
+
+tswh.noise(msales, "t", "sales", "ym", 12, c(2,1,0), c(2,1,0))
+
+```
+
+## `autoarima` User Defined Function
+
+* Usage: `tswh.noise(data, tvar="", obs="", datetype=c("ym", "yq", "yw"), h= , arima=c(p,d,q), sarima=c(P,D,Q), auto="")`
+    * `data` is the name of the dataframe with the time variable and measure variable
+    * `tvar` is the variable that identifies the time period (in quotes)
+    * `obs` is the variable that identifies the measure (in quotes)
+    * `datetype` can be one of three options:
+        * `"ym"` if the time period is year-month
+        * `"yq"` if the time period is year-quarter
+        * `"yw"` if the time period is year-week
+    * `h` is an integer indicating the number of holdout/forecast periods
+    * `lags` is an integer indicating how many lags should be shown on the plot; default is 25
+    * `arima=(p,d,q)` provides the non-seasonal autoregressive ($p$), differencing ($d$), and moving average ($q$) parameters, in the form of `c(p,d,q)` where the parameters are integers
+    * `sarima=(P,D,Q)` provides the seasonal autoregressive ($P$), differencing ($D$), and moving average ($Q$) parameters, in the form of `c(P,D,Q)` where the parameters are integers
+    * `auto` can be one of two options:
+        * `"Y"` an automatic search is performed to find the "best" model
+        * `"N"` an automatic search is not performed
+* NOTE 1: The results of this function should be saved to an object.  When doing so, the following objects are returned:
+    * `$plot` contains the ARIMA methods plot
+    * `$acc` contains the accuracy measures
+    * `$fcresplot` contains a plot of the holdout period residuals
+    * `$fcresid` is a dataframe of the holdout period residuals (seldom used separately)
+    * `$acresid` contains a plot of the ACF/PACF residuals for the model(s)
+    * `$wn` contains cumulative periodogram(s) and results of the Ljung-Box White Noise test(s)
+* Note 2: If `auto="Y"` is specified, this function can take one to two minutes to run
+* Note 3: The model names are:
+    * **Self** for the model specified by the user
+    * **Auto** for the "best" model if requested by the user
+
+``` {r}
+source("autoarima.R")
+selfonly <- autoarima(msales, "t", "sales", "ym", 12,
+                      arima=c(2,1,0),     # Seasonal parameters
+                      sarima=c(2,1,0),    # Non-seasonal parameters
+                      auto="N")           # Do not perform auto search
+selfonly$plot
+selfonly$acc
+selfonly$fcresplot
+selfonly$acresid
+selfonly$wn
+```
+
+``` {r}
+arima <- autoarima(msales, "t", "sales", "ym", 12,
+                   arima=c(2,1,0),     # Seasonal parameters
+                   sarima=c(2,1,0),    # Non-seasonal parameters
+                   auto="Y")           # Do not perform auto search
+arima$plot
+arima$acc
+arima$fcresplot
+arima$acresid
+arima$wn
 ```
 
 ## `fccompare` User Defined Function
@@ -164,7 +293,7 @@ linreg$fcresplot
 
 ``` {r}
 source("fccompare.R")
-results <- list(naive, smooth, linreg)
-models <- c("Naive", "Mov.Ave", "Lin.Reg.Trend")
+results <- list(naive, smooth, linreg, arima)
+models <- c("Naive", "Mov.Ave", "Lin.Reg.Trend", "Auto")
 fccompare(results, models)
 ```

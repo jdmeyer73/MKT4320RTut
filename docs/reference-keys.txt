@@ -261,9 +261,15 @@ preparation-5
 function-usage-1
 forecasting
 introduction-11
+user-defined-functions-for-forecasting-i
+user-defined-functions-for-forecasting-ii
+user-defined-functions-for-both
 packages-1
 tsplot-user-defined-function
 naivefc-user-defined-function
 smoothfc-user-defined-function
 linregfc-user-defined-function
+acplots-user-defined-function
+tswh.noise-user-defined-function
+autoarima-user-defined-function
 fccompare-user-defined-function

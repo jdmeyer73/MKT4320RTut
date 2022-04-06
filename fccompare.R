@@ -7,7 +7,17 @@ fccompare <- function(results, models) {
       resids[[i]] <- results[[i]][3]
       acc[[i]] <- results[[i]][2]
    }
-   acc <- map(acc, ~data.frame(.)) %>% bind_rows()
+   if (any(grepl("Auto", models))) { 
+      an <- grep("Auto", acc)
+      models[grep("Auto", models)] <- 
+         acc[[an]]$acc[,1][grep("Auto",acc[[an]]$acc[,1])]
+   } 
+   if (any(grepl("Self", models))) { 
+      an <- grep("Self", acc)
+      models[grep("Self", models)] <- 
+         acc[[an]]$acc[,1][grep("Self",acc[[an]]$acc[,1])]
+   }
+   acc <- map(acc, ~data.frame(.)) %>% bind_rows() %>% select(1:4)
    colnames(acc) <- c("Model", "RMSE", "MAE", "MAPE")
    resids <- map(resids, ~data.frame(.)) %>% bind_rows()
    colnames(resids) <- c("Model", "Date", "Measure", "Forecast", "Actual", "Resid")

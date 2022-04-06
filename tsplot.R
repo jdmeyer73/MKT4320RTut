@@ -17,9 +17,20 @@ tsplot <- function(data, tvar, obs, datetype=c("ym", "yq", "yw"), h) {
    } else {
       stop("Time variable not in correct format")
    }
-   train <- tsdata[1:(nrow(tsdata)-h), ]
-   forecast <- tsdata[(nrow(tsdata)-fc):nrow(tsdata), ]
-   autoplot(train, .data[[obs]], size=1) +
-      autolayer(forecast, .data[[obs]], color="red", size=1) +
-      labs(y=obs)
+   if (h>0) {
+      train <- tsdata[1:(nrow(tsdata)-h), ]
+      forecast <- tsdata[(nrow(tsdata)-fc):nrow(tsdata), ]
+      autoplot(train, .data[[obs]], size=1) +
+         autolayer(forecast, .data[[obs]], color="red", size=1) +
+         labs(y=obs) +
+         theme_bw() +
+         theme(panel.grid.major.x = element_blank(),
+               panel.grid.minor.x = element_blank())
+   } else {
+      autoplot(tsdata, .data[[obs]], size=1) +
+         labs(y=obs) +
+         theme_bw() +
+         theme(panel.grid.major.x = element_blank(),
+               panel.grid.minor.x = element_blank())
+   }
 }
