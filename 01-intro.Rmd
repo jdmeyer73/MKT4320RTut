@@ -54,7 +54,7 @@ And
 1. Install "R base" from the Comprehensive R Archive Network (CRAN)
     * [https://cran.r-project.org/](https://cran.r-project.org/)
 2. Install RStudio
-    * [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
+    * [https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download)
 
 #### Option 2: Use BGSU's Virtual Computing Lab pilot
 
@@ -459,6 +459,32 @@ data(Salaries)
     str(x.df)
     ```
     Notice the `|` in the code above. It stands for "or", which tells R that either condition can be true.
+
+\newpage    
+## R Projects
+
+The best way to manage all of the downloads and assignments for this course is to create an R Project. Follow the following steps to create a new R Project.
+
+1. From within RStudio, select <u>F</u>ile&#8594;New <u>P</u>roject...<br>See Figure \@ref(fig:newproj1)<br>If a *Save Current Workspace* window pops up, select *Don't Save*
+    ```{r newproj1, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    knitr::include_graphics("Images/NewRProject1.png")
+    ```
+2. To create the project in a new directory, select *New Directory* in the *New Project Wizard* window, then select *New Project*. Next, type in the name of the directory in the *Directory Name:* box (See **1** in Figure \@ref(fig:newproj2)). Next, use the *Browse* button to select the location of the new directory (See **2** in Figure \@ref(fig:newproj2)). Finally, click on *Create Project* to create the project (See **3** in Figure \@ref(fig:newproj2)).
+    ```{r newproj2, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    knitr::include_graphics("Images/NewRProject2.png")
+    ```
+3. To create the project in an existing directory, select *Existing Directory* in the *New Project Wizard* window. Next, use the *Browse* button to select the location of the existing directory (See **1** in Figure \@ref(fig:newproj3)). Finally, click on *Create Project* to create the project (See **2** in Figure \@ref(fig:newproj2)).
+    ```{r newproj3, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    knitr::include_graphics("Images/NewRProject3.png")
+    ```
+
+To use the new project each time you work in RStudio for this class, you will need to open the project by using the drop down project menu (See **1** in Figure \@ref(fig:newproj4)) and then selecting the appropriate project (See **2** in Figure \@ref(fig:newproj4)).
+    ```{r newproj4, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    knitr::include_graphics("Images/NewRProject4.png")
+    ```
+
+Video of the *New Directory* option:
+![](https://youtu.be/ACEQhpmjNfM)
 
 \newpage    
 ## Loading and Saving Data
