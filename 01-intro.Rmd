@@ -1,6 +1,7 @@
 ```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(kableExtra)
+library(vembedr)
 load("Data/operators.rdata")
 ```
 # R Basics
@@ -182,7 +183,9 @@ Packages are collections of functions that have been written to expand the funct
     ```{r comment=NA}
     print(x)
     ```
-    
+
+[Video Tutorial: Assignment Operator](https://youtu.be/uIKi4sac4tU)
+
 ### Vectors
 
 * Vectors can be created many ways and take many data types
@@ -200,6 +203,9 @@ Packages are collections of functions that have been written to expand the funct
     # Concatenate class functions and print together
     print(c(class(x.Num), class(x.Log), class(x.Char)))
     ```
+
+[Video Tutorial: Vectors - Part 1](https://youtu.be/3x77ndDRD34)
+
 * Vectors can only hold a single class/type of value
     * When multiple classes are included, the values are coerced to the most general type
     ```{r}
@@ -234,6 +240,8 @@ Packages are collections of functions that have been written to expand the funct
     str(x.Char)
     ```
 
+[Video Tutorial: Vectors - Part 2](https://youtu.be/3P8qsWkHtOA)
+
 ### Indexing
 
 * Indexing is used to obtain particular elements of a data structure
@@ -252,6 +260,8 @@ Packages are collections of functions that have been written to expand the funct
     # Obtain all elements in 'x.Num' greater than 5
     x.Num[x.Num > 5]
     ```
+
+[Video Tutorial: Indexing](https://youtu.be/VDqCAnG9OJI)
 
 ### Sequencing
 
@@ -276,6 +286,8 @@ Packages are collections of functions that have been written to expand the funct
     x.Seq3 <- seq(0,100,20)
     x.Seq3
     ```
+
+[Video Tutorial: Sequencing](https://youtu.be/JWov1_9XxZs)
 
 ### Missing (and Other Interesting) Values
 
@@ -345,6 +357,8 @@ Data frames are an object type that deserve special attention
     x.df[2,3]
     ```
 
+[Video Tutorial: Data Frames (Part 1)](https://youtu.be/qFHNiFx5P_w)
+
 #### Using vectors in-line
 
 * The vectors can be created in line (i.e., not already created)
@@ -357,6 +371,8 @@ Data frames are an object type that deserve special attention
                         var4=100)
     x2.df
     ```
+
+[Video Tutorial: Data Frames (Part 2)](https://youtu.be/JLTXTKuTloA)
 
 ### Viewing a Data Frame
 
@@ -381,6 +397,9 @@ data(Salaries)
     ```{r viewdf, echo=FALSE, fig.cap="Viewing a Data Frame in the Source Window"}
     knitr::include_graphics("Images/ViewDF.gif")
     ```
+
+[Video Tutorial: Data Frames (Viewing)](https://youtu.be/kCTVfJ7VE8Q)
+
 ### Indexing and Sequencing
 
 * Indices can be left blank, which selects *all* of that dimension
@@ -408,6 +427,8 @@ data(Salaries)
     x.df$x.Char
     ```
 
+[Video Tutorial: Data Frames (Indexing & Sequencing)](https://youtu.be/OF4UDKn6w4E)
+
 \newpage
 ## Data Transformations
 
@@ -431,6 +452,8 @@ data(Salaries)
     x.df
     ```
 
+[Video Tutorial: Data Transformations (Introduction)](https://youtu.be/K0eXOUjZ6yQ)
+
 ### Recoding (Create New)
 
 * In base R, recoding is usually a multi-step process using indexing
@@ -443,6 +466,9 @@ data(Salaries)
     str(x.df)   # See structure of data frame with new variable
     ```
     Notice the `&` in the code above. It stands for "and", which tells R that both conditions must be true
+
+[Video Tutorial: Data Transformations (Recoding New Variables)](https://youtu.be/MqPXDziQJzI)
+[Video Tutorial: Data Transformations (Factor Variables)](https://youtu.be/FehDWk90UOo)
     
 ### Recoding (Change Existing) 
 
@@ -460,31 +486,32 @@ data(Salaries)
     ```
     Notice the `|` in the code above. It stands for "or", which tells R that either condition can be true.
 
+[Video Tutorial: Data Transformations (Recoding Existing Variables)](https://youtu.be/Y1EltCIrxfU)
+
 \newpage    
 ## R Projects
 
 The best way to manage all of the downloads and assignments for this course is to create an R Project. Follow the following steps to create a new R Project.
 
 1. From within RStudio, select <u>F</u>ile&#8594;New <u>P</u>roject...<br>See Figure \@ref(fig:newproj1)<br>If a *Save Current Workspace* window pops up, select *Don't Save*
-    ```{r newproj1, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    ```{r newproj1, echo=FALSE, fig.cap="Starting a New R Project"}
     knitr::include_graphics("Images/NewRProject1.png")
     ```
 2. To create the project in a new directory, select *New Directory* in the *New Project Wizard* window, then select *New Project*. Next, type in the name of the directory in the *Directory Name:* box (See **1** in Figure \@ref(fig:newproj2)). Next, use the *Browse* button to select the location of the new directory (See **2** in Figure \@ref(fig:newproj2)). Finally, click on *Create Project* to create the project (See **3** in Figure \@ref(fig:newproj2)).
-    ```{r newproj2, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+    ```{r newproj2, echo=FALSE, fig.cap="Creating New R Project in New Directory"}
     knitr::include_graphics("Images/NewRProject2.png")
     ```
-3. To create the project in an existing directory, select *Existing Directory* in the *New Project Wizard* window. Next, use the *Browse* button to select the location of the existing directory (See **1** in Figure \@ref(fig:newproj3)). Finally, click on *Create Project* to create the project (See **2** in Figure \@ref(fig:newproj2)).
-    ```{r newproj3, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
+3. To create the project in an existing directory, select *Existing Directory* in the *New Project Wizard* window. Next, use the *Browse* button to select the location of the existing directory (See **1** in Figure \@ref(fig:newproj3)). Finally, click on *Create Project* to create the project (See **2** in Figure \@ref(fig:newproj3)).
+    ```{r newproj3, echo=FALSE, fig.cap="Creating New R Project in Existing Directory"}
     knitr::include_graphics("Images/NewRProject3.png")
     ```
 
 To use the new project each time you work in RStudio for this class, you will need to open the project by using the drop down project menu (See **1** in Figure \@ref(fig:newproj4)) and then selecting the appropriate project (See **2** in Figure \@ref(fig:newproj4)).
-    ```{r newproj4, echo=FALSE, fig.cap="Set Working Direcory using Menus"}
-    knitr::include_graphics("Images/NewRProject4.png")
-    ```
+```{r newproj4, echo=FALSE, fig.cap="Opening an R Project"}
+knitr::include_graphics("Images/NewRProject4.png")
+```
 
-Video of the *New Directory* option:
-![](https://youtu.be/ACEQhpmjNfM)
+[Video Tutorial: R Projects using New Directory Option](https://youtu.be/ACEQhpmjNfM)
 
 \newpage    
 ## Loading and Saving Data
@@ -493,7 +520,7 @@ In this class, the data will be provided to you as an `.Rdata` file, which are s
 
 ### Setting Working Directory
 
-To know where your files are saved to, and to make it easier to load files, it is probably best to have a working directory where existing files are located and where new files will be saved.
+To know where your files are saved to, and to make it easier to load files, it is best to use the R Project discussed above. However, you can also just place all of your files for the course in the same working directory.
 
 * Use the `getwd()` function to see your current working directory
 ```{r echo=FALSE}
@@ -602,6 +629,8 @@ library(dplyr)
 
 We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesat.rdata) file for these examples. 
 
+[Video Tutorial: dplyr (Introduction)](https://youtu.be/V3AQ_1n118k)
+
 #### `select()` function
 
 * Usage: `select(.data, ...)`, where `...` is one or more unquoted expressions separated by commas
@@ -625,6 +654,8 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
     str(airlinesat.d)
     ```
 
+[Video Tutorial: dplyr::select()](https://youtu.be/BpKmeAtY4ew)
+
 #### `filter()` function
 
 * Usage: `filter(.data, ...)`, where `...` is an expression that returns a logical value
@@ -640,6 +671,8 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
         filter(age > mean(age, na.rm=TRUE))
     head(airlinesat.dold)
     ```
+
+[Video Tutorial: dplyr::filter()](https://youtu.be/p1HVe8bAfHY)
     
 #### `arrange()` function
 
@@ -663,6 +696,8 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
         head(10)
     ```
 
+[Video Tutorial: dplyr::arrange()](https://youtu.be/VZUkZJ4fc-4)
+
 #### `mutate()` function
 
 * Usage: `mutate(.data, ...)` where `...` are name-value pairs.  The name gives the name of the new column/variable. The value is some function or formula.
@@ -682,6 +717,8 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
                                        fr="Europe", us="North America")) %>%
         head(10)
     ```
+
+[Video Tutorial: dplyr::mutate()](https://youtu.be/rHNXxrGMzkk)
     
 #### `summarise()` function
 
@@ -709,6 +746,8 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
                   sd_flights=mean(nflights, na.rm=TRUE), 
                   valid_n=sum(!is.na(nflights)))
     ```
+
+[Video Tutorial: dplyr::summarise() and dplyr::group_by()](https://youtu.be/A_c6lC9Hssk)
 
 \newpage
 ## Package *lubridate*
@@ -752,17 +791,17 @@ Additionally, lubridate can easily pull out the specific components that are hav
     ```
 
 \newpage    
-## RMarkdown
+## R Markdown and R Notebook
 
-RMarkdown allows users to create documents that combine code and text.  Ultimately, they are used for "reproducible research".  That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.
+R Markdown allows users to create documents that combine code and text.  Ultimately, they are used for "reproducible research".  That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.
 
-In this class, RMarkdown will be used for the lab assignments. You will write your code in the RMarkdown file, and answer the assignment questions with the code your have written.
+In this class, R Notebooks, which use R Markdown, will be used for the lab assignments. You will write your code in the R Notebook file, and answer the assignment questions with the code your have written.
 
-While RMarkdown has a great deal of functionality, we will focus on a select few of those features.  This [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf) may be beneficial.
+While R Markdown has a great deal of functionality, we will focus on a select few of those features.  This [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf) may be beneficial.
 
 ### YAML Header
 
-The top of every RMarkdown is a section called the YAML header, which is enclosed at the top and bottom with `---`. For this class, the only think in the YAML header that you will need to change is the `author:` section.
+The top of every R Markdown is a section called the YAML header, which is enclosed at the top and bottom with `---`. For this class, the only thing in the YAML header that you will need to change is the `author:` section.
 
 ``` {r yamlheader, echo=FALSE, fig.cap="Change Author in YAML Header"}
 knitr::include_graphics("Images/YAMLHeader.gif")
@@ -770,7 +809,7 @@ knitr::include_graphics("Images/YAMLHeader.gif")
 
 ### Markdown Syntax
 
-When writing text in RMarkdown, there isn't a "point and click" menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of "markdown" syntax.  The most commonly used are provided below:
+When writing text in R Markdown, there isn't a "point and click" menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of "markdown" syntax.  The most commonly used are provided below:
 
 ---
 
@@ -872,7 +911,7 @@ equation: $y=\alpha+\beta x$
 
 ### Code Chunks
 
-One of the greatest things about RMarkdown files is the ability to include code, and run the code, within the RMarkdown file. Putting code in the file is done with code chunks.
+One of the greatest things about R Markdown and R Notebook files is the ability to include code, and run the code, within the file. Putting code in the file is done with code chunks.
 
 #### Inserting a Code Chunk
 
@@ -888,8 +927,8 @@ knitr::include_graphics("Images/TypeRChunk.gif")
 
 #### Using Code Chunks
 
-* RMarkdown doesn't pay attention to anything else going on in your R/RStudio session
-    * Any objects, data, packages, or user defined scripts must be in a code chunk in RMarkdown
+* R Markdown and R Notebook don't pay attention to anything else going on in your R/RStudio session
+    * Any objects, data, packages, or user defined scripts must be in a code chunk
     * However, once they are loaded in a chunk, they do not need to be loaded again in subsequent chunks
 * To run a code chunk, click on the green triangle (<img src="Images/RunChunk.jpg">
     * If you run a chunk that does have the necessary object, data, etc., you will get an error message (see Figure \@ref(fig:chunkerror))
@@ -905,7 +944,7 @@ knitr::include_graphics("Images/TypeRChunk.gif")
 
 #### "Knitting" the Results
 
-At any time, you can "Knit" the RMarkdown file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking (and for this course, required to turn in the lab assignment).
+At any time, you can "Knit" the R Notebook file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking.
 
 * To "Knit" the file, click on the down arrow next to "Knit" in the document toolbar, and select how you would like to product the document (see Figure \@ref(fig:knitto))
     * By default, a document knitted to HTML will be viewable in the "Viewer" window in the lower right hand side of RStudio.

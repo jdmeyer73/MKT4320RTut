@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-04-06" />
+<meta name="date" content="2022-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="standard-mnl.html"/>
 <link rel="next" href="conjoint-analysis.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +49,12 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -96,7 +95,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -109,7 +108,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -187,6 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+<li class="chapter" data-level="1.6.4" data-path="r-basics.html"><a href="r-basics.html#indexing-and-sequencing"><i class="fa fa-check"></i><b>1.6.4</b> Indexing and Sequencing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
 <ul>
@@ -194,38 +194,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
 <li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#r-projects"><i class="fa fa-check"></i><b>1.8</b> R Projects</a></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.9</b> Loading and Saving Data</a>
 <ul>
-<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
-<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
-<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.9.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.9.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.9.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.9.3</b> Saving .Rdata</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.10</b> User Defined Functions</a>
 <ul>
-<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
-<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.10.1</b> Structure</a></li>
+<li class="chapter" data-level="1.10.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.10.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.11</b> Package <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<li class="chapter" data-level="1.11.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.11.1</b> <em>dplyr</em> Examples</a>
 <ul>
-<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.11.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.11.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.11.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.11.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.11.1.5</b> <code>summarise()</code> function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
-<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.12</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.13" data-path="r-basics.html"><a href="r-basics.html#r-markdown-and-r-notebook"><i class="fa fa-check"></i><b>1.13</b> R Markdown and R Notebook</a>
 <ul>
-<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
-<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
-<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<li class="chapter" data-level="1.13.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.13.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.13.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.13.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.13.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.13.3</b> Code Chunks</a>
 <ul>
-<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
-<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
-<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+<li class="chapter" data-level="1.13.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.13.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.13.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.13.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.13.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.13.3.3</b> “Knitting” the Results</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -444,18 +445,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="alt-specific-mnl" class="section level1" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Alt-Specific MNL</h1>
+<div id="alt-specific-mnl" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Alt-Specific MNL<a href="alt-specific-mnl.html#alt-specific-mnl" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/yogurt.rdata">yogurt.rdata</a> is used. Load it now. Because of how the data is arranged, the training and holdout samples are both included in the file: <code>train.yog</code> and <code>test.yog</code>.</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="alt-specific-mnl.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb395-2"><a href="alt-specific-mnl.html#cb395-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/yogurt.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="alt-specific-mnl.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb398-2"><a href="alt-specific-mnl.html#cb398-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/yogurt.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
-<div id="introduction-9" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<div id="introduction-9" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction<a href="alt-specific-mnl.html#introduction-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R is not good for alternative specific multinomial logistic regression (MNL). The best package that I have found for alternative specific MNL is <code>mlogit</code> with its <code>mlogit</code> function. Use <code>install.packages("mlogit")</code> to install the package on your machine, then load it using the <code>library</code> function when needed.</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="alt-specific-mnl.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="alt-specific-mnl.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
 <pre><code>Loading required package: dfidx</code></pre>
 <pre><code>
 Attaching package: &#39;dfidx&#39;</code></pre>
@@ -467,8 +468,8 @@ Attaching package: &#39;dfidx&#39;</code></pre>
 * <a href="stmnl_cm.R">asmnl_me.R</a> produces marginal effects tables for all IVs
 * <a href="stmnl_pp.R">asmnl_mp.R</a> produces margin plots for case-specific IVs</p>
 </div>
-<div id="alt-spec-mnl-using-user-defined-function" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Alt-Spec MNL using User Defined Function</h2>
+<div id="alt-spec-mnl-using-user-defined-function" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Alt-Spec MNL using User Defined Function<a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Alternative Specific MNL is performed using the <code>asmnl_est.R</code> user defined function</li>
 <li>Usage: <code>asmnl_est(formula, data, id="", alt="", choice="", testdata)</code>
@@ -488,17 +489,17 @@ Attaching package: &#39;dfidx&#39;</code></pre>
 <li>NOTE 1: To work properly, all factor IVs should already be in dummy variable coding</li>
 <li>NOTE 2: This function also requires the <code>broom</code> package</li>
 </ul>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="alt-specific-mnl.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
-<span id="cb400-2"><a href="alt-specific-mnl.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
-<span id="cb400-3"><a href="alt-specific-mnl.html#cb400-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
-<span id="cb400-4"><a href="alt-specific-mnl.html#cb400-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb400-5"><a href="alt-specific-mnl.html#cb400-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_est.R&quot;</span>)</span>
-<span id="cb400-6"><a href="alt-specific-mnl.html#cb400-6" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
-<span id="cb400-7"><a href="alt-specific-mnl.html#cb400-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
-<span id="cb400-8"><a href="alt-specific-mnl.html#cb400-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb400-9"><a href="alt-specific-mnl.html#cb400-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
-<span id="cb400-10"><a href="alt-specific-mnl.html#cb400-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
-<span id="cb400-11"><a href="alt-specific-mnl.html#cb400-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="alt-specific-mnl.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
+<span id="cb403-2"><a href="alt-specific-mnl.html#cb403-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
+<span id="cb403-3"><a href="alt-specific-mnl.html#cb403-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
+<span id="cb403-4"><a href="alt-specific-mnl.html#cb403-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb403-5"><a href="alt-specific-mnl.html#cb403-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_est.R&quot;</span>)</span>
+<span id="cb403-6"><a href="alt-specific-mnl.html#cb403-6" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
+<span id="cb403-7"><a href="alt-specific-mnl.html#cb403-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
+<span id="cb403-8"><a href="alt-specific-mnl.html#cb403-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb403-9"><a href="alt-specific-mnl.html#cb403-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
+<span id="cb403-10"><a href="alt-specific-mnl.html#cb403-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
+<span id="cb403-11"><a href="alt-specific-mnl.html#cb403-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
 <pre class="custom-output"><code>
 
 ---------
@@ -548,8 +549,8 @@ P.Hiland         2        2        1         1     6
 P.Weight         8        1       12        13    34
 P.Yoplait       33        0       21       152   206
 Total          242       17      138       204   601</code></pre>
-<div id="marginal-effects" class="section level3" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Marginal Effects</h3>
+<div id="marginal-effects" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Marginal Effects<a href="alt-specific-mnl.html#marginal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>asmnl_me.R</code> user defined function will be used to get the marginal effects of the IVs</li>
 <li>Usage: <code>asmnl_me(mod)</code>
@@ -557,8 +558,8 @@ Total          242       17      138       204   601</code></pre>
 <li><code>mod</code> is the object containing the result of the <code>mlogit</code> call using the <code>asmnl_est</code> user defined function</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="alt-specific-mnl.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_me.R&quot;</span>)</span>
-<span id="cb402-2"><a href="alt-specific-mnl.html#cb402-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="alt-specific-mnl.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_me.R&quot;</span>)</span>
+<span id="cb405-2"><a href="alt-specific-mnl.html#cb405-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
 <pre class="custom-output"><code>
 --------------------------------
 Predicted Probabilities at Means
@@ -590,15 +591,15 @@ Yoplait  0.05450  0.00054  0.02899 -0.08404
   Dannon   Hiland   Weight  Yoplait 
 -0.00731 -0.00059 -0.00684  0.01473 </code></pre>
 </div>
-<div id="margin-plots-1" class="section level3" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Margin Plots</h3>
+<div id="margin-plots-1" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Margin Plots<a href="alt-specific-mnl.html#margin-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>asmnl_mp.R</code> user defined function will create margin plots for a case-specific IV</li>
 <li>Usage: <code>almnl_mp(mod, focal="", type="")     *</code>mod<code>is the object containing the result of the</code>mlogit<code>call using the</code>asmnl_est<code>user defined function     *</code>focal<code>is the case-specific IV for which a margin plot is wanted (in quotes)     *</code>type<code>is the type of IV; must be either</code>“C”<code>for continuous or</code>“D”` for dummy</li>
 <li>NOTE: This function requires the <code>ggplot2</code> package</li>
 </ul>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="alt-specific-mnl.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_mp.R&quot;</span>)</span>
-<span id="cb404-2"><a href="alt-specific-mnl.html#cb404-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="alt-specific-mnl.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_mp.R&quot;</span>)</span>
+<span id="cb407-2"><a href="alt-specific-mnl.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 
 </div>
@@ -668,7 +669,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

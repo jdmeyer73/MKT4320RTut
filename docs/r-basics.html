@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 R Basics | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 R Basics | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-04-06" />
+<meta name="date" content="2022-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="examining-and-summarizing-data.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +49,12 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -96,7 +95,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -109,7 +108,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -187,6 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+<li class="chapter" data-level="1.6.4" data-path="r-basics.html"><a href="r-basics.html#indexing-and-sequencing"><i class="fa fa-check"></i><b>1.6.4</b> Indexing and Sequencing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
 <ul>
@@ -194,38 +194,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
 <li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#r-projects"><i class="fa fa-check"></i><b>1.8</b> R Projects</a></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.9</b> Loading and Saving Data</a>
 <ul>
-<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
-<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
-<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.9.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.9.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.9.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.9.3</b> Saving .Rdata</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.10</b> User Defined Functions</a>
 <ul>
-<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
-<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.10.1</b> Structure</a></li>
+<li class="chapter" data-level="1.10.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.10.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.11</b> Package <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<li class="chapter" data-level="1.11.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.11.1</b> <em>dplyr</em> Examples</a>
 <ul>
-<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.11.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.11.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.11.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.11.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.11.1.5</b> <code>summarise()</code> function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
-<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.12</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.13" data-path="r-basics.html"><a href="r-basics.html#r-markdown-and-r-notebook"><i class="fa fa-check"></i><b>1.13</b> R Markdown and R Notebook</a>
 <ul>
-<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
-<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
-<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<li class="chapter" data-level="1.13.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.13.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.13.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.13.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.13.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.13.3</b> Code Chunks</a>
 <ul>
-<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
-<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
-<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+<li class="chapter" data-level="1.13.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.13.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.13.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.13.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.13.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.13.3.3</b> “Knitting” the Results</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -444,8 +445,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-basics" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> R Basics</h1>
+<div id="r-basics" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> R Basics<a href="r-basics.html#r-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sources for this chapter:</p>
 <ul>
 <li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
@@ -453,10 +454,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
 </ul></li>
 </ul>
-<div id="introduction" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Introduction</h2>
-<div id="what-is-r" class="section level3" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> What is R?</h3>
+<div id="introduction" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Introduction<a href="r-basics.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-is-r" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> What is R?<a href="r-basics.html#what-is-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>R <strong>is</strong> a programming language</li>
 <li>R <strong>is not</strong> a statistics program
@@ -466,8 +467,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="why-r" class="section level3" number="1.1.2">
-<h3><span class="header-section-number">1.1.2</span> Why R?</h3>
+<div id="why-r" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Why R?<a href="r-basics.html#why-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Emerging techniques usually available in R quickly</li>
 <li>Default educational platform for statistics programs (and spreading to other disciplines)</li>
@@ -481,15 +482,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>R is free</li>
 </ul>
 </div>
-<div id="why-not-r" class="section level3" number="1.1.3">
-<h3><span class="header-section-number">1.1.3</span> Why NOT R?</h3>
+<div id="why-not-r" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Why NOT R?<a href="r-basics.html#why-not-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Steep learning curve</li>
 <li>Requires programming</li>
 </ul>
 </div>
-<div id="what-is-rstudio" class="section level3" number="1.1.4">
-<h3><span class="header-section-number">1.1.4</span> What is RStudio?</h3>
+<div id="what-is-rstudio" class="section level3 hasAnchor" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> What is RStudio?<a href="r-basics.html#what-is-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>RStudio IDE is an integrated development environment that makes working with R more user friendly</li>
 <li>Not required to use R, but provides a better interface and environment of writing code, editing code, and creating documents.</li>
@@ -500,10 +501,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>RStudio is free</li>
 </ul>
 </div>
-<div id="getting-started" class="section level3" number="1.1.5">
-<h3><span class="header-section-number">1.1.5</span> Getting Started</h3>
-<div id="option-1-install-on-your-machine" class="section level4" number="1.1.5.1">
-<h4><span class="header-section-number">1.1.5.1</span> Option 1: Install on your Machine</h4>
+<div id="getting-started" class="section level3 hasAnchor" number="1.1.5">
+<h3><span class="header-section-number">1.1.5</span> Getting Started<a href="r-basics.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="option-1-install-on-your-machine" class="section level4 hasAnchor" number="1.1.5.1">
+<h4><span class="header-section-number">1.1.5.1</span> Option 1: Install on your Machine<a href="r-basics.html#option-1-install-on-your-machine" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ol style="list-style-type: decimal">
 <li>Install “R base” from the Comprehensive R Archive Network (CRAN)
 <ul>
@@ -511,25 +512,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li>Install RStudio
 <ul>
-<li><a href="https://www.rstudio.com/products/rstudio/download/#download">https://www.rstudio.com/products/rstudio/download/#download</a></li>
+<li><a href="https://posit.co/download/rstudio-desktop/#download">https://posit.co/download/rstudio-desktop/#download</a></li>
 </ul></li>
 </ol>
 </div>
-<div id="option-2-use-bgsus-virtual-computing-lab-pilot" class="section level4" number="1.1.5.2">
-<h4><span class="header-section-number">1.1.5.2</span> Option 2: Use BGSU’s Virtual Computing Lab pilot</h4>
+<div id="option-2-use-bgsus-virtual-computing-lab-pilot" class="section level4 hasAnchor" number="1.1.5.2">
+<h4><span class="header-section-number">1.1.5.2</span> Option 2: Use BGSU’s Virtual Computing Lab pilot<a href="r-basics.html#option-2-use-bgsus-virtual-computing-lab-pilot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>See course website for link</li>
 </ul>
 </div>
-<div id="option-3-use-a-computer-in-an-on-campus-computer-lab" class="section level4" number="1.1.5.3">
-<h4><span class="header-section-number">1.1.5.3</span> Option 3: Use a computer in an on-campus computer lab</h4>
+<div id="option-3-use-a-computer-in-an-on-campus-computer-lab" class="section level4 hasAnchor" number="1.1.5.3">
+<h4><span class="header-section-number">1.1.5.3</span> Option 3: Use a computer in an on-campus computer lab<a href="r-basics.html#option-3-use-a-computer-in-an-on-campus-computer-lab" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>All computer in on-campus computer labs should have R and RStudio installed</li>
 </ul>
 </div>
 </div>
-<div id="navigating-rstudio" class="section level3" number="1.1.6">
-<h3><span class="header-section-number">1.1.6</span> Navigating RStudio</h3>
+<div id="navigating-rstudio" class="section level3 hasAnchor" number="1.1.6">
+<h3><span class="header-section-number">1.1.6</span> Navigating RStudio<a href="r-basics.html#navigating-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As you can see in Figure <a href="r-basics.html#fig:rstudiopane">1.1</a>, RStudio is typically divided in 4 quadrants.</p>
 <div class="figure"><span style="display:block;" id="fig:rstudiopane"></span>
 <img src="Images/RStudioEnvironment.png" alt="RStudio Layout" width="960" />
@@ -537,24 +538,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 1.1: RStudio Layout
 </p>
 </div>
-<div id="quadrant-1" class="section level4" number="1.1.6.1">
-<h4><span class="header-section-number">1.1.6.1</span> <span style="color: #ff9600;">Quadrant 1</span></h4>
+<div id="quadrant-1" class="section level4 hasAnchor" number="1.1.6.1">
+<h4><span class="header-section-number">1.1.6.1</span> <span style="color: #ff9600;">Quadrant 1</span><a href="r-basics.html#quadrant-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The upper-left corner is the <strong>source</strong> pane. This pane is where the majority of your programming or coding will take place. When working in this pane, the code does not run unless you tell it to run. In addition, the code can be saved to prevent work from being lost.</p>
 </div>
-<div id="quadrant-2" class="section level4" number="1.1.6.2">
-<h4><span class="header-section-number">1.1.6.2</span> <span style="color: #ff0000;">Quadrant 2</span></h4>
+<div id="quadrant-2" class="section level4 hasAnchor" number="1.1.6.2">
+<h4><span class="header-section-number">1.1.6.2</span> <span style="color: #ff0000;">Quadrant 2</span><a href="r-basics.html#quadrant-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The lower-left corner is the <strong>console</strong> pane. While it contains several tabs, generally the <code>Console</code> tab is the only one used. The console is where R actually evaluates the code. If you run code from the a source pane window, the code will automatically be put into the console pane and evaluated. You can also type code directly into the console pane and receive immediate results. Depending on the code, the results will appear directly in the console or in a tab Quadrant 4. The “&gt;” symbol shows that the console is ready for input.</p>
 </div>
-<div id="quadrant-3" class="section level4" number="1.1.6.3">
-<h4><span class="header-section-number">1.1.6.3</span> <span style="color: #0018ff;">Quadrant 3</span></h4>
+<div id="quadrant-3" class="section level4 hasAnchor" number="1.1.6.3">
+<h4><span class="header-section-number">1.1.6.3</span> <span style="color: #0018ff;">Quadrant 3</span><a href="r-basics.html#quadrant-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The upper-right corner also contains several tabs, but the <code>Environment</code> and <code>History</code> tabs are the ones used most often.</p>
 <ul>
 <li>The <code>Environment</code> tab lists all data objects that have been defined in the current session.</li>
 <li>The <code>History</code> tab is an archive of all commands run in the current session.</li>
 </ul>
 </div>
-<div id="quadrant-4" class="section level4" number="1.1.6.4">
-<h4><span class="header-section-number">1.1.6.4</span> <span style="color: #4f2c1d;">Quadrant 4</span></h4>
+<div id="quadrant-4" class="section level4 hasAnchor" number="1.1.6.4">
+<h4><span class="header-section-number">1.1.6.4</span> <span style="color: #4f2c1d;">Quadrant 4</span><a href="r-basics.html#quadrant-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The bottom-right corner also contains several tabs, all of which are used at different times.</p>
 <ul>
 <li>The <code>Files</code> tab lists all files in the current directory.</li>
@@ -567,10 +568,10 @@ Figure 1.1: RStudio Layout
 </div>
 </div>
 </div>
-<div id="r-language" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> R Language</h2>
-<div id="basics-of-r-commands" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Basics of R Commands</h3>
+<div id="r-language" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> R Language<a href="r-basics.html#r-language" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="basics-of-r-commands" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Basics of R Commands<a href="r-basics.html#basics-of-r-commands" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>R is case sensitive</li>
 <li>When using the console, use the keyboard <span style="background-color: #f7f7f7;"> ↑ </span> and <span style="background-color: #f7f7f7;"> ↓ </span> arrow keys to easily cycle through previous commands typed.</li>
@@ -591,8 +592,8 @@ Figure 1.1: RStudio Layout
 <span id="cb2-2"><a href="r-basics.html#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span></code></pre></div></li>
 </ul>
 </div>
-<div id="operators" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> Operators</h3>
+<div id="operators" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Operators<a href="r-basics.html#operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 Mathematical and logical operators are used frequently.
 <table>
 <caption>
@@ -744,11 +745,11 @@ isTRUE(x)
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="packages" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Packages</h2>
+<div id="packages" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Packages<a href="r-basics.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Packages are collections of functions that have been written to expand the functionality of R. Packages are not automatically included, and if a command is given that is not part of a package installed and loaded, R will give an error message. Therefore, the package must first be installed, and then loaded.</p>
-<div id="installing-packages" class="section level3" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Installing Packages</h3>
+<div id="installing-packages" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Installing Packages<a href="r-basics.html#installing-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Installing packages is performed with the <code>install.packages("")</code>function, where the name of the package is inside the quotation marks</p></li>
 <li><p>Two packages that used quite often in this course are <code>ggplot2</code> and <code>dplyr</code></p>
@@ -758,8 +759,8 @@ isTRUE(x)
 <li><p><strong>NOTE 2</strong>: If using BGSU’s Virtual Computing Lab, new packages cannot be installed, but the version in the virtual environment has <em>most</em> of the most common packages pre-installed</p></li>
 </ul>
 </div>
-<div id="loading-packages" class="section level3" number="1.3.2">
-<h3><span class="header-section-number">1.3.2</span> Loading Packages</h3>
+<div id="loading-packages" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Loading Packages<a href="r-basics.html#loading-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Once a package is installed, it has to be loaded with the <code>library()</code> function, where the name of the package is in the parentheses, in order to be used</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-basics.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -770,8 +771,8 @@ isTRUE(x)
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="getting-help" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Getting Help</h2>
+<div id="getting-help" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Getting Help<a href="r-basics.html#getting-help" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>R has built in help to assist with understanding different functions</p></li>
 <li><p>To access the help, type <code>? FUNCTION</code> in the console, and the help page for that function will show up in the lower-right pane under the help tab</p>
@@ -779,8 +780,8 @@ isTRUE(x)
 </ul>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="basic-object-types-and-other-important-stuff" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Basic Object Types (and Other Important Stuff)</h2>
+<div id="basic-object-types-and-other-important-stuff" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Basic Object Types (and Other Important Stuff)<a href="r-basics.html#basic-object-types-and-other-important-stuff" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>Objects in R include variables, data sets, and functions</p></li>
 <li><p>The assignment operator <code>&lt;-</code> assigns a value to a named object</p>
@@ -796,8 +797,9 @@ isTRUE(x)
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
 <pre class="custom-output"><code>[1] 100</code></pre></li>
 </ul>
-<div id="vectors" class="section level3" number="1.5.1">
-<h3><span class="header-section-number">1.5.1</span> Vectors</h3>
+<p><a href="https://youtu.be/uIKi4sac4tU">Video Tutorial: Assignment Operator</a></p>
+<div id="vectors" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Vectors<a href="r-basics.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Vectors can be created many ways and take many data types</p></li>
 <li><p>One method is to using the <code>c()</code> function, which concatenates individual items</p>
@@ -814,6 +816,9 @@ isTRUE(x)
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate class functions and print together</span></span>
 <span id="cb18-2"><a href="r-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">class</span>(x.Num), <span class="fu">class</span>(x.Log), <span class="fu">class</span>(x.Char)))</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;numeric&quot;   &quot;logical&quot;   &quot;character&quot;</code></pre></li>
+</ul>
+<p><a href="https://youtu.be/3x77ndDRD34">Video Tutorial: Vectors - Part 1</a></p>
+<ul>
 <li><p>Vectors can only hold a single class/type of value</p>
 <ul>
 <li>When multiple classes are included, the values are coerced to the most general type</li>
@@ -856,9 +861,10 @@ isTRUE(x)
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r-basics.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x.Char)</span></code></pre></div>
 <pre class="custom-output"><code> chr [1:5] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/3P8qsWkHtOA">Video Tutorial: Vectors - Part 2</a></p>
 </div>
-<div id="indexing" class="section level3" number="1.5.2">
-<h3><span class="header-section-number">1.5.2</span> Indexing</h3>
+<div id="indexing" class="section level3 hasAnchor" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Indexing<a href="r-basics.html#indexing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Indexing is used to obtain particular elements of a data structure</p></li>
 <li><p>Vectors are indexed with square brackets, <code>[]</code></p>
@@ -874,9 +880,10 @@ isTRUE(x)
 <span id="cb48-2"><a href="r-basics.html#cb48-2" aria-hidden="true" tabindex="-1"></a>x.Num[x.Num <span class="sc">&gt;</span> <span class="dv">5</span>]</span></code></pre></div>
 <pre class="custom-output"><code>[1]  5.49 10.00 20.00</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/VDqCAnG9OJI">Video Tutorial: Indexing</a></p>
 </div>
-<div id="sequencing" class="section level3" number="1.5.3">
-<h3><span class="header-section-number">1.5.3</span> Sequencing</h3>
+<div id="sequencing" class="section level3 hasAnchor" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Sequencing<a href="r-basics.html#sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Vectors can also be created using sequencing</p></li>
 <li><p>Integer sequencing is done with <code>#:#</code> coding</p>
@@ -896,9 +903,10 @@ isTRUE(x)
 <span id="cb56-2"><a href="r-basics.html#cb56-2" aria-hidden="true" tabindex="-1"></a>x.Seq3</span></code></pre></div>
 <pre class="custom-output"><code>[1]   0  20  40  60  80 100</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/JWov1_9XxZs">Video Tutorial: Sequencing</a></p>
 </div>
-<div id="missing-and-other-interesting-values" class="section level3" number="1.5.4">
-<h3><span class="header-section-number">1.5.4</span> Missing (and Other Interesting) Values</h3>
+<div id="missing-and-other-interesting-values" class="section level3 hasAnchor" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Missing (and Other Interesting) Values<a href="r-basics.html#missing-and-other-interesting-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>In R, missing values are assigned a special constant, <span style="font-family: Courier;">NA</span></p></li>
 <li><p><span style="font-family: Courier;">NA</span> is not a character value, but a type of its own</p></li>
@@ -924,8 +932,8 @@ isTRUE(x)
 <p>Notice that R provides a warning when the <span style="font-family: Courier;">NaN</span> is found</p></li>
 </ul>
 </div>
-<div id="factors" class="section level3" number="1.5.5">
-<h3><span class="header-section-number">1.5.5</span> Factors</h3>
+<div id="factors" class="section level3 hasAnchor" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Factors<a href="r-basics.html#factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Character data can be converted into nominal <strong>factors</strong> using the <code>as.factors()</code> function</p></li>
 <li><p>Each unique character value will be a level of the factor</p>
@@ -943,11 +951,11 @@ isTRUE(x)
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="data-frames" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Data Frames</h2>
+<div id="data-frames" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Data Frames<a href="r-basics.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Data frames are an object type that deserve special attention</p>
-<div id="overview" class="section level3" number="1.6.1">
-<h3><span class="header-section-number">1.6.1</span> Overview</h3>
+<div id="overview" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Overview<a href="r-basics.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Most common way to handle data sets in R</li>
 <li>Provide data to statistical functions</li>
@@ -958,8 +966,8 @@ isTRUE(x)
 </ul></li>
 </ul>
 </div>
-<div id="creating-a-data-frame" class="section level3" number="1.6.2">
-<h3><span class="header-section-number">1.6.2</span> Creating a data frame</h3>
+<div id="creating-a-data-frame" class="section level3 hasAnchor" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Creating a data frame<a href="r-basics.html#creating-a-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Can construct a data frame with the <code>data.frame()</code> function</p>
 <ul>
@@ -984,8 +992,9 @@ isTRUE(x)
 <span id="cb77-2"><a href="r-basics.html#cb77-2" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot;</code></pre></li>
 </ul>
-<div id="using-vectors-in-line" class="section level4" number="1.6.2.1">
-<h4><span class="header-section-number">1.6.2.1</span> Using vectors in-line</h4>
+<p><a href="https://youtu.be/qFHNiFx5P_w">Video Tutorial: Data Frames (Part 1)</a></p>
+<div id="using-vectors-in-line" class="section level4 hasAnchor" number="1.6.2.1">
+<h4><span class="header-section-number">1.6.2.1</span> Using vectors in-line<a href="r-basics.html#using-vectors-in-line" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The vectors can be created in line (i.e., not already created)</p></li>
 <li><p>If the vectors are of different length, the shorter vector will be repeated <strong>IF</strong> the longest vector is divisible by the vector</p></li>
@@ -1007,10 +1016,11 @@ isTRUE(x)
 9    90  Yes    4  100
 10  100   No    5  100</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/JLTXTKuTloA">Video Tutorial: Data Frames (Part 2)</a></p>
 </div>
 </div>
-<div id="viewing-a-data-frame" class="section level3" number="1.6.3">
-<h3><span class="header-section-number">1.6.3</span> Viewing a Data Frame</h3>
+<div id="viewing-a-data-frame" class="section level3 hasAnchor" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Viewing a Data Frame<a href="r-basics.html#viewing-a-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are a few ways to view a data frame</p>
 <ol style="list-style-type: decimal">
 <li><p>Type the data frame name in the console</p>
@@ -1040,9 +1050,12 @@ isTRUE(x)
 <p class="caption">
 Figure 1.2: Viewing a Data Frame in the Source Window
 </p>
-</div>
-<h3 id="indexing-and-sequencing">Indexing and Sequencing</h3></li>
+</div></li>
 </ol>
+<p><a href="https://youtu.be/kCTVfJ7VE8Q">Video Tutorial: Data Frames (Viewing)</a></p>
+</div>
+<div id="indexing-and-sequencing" class="section level3 hasAnchor" number="1.6.4">
+<h3><span class="header-section-number">1.6.4</span> Indexing and Sequencing<a href="r-basics.html#indexing-and-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Indices can be left blank, which selects <em>all</em> of that dimension</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-basics.html#cb85-1" aria-hidden="true" tabindex="-1"></a>x.df[<span class="dv">2</span>, ]   <span class="co"># Obtain all of row 2</span></span></code></pre></div>
@@ -1084,11 +1097,12 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="r-basics.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x.df<span class="sc">$</span>x.Char</span></code></pre></div>
 <pre class="custom-output"><code>[1] &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; &quot;sr&quot;</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/OF4UDKn6w4E">Video Tutorial: Data Frames (Indexing &amp; Sequencing)</a></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="data-transformations" class="section level2" number="1.7">
-<h2><span class="header-section-number">1.7</span> Data Transformations</h2>
+<div id="data-transformations" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Data Transformations<a href="r-basics.html#data-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Analysts and researchers often need to create new variables from existing ones or transform existing variables</li>
 <li>Data transformations can usually be accomplished in more than one way
@@ -1104,8 +1118,8 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 </ul></li>
 </ul></li>
 </ul>
-<div id="creating-new-variables" class="section level3" number="1.7.1">
-<h3><span class="header-section-number">1.7.1</span> Creating New Variables</h3>
+<div id="creating-new-variables" class="section level3 hasAnchor" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> Creating New Variables<a href="r-basics.html#creating-new-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Adding a new variable is done using code such as <code>df$new &lt;- SOME FUNCTION</code>, where:
 <ul>
@@ -1123,9 +1137,10 @@ Figure 1.2: Viewing a Data Frame in the Source Window
 4 10.00  TRUE     so 100.0000
 5 20.00 FALSE     sr 400.0000</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/K0eXOUjZ6yQ">Video Tutorial: Data Transformations (Introduction)</a></p>
 </div>
-<div id="recoding-create-new" class="section level3" number="1.7.2">
-<h3><span class="header-section-number">1.7.2</span> Recoding (Create New)</h3>
+<div id="recoding-create-new" class="section level3 hasAnchor" number="1.7.2">
+<h3><span class="header-section-number">1.7.2</span> Recoding (Create New)<a href="r-basics.html#recoding-create-new" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>In base R, recoding is usually a multi-step process using indexing</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="r-basics.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode &#39;x.Num&#39; into three factors</span></span>
@@ -1140,11 +1155,13 @@ Figure 1.2: Viewing a Data Frame in the Source Window
  $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; ...
  $ NumSq : num  1 9.86 30.14 100 400
  $ Grp   : Factor w/ 3 levels &quot;high&quot;,&quot;low&quot;,&quot;med&quot;: 2 3 3 2 1</code></pre>
-<p>Notice the <code>&amp;</code> in the code above. It stands for “and,” which tells R that both conditions must be true</p></li>
+<p>Notice the <code>&amp;</code> in the code above. It stands for “and”, which tells R that both conditions must be true</p></li>
 </ul>
+<p><a href="https://youtu.be/MqPXDziQJzI">Video Tutorial: Data Transformations (Recoding New Variables)</a>
+<a href="https://youtu.be/FehDWk90UOo">Video Tutorial: Data Transformations (Factor Variables)</a></p>
 </div>
-<div id="recoding-change-existing" class="section level3" number="1.7.3">
-<h3><span class="header-section-number">1.7.3</span> Recoding (Change Existing)</h3>
+<div id="recoding-change-existing" class="section level3 hasAnchor" number="1.7.3">
+<h3><span class="header-section-number">1.7.3</span> Recoding (Change Existing)<a href="r-basics.html#recoding-change-existing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Recoding to change an existing variable is done in a similar manner
 <ul>
@@ -1164,17 +1181,54 @@ Figure 1.2: Viewing a Data Frame in the Source Window
  $ x.Char: chr  &quot;fr&quot; &quot;fr&quot; &quot;jr&quot; &quot;so&quot; ...
  $ NumSq : num  1 9.86 30.14 100 400
  $ Grp   : Factor w/ 2 levels &quot;high&quot;,&quot;very low&quot;: 2 2 2 2 1</code></pre>
-Notice the <code>|</code> in the code above. It stands for “or,” which tells R that either condition can be true.</li>
+Notice the <code>|</code> in the code above. It stands for “or”, which tells R that either condition can be true.</li>
 </ul>
+<p><a href="https://youtu.be/Y1EltCIrxfU">Video Tutorial: Data Transformations (Recoding Existing Variables)</a></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="loading-and-saving-data" class="section level2" number="1.8">
-<h2><span class="header-section-number">1.8</span> Loading and Saving Data</h2>
+<div id="r-projects" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> R Projects<a href="r-basics.html#r-projects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The best way to manage all of the downloads and assignments for this course is to create an R Project. Follow the following steps to create a new R Project.</p>
+<ol style="list-style-type: decimal">
+<li>From within RStudio, select <u>F</u>ile→New <u>P</u>roject…<br>See Figure <a href="r-basics.html#fig:newproj1">1.3</a><br>If a <em>Save Current Workspace</em> window pops up, select <em>Don’t Save</em>
+<div class="figure"><span style="display:block;" id="fig:newproj1"></span>
+<img src="Images/NewRProject1.png" alt="Starting a New R Project" width="300" />
+<p class="caption">
+Figure 1.3: Starting a New R Project
+</p>
+</div></li>
+<li>To create the project in a new directory, select <em>New Directory</em> in the <em>New Project Wizard</em> window, then select <em>New Project</em>. Next, type in the name of the directory in the <em>Directory Name:</em> box (See <strong>1</strong> in Figure <a href="r-basics.html#fig:newproj2">1.4</a>). Next, use the <em>Browse</em> button to select the location of the new directory (See <strong>2</strong> in Figure <a href="r-basics.html#fig:newproj2">1.4</a>). Finally, click on <em>Create Project</em> to create the project (See <strong>3</strong> in Figure <a href="r-basics.html#fig:newproj2">1.4</a>).
+<div class="figure"><span style="display:block;" id="fig:newproj2"></span>
+<img src="Images/NewRProject2.png" alt="Creating New R Project in New Directory" width="177" />
+<p class="caption">
+Figure 1.4: Creating New R Project in New Directory
+</p>
+</div></li>
+<li>To create the project in an existing directory, select <em>Existing Directory</em> in the <em>New Project Wizard</em> window. Next, use the <em>Browse</em> button to select the location of the existing directory (See <strong>1</strong> in Figure <a href="r-basics.html#fig:newproj3">1.5</a>). Finally, click on <em>Create Project</em> to create the project (See <strong>2</strong> in Figure <a href="r-basics.html#fig:newproj3">1.5</a>).
+<div class="figure"><span style="display:block;" id="fig:newproj3"></span>
+<img src="Images/NewRProject3.png" alt="Creating New R Project in Existing Directory" width="177" />
+<p class="caption">
+Figure 1.5: Creating New R Project in Existing Directory
+</p>
+</div></li>
+</ol>
+To use the new project each time you work in RStudio for this class, you will need to open the project by using the drop down project menu (See <strong>1</strong> in Figure <a href="r-basics.html#fig:newproj4">1.6</a>) and then selecting the appropriate project (See <strong>2</strong> in Figure <a href="r-basics.html#fig:newproj4">1.6</a>).
+<div class="figure"><span style="display:block;" id="fig:newproj4"></span>
+<img src="Images/NewRProject4.png" alt="Opening an R Project" width="300" />
+<p class="caption">
+Figure 1.6: Opening an R Project
+</p>
+</div>
+<p><a href="https://youtu.be/ACEQhpmjNfM">Video Tutorial: R Projects using New Directory Option</a></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="loading-and-saving-data" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Loading and Saving Data<a href="r-basics.html#loading-and-saving-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this class, the data will be provided to you as an <code>.Rdata</code> file, which are specific to R and the best way to store (and load) objects. If desired, <code>.Rdata</code> files can contain multiple objects. For example, an <code>.Rdata</code> file could contain two different data frames.</p>
-<div id="setting-working-directory" class="section level3" number="1.8.1">
-<h3><span class="header-section-number">1.8.1</span> Setting Working Directory</h3>
-<p>To know where your files are saved to, and to make it easier to load files, it is probably best to have a working directory where existing files are located and where new files will be saved.</p>
+<div id="setting-working-directory" class="section level3 hasAnchor" number="1.9.1">
+<h3><span class="header-section-number">1.9.1</span> Setting Working Directory<a href="r-basics.html#setting-working-directory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To know where your files are saved to, and to make it easier to load files, it is best to use the R Project discussed above. However, you can also just place all of your files for the course in the same working directory.</p>
 <ul>
 <li><p>Use the <code>getwd()</code> function to see your current working directory</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-basics.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
@@ -1186,43 +1240,43 @@ Notice the <code>|</code> in the code above. It stands for “or,” which tells
 <strong>NOTE</strong>: Forward slashes (as shown above) are used in place of backward slashes for directory paths</li>
 <li>Use the menus in RStudio<br>
 <u>S</u>ession→Set <u>W</u>orking Directory→<u>C</u>hoose Directory<br>
-See Figure <a href="r-basics.html#fig:setwd1">1.3</a>
+See Figure <a href="r-basics.html#fig:setwd1">1.7</a>
 <div class="figure"><span style="display:block;" id="fig:setwd1"></span>
 <img src="Images/WorkingDirectory1.png" alt="Set Working Direcory using Menus" width="358" />
 <p class="caption">
-Figure 1.3: Set Working Direcory using Menus
+Figure 1.7: Set Working Direcory using Menus
 </p>
 </div></li>
 <li>Use the <code>Files</code> tab in the lower-right corner in RStudio<br>
-See Figure <a href="r-basics.html#fig:setwd2">1.4</a>
+See Figure <a href="r-basics.html#fig:setwd2">1.8</a>
 <div class="figure"><span style="display:block;" id="fig:setwd2"></span>
 <img src="Images/WorkingDirectory2.gif" alt="Set Working Direcory using Files Tab"  />
 <p class="caption">
-Figure 1.4: Set Working Direcory using Files Tab
+Figure 1.8: Set Working Direcory using Files Tab
 </p>
 </div></li>
 </ol></li>
 </ul>
 </div>
-<div id="loading-.rdata" class="section level3" number="1.8.2">
-<h3><span class="header-section-number">1.8.2</span> Loading .Rdata</h3>
+<div id="loading-.rdata" class="section level3 hasAnchor" number="1.9.2">
+<h3><span class="header-section-number">1.9.2</span> Loading .Rdata<a href="r-basics.html#loading-.rdata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Use the <code>load("FILE LOCATION/NAME")</code> function to load and <code>.Rdata</code> file
 <ul>
 <li>Suppose the data set used in Topic 1 (<span style="font-family: Courier;">airlinesat.rdata</span>) is in a subdirectory of the working directory called <span style="font-family: Courier;">Data</span></li>
 </ul>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-basics.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div>
-See <a href="r-basics.html#fig:loaddata">1.5</a> for a visual example
+See <a href="r-basics.html#fig:loaddata">1.9</a> for a visual example
 <div class="figure"><span style="display:block;" id="fig:loaddata"></span>
 <img src="Images/LoadData.gif" alt="Loading Data"  />
 <p class="caption">
-Figure 1.5: Loading Data
+Figure 1.9: Loading Data
 </p>
 </div></li>
 </ul>
 </div>
-<div id="saving-.rdata" class="section level3" number="1.8.3">
-<h3><span class="header-section-number">1.8.3</span> Saving .Rdata</h3>
+<div id="saving-.rdata" class="section level3 hasAnchor" number="1.9.3">
+<h3><span class="header-section-number">1.9.3</span> Saving .Rdata<a href="r-basics.html#saving-.rdata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Use the <code>save(OBJECT, file="SAVENAME")</code> function, where:
 <ul>
@@ -1234,11 +1288,11 @@ Figure 1.5: Loading Data
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="user-defined-functions" class="section level2" number="1.9">
-<h2><span class="header-section-number">1.9</span> User Defined Functions</h2>
+<div id="user-defined-functions" class="section level2 hasAnchor" number="1.10">
+<h2><span class="header-section-number">1.10</span> User Defined Functions<a href="r-basics.html#user-defined-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Often, a series of commands is repeated over and over, or there is not an easy, built-in function in R to provide a needed result. In these case, R makes it relatively easy to create your own functions</p>
-<div id="structure" class="section level3" number="1.9.1">
-<h3><span class="header-section-number">1.9.1</span> Structure</h3>
+<div id="structure" class="section level3 hasAnchor" number="1.10.1">
+<h3><span class="header-section-number">1.10.1</span> Structure<a href="r-basics.html#structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>A function is constructed in the in the following manner:<br>
 <code>function.name &lt;- function(arglist) {body}</code> where
@@ -1250,8 +1304,8 @@ Figure 1.5: Loading Data
 <li>The function must be executed prior to using it in the current session; alternatively, the function can be saved as a “.R” script file and sourced using the <code>source()</code> function in R</li>
 </ul>
 </div>
-<div id="example" class="section level3" number="1.9.2">
-<h3><span class="header-section-number">1.9.2</span> Example</h3>
+<div id="example" class="section level3 hasAnchor" number="1.10.2">
+<h3><span class="header-section-number">1.10.2</span> Example<a href="r-basics.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Suppose a function is need to take the square root of a natural log transformation</p></li>
 <li><p>The new function will be named <code>sqlog</code> and will have one argument</p>
@@ -1269,8 +1323,8 @@ Figure 1.5: Loading Data
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="package-dplyr" class="section level2" number="1.10">
-<h2><span class="header-section-number">1.10</span> Package <em>dplyr</em></h2>
+<div id="package-dplyr" class="section level2 hasAnchor" number="1.11">
+<h2><span class="header-section-number">1.11</span> Package <em>dplyr</em><a href="r-basics.html#package-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>dplyr</code> package (pronounced DEE ply er) is a package that makes data manipulation much easier and more intuitive (for most). <code>dplyr</code> is built around the five main “verbs” shown below that make up a majority of data manipulation. However, there are other functions that <code>dplyr</code> uses to also help with data manipulation.</p>
 <ul>
 <li><code>select</code> is used to subset columns</li>
@@ -1287,13 +1341,14 @@ Figure 1.5: Loading Data
 </ul></li>
 <li>If the downstream function needs to use the value from from the upstream function assigned to a different argument, a <code>.</code> is simply put in the position of that argument</li>
 </ul>
-<div id="dplyr-examples" class="section level3" number="1.10.1">
-<h3><span class="header-section-number">1.10.1</span> <em>dplyr</em> Examples</h3>
+<div id="dplyr-examples" class="section level3 hasAnchor" number="1.11.1">
+<h3><span class="header-section-number">1.11.1</span> <em>dplyr</em> Examples<a href="r-basics.html#dplyr-examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, be sure the <code>dplyr</code> package is loaded:</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="r-basics.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <p>We’ll be using the airlinesat dataset from the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> file for these examples.</p>
-<div id="select-function" class="section level4" number="1.10.1.1">
-<h4><span class="header-section-number">1.10.1.1</span> <code>select()</code> function</h4>
+<p><a href="https://youtu.be/V3AQ_1n118k">Video Tutorial: dplyr (Introduction)</a></p>
+<div id="select-function" class="section level4 hasAnchor" number="1.11.1.1">
+<h4><span class="header-section-number">1.11.1.1</span> <code>select()</code> function<a href="r-basics.html#select-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Usage: <code>select(.data, ...)</code>, where <code>...</code> is one or more unquoted expressions separated by commas</li>
 <li><code>airlinesat</code> has 70 variables, but 46 of them are a series of expectation (<span style="font-family: Courier;">e1</span> to <span style="font-family: Courier;">e23</span>) and satisfaction (<span style="font-family: Courier;">s1</span> to <span style="font-family: Courier;">s23</span>)scales.
@@ -1347,9 +1402,10 @@ Figure 1.5: Loading Data
  $ country: Factor w/ 5 levels &quot;at&quot;,&quot;ch&quot;,&quot;de&quot;,..: 2 2 2 4 2 2 2 2 2 3 ...
  $ gender : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 2 1 1 1 2 2 2 2 2 ...</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/BpKmeAtY4ew">Video Tutorial: dplyr::select()</a></p>
 </div>
-<div id="filter-function" class="section level4" number="1.10.1.2">
-<h4><span class="header-section-number">1.10.1.2</span> <code>filter()</code> function</h4>
+<div id="filter-function" class="section level4 hasAnchor" number="1.11.1.2">
+<h4><span class="header-section-number">1.11.1.2</span> <code>filter()</code> function<a href="r-basics.html#filter-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Usage: <code>filter(.data, ...)</code>, where <code>...</code> is an expression that returns a logical value</p></li>
 <li><p>First, we want to select only those rows where the person is from the United States (i.e., <code>country == "us"</code>) using the newly created <code>airlinesat.d</code> data frame</p>
@@ -1375,9 +1431,10 @@ Figure 1.5: Loading Data
 5  53      de   male
 6  53      de   male</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/p1HVe8bAfHY">Video Tutorial: dplyr::filter()</a></p>
 </div>
-<div id="arrange-function" class="section level4" number="1.10.1.3">
-<h4><span class="header-section-number">1.10.1.3</span> <code>arrange()</code> function</h4>
+<div id="arrange-function" class="section level4 hasAnchor" number="1.11.1.3">
+<h4><span class="header-section-number">1.11.1.3</span> <code>arrange()</code> function<a href="r-basics.html#arrange-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Usage: <code>arrange(.data, ..., .by_group = FALSE)</code> where <code>...</code> are variable(s) or functions of variables</p>
 <ul>
@@ -1419,9 +1476,10 @@ Figure 1.5: Loading Data
 9   22      de        2
 10  23      de       15</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/VZUkZJ4fc-4">Video Tutorial: dplyr::arrange()</a></p>
 </div>
-<div id="mutate-function" class="section level4" number="1.10.1.4">
-<h4><span class="header-section-number">1.10.1.4</span> <code>mutate()</code> function</h4>
+<div id="mutate-function" class="section level4 hasAnchor" number="1.11.1.4">
+<h4><span class="header-section-number">1.11.1.4</span> <code>mutate()</code> function<a href="r-basics.html#mutate-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Usage: <code>mutate(.data, ...)</code> where <code>...</code> are name-value pairs. The name gives the name of the new column/variable. The value is some function or formula.</p></li>
 <li><p>First, we want to create a standard normal variable for age using the airlinesat.d data frame</p>
@@ -1461,9 +1519,10 @@ Figure 1.5: Loading Data
 9   33      ch   male    Europe
 10  51      de   male    Europe</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/rHNXxrGMzkk">Video Tutorial: dplyr::mutate()</a></p>
 </div>
-<div id="summarise-function" class="section level4" number="1.10.1.5">
-<h4><span class="header-section-number">1.10.1.5</span> <code>summarise()</code> function</h4>
+<div id="summarise-function" class="section level4 hasAnchor" number="1.11.1.5">
+<h4><span class="header-section-number">1.11.1.5</span> <code>summarise()</code> function<a href="r-basics.html#summarise-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Usage: <code>summarise(.data, ...)</code> where <code>...</code> are name-value pairs of summary functions (e.g., <code>mean()</code>, <code>min()</code>, <code>sum()</code>, <code>n()</code>)</p>
 <ul>
@@ -1491,18 +1550,19 @@ Figure 1.5: Loading Data
 <span id="cb137-9"><a href="r-basics.html#cb137-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
 <span id="cb137-10"><a href="r-basics.html#cb137-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd_flights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
 <span id="cb137-11"><a href="r-basics.html#cb137-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">valid_n=</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(nflights)))</span></code></pre></div>
-<pre class="custom-output"><code># A tibble: 2 x 4
+<pre class="custom-output"><code># A tibble: 2 × 4
   continent     mean_flights sd_flights valid_n
   &lt;fct&gt;                &lt;dbl&gt;      &lt;dbl&gt;   &lt;int&gt;
 1 Europe                13.7       13.7     870
 2 North America         12.2       12.2     195</code></pre></li>
 </ul>
+<p><a href="https://youtu.be/A_c6lC9Hssk">Video Tutorial: dplyr::summarise() and dplyr::group_by()</a></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
-<div id="package-lubridate" class="section level2" number="1.11">
-<h2><span class="header-section-number">1.11</span> Package <em>lubridate</em></h2>
+<div id="package-lubridate" class="section level2 hasAnchor" number="1.12">
+<h2><span class="header-section-number">1.12</span> Package <em>lubridate</em><a href="r-basics.html#package-lubridate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>lubridate</code> package was created to make working with dates and times a little bit easier. While the package has a great deal of funcationality, this tutorial will only focus on a some of the most common elements.</p>
 <p>Probably the most useful capability of <code>lubridate</code> is its ability to quickly parse out parts of a text date string, no matter the form of that string. Fast parsing is done through a series of functions that are based on the order of the parts of date/time in the text string.</p>
 <ul>
@@ -1549,24 +1609,24 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </ul>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="rmarkdown" class="section level2" number="1.12">
-<h2><span class="header-section-number">1.12</span> RMarkdown</h2>
-<p>RMarkdown allows users to create documents that combine code and text. Ultimately, they are used for “reproducible research.” That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.</p>
-<p>In this class, RMarkdown will be used for the lab assignments. You will write your code in the RMarkdown file, and answer the assignment questions with the code your have written.</p>
-<p>While RMarkdown has a great deal of functionality, we will focus on a select few of those features. This <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf">cheatsheet</a> may be beneficial.</p>
-<div id="yaml-header" class="section level3" number="1.12.1">
-<h3><span class="header-section-number">1.12.1</span> YAML Header</h3>
-<p>The top of every RMarkdown is a section called the YAML header, which is enclosed at the top and bottom with <code>---</code>. For this class, the only think in the YAML header that you will need to change is the <code>author:</code> section.</p>
+<div id="r-markdown-and-r-notebook" class="section level2 hasAnchor" number="1.13">
+<h2><span class="header-section-number">1.13</span> R Markdown and R Notebook<a href="r-basics.html#r-markdown-and-r-notebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Markdown allows users to create documents that combine code and text. Ultimately, they are used for “reproducible research”. That is, the R Markdown files allow other people to see exactly what was done, and if the data is available to all, other people can reproduce the research.</p>
+<p>In this class, R Notebooks, which use R Markdown, will be used for the lab assignments. You will write your code in the R Notebook file, and answer the assignment questions with the code your have written.</p>
+<p>While R Markdown has a great deal of functionality, we will focus on a select few of those features. This <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf">cheatsheet</a> may be beneficial.</p>
+<div id="yaml-header" class="section level3 hasAnchor" number="1.13.1">
+<h3><span class="header-section-number">1.13.1</span> YAML Header<a href="r-basics.html#yaml-header" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The top of every R Markdown is a section called the YAML header, which is enclosed at the top and bottom with <code>---</code>. For this class, the only thing in the YAML header that you will need to change is the <code>author:</code> section.</p>
 <div class="figure"><span style="display:block;" id="fig:yamlheader"></span>
 <img src="Images/YAMLHeader.gif" alt="Change Author in YAML Header"  />
 <p class="caption">
-Figure 1.6: Change Author in YAML Header
+Figure 1.10: Change Author in YAML Header
 </p>
 </div>
 </div>
-<div id="markdown-syntax" class="section level3" number="1.12.2">
-<h3><span class="header-section-number">1.12.2</span> Markdown Syntax</h3>
-<p>When writing text in RMarkdown, there isn’t a “point and click” menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of “markdown” syntax. The most commonly used are provided below:</p>
+<div id="markdown-syntax" class="section level3 hasAnchor" number="1.13.2">
+<h3><span class="header-section-number">1.13.2</span> Markdown Syntax<a href="r-basics.html#markdown-syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When writing text in R Markdown, there isn’t a “point and click” menu to change fonts size or to add italics or bold text or to insert an equation. Instead, it requires the use of “markdown” syntax. The most commonly used are provided below:</p>
 <hr />
 <pre><code>Plain text</code></pre>
 <p>Plain text</p>
@@ -1633,47 +1693,47 @@ Header 4
 <p>equation: <span class="math inline">\(y=\alpha+\beta x\)</span></p>
 <p>(See <a href="https://www.caam.rice.edu/~heinken/latex/symbols.pdf">this file</a> for symbols)</p>
 </div>
-<div id="code-chunks" class="section level3" number="1.12.3">
-<h3><span class="header-section-number">1.12.3</span> Code Chunks</h3>
-<p>One of the greatest things about RMarkdown files is the ability to include code, and run the code, within the RMarkdown file. Putting code in the file is done with code chunks.</p>
-<div id="inserting-a-code-chunk" class="section level4" number="1.12.3.1">
-<h4><span class="header-section-number">1.12.3.1</span> Inserting a Code Chunk</h4>
-<p>Code chunks can be inserted by clicking on the “Insert Chunk” button in the document toolbar (see Figure <a href="r-basics.html#fig:insertcodechunk">1.7</a>) or by manually typing in the code chunk (see Figure <a href="r-basics.html#fig:typecodechunk">1.8</a>)</p>
+<div id="code-chunks" class="section level3 hasAnchor" number="1.13.3">
+<h3><span class="header-section-number">1.13.3</span> Code Chunks<a href="r-basics.html#code-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the greatest things about R Markdown and R Notebook files is the ability to include code, and run the code, within the file. Putting code in the file is done with code chunks.</p>
+<div id="inserting-a-code-chunk" class="section level4 hasAnchor" number="1.13.3.1">
+<h4><span class="header-section-number">1.13.3.1</span> Inserting a Code Chunk<a href="r-basics.html#inserting-a-code-chunk" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Code chunks can be inserted by clicking on the “Insert Chunk” button in the document toolbar (see Figure <a href="r-basics.html#fig:insertcodechunk">1.11</a>) or by manually typing in the code chunk (see Figure <a href="r-basics.html#fig:typecodechunk">1.12</a>)</p>
 <div class="figure"><span style="display:block;" id="fig:insertcodechunk"></span>
 <img src="Images/InsertCodeChunk.gif" alt="Inserting a Code Chunk from the Toolbar"  />
 <p class="caption">
-Figure 1.7: Inserting a Code Chunk from the Toolbar
+Figure 1.11: Inserting a Code Chunk from the Toolbar
 </p>
 </div>
 <div class="figure"><span style="display:block;" id="fig:typecodechunk"></span>
 <img src="Images/TypeRChunk.gif" alt="Inserting a Code Chunk Manually"  />
 <p class="caption">
-Figure 1.8: Inserting a Code Chunk Manually
+Figure 1.12: Inserting a Code Chunk Manually
 </p>
 </div>
 </div>
-<div id="using-code-chunks" class="section level4" number="1.12.3.2">
-<h4><span class="header-section-number">1.12.3.2</span> Using Code Chunks</h4>
+<div id="using-code-chunks" class="section level4 hasAnchor" number="1.13.3.2">
+<h4><span class="header-section-number">1.13.3.2</span> Using Code Chunks<a href="r-basics.html#using-code-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>RMarkdown doesn’t pay attention to anything else going on in your R/RStudio session
+<li>R Markdown and R Notebook don’t pay attention to anything else going on in your R/RStudio session
 <ul>
-<li>Any objects, data, packages, or user defined scripts must be in a code chunk in RMarkdown</li>
+<li>Any objects, data, packages, or user defined scripts must be in a code chunk</li>
 <li>However, once they are loaded in a chunk, they do not need to be loaded again in subsequent chunks</li>
 </ul></li>
 <li>To run a code chunk, click on the green triangle (<img src="Images/RunChunk.jpg">
 <ul>
-<li>If you run a chunk that does have the necessary object, data, etc., you will get an error message (see Figure <a href="r-basics.html#fig:chunkerror">1.9</a>)
+<li>If you run a chunk that does have the necessary object, data, etc., you will get an error message (see Figure <a href="r-basics.html#fig:chunkerror">1.13</a>)
 <div class="figure"><span style="display:block;" id="fig:chunkerror"></span>
 <img src="Images/CodeChunkError.gif" alt="Chunk Error"  />
 <p class="caption">
-Figure 1.9: Chunk Error
+Figure 1.13: Chunk Error
 </p>
 </div></li>
-<li>If you need to run previous chunks to load data or packages, click on the gray triangle with the green bar underneath (<img src="Images/RunPreviousChunks.jpg">) first, then click on the green triangle (see Figure <a href="r-basics.html#fig:runchunk">1.10</a>)
+<li>If you need to run previous chunks to load data or packages, click on the gray triangle with the green bar underneath (<img src="Images/RunPreviousChunks.jpg">) first, then click on the green triangle (see Figure <a href="r-basics.html#fig:runchunk">1.14</a>)
 <div class="figure"><span style="display:block;" id="fig:runchunk"></span>
 <img src="Images/RunChunks.gif" alt="Run Previous Chunks, then Run Chunk"  />
 <p class="caption">
-Figure 1.10: Run Previous Chunks, then Run Chunk
+Figure 1.14: Run Previous Chunks, then Run Chunk
 </p>
 </div></li>
 </ul></li>
@@ -1683,18 +1743,18 @@ Figure 1.10: Run Previous Chunks, then Run Chunk
 </ul></li>
 </ul>
 </div>
-<div id="knitting-the-results" class="section level4" number="1.12.3.3">
-<h4><span class="header-section-number">1.12.3.3</span> “Knitting” the Results</h4>
-<p>At any time, you can “Knit” the RMarkdown file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking (and for this course, required to turn in the lab assignment).</p>
+<div id="knitting-the-results" class="section level4 hasAnchor" number="1.13.3.3">
+<h4><span class="header-section-number">1.13.3.3</span> “Knitting” the Results<a href="r-basics.html#knitting-the-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>At any time, you can “Knit” the R Notebook file to an HTML document or a PDF document. While working through the document, HTML is usually quicker. When the document is completed, a PDF is more professional looking.</p>
 <ul>
-<li>To “Knit” the file, click on the down arrow next to “Knit” in the document toolbar, and select how you would like to product the document (see Figure <a href="r-basics.html#fig:knitto">1.11</a>)
+<li>To “Knit” the file, click on the down arrow next to “Knit” in the document toolbar, and select how you would like to product the document (see Figure <a href="r-basics.html#fig:knitto">1.15</a>)
 <ul>
 <li>By default, a document knitted to HTML will be viewable in the “Viewer” window in the lower right hand side of RStudio.</li>
 <li>For documents knitted to PDF, RStudio generally opens up a new window with the knitted PDF, from which the file can be saved to a local directory
 <div class="figure"><span style="display:block;" id="fig:knitto"></span>
 <img src="Images/Knit.gif" alt="Knit a Document"  />
 <p class="caption">
-Figure 1.11: Knit a Document
+Figure 1.15: Knit a Document
 </p>
 </div></li>
 </ul></li>
@@ -1768,7 +1828,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

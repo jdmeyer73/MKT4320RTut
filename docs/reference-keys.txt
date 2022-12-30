@@ -1,6 +1,10 @@
 fig:rstudiopane
 tab:roperators
 fig:viewdf
+fig:newproj1
+fig:newproj2
+fig:newproj3
+fig:newproj4
 fig:setwd1
 fig:setwd2
 fig:loaddata
@@ -113,10 +117,12 @@ overview
 creating-a-data-frame
 using-vectors-in-line
 viewing-a-data-frame
+indexing-and-sequencing
 data-transformations
 creating-new-variables
 recoding-create-new
 recoding-change-existing
+r-projects
 loading-and-saving-data
 setting-working-directory
 loading-.rdata
@@ -132,7 +138,7 @@ arrange-function
 mutate-function
 summarise-function
 package-lubridate
-rmarkdown
+r-markdown-and-r-notebook
 yaml-header
 markdown-syntax
 code-chunks

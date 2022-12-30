@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-04-06" />
+<meta name="date" content="2022-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="principal-components-analysis.html"/>
 <link rel="next" href="standard-mnl.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +49,12 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -96,7 +95,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -109,7 +108,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -187,6 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+<li class="chapter" data-level="1.6.4" data-path="r-basics.html"><a href="r-basics.html#indexing-and-sequencing"><i class="fa fa-check"></i><b>1.6.4</b> Indexing and Sequencing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
 <ul>
@@ -194,38 +194,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
 <li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#r-projects"><i class="fa fa-check"></i><b>1.8</b> R Projects</a></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.9</b> Loading and Saving Data</a>
 <ul>
-<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
-<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
-<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.9.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.9.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.9.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.9.3</b> Saving .Rdata</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.10</b> User Defined Functions</a>
 <ul>
-<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
-<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.10.1</b> Structure</a></li>
+<li class="chapter" data-level="1.10.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.10.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.11</b> Package <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<li class="chapter" data-level="1.11.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.11.1</b> <em>dplyr</em> Examples</a>
 <ul>
-<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.11.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.11.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.11.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.11.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.11.1.5</b> <code>summarise()</code> function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
-<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.12</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.13" data-path="r-basics.html"><a href="r-basics.html#r-markdown-and-r-notebook"><i class="fa fa-check"></i><b>1.13</b> R Markdown and R Notebook</a>
 <ul>
-<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
-<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
-<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<li class="chapter" data-level="1.13.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.13.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.13.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.13.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.13.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.13.3</b> Code Chunks</a>
 <ul>
-<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
-<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
-<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+<li class="chapter" data-level="1.13.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.13.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.13.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.13.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.13.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.13.3.3</b> “Knitting” the Results</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -444,8 +445,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pca-perceptual-maps" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> PCA Perceptual Maps</h1>
+<div id="pca-perceptual-maps" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> PCA Perceptual Maps<a href="pca-perceptual-maps.html#pca-perceptual-maps" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sources for this chapter:</p>
 <ul>
 <li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
@@ -456,22 +457,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/greekbrands.rdata">greekbrands.rdata</a> is used. Load it now.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="pca-perceptual-maps.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb366-2"><a href="pca-perceptual-maps.html#cb366-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="pca-perceptual-maps.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb367-2"><a href="pca-perceptual-maps.html#cb367-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
-<div id="introduction-7" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<div id="introduction-7" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction<a href="pca-perceptual-maps.html#introduction-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R can produce basic perceptual maps from a PCA object, but cannot create a joint-space map easily. For joint-space maps, better looking perceptual maps, and to make the process easier, user defined function has been created</p>
 <ul>
 <li><a href="percmap.R">percmap.R</a> returns a <code>ggplot</code> created percpetual (or joint-space) map.</li>
 </ul>
 <p>Once saved in your working directory, it is good practice to source user defined functions.</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="pca-perceptual-maps.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="pca-perceptual-maps.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span></code></pre></div>
 </div>
-<div id="base-r-6" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Base R</h2>
-<div id="preparation-2" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Preparation</h3>
+<div id="base-r-6" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Base R<a href="pca-perceptual-maps.html#base-r-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="preparation-2" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Preparation<a href="pca-perceptual-maps.html#preparation-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>For PCA perceptual maps with a grouping variable (e.g., brand or product name), it is best to use a dataframe of aggregated means by the grouping variable.</li>
 <li>For this tutorial, we will create a PCA perceptual map using the <code>greekbrands</code> dataframe
@@ -483,54 +484,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="pca-perceptual-maps.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb368-2"><a href="pca-perceptual-maps.html#cb368-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb368-3"><a href="pca-perceptual-maps.html#cb368-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb368-4"><a href="pca-perceptual-maps.html#cb368-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand) <span class="sc">%&gt;%</span></span>
-<span id="cb368-5"><a href="pca-perceptual-maps.html#cb368-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(brand) <span class="sc">%&gt;%</span></span>
-<span id="cb368-6"><a href="pca-perceptual-maps.html#cb368-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="pca-perceptual-maps.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb369-2"><a href="pca-perceptual-maps.html#cb369-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb369-3"><a href="pca-perceptual-maps.html#cb369-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb369-4"><a href="pca-perceptual-maps.html#cb369-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand) <span class="sc">%&gt;%</span></span>
+<span id="cb369-5"><a href="pca-perceptual-maps.html#cb369-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(brand) <span class="sc">%&gt;%</span></span>
+<span id="cb369-6"><a href="pca-perceptual-maps.html#cb369-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean)</span></code></pre></div>
 </div>
-<div id="perform-pca-first" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Perform PCA first</h3>
+<div id="perform-pca-first" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Perform PCA first<a href="pca-perceptual-maps.html#perform-pca-first" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>To create the perceptual map, we must first run and store a PCA object on our data frame</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="pca-perceptual-maps.html#cb369-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>perform<span class="sc">+</span>leader<span class="sc">+</span>fun<span class="sc">+</span>serious<span class="sc">+</span>bargain<span class="sc">+</span>value, </span>
-<span id="cb369-2"><a href="pca-perceptual-maps.html#cb369-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>pmdata, </span>
-<span id="cb369-3"><a href="pca-perceptual-maps.html#cb369-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   </span>
-<span id="cb369-4"><a href="pca-perceptual-maps.html#cb369-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)  </span></code></pre></div></li>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="pca-perceptual-maps.html#cb370-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>perform<span class="sc">+</span>leader<span class="sc">+</span>fun<span class="sc">+</span>serious<span class="sc">+</span>bargain<span class="sc">+</span>value, </span>
+<span id="cb370-2"><a href="pca-perceptual-maps.html#cb370-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>pmdata, </span>
+<span id="cb370-3"><a href="pca-perceptual-maps.html#cb370-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   </span>
+<span id="cb370-4"><a href="pca-perceptual-maps.html#cb370-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)  </span></code></pre></div></li>
 </ul>
 </div>
-<div id="create-map-using-biplot" class="section level3" number="7.2.3">
-<h3><span class="header-section-number">7.2.3</span> Create map using <code>biplot</code></h3>
+<div id="create-map-using-biplot" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Create map using <code>biplot</code><a href="pca-perceptual-maps.html#create-map-using-biplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The map is created using the <code>biplot</code> function with the PCA object passed to it along with group variable labels</li>
 </ul>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="pca-perceptual-maps.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pcaout,  <span class="co"># PCA object from above</span></span>
-<span id="cb370-2"><a href="pca-perceptual-maps.html#cb370-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlabs=</span>pmdata<span class="sc">$</span>brand)   <span class="co"># Grouping variable labels</span></span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="pca-perceptual-maps.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pcaout,  <span class="co"># PCA object from above</span></span>
+<span id="cb371-2"><a href="pca-perceptual-maps.html#cb371-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlabs=</span>pmdata<span class="sc">$</span>brand)   <span class="co"># Grouping variable labels</span></span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 </div>
 </div>
-<div id="user-defined-function-1" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> User Defined Function</h2>
-<div id="preparation-3" class="section level3" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Preparation</h3>
+<div id="user-defined-function-1" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> User Defined Function<a href="pca-perceptual-maps.html#user-defined-function-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="preparation-3" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Preparation<a href="pca-perceptual-maps.html#preparation-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>For the user defined function, we must pass the function a data frame with the variables to be used in creating the principal components, the grouping variable (i.e., brand/product name), and if applicable, the preference variable
 <ul>
 <li>The data frame does not need to be aggregated, but must contain ONLY those variables</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="pca-perceptual-maps.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb371-2"><a href="pca-perceptual-maps.html#cb371-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb371-3"><a href="pca-perceptual-maps.html#cb371-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb371-4"><a href="pca-perceptual-maps.html#cb371-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
-<span id="cb371-5"><a href="pca-perceptual-maps.html#cb371-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb371-6"><a href="pca-perceptual-maps.html#cb371-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
-<span id="cb371-7"><a href="pca-perceptual-maps.html#cb371-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
-<span id="cb371-8"><a href="pca-perceptual-maps.html#cb371-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="pca-perceptual-maps.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb372-2"><a href="pca-perceptual-maps.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb372-3"><a href="pca-perceptual-maps.html#cb372-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb372-4"><a href="pca-perceptual-maps.html#cb372-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
+<span id="cb372-5"><a href="pca-perceptual-maps.html#cb372-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-6"><a href="pca-perceptual-maps.html#cb372-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
+<span id="cb372-7"><a href="pca-perceptual-maps.html#cb372-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
+<span id="cb372-8"><a href="pca-perceptual-maps.html#cb372-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
 </div>
-<div id="using-the-function" class="section level3" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Using the function</h3>
+<div id="using-the-function" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Using the function<a href="pca-perceptual-maps.html#using-the-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>percmap.R</code> user defined function can easily product a perceptual map or joint-space map based on the first two principal components
 <ul>
@@ -558,13 +559,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Perceptual Map</li>
 </ul>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="pca-perceptual-maps.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span>
-<span id="cb372-2"><a href="pca-perceptual-maps.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span>
+<span id="cb373-2"><a href="pca-perceptual-maps.html#cb373-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" />
 <ul>
 <li>Joint Space Map</li>
 </ul>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="672" /></li>
 </ul>
 
@@ -635,7 +636,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

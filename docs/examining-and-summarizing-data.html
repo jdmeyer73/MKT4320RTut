@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Examining and Summarizing Data | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Examining and Summarizing Data | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-04-06" />
+<meta name="date" content="2022-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="r-basics.html"/>
 <link rel="next" href="linear-regression.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +49,12 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -96,7 +95,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -109,7 +108,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -187,6 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2.1" data-path="r-basics.html"><a href="r-basics.html#using-vectors-in-line"><i class="fa fa-check"></i><b>1.6.2.1</b> Using vectors in-line</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6.3" data-path="r-basics.html"><a href="r-basics.html#viewing-a-data-frame"><i class="fa fa-check"></i><b>1.6.3</b> Viewing a Data Frame</a></li>
+<li class="chapter" data-level="1.6.4" data-path="r-basics.html"><a href="r-basics.html#indexing-and-sequencing"><i class="fa fa-check"></i><b>1.6.4</b> Indexing and Sequencing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="r-basics.html"><a href="r-basics.html#data-transformations"><i class="fa fa-check"></i><b>1.7</b> Data Transformations</a>
 <ul>
@@ -194,38 +194,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7.2" data-path="r-basics.html"><a href="r-basics.html#recoding-create-new"><i class="fa fa-check"></i><b>1.7.2</b> Recoding (Create New)</a></li>
 <li class="chapter" data-level="1.7.3" data-path="r-basics.html"><a href="r-basics.html#recoding-change-existing"><i class="fa fa-check"></i><b>1.7.3</b> Recoding (Change Existing)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.8</b> Loading and Saving Data</a>
+<li class="chapter" data-level="1.8" data-path="r-basics.html"><a href="r-basics.html#r-projects"><i class="fa fa-check"></i><b>1.8</b> R Projects</a></li>
+<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#loading-and-saving-data"><i class="fa fa-check"></i><b>1.9</b> Loading and Saving Data</a>
 <ul>
-<li class="chapter" data-level="1.8.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.8.1</b> Setting Working Directory</a></li>
-<li class="chapter" data-level="1.8.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.8.2</b> Loading .Rdata</a></li>
-<li class="chapter" data-level="1.8.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.8.3</b> Saving .Rdata</a></li>
+<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#setting-working-directory"><i class="fa fa-check"></i><b>1.9.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#loading-.rdata"><i class="fa fa-check"></i><b>1.9.2</b> Loading .Rdata</a></li>
+<li class="chapter" data-level="1.9.3" data-path="r-basics.html"><a href="r-basics.html#saving-.rdata"><i class="fa fa-check"></i><b>1.9.3</b> Saving .Rdata</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.9</b> User Defined Functions</a>
+<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#user-defined-functions"><i class="fa fa-check"></i><b>1.10</b> User Defined Functions</a>
 <ul>
-<li class="chapter" data-level="1.9.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.9.1</b> Structure</a></li>
-<li class="chapter" data-level="1.9.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.9.2</b> Example</a></li>
+<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#structure"><i class="fa fa-check"></i><b>1.10.1</b> Structure</a></li>
+<li class="chapter" data-level="1.10.2" data-path="r-basics.html"><a href="r-basics.html#example"><i class="fa fa-check"></i><b>1.10.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="1.10" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.10</b> Package <em>dplyr</em></a>
+<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-dplyr"><i class="fa fa-check"></i><b>1.11</b> Package <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="1.10.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.10.1</b> <em>dplyr</em> Examples</a>
+<li class="chapter" data-level="1.11.1" data-path="r-basics.html"><a href="r-basics.html#dplyr-examples"><i class="fa fa-check"></i><b>1.11.1</b> <em>dplyr</em> Examples</a>
 <ul>
-<li class="chapter" data-level="1.10.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.10.1.1</b> <code>select()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.10.1.2</b> <code>filter()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.10.1.3</b> <code>arrange()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.10.1.4</b> <code>mutate()</code> function</a></li>
-<li class="chapter" data-level="1.10.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.10.1.5</b> <code>summarise()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.1" data-path="r-basics.html"><a href="r-basics.html#select-function"><i class="fa fa-check"></i><b>1.11.1.1</b> <code>select()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.2" data-path="r-basics.html"><a href="r-basics.html#filter-function"><i class="fa fa-check"></i><b>1.11.1.2</b> <code>filter()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.3" data-path="r-basics.html"><a href="r-basics.html#arrange-function"><i class="fa fa-check"></i><b>1.11.1.3</b> <code>arrange()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.4" data-path="r-basics.html"><a href="r-basics.html#mutate-function"><i class="fa fa-check"></i><b>1.11.1.4</b> <code>mutate()</code> function</a></li>
+<li class="chapter" data-level="1.11.1.5" data-path="r-basics.html"><a href="r-basics.html#summarise-function"><i class="fa fa-check"></i><b>1.11.1.5</b> <code>summarise()</code> function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1.11" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.11</b> Package <em>lubridate</em></a></li>
-<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#rmarkdown"><i class="fa fa-check"></i><b>1.12</b> RMarkdown</a>
+<li class="chapter" data-level="1.12" data-path="r-basics.html"><a href="r-basics.html#package-lubridate"><i class="fa fa-check"></i><b>1.12</b> Package <em>lubridate</em></a></li>
+<li class="chapter" data-level="1.13" data-path="r-basics.html"><a href="r-basics.html#r-markdown-and-r-notebook"><i class="fa fa-check"></i><b>1.13</b> R Markdown and R Notebook</a>
 <ul>
-<li class="chapter" data-level="1.12.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.12.1</b> YAML Header</a></li>
-<li class="chapter" data-level="1.12.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.12.2</b> Markdown Syntax</a></li>
-<li class="chapter" data-level="1.12.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.12.3</b> Code Chunks</a>
+<li class="chapter" data-level="1.13.1" data-path="r-basics.html"><a href="r-basics.html#yaml-header"><i class="fa fa-check"></i><b>1.13.1</b> YAML Header</a></li>
+<li class="chapter" data-level="1.13.2" data-path="r-basics.html"><a href="r-basics.html#markdown-syntax"><i class="fa fa-check"></i><b>1.13.2</b> Markdown Syntax</a></li>
+<li class="chapter" data-level="1.13.3" data-path="r-basics.html"><a href="r-basics.html#code-chunks"><i class="fa fa-check"></i><b>1.13.3</b> Code Chunks</a>
 <ul>
-<li class="chapter" data-level="1.12.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.12.3.1</b> Inserting a Code Chunk</a></li>
-<li class="chapter" data-level="1.12.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.12.3.2</b> Using Code Chunks</a></li>
-<li class="chapter" data-level="1.12.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.12.3.3</b> “Knitting” the Results</a></li>
+<li class="chapter" data-level="1.13.3.1" data-path="r-basics.html"><a href="r-basics.html#inserting-a-code-chunk"><i class="fa fa-check"></i><b>1.13.3.1</b> Inserting a Code Chunk</a></li>
+<li class="chapter" data-level="1.13.3.2" data-path="r-basics.html"><a href="r-basics.html#using-code-chunks"><i class="fa fa-check"></i><b>1.13.3.2</b> Using Code Chunks</a></li>
+<li class="chapter" data-level="1.13.3.3" data-path="r-basics.html"><a href="r-basics.html#knitting-the-results"><i class="fa fa-check"></i><b>1.13.3.3</b> “Knitting” the Results</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -444,23 +445,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="examining-and-summarizing-data" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Examining and Summarizing Data</h1>
+<div id="examining-and-summarizing-data" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Examining and Summarizing Data<a href="examining-and-summarizing-data.html#examining-and-summarizing-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sources for this chapter:</p>
 <ul>
 <li>ggplot2: <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a></li>
 </ul>
-<div id="introduction-1" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<div id="introduction-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="examining-and-summarizing-data.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th <code>ggplot2</code> package. For this part of the tutorial, the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe. You should load this data now:<br><code>load("airlinesat.rdata")</code></p>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="visualizations" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Visualizations</h2>
-<div id="package-ggplot2" class="section level3" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Package <em>ggplot2</em></h3>
-<div id="introduction-2" class="section level4" number="2.2.1.1">
-<h4><span class="header-section-number">2.2.1.1</span> Introduction</h4>
+<div id="visualizations" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Visualizations<a href="examining-and-summarizing-data.html#visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="package-ggplot2" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Package <em>ggplot2</em><a href="examining-and-summarizing-data.html#package-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="introduction-2" class="section level4 hasAnchor" number="2.2.1.1">
+<h4><span class="header-section-number">2.2.1.1</span> Introduction<a href="examining-and-summarizing-data.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>First, make sure the <code>ggplot2</code> library is loaded:<br>
 <code>library(ggplot2)</code></li>
@@ -474,8 +475,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>When ggplot is used in the console or from a script, the plot appears in the <code>Viewer</code> tab of the lower-right corner</li>
 </ul>
 </div>
-<div id="usage" class="section level4" number="2.2.1.2">
-<h4><span class="header-section-number">2.2.1.2</span> Usage</h4>
+<div id="usage" class="section level4 hasAnchor" number="2.2.1.2">
+<h4><span class="header-section-number">2.2.1.2</span> Usage<a href="examining-and-summarizing-data.html#usage" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>A plot starts with the <code>ggplot()</code> function, which requires two arguments:
 <ol style="list-style-type: decimal">
@@ -539,11 +540,11 @@ Figure 2.3: Using dplyr before ggplot to get mean values
 <p>Using <code>ggplot()</code> can get much more advanced. As the tutorial progresses, many examples of additional layers to a <code>ggplot()</code> will be shown.</p>
 </div>
 </div>
-<div id="bar-and-column-charts" class="section level3" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Bar and Column Charts</h3>
+<div id="bar-and-column-charts" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Bar and Column Charts<a href="examining-and-summarizing-data.html#bar-and-column-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In <code>ggplot</code>, bar charts, <code>geom_bar()</code>, are used for plotting a single discrete variable, while column charts, <code>geom_col()</code>, are used for plotting a discrete variable on the <span style="font-family: Courier;">x</span> axis and a continuous variable on the <span style="font-family: Courier;">y</span> axis.</p>
-<div id="bar-charts" class="section level4" number="2.2.2.1">
-<h4><span class="header-section-number">2.2.2.1</span> Bar Charts</h4>
+<div id="bar-charts" class="section level4 hasAnchor" number="2.2.2.1">
+<h4><span class="header-section-number">2.2.2.1</span> Bar Charts<a href="examining-and-summarizing-data.html#bar-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The standard bar chart provides a count of observations of each category of discrete variable <span style="font-family: Courier;">x</span></p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="examining-and-summarizing-data.html#cb174-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
@@ -569,7 +570,7 @@ Figure 2.4: Standard bar chart
 Figure 2.5: Bar chart with proportions
 </p>
 </div></li>
-<li><p>To make the chart “pretty,” we change the color of each bar we can add layers for axis labels, use the <code>scales</code> package to have the y-axis show percent, add labels for the bars etc.</p>
+<li><p>To make the chart “pretty”, we change the color of each bar we can add layers for axis labels, use the <code>scales</code> package to have the y-axis show percent, add labels for the bars etc.</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="examining-and-summarizing-data.html#cb176-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
 <span id="cb176-2"><a href="examining-and-summarizing-data.html#cb176-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
 <span id="cb176-3"><a href="examining-and-summarizing-data.html#cb176-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with count of each gender</span></span>
@@ -592,10 +593,10 @@ Figure 2.6: Prettier bar chart
 </p>
 </div></li>
 </ul>
-<div id="bar-chart-variations" class="section level5" number="2.2.2.1.1">
-<h5><span class="header-section-number">2.2.2.1.1</span> Bar Chart Variations</h5>
-<div id="stacked-bar-chart" class="section level6" number="2.2.2.1.1.1">
-<h6><span class="header-section-number">2.2.2.1.1.1</span> Stacked Bar Chart</h6>
+<div id="bar-chart-variations" class="section level5 hasAnchor" number="2.2.2.1.1">
+<h5><span class="header-section-number">2.2.2.1.1</span> Bar Chart Variations<a href="examining-and-summarizing-data.html#bar-chart-variations" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="stacked-bar-chart" class="section level6 hasAnchor" number="2.2.2.1.1.1">
+<h6><span class="header-section-number">2.2.2.1.1.1</span> Stacked Bar Chart<a href="examining-and-summarizing-data.html#stacked-bar-chart" class="anchor-section" aria-label="Anchor link to header"></a></h6>
 <p>Used to show one discrete variable by another discrete variable, such as data you would see in a cross-tab</p>
 <ul>
 <li>The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable</li>
@@ -622,8 +623,8 @@ Figure 2.7: Stacked bar chart
 </p>
 </div>
 </div>
-<div id="side-by-side-bar-chart" class="section level6" number="2.2.2.1.1.2">
-<h6><span class="header-section-number">2.2.2.1.1.2</span> Side-by-Side Bar Chart</h6>
+<div id="side-by-side-bar-chart" class="section level6 hasAnchor" number="2.2.2.1.1.2">
+<h6><span class="header-section-number">2.2.2.1.1.2</span> Side-by-Side Bar Chart<a href="examining-and-summarizing-data.html#side-by-side-bar-chart" class="anchor-section" aria-label="Anchor link to header"></a></h6>
 <p>Also used to shows one discrete variable by another discrete variable</p>
 <ul>
 <li>Again, default is to count observations, so some manipulation required to get percentages
@@ -686,8 +687,8 @@ Figure 2.9: Side-by-side bar chart (% of total)
 </div>
 </div>
 </div>
-<div id="column-charts" class="section level4" number="2.2.2.2">
-<h4><span class="header-section-number">2.2.2.2</span> Column Charts</h4>
+<div id="column-charts" class="section level4 hasAnchor" number="2.2.2.2">
+<h4><span class="header-section-number">2.2.2.2</span> Column Charts<a href="examining-and-summarizing-data.html#column-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The standard column chart provides a sum of continuous variable <span style="font-family: Courier;">y</span> of each category of disrete variable <span style="font-family: Courier;">x</span></p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="examining-and-summarizing-data.html#cb180-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
@@ -717,8 +718,8 @@ Figure 2.11: Column chart showing means
 </p>
 </div></li>
 </ul>
-<div id="side-by-side-column-chart" class="section level5" number="2.2.2.2.1">
-<h5><span class="header-section-number">2.2.2.2.1</span> Side-by-Side Column Chart</h5>
+<div id="side-by-side-column-chart" class="section level5 hasAnchor" number="2.2.2.2.1">
+<h5><span class="header-section-number">2.2.2.2.1</span> Side-by-Side Column Chart<a href="examining-and-summarizing-data.html#side-by-side-column-chart" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>A side by side column chart can be used to show two discrete variables on the <span style="font-family: Courier;">x</span>-axis</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="examining-and-summarizing-data.html#cb182-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
@@ -743,8 +744,8 @@ Figure 2.12: Side-by-side column chart
 </div>
 </div>
 </div>
-<div id="histogram" class="section level3" number="2.2.3">
-<h3><span class="header-section-number">2.2.3</span> Histogram</h3>
+<div id="histogram" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Histogram<a href="examining-and-summarizing-data.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In <code>ggplot</code>, histograms are produced with the <code>geom_histogram()</code> geom, which produces a histogram of a single continuous variable.</p>
 <ul>
 <li>By default, the <span style="font-family: Courier;">y</span>-axis is a count of observations in each “bin” of the <span style="font-family: Courier;">x</span> variable
@@ -763,8 +764,8 @@ Figure 2.13: Standard histogram
 </p>
 </div></li>
 </ul>
-<div id="changing-bins" class="section level4" number="2.2.3.1">
-<h4><span class="header-section-number">2.2.3.1</span> Changing Bins</h4>
+<div id="changing-bins" class="section level4 hasAnchor" number="2.2.3.1">
+<h4><span class="header-section-number">2.2.3.1</span> Changing Bins<a href="examining-and-summarizing-data.html#changing-bins" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Histograms can look quite different based on the bins used. Bins can be changed in two ways: (1) number of bins; and (2) bin width</p>
 <ul>
 <li>Changing the number of bins is done with the <code>bins=</code> option
@@ -792,8 +793,8 @@ Figure 2.15: Interactive histogram for bin width
 </p>
 </div>
 </div>
-<div id="improving-the-look" class="section level4" number="2.2.3.2">
-<h4><span class="header-section-number">2.2.3.2</span> Improving the Look</h4>
+<div id="improving-the-look" class="section level4 hasAnchor" number="2.2.3.2">
+<h4><span class="header-section-number">2.2.3.2</span> Improving the Look<a href="examining-and-summarizing-data.html#improving-the-look" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You may find the default histogram a little “blah” or tough to read. Just as the look of bar and column charts could be changed, so can the look of histograms</p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="examining-and-summarizing-data.html#cb185-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
 <span id="cb185-2"><a href="examining-and-summarizing-data.html#cb185-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
@@ -807,8 +808,8 @@ Figure 2.16: Prettier histogram
 </p>
 </div>
 </div>
-<div id="other-options" class="section level4" number="2.2.3.3">
-<h4><span class="header-section-number">2.2.3.3</span> Other Options</h4>
+<div id="other-options" class="section level4 hasAnchor" number="2.2.3.3">
+<h4><span class="header-section-number">2.2.3.3</span> Other Options<a href="examining-and-summarizing-data.html#other-options" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Instead of the default count of observations, a density histogram can be created, where the sum of the area of the bars adds up to 1</li>
 <li>Often, a normal curve is added</li>
@@ -832,9 +833,9 @@ Figure 2.17: Density histogram with normal curve
 </div>
 </div>
 </div>
-<div id="box-plot" class="section level3" number="2.2.4">
-<h3><span class="header-section-number">2.2.4</span> Box Plot</h3>
-<p>Box Plots are drawn with the <code>geom_boxplot()</code> geom, which by default creates a box plot for a continuous <span style="font-family: Courier;">y</span> variable, but for each level of a discrete <span style="font-family: Courier;">x</span> variable. In addition, the standard box plot does not contain “whiskers.”</p>
+<div id="box-plot" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Box Plot<a href="examining-and-summarizing-data.html#box-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Box Plots are drawn with the <code>geom_boxplot()</code> geom, which by default creates a box plot for a continuous <span style="font-family: Courier;">y</span> variable, but for each level of a discrete <span style="font-family: Courier;">x</span> variable. In addition, the standard box plot does not contain “whiskers”.</p>
 <ul>
 <li><p>To get a box plot for only the continuous <span style="font-family: Courier;">y</span> variable, use <code>x=""</code> as the discrete <span style="font-family: Courier;">x</span> variable</p></li>
 <li><p>To add whiskers, include a <code>stat_boxplot(geom="errorbar")</code> layer</p>
@@ -864,8 +865,8 @@ Figure 2.19: Multiple box plot
 </div></li>
 </ul>
 </div>
-<div id="scatterplot" class="section level3" number="2.2.5">
-<h3><span class="header-section-number">2.2.5</span> Scatterplot</h3>
+<div id="scatterplot" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Scatterplot<a href="examining-and-summarizing-data.html#scatterplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Scatterplots are drawn with the <code>geom_point()</code> geom and are used to show the relationship between two continuous variables
 <ul>
@@ -882,8 +883,8 @@ Figure 2.20: Standard scatterplot
 </p>
 </div></li>
 </ul>
-<div id="trendline" class="section level4" number="2.2.5.1">
-<h4><span class="header-section-number">2.2.5.1</span> Trendline</h4>
+<div id="trendline" class="section level4 hasAnchor" number="2.2.5.1">
+<h4><span class="header-section-number">2.2.5.1</span> Trendline<a href="examining-and-summarizing-data.html#trendline" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Scatterplots become more helpful when we add a trend line.</li>
 <li>The most common trend line is a simple regression line, although others can be used.
@@ -903,8 +904,8 @@ Figure 2.21: Scatterplot with trendline
 </div></li>
 </ul>
 </div>
-<div id="other-options-1" class="section level4" number="2.2.5.2">
-<h4><span class="header-section-number">2.2.5.2</span> Other Options</h4>
+<div id="other-options-1" class="section level4 hasAnchor" number="2.2.5.2">
+<h4><span class="header-section-number">2.2.5.2</span> Other Options<a href="examining-and-summarizing-data.html#other-options-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>The color, <a href="shape">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec</a>, and size of the points can be changed
 <ul>
@@ -930,12 +931,12 @@ Figure 2.22: Scatterplot with different colors for discrete variable
 </div>
 </div>
 </div>
-<div id="tables-and-statistics" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Tables and Statistics</h2>
-<div id="frequency-table" class="section level3" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Frequency Table</h3>
-<div id="freqbaser" class="section level4" number="2.3.1.1">
-<h4><span class="header-section-number">2.3.1.1</span> Base R</h4>
+<div id="tables-and-statistics" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Tables and Statistics<a href="examining-and-summarizing-data.html#tables-and-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="frequency-table" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Frequency Table<a href="examining-and-summarizing-data.html#frequency-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="freqbaser" class="section level4 hasAnchor" number="2.3.1.1">
+<h4><span class="header-section-number">2.3.1.1</span> Base R<a href="examining-and-summarizing-data.html#freqbaser" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>The <code>table(data$variable)</code> function can produce a one-way frequency table
 <ul>
@@ -954,8 +955,8 @@ English  French  German
 </caption></li>
 </ul>
 </div>
-<div id="package-questionr" class="section level4" number="2.3.1.2">
-<h4><span class="header-section-number">2.3.1.2</span> Package <em>questionr</em></h4>
+<div id="package-questionr" class="section level4 hasAnchor" number="2.3.1.2">
+<h4><span class="header-section-number">2.3.1.2</span> Package <em>questionr</em><a href="examining-and-summarizing-data.html#package-questionr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The <code>freq()</code> command from the package <code>questionr</code> produces nice one-way frequency tables (i.e., a frequency table for a single discrete variable)</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="examining-and-summarizing-data.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(questionr)</span>
@@ -1067,10 +1068,10 @@ Total   1065 100.0 100.0 100.0   100.0</code></pre>
 </ul>
 </div>
 </div>
-<div id="crosstabs" class="section level3" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Crosstabs</h3>
-<div id="base-r" class="section level4" number="2.3.2.1">
-<h4><span class="header-section-number">2.3.2.1</span> Base R</h4>
+<div id="crosstabs" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Crosstabs<a href="examining-and-summarizing-data.html#crosstabs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="base-r" class="section level4 hasAnchor" number="2.3.2.1">
+<h4><span class="header-section-number">2.3.2.1</span> Base R<a href="examining-and-summarizing-data.html#base-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Base R does not do a great job of easily creating cross-tabs and testing for independent of the two variables</p></li>
 <li><p>Using base R, a multistep process is required</p>
@@ -1193,11 +1194,11 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 </caption></li>
 </ul>
 </div>
-<div id="alternative-packages" class="section level4" number="2.3.2.2">
-<h4><span class="header-section-number">2.3.2.2</span> Alternative Packages</h4>
+<div id="alternative-packages" class="section level4 hasAnchor" number="2.3.2.2">
+<h4><span class="header-section-number">2.3.2.2</span> Alternative Packages<a href="examining-and-summarizing-data.html#alternative-packages" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The following packages are not availabe through the BGSU Virtual Computing lab, but can be installed if using R/RStudio on your own machine. These packages produce nicely formatted crosstabs.</p>
-<div id="package-sjplot" class="section level5" number="2.3.2.2.1">
-<h5><span class="header-section-number">2.3.2.2.1</span> Package <em>sjPlot</em></h5>
+<div id="package-sjplot" class="section level5 hasAnchor" number="2.3.2.2.1">
+<h5><span class="header-section-number">2.3.2.2.1</span> Package <em>sjPlot</em><a href="examining-and-summarizing-data.html#package-sjplot" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>Use the function <code>tab_xtab(var.row=, var.col=, show.col.prc=TRUE)</code> to get a standard crosstab with column percentages</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="examining-and-summarizing-data.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
@@ -1276,8 +1277,8 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 </caption></li>
 </ul>
 </div>
-<div id="package-gmodels" class="section level5" number="2.3.2.2.2">
-<h5><span class="header-section-number">2.3.2.2.2</span> Package <em>gmodels</em></h5>
+<div id="package-gmodels" class="section level5 hasAnchor" number="2.3.2.2.2">
+<h5><span class="header-section-number">2.3.2.2.2</span> Package <em>gmodels</em><a href="examining-and-summarizing-data.html#package-gmodels" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>Function<code>CrossTable(rowvar, colvar, OPTIONS)</code> has many options similar to SPSS</p>
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="examining-and-summarizing-data.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
@@ -1331,10 +1332,10 @@ Chi^2 =  73.38648     d.f. =  1     p =  1.065938e-17
 </div>
 </div>
 </div>
-<div id="measures-of-centrality-and-dispersion" class="section level3" number="2.3.3">
-<h3><span class="header-section-number">2.3.3</span> Measures of Centrality and Dispersion</h3>
-<div id="base-r-1" class="section level4" number="2.3.3.1">
-<h4><span class="header-section-number">2.3.3.1</span> Base R</h4>
+<div id="measures-of-centrality-and-dispersion" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Measures of Centrality and Dispersion<a href="examining-and-summarizing-data.html#measures-of-centrality-and-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="base-r-1" class="section level4 hasAnchor" number="2.3.3.1">
+<h4><span class="header-section-number">2.3.3.1</span> Base R<a href="examining-and-summarizing-data.html#base-r-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Any individual summary statistic can be easily calculated using Base R with functions such as:</p>
 <ul>
@@ -1379,8 +1380,8 @@ $Leisure
 </caption></li>
 </ul>
 </div>
-<div id="package-dplyr-1" class="section level4" number="2.3.3.2">
-<h4><span class="header-section-number">2.3.3.2</span> Package <em>dplyr</em></h4>
+<div id="package-dplyr-1" class="section level4 hasAnchor" number="2.3.3.2">
+<h4><span class="header-section-number">2.3.3.2</span> Package <em>dplyr</em><a href="examining-and-summarizing-data.html#package-dplyr-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>The <code>dplyr</code> package can also be used to manually create tables of summary statistics
 <ul>
@@ -1434,8 +1435,8 @@ $Leisure
 </caption></li>
 </ul>
 </div>
-<div id="package-vtable" class="section level4" number="2.3.3.3">
-<h4><span class="header-section-number">2.3.3.3</span> Package <em>vtable</em></h4>
+<div id="package-vtable" class="section level4 hasAnchor" number="2.3.3.3">
+<h4><span class="header-section-number">2.3.3.3</span> Package <em>vtable</em><a href="examining-and-summarizing-data.html#package-vtable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Package <code>vtable</code> produces very nice looking tables of summary statistics, but it isn’t available in BGSU’s Virtual Computer Lab.</li>
 <li>Use function <code>sumtable(data, vars="varname")</code> to produce the table
@@ -1794,11 +1795,11 @@ s10
 </ul>
 </div>
 </div>
-<div id="correlation" class="section level3" number="2.3.4">
-<h3><span class="header-section-number">2.3.4</span> Correlation</h3>
+<div id="correlation" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Correlation<a href="examining-and-summarizing-data.html#correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Correlation provides a measure of the strength of association between two continuous variables.</p>
-<div id="base-r-2" class="section level4" number="2.3.4.1">
-<h4><span class="header-section-number">2.3.4.1</span> Base R</h4>
+<div id="base-r-2" class="section level4 hasAnchor" number="2.3.4.1">
+<h4><span class="header-section-number">2.3.4.1</span> Base R<a href="examining-and-summarizing-data.html#base-r-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Base R can easily provide the correlation and a test of the correlation using the <code>cor.test(variable1, variable2)</code> function
 <ul>
@@ -1838,8 +1839,8 @@ s10       0.167   -0.121  1.000</code></pre>
 </caption></li>
 </ul>
 </div>
-<div id="package-hmisc" class="section level4" number="2.3.4.2">
-<h4><span class="header-section-number">2.3.4.2</span> Package <em>Hmisc</em></h4>
+<div id="package-hmisc" class="section level4 hasAnchor" number="2.3.4.2">
+<h4><span class="header-section-number">2.3.4.2</span> Package <em>Hmisc</em><a href="examining-and-summarizing-data.html#package-hmisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>The function <code>rcorr()</code> from the package <code>Hmisc</code>, which is available in the BGSU Virtual Computing Lab, can be used to create correlation matrices also
 <ul>
@@ -2000,8 +2001,8 @@ s10
 </caption></li>
 </ul>
 </div>
-<div id="package-sjplot-1" class="section level4" number="2.3.4.3">
-<h4><span class="header-section-number">2.3.4.3</span> Package <em>sjPlot</em></h4>
+<div id="package-sjplot-1" class="section level4 hasAnchor" number="2.3.4.3">
+<h4><span class="header-section-number">2.3.4.3</span> Package <em>sjPlot</em><a href="examining-and-summarizing-data.html#package-sjplot-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>The function <code>tab_corr()</code> from the <code>sjPlot</code> package produces very nice correlation matrices
 <ul>
@@ -2083,8 +2084,8 @@ Computed correlation used pearson-method with pairwise-deletion.
 </caption></li>
 </ul>
 </div>
-<div id="package-ggally" class="section level4" number="2.3.4.4">
-<h4><span class="header-section-number">2.3.4.4</span> Package <em>GGally</em></h4>
+<div id="package-ggally" class="section level4 hasAnchor" number="2.3.4.4">
+<h4><span class="header-section-number">2.3.4.4</span> Package <em>GGally</em><a href="examining-and-summarizing-data.html#package-ggally" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The <code>ggpairs()</code> function from package <code>GGally</code> can produce a combination scatterplot and correlation matrix</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="examining-and-summarizing-data.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
@@ -2170,7 +2171,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
