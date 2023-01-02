@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2022-12-30" />
+<meta name="date" content="2023-01-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -449,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Examining and Summarizing Data<a href="examining-and-summarizing-data.html#examining-and-summarizing-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sources for this chapter:</p>
 <ul>
-<li>ggplot2: <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a></li>
+<li>ggplot2: <a href="https://ggplot2.tidyverse.org/" target="_blank">https://ggplot2.tidyverse.org/</a></li>
 </ul>
 <div id="introduction-1" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Introduction<a href="examining-and-summarizing-data.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -474,6 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>AND</strong> that the plot can be enhance by adding more layers, using <code>+</code></li>
 <li>When ggplot is used in the console or from a script, the plot appears in the <code>Viewer</code> tab of the lower-right corner</li>
 </ul>
+<p><a href="https://youtu.be/patP3ByIFcQ" target="_blank">Video Tutorial: Data Visualizations using <em>ggplot</em> (Introduction)</a></p>
 </div>
 <div id="usage" class="section level4 hasAnchor" number="2.2.1.2">
 <h4><span class="header-section-number">2.2.1.2</span> Usage<a href="examining-and-summarizing-data.html#usage" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -538,6 +539,8 @@ Figure 2.3: Using dplyr before ggplot to get mean values
 </div></li>
 </ul>
 <p>Using <code>ggplot()</code> can get much more advanced. As the tutorial progresses, many examples of additional layers to a <code>ggplot()</code> will be shown.</p>
+<p><a href="https://youtu.be/oHJiMywIcwY" target="_blank">Video Tutorial: Data Visualizations using <em>ggplot</em> (Basic Usage)</a>
+<a href="https://youtu.be/VBjjVSJ-q-g" target="_blank">Video Tutorial: Data Visualizations using <em>ggplot</em> (Linking with <em>dplyr</em>)</a></p>
 </div>
 </div>
 <div id="bar-and-column-charts" class="section level3 hasAnchor" number="2.2.2">
@@ -556,6 +559,9 @@ Figure 2.3: Using dplyr before ggplot to get mean values
 Figure 2.4: Standard bar chart
 </p>
 </div></li>
+</ul>
+<p><a href="https://youtu.be/R0A7bgOmpRU" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 1)</a></p>
+<ul>
 <li><p>To get percentages of each category, we need to summarize the data and calculate the proportion for each category</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="examining-and-summarizing-data.html#cb175-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
 <span id="cb175-2"><a href="examining-and-summarizing-data.html#cb175-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
@@ -570,6 +576,9 @@ Figure 2.4: Standard bar chart
 Figure 2.5: Bar chart with proportions
 </p>
 </div></li>
+</ul>
+<p><a href="https://youtu.be/UNOsKBipS_M" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 2)</a></p>
+<ul>
 <li><p>To make the chart “pretty”, we change the color of each bar we can add layers for axis labels, use the <code>scales</code> package to have the y-axis show percent, add labels for the bars etc.</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="examining-and-summarizing-data.html#cb176-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
 <span id="cb176-2"><a href="examining-and-summarizing-data.html#cb176-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
@@ -593,6 +602,7 @@ Figure 2.6: Prettier bar chart
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/srKvrsCfbVA" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 3)</a></p>
 <div id="bar-chart-variations" class="section level5 hasAnchor" number="2.2.2.1.1">
 <h5><span class="header-section-number">2.2.2.1.1</span> Bar Chart Variations<a href="examining-and-summarizing-data.html#bar-chart-variations" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <div id="stacked-bar-chart" class="section level6 hasAnchor" number="2.2.2.1.1.1">
@@ -684,6 +694,7 @@ Figure 2.9: Side-by-side bar chart (% of total)
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/UpyVgvybl1c" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 4)</a></p>
 </div>
 </div>
 </div>
@@ -718,6 +729,7 @@ Figure 2.11: Column chart showing means
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/ItjaP6OQay0" target="_blank">Video Tutorial: Column Charts with <em>ggplot::geom_col</em> (Part 1)</a></p>
 <div id="side-by-side-column-chart" class="section level5 hasAnchor" number="2.2.2.2.1">
 <h5><span class="header-section-number">2.2.2.2.1</span> Side-by-Side Column Chart<a href="examining-and-summarizing-data.html#side-by-side-column-chart" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
@@ -741,6 +753,7 @@ Figure 2.12: Side-by-side column chart
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/Mbqz-AI_fTg" target="_blank">Video Tutorial: Column Charts with <em>ggplot::geom_col</em> (Part 2)</a></p>
 </div>
 </div>
 </div>
@@ -778,6 +791,7 @@ Figure 2.13: Standard histogram
 </ul></li>
 <li>Use the interactive histograms (Figure <a href="examining-and-summarizing-data.html#fig:t2shiny1">2.14</a> and Figure <a href="examining-and-summarizing-data.html#fig:t2shiny2">2.15</a> to see how the histograms change</li>
 </ul>
+<p><a href="https://youtu.be/MOB7f2M39uo" target="_blank">Video Tutorial: Histograms with <em>ggplot::geom_histogram</em> (Part 1)</a></p>
 <div class="figure"><span style="display:block;" id="fig:t2shiny1"></span>
 <iframe src="https://jdmeyer73.shinyapps.io/Histogram/?showcase=0" width="672" height="650px" data-external="1">
 </iframe>
@@ -807,6 +821,7 @@ Figure 2.15: Interactive histogram for bin width
 Figure 2.16: Prettier histogram
 </p>
 </div>
+<p><a href="https://youtu.be/ia9EzyM2xpY" target="_blank">Video Tutorial: Histograms with <em>ggplot::geom_histogram</em> (Part 2)</a></p>
 </div>
 <div id="other-options" class="section level4 hasAnchor" number="2.2.3.3">
 <h4><span class="header-section-number">2.2.3.3</span> Other Options<a href="examining-and-summarizing-data.html#other-options" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -831,6 +846,7 @@ Figure 2.16: Prettier histogram
 Figure 2.17: Density histogram with normal curve
 </p>
 </div>
+<p><a href="https://youtu.be/uZEKiZWdRl8" target="_blank">Video Tutorial: Histograms with <em>ggplot::geom_histogram</em> (Part 3)</a></p>
 </div>
 </div>
 <div id="box-plot" class="section level3 hasAnchor" number="2.2.4">
@@ -864,6 +880,7 @@ Figure 2.19: Multiple box plot
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/9Ojwdf57qnE" target="_blank">Video Tutorial: Box Plots with <em>ggplot::geom_boxplot</em></a></p>
 </div>
 <div id="scatterplot" class="section level3 hasAnchor" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> Scatterplot<a href="examining-and-summarizing-data.html#scatterplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -903,11 +920,12 @@ Figure 2.21: Scatterplot with trendline
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/__PqXlQmX5g" target="_blank">Video Tutorial: Scatterplots with <em>ggplot::geom_point</em> (Part 1)</a></p>
 </div>
 <div id="other-options-1" class="section level4 hasAnchor" number="2.2.5.2">
 <h4><span class="header-section-number">2.2.5.2</span> Other Options<a href="examining-and-summarizing-data.html#other-options-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>The color, <a href="shape">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec</a>, and size of the points can be changed
+<li>The color, <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec" target="_blank">shape</a>, and size of the points can be changed
 <ul>
 <li>In addition, they can vary by levels of a discrete variable
 <ul>
@@ -927,6 +945,7 @@ Figure 2.22: Scatterplot with different colors for discrete variable
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/A-WRWccTjp0" target="_blank">Video Tutorial: Scatterplots with <em>ggplot::geom_point</em> (Part 2)</a></p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -954,6 +973,7 @@ English  French  German
 <span id="tab:t2onewayfreq1">Table 2.1: </span> One-way frequency table using Base R
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/e1qzgGwIvPc" target="_blank">Video Tutorial: Frequency Tables with Base R</a></p>
 </div>
 <div id="package-questionr" class="section level4 hasAnchor" number="2.3.1.2">
 <h4><span class="header-section-number">2.3.1.2</span> Package <em>questionr</em><a href="examining-and-summarizing-data.html#package-questionr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1066,6 +1086,7 @@ Total   1065 100.0 100.0 100.0   100.0</code></pre>
 <p><span id="tab:t2onewayfreq3">Table 2.3: </span> One-way frequency table using <i>htmlTable</i></p>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/V9yAaN1ODJY" target="_blank">Video Tutorial: Frequency Tables with <em>questionr</em></a></p>
 </div>
 </div>
 <div id="crosstabs" class="section level3 hasAnchor" number="2.3.2">
@@ -1193,6 +1214,7 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 <p><span id="tab:t2crosstab2">Table 2.5: </span> Cross-tabs using <i>htmlTable</i></p>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/pLewunbuCsE" target="_blank">Video Tutorial: Cross-Tabs with Base R</a></p>
 </div>
 <div id="alternative-packages" class="section level4 hasAnchor" number="2.3.2.2">
 <h4><span class="header-section-number">2.3.2.2</span> Alternative Packages<a href="examining-and-summarizing-data.html#alternative-packages" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1276,6 +1298,7 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 <p><span id="tab:t2crosstab3">Table 2.6: </span> Cross-tab using <i>sjPlot</i></p>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/ZcPXt9rm_2g" target="_blank">Video Tutorial: Cross-Tabs with <em>sjPlot</em></a></p>
 </div>
 <div id="package-gmodels" class="section level5 hasAnchor" number="2.3.2.2.2">
 <h5><span class="header-section-number">2.3.2.2.2</span> Package <em>gmodels</em><a href="examining-and-summarizing-data.html#package-gmodels" class="anchor-section" aria-label="Anchor link to header"></a></h5>
@@ -1329,6 +1352,7 @@ Chi^2 =  73.38648     d.f. =  1     p =  1.065938e-17
 <p><span id="tab:t2crosstab4">Table 2.7: </span> Cross-tab using <i>gmodels</i></p>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/jN74Qn689xs" target="_blank">Video Tutorial: Cross-Tabs with <em>gmodels</em></a></p>
 </div>
 </div>
 </div>
@@ -1379,6 +1403,7 @@ $Leisure
 <p><span id="tab:t2summary3">Table 2.10: </span> Summary statistics in R Base, one variable, grouped</p>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/XpUCa3DVmHE" target="_blank">Video Tutorial: Summary Measures with Base R</a></p>
 </div>
 <div id="package-dplyr-1" class="section level4 hasAnchor" number="2.3.3.2">
 <h4><span class="header-section-number">2.3.3.2</span> Package <em>dplyr</em><a href="examining-and-summarizing-data.html#package-dplyr-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1434,6 +1459,7 @@ $Leisure
 <span id="tab:t2summary6">Table 2.13: </span> Summary statistics using <i>dplyr</i>, one variable, grouped
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/uesn3-BnAHE" target="_blank">Video Tutorial: Summary Measures with <em>dplyr</em></a></p>
 </div>
 <div id="package-vtable" class="section level4 hasAnchor" number="2.3.3.3">
 <h4><span class="header-section-number">2.3.3.3</span> Package <em>vtable</em><a href="examining-and-summarizing-data.html#package-vtable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1793,6 +1819,7 @@ s10
 <span id="tab:t2summary9">Table 2.16: </span> Summary statistics using <i>vtable</i>, multiple variables, grouped
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/baAa81YhfQ0" target="_blank">Video Tutorial: Summary Measures with <em>vtable</em></a></p>
 </div>
 </div>
 <div id="correlation" class="section level3 hasAnchor" number="2.3.4">
@@ -1838,6 +1865,7 @@ s10       0.167   -0.121  1.000</code></pre>
 <span id="tab:t2corr2">Table 2.18: </span> Correlation matrix in Base R
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/A-S5teahfxg" target="_blank">Video Tutorial: Correlation with Base R</a></p>
 </div>
 <div id="package-hmisc" class="section level4 hasAnchor" number="2.3.4.2">
 <h4><span class="header-section-number">2.3.4.2</span> Package <em>Hmisc</em><a href="examining-and-summarizing-data.html#package-hmisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2000,6 +2028,7 @@ s10
 <span id="tab:t2corr42">Table 2.20: </span> Separate correlation matrix output using <i>Hmisc</i>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/5vepgZPT0E4" target="_blank">Video Tutorial: Correlation with <em>Hmisc</em></a></p>
 </div>
 <div id="package-sjplot-1" class="section level4 hasAnchor" number="2.3.4.3">
 <h4><span class="header-section-number">2.3.4.3</span> Package <em>sjPlot</em><a href="examining-and-summarizing-data.html#package-sjplot-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2083,6 +2112,7 @@ Computed correlation used pearson-method with pairwise-deletion.
 <span id="tab:t2corr5">Table 2.21: </span> Correlation matrix output using <i>sjPlot</i>
 </caption></li>
 </ul>
+<p><a href="https://youtu.be/RDuXvLN3KW0" target="_blank">Video Tutorial: Correlation with <em>sjPlot</em></a></p>
 </div>
 <div id="package-ggally" class="section level4 hasAnchor" number="2.3.4.4">
 <h4><span class="header-section-number">2.3.4.4</span> Package <em>GGally</em><a href="examining-and-summarizing-data.html#package-ggally" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2102,6 +2132,7 @@ Figure 2.23: Combination scatterplot/correlation matrix using <i>GGally</i>
 </p>
 </div></li>
 </ul>
+<p><a href="https://youtu.be/3UzOeLmrLdA" target="_blank">Video Tutorial: Correlation with <em>GGally</em></a></p>
 
 </div>
 </div>

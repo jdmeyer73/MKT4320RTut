@@ -9,7 +9,7 @@ load("Data/airlinesat.rdata")
 
 Sources for this chapter:
 
-* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)
+* ggplot2: [https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/){target="_blank"}
 
 ## Introduction
 
@@ -31,6 +31,8 @@ Examining and summarizing data involves visualizations (e.g., graphs and charts)
 
     **AND** that the plot can be enhance by adding more layers, using `+`
 * When ggplot is used in the console or from a script, the plot appears in the `Viewer` tab of the lower-right corner
+
+[Video Tutorial: Data Visualizations using *ggplot* (Introduction)](https://youtu.be/patP3ByIFcQ){target="_blank"}
 
 #### Usage
 
@@ -72,6 +74,9 @@ Examining and summarizing data involves visualizations (e.g., graphs and charts)
 
 Using `ggplot()` can get much more advanced.  As the tutorial progresses, many examples of additional layers to a `ggplot()` will be shown.
 
+[Video Tutorial: Data Visualizations using *ggplot* (Basic Usage)](https://youtu.be/oHJiMywIcwY){target="_blank"}
+[Video Tutorial: Data Visualizations using *ggplot* (Linking with *dplyr*)](https://youtu.be/VBjjVSJ-q-g){target="_blank"}
+
 ### Bar and Column Charts
 
 In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete variable, while column charts, `geom_col()`, are used for plotting a discrete variable on the <span style="font-family: Courier;">x</span> axis and a continuous variable on the <span style="font-family: Courier;">y</span> axis.
@@ -84,6 +89,9 @@ In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete v
        ggplot(aes(x=gender)) +
          geom_bar()
     ```
+
+[Video Tutorial: Bar Charts with *ggplot::geom_bar* (Part 1)](https://youtu.be/R0A7bgOmpRU){target="_blank"}
+
 * To get percentages of each category, we need to summarize the data and calculate the proportion for each category
     ```{r t2bar2, fig.cap="Bar chart with proportions", cache=TRUE}
     airlinesat %>%
@@ -94,6 +102,9 @@ In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete v
                   y=prop)) + # Use 'prop' instead of default counts for y-axis
          geom_bar(stat="identity")  # Use the value of y as-is
     ```
+
+[Video Tutorial: Bar Charts with *ggplot::geom_bar* (Part 2)](https://youtu.be/UNOsKBipS_M){target="_blank"}
+
 * To make the chart "pretty", we change the color of each bar we can add layers for axis labels, use the `scales` package to have the y-axis show percent, add labels for the bars etc.
     ```{r t2bar3, fig.cap="Prettier bar chart", cache=TRUE}
     airlinesat %>%
@@ -112,6 +123,8 @@ In `ggplot`, bar charts, `geom_bar()`, are used for plotting a single discrete v
              fontface="bold",  # Bold typeface
              color="white") # Text color
     ```
+
+[Video Tutorial: Bar Charts with *ggplot::geom_bar* (Part 3)](https://youtu.be/srKvrsCfbVA){target="_blank"}
 
 ##### Bar Chart Variations
 
@@ -190,6 +203,8 @@ Also used to shows one discrete variable by another discrete variable
                   color="white")
     ```
 
+[Video Tutorial: Bar Charts with *ggplot::geom_bar* (Part 4)](https://youtu.be/UpyVgvybl1c){target="_blank"}
+
 #### Column Charts
 
 * The standard column chart provides a sum of continuous variable <span style="font-family: Courier;">y</span> of each category of disrete variable <span style="font-family: Courier;">x</span>
@@ -213,6 +228,8 @@ Also used to shows one discrete variable by another discrete variable
              color="white") # Text color
     ```
 
+[Video Tutorial: Column Charts with *ggplot::geom_col* (Part 1)](https://youtu.be/ItjaP6OQay0){target="_blank"}
+
 ##### Side-by-Side Column Chart
 
 * A side by side column chart can be used to show two discrete variables on the <span style="font-family: Courier;">x</span>-axis
@@ -230,6 +247,8 @@ Also used to shows one discrete variable by another discrete variable
                 fontface="bold",
                 color="white")
     ```
+
+[Video Tutorial: Column Charts with *ggplot::geom_col* (Part 2)](https://youtu.be/Mbqz-AI_fTg){target="_blank"}
 
 ### Histogram
 
@@ -254,6 +273,9 @@ Histograms can look quite different based on the bins used.  Bins can be changed
     * For example; `geom_histogram(binwidth=5)`
 * Use the interactive histograms (Figure \@ref(fig:t2shiny1) and Figure \@ref(fig:t2shiny2) to see how the histograms change
 
+[Video Tutorial: Histograms with *ggplot::geom_histogram* (Part 1)](https://youtu.be/MOB7f2M39uo){target="_blank"}
+
+
 ``` {r t2shiny1, echo=FALSE, fig.cap="Interactive histogram for number of bins"}
 knitr::include_app("https://jdmeyer73.shinyapps.io/Histogram/", height="650px")
 ```
@@ -271,6 +293,8 @@ You may find the default histogram a little "blah" or tough to read.  Just as th
                        fill="tan") +  # Makes each bar blue
         labs(x="Age", y="Frequency")
 ```
+
+[Video Tutorial: Histograms with *ggplot::geom_histogram* (Part 2)](https://youtu.be/ia9EzyM2xpY){target="_blank"}
 
 #### Other Options
 
@@ -290,6 +314,8 @@ look of bar and column charts could be changed, so can the look of histograms
                 sd=sd(airlinesat$age, na.rm=TRUE))) +  # StdDev of normal dist
         labs(x="Age", y="Density")
 ```
+
+[Video Tutorial: Histograms with *ggplot::geom_histogram* (Part 3)](https://youtu.be/uZEKiZWdRl8){target="_blank"}
 
 ### Box Plot
 
@@ -315,6 +341,8 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
         labs(x="Flight Purpose", y="Age")
     ```
 
+[Video Tutorial: Box Plots with *ggplot::geom_boxplot*](https://youtu.be/9Ojwdf57qnE){target="_blank"}
+
 ### Scatterplot
 
 * Scatterplots are drawn with the `geom_point()` geom and are used to show the relationship between two continuous variables
@@ -326,6 +354,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
     ```
 
 #### Trendline
+
 * Scatterplots become more helpful when we add a trend line.
 * The most common trend line is a simple regression line, although others can be used.
     * Use `geom_smooth(method="lm", se=FALSE)` to add a linear trend line
@@ -337,8 +366,11 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
         labs(x="Age", y="Satisfaction with Aircraft Condition")
     ```    
 
+[Video Tutorial: Scatterplots with *ggplot::geom_point* (Part 1)](https://youtu.be/__PqXlQmX5g){target="_blank"}
+
 #### Other Options
-* The color, [https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec](shape), and size of the points can be changed
+
+* The color, [shape](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#sec:shape-spec){target="_blank"}, and size of the points can be changed
     * In addition, they can vary by levels of a discrete variable
         * If a trend line is requested, separate trend lines will be provided for each level of the discrete variable
     ```{r t2scatter3, fig.cap="Scatterplot with different colors for discrete variable", warning=FALSE, message=FALSE, cache=TRUE}
@@ -349,6 +381,8 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
         labs(x="Age", y="Satisfaction with Aircraft Condition",
              color="Flight Type")
     ```    
+
+[Video Tutorial: Scatterplots with *ggplot::geom_point* (Part 2)](https://youtu.be/A-WRWccTjp0){target="_blank"}
 
 \newpage
 ## Tables and Statistics
@@ -364,6 +398,8 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
     proportions(table(airlinesat$language))   # One way table of proportions
     ```
 <caption>(\#tab:t2onewayfreq1) One-way frequency table using Base R</caption> 
+
+[Video Tutorial: Frequency Tables with Base R](https://youtu.be/e1qzgGwIvPc){target="_blank"}
 
 #### Package *questionr*
 
@@ -384,6 +420,8 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
       htmlTable()
     ```
 <caption>(\#tab:t2onewayfreq3) One-way frequency table using <i>htmlTable</i></caption>
+
+[Video Tutorial: Frequency Tables with *questionr*](https://youtu.be/V9yAaN1ODJY){target="_blank"}
 
 ### Crosstabs
 
@@ -414,6 +452,8 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
     ```
 <caption>(\#tab:t2crosstab2) Cross-tabs using <i>htmlTable</i></caption>
 
+[Video Tutorial: Cross-Tabs with Base R](https://youtu.be/pLewunbuCsE){target="_blank"}
+
 #### Alternative Packages
 
 The following packages are not availabe through the BGSU Virtual Computing lab, but can be installed if using R/RStudio on your own machine.  These packages produce nicely formatted crosstabs.
@@ -429,6 +469,8 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
     ```
 <caption>(\#tab:t2crosstab3) Cross-tab using <i>sjPlot</i></caption>
     
+[Video Tutorial: Cross-Tabs with *sjPlot*](https://youtu.be/ZcPXt9rm_2g){target="_blank"}
+
 ##### Package *gmodels*
 
 * Function`CrossTable(rowvar, colvar, OPTIONS)` has many options similar to SPSS
@@ -443,6 +485,8 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
                format="SPSS")  # Request SPSS formatting
     ```
 <caption>(\#tab:t2crosstab4) Cross-tab using <i>gmodels</i></caption>
+
+[Video Tutorial: Cross-Tabs with *gmodels*](https://youtu.be/jN74Qn689xs){target="_blank"}
     
 ### Measures of Centrality and Dispersion
 
@@ -470,6 +514,8 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
            summary)  # R function to apply by group
     ```
 <caption>(\#tab:t2summary3) Summary statistics in R Base, one variable, grouped</caption>
+
+[Video Tutorial: Summary Measures with Base R](https://youtu.be/XpUCa3DVmHE){target="_blank"}
 
 #### Package *dplyr*
 
@@ -502,6 +548,8 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
                 q3=quantile(age, .75))
     ```
 <caption>(\#tab:t2summary6) Summary statistics using <i>dplyr</i>, one variable, grouped</caption>
+
+[Video Tutorial: Summary Measures with *dplyr*](https://youtu.be/uesn3-BnAHE){target="_blank"}
 
 #### Package *vtable*
 
@@ -548,6 +596,8 @@ The following packages are not availabe through the BGSU Virtual Computing lab, 
     ```
 <caption>(\#tab:t2summary9) Summary statistics using <i>vtable</i>, multiple variables, grouped</caption>
 
+[Video Tutorial: Summary Measures with *vtable*](https://youtu.be/baAa81YhfQ0){target="_blank"}
+
 ### Correlation
 
 Correlation provides a measure of the strength of association between two continuous variables.
@@ -571,6 +621,8 @@ Correlation provides a measure of the strength of association between two contin
     round(cor(mycorr, use="pairwise.complete.obs"), 3)
     ```
 <caption>(\#tab:t2corr2) Correlation matrix in Base R</caption>
+
+[Video Tutorial: Correlation with Base R](https://youtu.be/A-S5teahfxg){target="_blank"}
 
 #### Package *Hmisc*
 
@@ -599,6 +651,8 @@ Correlation provides a measure of the strength of association between two contin
     ```
 <caption>(\#tab:t2corr42) Separate correlation matrix output using <i>Hmisc</i></caption>
 
+[Video Tutorial: Correlation with *Hmisc*](https://youtu.be/5vepgZPT0E4){target="_blank"}
+
 #### Package *sjPlot*
 
 * The function `tab_corr()` from the `sjPlot` package produces very nice correlation matrices
@@ -615,6 +669,8 @@ Correlation provides a measure of the strength of association between two contin
     ```
 <caption>(\#tab:t2corr5) Correlation matrix output using <i>sjPlot</i></caption>
 
+[Video Tutorial: Correlation with *sjPlot*](https://youtu.be/RDuXvLN3KW0){target="_blank"}
+
 #### Package *GGally*
 
 * The `ggpairs()` function from package `GGally` can produce a combination scatterplot and correlation matrix
@@ -627,4 +683,5 @@ Correlation provides a measure of the strength of association between two contin
                                        color="blue")),  # Color dots
             diag=list(continuous="blankDiag"))      # Sets diagonals to be blank
     ```
-    
+
+[Video Tutorial: Correlation with *GGally*](https://youtu.be/3UzOeLmrLdA){target="_blank"}

@@ -9,7 +9,7 @@ load("Data/operators.rdata")
 Sources for this chapter:
 
 * *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
-    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html){target="_blank"}
 
 ## Introduction
 
@@ -53,9 +53,9 @@ And
 
 #### Option 1: Install on your Machine
 1. Install "R base" from the Comprehensive R Archive Network (CRAN)
-    * [https://cran.r-project.org/](https://cran.r-project.org/)
+    * [https://cran.r-project.org/](https://cran.r-project.org/){target="_blank"}
 2. Install RStudio
-    * [https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download)
+    * [https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download){target="_blank"}
 
 #### Option 2: Use BGSU's Virtual Computing Lab pilot
 
@@ -184,7 +184,7 @@ Packages are collections of functions that have been written to expand the funct
     print(x)
     ```
 
-[Video Tutorial: Assignment Operator](https://youtu.be/uIKi4sac4tU)
+[Video Tutorial: Assignment Operator](https://youtu.be/y1Qx0bSaTa8){target="_blank"}
 
 ### Vectors
 
@@ -204,7 +204,7 @@ Packages are collections of functions that have been written to expand the funct
     print(c(class(x.Num), class(x.Log), class(x.Char)))
     ```
 
-[Video Tutorial: Vectors - Part 1](https://youtu.be/3x77ndDRD34)
+[Video Tutorial: Vectors - Part 1](https://youtu.be/X6G7XpuwOjo){target="_blank"}
 
 * Vectors can only hold a single class/type of value
     * When multiple classes are included, the values are coerced to the most general type
@@ -240,7 +240,7 @@ Packages are collections of functions that have been written to expand the funct
     str(x.Char)
     ```
 
-[Video Tutorial: Vectors - Part 2](https://youtu.be/3P8qsWkHtOA)
+[Video Tutorial: Vectors - Part 2](https://youtu.be/iOTz3Yhe2FY){target="_blank"}
 
 ### Indexing
 
@@ -261,7 +261,7 @@ Packages are collections of functions that have been written to expand the funct
     x.Num[x.Num > 5]
     ```
 
-[Video Tutorial: Indexing](https://youtu.be/VDqCAnG9OJI)
+[Video Tutorial: Indexing](https://youtu.be/1o5b7CZCCKU){target="_blank"}
 
 ### Sequencing
 
@@ -287,7 +287,7 @@ Packages are collections of functions that have been written to expand the funct
     x.Seq3
     ```
 
-[Video Tutorial: Sequencing](https://youtu.be/JWov1_9XxZs)
+[Video Tutorial: Sequencing](https://youtu.be/bYBTFuQVlg4){target="_blank"}
 
 ### Missing (and Other Interesting) Values
 
@@ -357,7 +357,7 @@ Data frames are an object type that deserve special attention
     x.df[2,3]
     ```
 
-[Video Tutorial: Data Frames (Part 1)](https://youtu.be/qFHNiFx5P_w)
+[Video Tutorial: Data Frames (Part 1)](https://youtu.be/Dyo7KOltfKc){target="_blank"}
 
 #### Using vectors in-line
 
@@ -372,7 +372,7 @@ Data frames are an object type that deserve special attention
     x2.df
     ```
 
-[Video Tutorial: Data Frames (Part 2)](https://youtu.be/JLTXTKuTloA)
+[Video Tutorial: Data Frames (Part 2)](https://youtu.be/VnSLuKLWr3A){target="_blank"}
 
 ### Viewing a Data Frame
 
@@ -398,7 +398,7 @@ data(Salaries)
     knitr::include_graphics("Images/ViewDF.gif")
     ```
 
-[Video Tutorial: Data Frames (Viewing)](https://youtu.be/kCTVfJ7VE8Q)
+[Video Tutorial: Data Frames (Viewing)](https://youtu.be/Bl7DWnVDPC0){target="_blank"}
 
 ### Indexing and Sequencing
 
@@ -427,7 +427,7 @@ data(Salaries)
     x.df$x.Char
     ```
 
-[Video Tutorial: Data Frames (Indexing & Sequencing)](https://youtu.be/OF4UDKn6w4E)
+[Video Tutorial: Data Frames (Indexing & Sequencing)](https://youtu.be/ie3CmeEule8){target="_blank"}
 
 \newpage
 ## Data Transformations
@@ -452,7 +452,7 @@ data(Salaries)
     x.df
     ```
 
-[Video Tutorial: Data Transformations (Introduction)](https://youtu.be/K0eXOUjZ6yQ)
+[Video Tutorial: Data Transformations (Introduction)](https://youtu.be/KixEf4zV6C8){target="_blank"}
 
 ### Recoding (Create New)
 
@@ -467,8 +467,8 @@ data(Salaries)
     ```
     Notice the `&` in the code above. It stands for "and", which tells R that both conditions must be true
 
-[Video Tutorial: Data Transformations (Recoding New Variables)](https://youtu.be/MqPXDziQJzI)
-[Video Tutorial: Data Transformations (Factor Variables)](https://youtu.be/FehDWk90UOo)
+[Video Tutorial: Data Transformations (Recoding New Variables)](https://youtu.be/enpF3a-dc4c){target="_blank"}
+[Video Tutorial: Data Transformations (Factor Variables)](https://youtu.be/UVoPF54_TYk){target="_blank"}
     
 ### Recoding (Change Existing) 
 
@@ -486,7 +486,7 @@ data(Salaries)
     ```
     Notice the `|` in the code above. It stands for "or", which tells R that either condition can be true.
 
-[Video Tutorial: Data Transformations (Recoding Existing Variables)](https://youtu.be/Y1EltCIrxfU)
+[Video Tutorial: Data Transformations (Recoding Existing Variables)](https://youtu.be/2DwC2RzL6cY){target="_blank"}
 
 \newpage    
 ## R Projects
@@ -511,7 +511,7 @@ To use the new project each time you work in RStudio for this class, you will ne
 knitr::include_graphics("Images/NewRProject4.png")
 ```
 
-[Video Tutorial: R Projects using New Directory Option](https://youtu.be/ACEQhpmjNfM)
+[Video Tutorial: R Projects using New Directory Option](https://youtu.be/bnElDlMXnAU){target="_blank"}
 
 \newpage    
 ## Loading and Saving Data
@@ -629,7 +629,7 @@ library(dplyr)
 
 We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesat.rdata) file for these examples. 
 
-[Video Tutorial: dplyr (Introduction)](https://youtu.be/V3AQ_1n118k)
+[Video Tutorial: dplyr (Introduction)](https://youtu.be/dGX-ucjKAKI){target="_blank"}
 
 #### `select()` function
 
@@ -654,7 +654,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
     str(airlinesat.d)
     ```
 
-[Video Tutorial: dplyr::select()](https://youtu.be/BpKmeAtY4ew)
+[Video Tutorial: dplyr::select()](https://youtu.be/lx3MMLlqKL0){target="_blank"}
 
 #### `filter()` function
 
@@ -672,7 +672,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
     head(airlinesat.dold)
     ```
 
-[Video Tutorial: dplyr::filter()](https://youtu.be/p1HVe8bAfHY)
+[Video Tutorial: dplyr::filter()](https://youtu.be/tkbtTjqPaA0){target="_blank"}
     
 #### `arrange()` function
 
@@ -696,7 +696,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
         head(10)
     ```
 
-[Video Tutorial: dplyr::arrange()](https://youtu.be/VZUkZJ4fc-4)
+[Video Tutorial: dplyr::arrange()](https://youtu.be/KKPJaF982tg){target="_blank"}
 
 #### `mutate()` function
 
@@ -718,7 +718,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
         head(10)
     ```
 
-[Video Tutorial: dplyr::mutate()](https://youtu.be/rHNXxrGMzkk)
+[Video Tutorial: dplyr::mutate()](https://youtu.be/fx3LMBwLd00){target="_blank"}
     
 #### `summarise()` function
 
@@ -747,7 +747,7 @@ We'll be using the airlinesat dataset from the [airlinesat.rdata](Data/airlinesa
                   valid_n=sum(!is.na(nflights)))
     ```
 
-[Video Tutorial: dplyr::summarise() and dplyr::group_by()](https://youtu.be/A_c6lC9Hssk)
+[Video Tutorial: dplyr::summarise() and dplyr::group_by()](https://youtu.be/0T5F8fpJI6E){target="_blank"}
 
 \newpage
 ## Package *lubridate*
