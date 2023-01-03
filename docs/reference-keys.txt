@@ -60,8 +60,11 @@ tab:t2corr5
 fig:t2corr6
 tab:t3lm1
 tab:t3lm2
-tab:t3lm3
 tab:t3lmbeta
+tab:t3lm5
+tab:t3lm6
+tab:t3lm3
+tab:t3lm4
 fig:t3marginplot1
 fig:t3marginplot2
 tab:t3marginplot2b1

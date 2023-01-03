@@ -39,6 +39,9 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
             $y=x_1+(x_2\times x_3)$
             * `y ~ x1 + x2 + x2:x3` is the same as:<br>
             $y=x_1+x_2+(x_2\times x_3)$
+            
+[Video Tutorial: lm() - Basic Usage](https://youtu.be/DSYI08iklOc){target="_blank"}
+            
 * If `lm()` is run by itself, R only outputs the coefficients
     ```{r t3lm1}
     lm(nps ~ age + nflights, airlinesat)
@@ -51,15 +54,8 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
     summary(model1)
     ```
 <caption>(\#tab:t3lm2) Summary results from `lm()` call</caption>
-* For "nicer" looking results, the package `jtools` can be used
-    * NOTE: `jtools` is no available in BGSU's Virtual Computing Lab
-    ```{r t3lm3, cache=TRUE}
-    library(jtools)
-    summ(model1,   # Saved object from before
-         digits=4, # How many digits to display in each column
-         model.info = FALSE)  # Suppress extraneous information
-    ```
-<caption>(\#tab:t3lm3) Summary results from `lm()` using `jtools` package</caption>
+
+[Video Tutorial: lm() - Output](https://youtu.be/cCil5B12908){target="_blank"}
 
 * To get standardized beta coefficients, use the [lm_beta](./lm_beta.R) user defined function. 
     ```{r t3lmbeta}
@@ -69,6 +65,48 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
     
     ```
 <caption>(\#tab:t3lmbeta) Standardized Beta Coefficients</caption>
+
+[Video Tutorial: lm() - Standardized Beta Coefficients](https://youtu.be/UxSmuZMs1vE){target="_blank"}
+
+* For "nicer" looking results, the `tab_model` function from the `sjPlot` package can be used
+    * NOTE: `sjPlot` is not available in BGSU's Virtual Computing Lab
+    ```{r t3lm5, cache=TRUE}
+    library(sjPlot)
+    tab_model(model1,   # Saved object from before
+         show.stat=TRUE) # Display t-statistic
+    ```
+<caption>(\#tab:t3lm5) Summary results from `lm()` using `sjPlot` package</caption>
+    * Standardized beta coefficients can also be obtained
+    ```{r t3lm6, cache=TRUE}
+    library(sjPlot)
+    tab_model(model1,   # Saved object from before
+         show.stat=TRUE, # Display t-statistic
+         show.std=TRUE, # Display standardized beta coefficients
+         show.ci=FALSE) # Remove confidence intervals for cleaner table
+    ```
+<caption>(\#tab:t3lm6) Summary results from `lm()` using `sjPlot` package</caption>
+
+[Video Tutorial: lm() - Results using the *sjPlot* Package](https://youtu.be/Ki4VVzIbnuM){target="_blank"}
+
+* For "nicer" looking results, the `summ` function from the `jtools` package can be used
+    * NOTE: `jtools` is not available in BGSU's Virtual Computing Lab
+    ```{r t3lm3, cache=TRUE}
+    library(jtools)
+    summ(model1,   # Saved object from before
+         digits=4) # How many digits to display in each column
+    ```
+<caption>(\#tab:t3lm3) Summary results from `lm()` using `jtools` package</caption>
+    * Standardized beta coefficients can also be obtained
+    ```{r t3lm4, cache=TRUE}
+    library(jtools)
+    summ(model1,   # Saved object from before
+         digits=4, # How many digits to display in each column
+         scale=TRUE,  # Standardize the IVs
+         transform.response=TRUE)  # Standarize the DV
+    ```
+<caption>(\#tab:t3lm4) Standardized Beta Coefficients from `lm()` using `jtools` package</caption>
+
+[Video Tutorial: lm() - Results using the *jtools* Package](https://youtu.be/wB3kJNaoBW8){target="_blank"}
 
 \newpage
 ## Prediction
@@ -87,6 +125,8 @@ predict.lm(model1,   # The model we are using to predict
            interval="confidence")   # Request confidence interval
 ```
 
+[Video Tutorial: lm() - Prediction](https://youtu.be/4I4V6OAOep0){target="_blank"}
+
 \newpage
 ## Margin Plots {#linregmarginplots}
 
@@ -101,6 +141,8 @@ In R, margin plots are a multistep process:
         * If the model has an interaction between a factor focal variable and another factor variable, predictions will be made for every combination of the two factor variables.
     * By default, the dataframe will contain the predicted value (`fit`) and values for a $95\%$ confidence interval (`lower` and `upper`)
 2. Use `ggplot` to create the margin plot
+
+[Video Tutorial: lm() - Introduction to Margin Plots](https://youtu.be/U7Q7u_alsck){target="_blank"}
 
 ### Continuous IV (No Interaction)
 
@@ -121,6 +163,8 @@ age.pred %>%
                alpha=0.2) + # Sets transparency level
    labs(x="Age", y="Linear Prediciton")
 ```
+
+[Video Tutorial: lm() - Margin Plots for Continuous IV with no Interaction](https://youtu.be/7ZRF3u6yh5g){target="_blank"}
 
 ### Separate Margin Plots (No Interaction)
 
@@ -160,6 +204,8 @@ plot2 <- nflights.pred %>%
 # Use 'cowplot' function 'plot_grid' to combine plots
 cowplot::plot_grid(plot1,plot2)
 ```
+
+[Video Tutorial: lm() - Side-by-Side Margin Plots using *cowplot* Package](https://youtu.be/jGTSI0Ix0BE){target="_blank"}
     
 ### Factor IV (No Interaction)
 
@@ -184,6 +230,8 @@ fp.pred %>%
         geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
         labs(x="Flight Purpose", y="Linear Prediction")
 ```
+
+[Video Tutorial: lm() - Margin Plots for Factor IV with No Interaction](https://youtu.be/z0Kma3M1uO0){target="_blank"}
 
 ### Continuous IV (Interaction with Factor IV)
 
@@ -211,6 +259,8 @@ age.pred %>%
     theme(legend.position="bottom")
 ```
 
+[Video Tutorial: lm() - Margin Plots for Continuous IV with Factor IV Interaction](https://youtu.be/xkizYaI8Tsw){target="_blank"}
+
 ### Factor IV (Interaction with Continuous IV)
 
 * Margin plots for a factor IV interaction with a continuous IV are done in much the same way, but require an `facet_wrap(~continuousIV)` to produce different different plots for evenly-spaced values of the continuous IV
@@ -231,6 +281,8 @@ fp.pred %>%
         facet_wrap(~age) +
         labs(x="Flight Purpose", y="Linear Prediction")
 ```
+
+[Video Tutorial: lm() - Margin Plots for Factor IV with Continuous IV Interaction](https://youtu.be/9CZc4Rqwzb0){target="_blank"}
 
 ### Continuous IV (Interaction with Continuous IV)
 
@@ -258,3 +310,5 @@ age.pred %>%
     labs(x="Age", y="Linear Prediciton", color="Overall Satisfaction", fill="Overall Satisfaction") +
     theme(legend.position="bottom")
 ```
+
+[Video Tutorial: lm() - Margin Plots for Continuous IV with Continuous IV Interaction](https://youtu.be/lP3xc-DhCf0){target="_blank"}

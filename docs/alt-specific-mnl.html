@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -450,13 +450,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/yogurt.rdata">yogurt.rdata</a> is used. Load it now. Because of how the data is arranged, the training and holdout samples are both included in the file: <code>train.yog</code> and <code>test.yog</code>.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="alt-specific-mnl.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb398-2"><a href="alt-specific-mnl.html#cb398-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/yogurt.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="alt-specific-mnl.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb401-2"><a href="alt-specific-mnl.html#cb401-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/yogurt.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
 <div id="introduction-9" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Introduction<a href="alt-specific-mnl.html#introduction-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R is not good for alternative specific multinomial logistic regression (MNL). The best package that I have found for alternative specific MNL is <code>mlogit</code> with its <code>mlogit</code> function. Use <code>install.packages("mlogit")</code> to install the package on your machine, then load it using the <code>library</code> function when needed.</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="alt-specific-mnl.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="alt-specific-mnl.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
 <pre><code>Loading required package: dfidx</code></pre>
 <pre><code>
 Attaching package: &#39;dfidx&#39;</code></pre>
@@ -489,17 +489,17 @@ Attaching package: &#39;dfidx&#39;</code></pre>
 <li>NOTE 1: To work properly, all factor IVs should already be in dummy variable coding</li>
 <li>NOTE 2: This function also requires the <code>broom</code> package</li>
 </ul>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="alt-specific-mnl.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
-<span id="cb403-2"><a href="alt-specific-mnl.html#cb403-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
-<span id="cb403-3"><a href="alt-specific-mnl.html#cb403-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
-<span id="cb403-4"><a href="alt-specific-mnl.html#cb403-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-5"><a href="alt-specific-mnl.html#cb403-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_est.R&quot;</span>)</span>
-<span id="cb403-6"><a href="alt-specific-mnl.html#cb403-6" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
-<span id="cb403-7"><a href="alt-specific-mnl.html#cb403-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
-<span id="cb403-8"><a href="alt-specific-mnl.html#cb403-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb403-9"><a href="alt-specific-mnl.html#cb403-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
-<span id="cb403-10"><a href="alt-specific-mnl.html#cb403-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
-<span id="cb403-11"><a href="alt-specific-mnl.html#cb403-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="alt-specific-mnl.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
+<span id="cb406-2"><a href="alt-specific-mnl.html#cb406-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
+<span id="cb406-3"><a href="alt-specific-mnl.html#cb406-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
+<span id="cb406-4"><a href="alt-specific-mnl.html#cb406-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb406-5"><a href="alt-specific-mnl.html#cb406-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_est.R&quot;</span>)</span>
+<span id="cb406-6"><a href="alt-specific-mnl.html#cb406-6" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
+<span id="cb406-7"><a href="alt-specific-mnl.html#cb406-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
+<span id="cb406-8"><a href="alt-specific-mnl.html#cb406-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb406-9"><a href="alt-specific-mnl.html#cb406-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
+<span id="cb406-10"><a href="alt-specific-mnl.html#cb406-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
+<span id="cb406-11"><a href="alt-specific-mnl.html#cb406-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
 <pre class="custom-output"><code>
 
 ---------
@@ -558,8 +558,8 @@ Total          242       17      138       204   601</code></pre>
 <li><code>mod</code> is the object containing the result of the <code>mlogit</code> call using the <code>asmnl_est</code> user defined function</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="alt-specific-mnl.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_me.R&quot;</span>)</span>
-<span id="cb405-2"><a href="alt-specific-mnl.html#cb405-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="alt-specific-mnl.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_me.R&quot;</span>)</span>
+<span id="cb408-2"><a href="alt-specific-mnl.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
 <pre class="custom-output"><code>
 --------------------------------
 Predicted Probabilities at Means
@@ -598,8 +598,8 @@ Yoplait  0.05450  0.00054  0.02899 -0.08404
 <li>Usage: <code>almnl_mp(mod, focal="", type="")     *</code>mod<code>is the object containing the result of the</code>mlogit<code>call using the</code>asmnl_est<code>user defined function     *</code>focal<code>is the case-specific IV for which a margin plot is wanted (in quotes)     *</code>type<code>is the type of IV; must be either</code>“C”<code>for continuous or</code>“D”` for dummy</li>
 <li>NOTE: This function requires the <code>ggplot2</code> package</li>
 </ul>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="alt-specific-mnl.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_mp.R&quot;</span>)</span>
-<span id="cb407-2"><a href="alt-specific-mnl.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="alt-specific-mnl.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;asmnl_mp.R&quot;</span>)</span>
+<span id="cb410-2"><a href="alt-specific-mnl.html#cb410-2" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 
 </div>

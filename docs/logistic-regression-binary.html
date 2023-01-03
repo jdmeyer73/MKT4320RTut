@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -458,8 +458,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/directmktg.rdata">directmktg.rdata</a> is used. Load it now.</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="logistic-regression-binary.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb268-2"><a href="logistic-regression-binary.html#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/directmktg.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="logistic-regression-binary.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb271-2"><a href="logistic-regression-binary.html#cb271-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/directmktg.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
 <div id="introduction-4" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Introduction<a href="logistic-regression-binary.html#introduction-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -472,11 +472,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="logreg_cut.R">logreg_cut.R</a> produces the Sensitivity/Specificity Plot</li>
 </ul>
 <p>Once saved in your working directory, it is good practice to source them.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="logistic-regression-binary.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;or_table.R&quot;</span>)</span>
-<span id="cb269-2"><a href="logistic-regression-binary.html#cb269-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_cm.R&quot;</span>)</span>
-<span id="cb269-3"><a href="logistic-regression-binary.html#cb269-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_roc.R&quot;</span>)</span>
-<span id="cb269-4"><a href="logistic-regression-binary.html#cb269-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;gainlift.R&quot;</span>)</span>
-<span id="cb269-5"><a href="logistic-regression-binary.html#cb269-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_cut.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="logistic-regression-binary.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;or_table.R&quot;</span>)</span>
+<span id="cb272-2"><a href="logistic-regression-binary.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_cm.R&quot;</span>)</span>
+<span id="cb272-3"><a href="logistic-regression-binary.html#cb272-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_roc.R&quot;</span>)</span>
+<span id="cb272-4"><a href="logistic-regression-binary.html#cb272-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;gainlift.R&quot;</span>)</span>
+<span id="cb272-5"><a href="logistic-regression-binary.html#cb272-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;logreg_cut.R&quot;</span>)</span></code></pre></div>
 </div>
 <div id="the-glm-function" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> The <code>glm()</code> Function<a href="logistic-regression-binary.html#the-glm-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -496,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>family="binomial"</code> tells R to use logistic regression on a binary dependent variable</li>
 </ul></li>
 <li><p>If <code>glm(formula, data, family="binomial")</code> is run by itself, R only outputs the **Logit formulation* coefficients (and some other measures)</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="logistic-regression-binary.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, directmktg, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="logistic-regression-binary.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, directmktg, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
 <pre class="custom-output"><code>
 Call:  glm(formula = buy ~ age + gender, family = &quot;binomial&quot;, data = directmktg)
 
@@ -511,8 +511,8 @@ Residual Deviance: 336.1    AIC: 342.1</code></pre>
 <p><span id="tab:t4lr1">Table 4.1: </span> Logit Coefficients from <code>glm()</code> call</p>
 </caption></li>
 <li><p>However, if the results of the <code>glm()</code> call are assigned to an object, the Base R <code>summary()</code> function can be used to get much more detailed output, but requires manual calculation of McFadden’s Pseudo-<span class="math inline">\(R^2\)</span></p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="logistic-regression-binary.html#cb272-1" aria-hidden="true" tabindex="-1"></a>prelim <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, directmktg, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb272-2"><a href="logistic-regression-binary.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prelim)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="logistic-regression-binary.html#cb275-1" aria-hidden="true" tabindex="-1"></a>prelim <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, directmktg, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb275-2"><a href="logistic-regression-binary.html#cb275-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prelim)</span></code></pre></div>
 <pre class="custom-output"><code>
 Call:
 glm(formula = buy ~ age + gender, family = &quot;binomial&quot;, data = directmktg)
@@ -536,9 +536,9 @@ Residual deviance: 336.14  on 397  degrees of freedom
 AIC: 342.14
 
 Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="logistic-regression-binary.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually calculate McFadden&#39;s Pseudo R-sq</span></span>
-<span id="cb274-2"><a href="logistic-regression-binary.html#cb274-2" aria-hidden="true" tabindex="-1"></a>Mrsq <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>prelim<span class="sc">$</span>deviance<span class="sc">/</span>prelim<span class="sc">$</span>null.deviance</span>
-<span id="cb274-3"><a href="logistic-regression-binary.html#cb274-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;McFadden&#39;s Pseudo-Rsquared = &quot;</span>, Mrsq)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="logistic-regression-binary.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually calculate McFadden&#39;s Pseudo R-sq</span></span>
+<span id="cb277-2"><a href="logistic-regression-binary.html#cb277-2" aria-hidden="true" tabindex="-1"></a>Mrsq <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>prelim<span class="sc">$</span>deviance<span class="sc">/</span>prelim<span class="sc">$</span>null.deviance</span>
+<span id="cb277-3"><a href="logistic-regression-binary.html#cb277-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;McFadden&#39;s Pseudo-Rsquared = &quot;</span>, Mrsq)</span></code></pre></div>
 <pre class="custom-output"><code>McFadden&#39;s Pseudo-Rsquared =  0.3555239</code></pre>
 <caption>
 <p><span id="tab:t4lr2">Table 4.2: </span> Summary results from <code>glm()</code> call</p>
@@ -547,10 +547,10 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <ul>
 <li>NOTE: <code>jtools</code> is not available in BGSU’s Virtual Computing Lab</li>
 </ul>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="logistic-regression-binary.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb276-2"><a href="logistic-regression-binary.html#cb276-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(prelim,   <span class="co"># Saved object from before</span></span>
-<span id="cb276-3"><a href="logistic-regression-binary.html#cb276-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">digits=</span><span class="dv">4</span>, <span class="co"># How many digits to display in each column</span></span>
-<span id="cb276-4"><a href="logistic-regression-binary.html#cb276-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">model.info =</span> <span class="cn">FALSE</span>)  <span class="co"># Suppress extraneous information</span></span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="logistic-regression-binary.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb279-2"><a href="logistic-regression-binary.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(prelim,   <span class="co"># Saved object from before</span></span>
+<span id="cb279-3"><a href="logistic-regression-binary.html#cb279-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">digits=</span><span class="dv">4</span>, <span class="co"># How many digits to display in each column</span></span>
+<span id="cb279-4"><a href="logistic-regression-binary.html#cb279-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">model.info =</span> <span class="cn">FALSE</span>)  <span class="co"># Suppress extraneous information</span></span></code></pre></div>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -685,10 +685,10 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <li><code>DIGITS</code> is the number of digits to round the values to in the table</li>
 <li><code>CONF</code> is the confidence interval level (e.g., 95 = 95%)</li>
 </ul>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="logistic-regression-binary.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(           <span class="co"># Wrapping it with &#39;flextable&#39; for nicer output</span></span>
-<span id="cb277-2"><a href="logistic-regression-binary.html#cb277-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">or_table</span>(prelim,  <span class="co"># Saved logistic regression model from above</span></span>
-<span id="cb277-3"><a href="logistic-regression-binary.html#cb277-3" aria-hidden="true" tabindex="-1"></a>             <span class="dv">4</span>,      <span class="co"># Number of digits to round output to</span></span>
-<span id="cb277-4"><a href="logistic-regression-binary.html#cb277-4" aria-hidden="true" tabindex="-1"></a>             <span class="dv">95</span>))    <span class="co"># Level of confidence</span></span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="logistic-regression-binary.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(           <span class="co"># Wrapping it with &#39;flextable&#39; for nicer output</span></span>
+<span id="cb280-2"><a href="logistic-regression-binary.html#cb280-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">or_table</span>(prelim,  <span class="co"># Saved logistic regression model from above</span></span>
+<span id="cb280-3"><a href="logistic-regression-binary.html#cb280-3" aria-hidden="true" tabindex="-1"></a>             <span class="dv">4</span>,      <span class="co"># Number of digits to round output to</span></span>
+<span id="cb280-4"><a href="logistic-regression-binary.html#cb280-4" aria-hidden="true" tabindex="-1"></a>             <span class="dv">95</span>))    <span class="co"># Level of confidence</span></span></code></pre></div>
 <template id="ad07bde6-b36e-4d02-8169-eac774eee08b"><style>
 .tabwid table{
   border-spacing:0px !important;
@@ -758,33 +758,33 @@ fantome.appendChild(templateContent);
 <li>One containing the training data, <code>train</code></li>
 <li>One containing the testing/holdout data, <code>test</code></li>
 </ul>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="logistic-regression-binary.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use &#39;caret&#39; package to create training and test/holdout samples</span></span>
-<span id="cb278-2"><a href="logistic-regression-binary.html#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create two separate dataframes: train and test</span></span>
-<span id="cb278-3"><a href="logistic-regression-binary.html#cb278-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb278-4"><a href="logistic-regression-binary.html#cb278-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)    <span class="co"># Load the &#39;caret package&#39;</span></span>
-<span id="cb278-5"><a href="logistic-regression-binary.html#cb278-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb278-6"><a href="logistic-regression-binary.html#cb278-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by setting a random number seed so that the same samples</span></span>
-<span id="cb278-7"><a href="logistic-regression-binary.html#cb278-7" aria-hidden="true" tabindex="-1"></a><span class="co"># will be created each time</span></span>
-<span id="cb278-8"><a href="logistic-regression-binary.html#cb278-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4320</span>)</span>
-<span id="cb278-9"><a href="logistic-regression-binary.html#cb278-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb278-10"><a href="logistic-regression-binary.html#cb278-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe of row numbers that should be in the &#39;train&#39; sample</span></span>
-<span id="cb278-11"><a href="logistic-regression-binary.html#cb278-11" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(<span class="at">y=</span>directmktg<span class="sc">$</span>buy, <span class="co"># Outcome variable</span></span>
-<span id="cb278-12"><a href="logistic-regression-binary.html#cb278-12" aria-hidden="true" tabindex="-1"></a>                               <span class="at">p=</span>.<span class="dv">75</span>, <span class="co"># Percent of sample to be in &#39;train&#39;</span></span>
-<span id="cb278-13"><a href="logistic-regression-binary.html#cb278-13" aria-hidden="true" tabindex="-1"></a>                               <span class="at">list=</span><span class="cn">FALSE</span>)  <span class="co"># Put result in matrix</span></span>
-<span id="cb278-14"><a href="logistic-regression-binary.html#cb278-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb278-15"><a href="logistic-regression-binary.html#cb278-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only rows from data that are in &#39;inTrain&#39;; assign to &#39;train&#39;</span></span>
-<span id="cb278-16"><a href="logistic-regression-binary.html#cb278-16" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> directmktg[inTrain,]</span>
-<span id="cb278-17"><a href="logistic-regression-binary.html#cb278-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only rows from data that not in &#39;inTrain&#39;; assign to &#39;test&#39;</span></span>
-<span id="cb278-18"><a href="logistic-regression-binary.html#cb278-18" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> directmktg[<span class="sc">-</span>inTrain,]</span></code></pre></div></li>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="logistic-regression-binary.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use &#39;caret&#39; package to create training and test/holdout samples</span></span>
+<span id="cb281-2"><a href="logistic-regression-binary.html#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create two separate dataframes: train and test</span></span>
+<span id="cb281-3"><a href="logistic-regression-binary.html#cb281-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb281-4"><a href="logistic-regression-binary.html#cb281-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)    <span class="co"># Load the &#39;caret package&#39;</span></span>
+<span id="cb281-5"><a href="logistic-regression-binary.html#cb281-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb281-6"><a href="logistic-regression-binary.html#cb281-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Start by setting a random number seed so that the same samples</span></span>
+<span id="cb281-7"><a href="logistic-regression-binary.html#cb281-7" aria-hidden="true" tabindex="-1"></a><span class="co"># will be created each time</span></span>
+<span id="cb281-8"><a href="logistic-regression-binary.html#cb281-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4320</span>)</span>
+<span id="cb281-9"><a href="logistic-regression-binary.html#cb281-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb281-10"><a href="logistic-regression-binary.html#cb281-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe of row numbers that should be in the &#39;train&#39; sample</span></span>
+<span id="cb281-11"><a href="logistic-regression-binary.html#cb281-11" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(<span class="at">y=</span>directmktg<span class="sc">$</span>buy, <span class="co"># Outcome variable</span></span>
+<span id="cb281-12"><a href="logistic-regression-binary.html#cb281-12" aria-hidden="true" tabindex="-1"></a>                               <span class="at">p=</span>.<span class="dv">75</span>, <span class="co"># Percent of sample to be in &#39;train&#39;</span></span>
+<span id="cb281-13"><a href="logistic-regression-binary.html#cb281-13" aria-hidden="true" tabindex="-1"></a>                               <span class="at">list=</span><span class="cn">FALSE</span>)  <span class="co"># Put result in matrix</span></span>
+<span id="cb281-14"><a href="logistic-regression-binary.html#cb281-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb281-15"><a href="logistic-regression-binary.html#cb281-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only rows from data that are in &#39;inTrain&#39;; assign to &#39;train&#39;</span></span>
+<span id="cb281-16"><a href="logistic-regression-binary.html#cb281-16" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> directmktg[inTrain,]</span>
+<span id="cb281-17"><a href="logistic-regression-binary.html#cb281-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only rows from data that not in &#39;inTrain&#39;; assign to &#39;test&#39;</span></span>
+<span id="cb281-18"><a href="logistic-regression-binary.html#cb281-18" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> directmktg[<span class="sc">-</span>inTrain,]</span></code></pre></div></li>
 </ul>
 </div>
 <div id="run-model-with-only-training-sample" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Run Model with only Training Sample<a href="logistic-regression-binary.html#run-model-with-only-training-sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>Once completed, run the model on the training sample only</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="logistic-regression-binary.html#cb279-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, train, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb279-2"><a href="logistic-regression-binary.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(model,   <span class="co"># &#39;jtools&#39; results; use &#39;summary&#39; for Base R</span></span>
-<span id="cb279-3"><a href="logistic-regression-binary.html#cb279-3" aria-hidden="true" tabindex="-1"></a>     <span class="dv">4</span>, <span class="at">model.info=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="logistic-regression-binary.html#cb282-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> gender, train, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb282-2"><a href="logistic-regression-binary.html#cb282-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(model,   <span class="co"># &#39;jtools&#39; results; use &#39;summary&#39; for Base R</span></span>
+<span id="cb282-3"><a href="logistic-regression-binary.html#cb282-3" aria-hidden="true" tabindex="-1"></a>     <span class="dv">4</span>, <span class="at">model.info=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -909,8 +909,8 @@ fantome.appendChild(templateContent);
 </tr>
 </tfoot>
 </table>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="logistic-regression-binary.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(<span class="fu">or_table</span>(model))</span></code></pre></div>
-<template id="74f0a219-549a-428c-8eb0-7d0268c046a9"><style>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="logistic-regression-binary.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(<span class="fu">or_table</span>(model))</span></code></pre></div>
+<template id="e7744be6-df74-4be3-8a49-9498a48af4bc"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -948,11 +948,11 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-9c15bd6c{}.cl-9c0b9972{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9c0fae72{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9c0fae7c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9c0fc61e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9c0fc628{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9c0fc632{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9c0fc633{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9c0fc634{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9c0fc63c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-9c15bd6c'><thead><tr style="overflow-wrap:break-word;"><th class="cl-9c0fc61e"><p class="cl-9c0fae72"><span class="cl-9c0b9972">Parameter</span></p></th><th class="cl-9c0fc628"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">OR Est</span></p></th><th class="cl-9c0fc628"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">p</span></p></th><th class="cl-9c0fc628"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">2.5%</span></p></th><th class="cl-9c0fc628"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">97.5%</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9c0fc632"><p class="cl-9c0fae72"><span class="cl-9c0b9972">(Intercept)</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.0004</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.000</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.0001</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.0025</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9c0fc632"><p class="cl-9c0fae72"><span class="cl-9c0b9972">age</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">1.1996</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.000</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">1.1505</span></p></td><td class="cl-9c0fc633"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">1.2509</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9c0fc634"><p class="cl-9c0fae72"><span class="cl-9c0b9972">genderFemale</span></p></td><td class="cl-9c0fc63c"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.9873</span></p></td><td class="cl-9c0fc63c"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.967</span></p></td><td class="cl-9c0fc63c"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">0.5399</span></p></td><td class="cl-9c0fc63c"><p class="cl-9c0fae7c"><span class="cl-9c0b9972">1.8056</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="cab49f69-84eb-4514-84e2-fcb89c4e7305"></div>
+</style><div class="tabwid"><style>.cl-cb343d70{}.cl-cb2b1ed4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cb2ebcce{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb2ebcd8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb2ed36c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb2ed376{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb2ed377{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb2ed378{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb2ed380{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb2ed381{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-cb343d70'><thead><tr style="overflow-wrap:break-word;"><th class="cl-cb2ed36c"><p class="cl-cb2ebcce"><span class="cl-cb2b1ed4">Parameter</span></p></th><th class="cl-cb2ed376"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">OR Est</span></p></th><th class="cl-cb2ed376"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">p</span></p></th><th class="cl-cb2ed376"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">2.5%</span></p></th><th class="cl-cb2ed376"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">97.5%</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cb2ed377"><p class="cl-cb2ebcce"><span class="cl-cb2b1ed4">(Intercept)</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.0004</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.000</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.0001</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.0025</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb2ed377"><p class="cl-cb2ebcce"><span class="cl-cb2b1ed4">age</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">1.1996</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.000</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">1.1505</span></p></td><td class="cl-cb2ed378"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">1.2509</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb2ed380"><p class="cl-cb2ebcce"><span class="cl-cb2b1ed4">genderFemale</span></p></td><td class="cl-cb2ed381"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.9873</span></p></td><td class="cl-cb2ed381"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.967</span></p></td><td class="cl-cb2ed381"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">0.5399</span></p></td><td class="cl-cb2ed381"><p class="cl-cb2ebcd8"><span class="cl-cb2b1ed4">1.8056</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="1d8e7620-daa9-4a54-8ea3-f4756bafb6a4"></div>
 <script>
-var dest = document.getElementById("cab49f69-84eb-4514-84e2-fcb89c4e7305");
-var template = document.getElementById("74f0a219-549a-428c-8eb0-7d0268c046a9");
+var dest = document.getElementById("1d8e7620-daa9-4a54-8ea3-f4756bafb6a4");
+var template = document.getElementById("e7744be6-df74-4be3-8a49-9498a48af4bc");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
 fantome.appendChild(templateContent);
@@ -968,37 +968,37 @@ fantome.appendChild(templateContent);
 <h2><span class="header-section-number">4.5</span> Margin Plots<a href="logistic-regression-binary.html#margin-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>Margin plots are done in much the same way as with <a href="linear-regression.html#linregmarginplots">linear regression margin plots</a></p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="logistic-regression-binary.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load &#39;effects&#39; package</span></span>
-<span id="cb281-2"><a href="logistic-regression-binary.html#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb281-3"><a href="logistic-regression-binary.html#cb281-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-4"><a href="logistic-regression-binary.html#cb281-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame with values to be plotted with &#39;age&#39; as focal</span></span>
-<span id="cb281-5"><a href="logistic-regression-binary.html#cb281-5" aria-hidden="true" tabindex="-1"></a>age.pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predictorEffect</span>(<span class="st">&quot;age&quot;</span>, model))</span>
-<span id="cb281-6"><a href="logistic-regression-binary.html#cb281-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-7"><a href="logistic-regression-binary.html#cb281-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot and assign to &#39;p1&#39;</span></span>
-<span id="cb281-8"><a href="logistic-regression-binary.html#cb281-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> age.pred <span class="sc">%&gt;%</span></span>
-<span id="cb281-9"><a href="logistic-regression-binary.html#cb281-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>fit)) <span class="sc">+</span></span>
-<span id="cb281-10"><a href="logistic-regression-binary.html#cb281-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
-<span id="cb281-11"><a href="logistic-regression-binary.html#cb281-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower,  <span class="co"># Draws the confidence interval bands</span></span>
-<span id="cb281-12"><a href="logistic-regression-binary.html#cb281-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>upper),</span>
-<span id="cb281-13"><a href="logistic-regression-binary.html#cb281-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
-<span id="cb281-14"><a href="logistic-regression-binary.html#cb281-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb281-15"><a href="logistic-regression-binary.html#cb281-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb281-16"><a href="logistic-regression-binary.html#cb281-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-17"><a href="logistic-regression-binary.html#cb281-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame with values to be plotted with &#39;gender&#39; as focal</span></span>
-<span id="cb281-18"><a href="logistic-regression-binary.html#cb281-18" aria-hidden="true" tabindex="-1"></a>g.pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predictorEffect</span>(<span class="st">&quot;gender&quot;</span>, model))</span>
-<span id="cb281-19"><a href="logistic-regression-binary.html#cb281-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-20"><a href="logistic-regression-binary.html#cb281-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot and assign to &#39;p2&#39;</span></span>
-<span id="cb281-21"><a href="logistic-regression-binary.html#cb281-21" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> g.pred <span class="sc">%&gt;%</span></span>
-<span id="cb281-22"><a href="logistic-regression-binary.html#cb281-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>fit, </span>
-<span id="cb281-23"><a href="logistic-regression-binary.html#cb281-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span>   <span class="co"># Need to draw line between points</span></span>
-<span id="cb281-24"><a href="logistic-regression-binary.html#cb281-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb281-25"><a href="logistic-regression-binary.html#cb281-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb281-26"><a href="logistic-regression-binary.html#cb281-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb281-27"><a href="logistic-regression-binary.html#cb281-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb281-28"><a href="logistic-regression-binary.html#cb281-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb281-29"><a href="logistic-regression-binary.html#cb281-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb281-30"><a href="logistic-regression-binary.html#cb281-30" aria-hidden="true" tabindex="-1"></a><span class="co">#Use &#39;cowplot&#39; to put into single plot</span></span>
-<span id="cb281-31"><a href="logistic-regression-binary.html#cb281-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1,p2)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="logistic-regression-binary.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load &#39;effects&#39; package</span></span>
+<span id="cb284-2"><a href="logistic-regression-binary.html#cb284-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb284-3"><a href="logistic-regression-binary.html#cb284-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-4"><a href="logistic-regression-binary.html#cb284-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame with values to be plotted with &#39;age&#39; as focal</span></span>
+<span id="cb284-5"><a href="logistic-regression-binary.html#cb284-5" aria-hidden="true" tabindex="-1"></a>age.pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predictorEffect</span>(<span class="st">&quot;age&quot;</span>, model))</span>
+<span id="cb284-6"><a href="logistic-regression-binary.html#cb284-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-7"><a href="logistic-regression-binary.html#cb284-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot and assign to &#39;p1&#39;</span></span>
+<span id="cb284-8"><a href="logistic-regression-binary.html#cb284-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> age.pred <span class="sc">%&gt;%</span></span>
+<span id="cb284-9"><a href="logistic-regression-binary.html#cb284-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>fit)) <span class="sc">+</span></span>
+<span id="cb284-10"><a href="logistic-regression-binary.html#cb284-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># Draw predicted line</span></span>
+<span id="cb284-11"><a href="logistic-regression-binary.html#cb284-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower,  <span class="co"># Draws the confidence interval bands</span></span>
+<span id="cb284-12"><a href="logistic-regression-binary.html#cb284-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ymax=</span>upper),</span>
+<span id="cb284-13"><a href="logistic-regression-binary.html#cb284-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># Sets transparency level</span></span>
+<span id="cb284-14"><a href="logistic-regression-binary.html#cb284-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb284-15"><a href="logistic-regression-binary.html#cb284-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb284-16"><a href="logistic-regression-binary.html#cb284-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-17"><a href="logistic-regression-binary.html#cb284-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame with values to be plotted with &#39;gender&#39; as focal</span></span>
+<span id="cb284-18"><a href="logistic-regression-binary.html#cb284-18" aria-hidden="true" tabindex="-1"></a>g.pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predictorEffect</span>(<span class="st">&quot;gender&quot;</span>, model))</span>
+<span id="cb284-19"><a href="logistic-regression-binary.html#cb284-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-20"><a href="logistic-regression-binary.html#cb284-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot and assign to &#39;p2&#39;</span></span>
+<span id="cb284-21"><a href="logistic-regression-binary.html#cb284-21" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> g.pred <span class="sc">%&gt;%</span></span>
+<span id="cb284-22"><a href="logistic-regression-binary.html#cb284-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>fit, </span>
+<span id="cb284-23"><a href="logistic-regression-binary.html#cb284-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span>   <span class="co"># Need to draw line between points</span></span>
+<span id="cb284-24"><a href="logistic-regression-binary.html#cb284-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb284-25"><a href="logistic-regression-binary.html#cb284-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb284-26"><a href="logistic-regression-binary.html#cb284-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb284-27"><a href="logistic-regression-binary.html#cb284-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb284-28"><a href="logistic-regression-binary.html#cb284-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb284-29"><a href="logistic-regression-binary.html#cb284-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-30"><a href="logistic-regression-binary.html#cb284-30" aria-hidden="true" tabindex="-1"></a><span class="co">#Use &#39;cowplot&#39; to put into single plot</span></span>
+<span id="cb284-31"><a href="logistic-regression-binary.html#cb284-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1,p2)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t4marginplot1"></span>
 <img src="_main_files/figure-html/t4marginplot1-1.png" alt="Margin plots for variables in model" width="672" />
 <p class="caption">
@@ -1019,10 +1019,10 @@ Figure 4.1: Margin plots for variables in model
 <li><code>CUTOFF=</code> is the cutoff threshold; default is 0.5</li>
 </ul></li>
 <li><p>This function requires the package <code>caret</code>, which should already be loaded from the splitting of the data</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="logistic-regression-binary.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classification Matrix for training sample</span></span>
-<span id="cb282-2"><a href="logistic-regression-binary.html#cb282-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_cm</span>(model,   <span class="co"># Name of the results object</span></span>
-<span id="cb282-3"><a href="logistic-regression-binary.html#cb282-3" aria-hidden="true" tabindex="-1"></a>          train,   <span class="co"># Use training sample</span></span>
-<span id="cb282-4"><a href="logistic-regression-binary.html#cb282-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Yes&quot;</span>)   <span class="co"># Level of &#39;buy&#39; that represents success/true</span></span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="logistic-regression-binary.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classification Matrix for training sample</span></span>
+<span id="cb285-2"><a href="logistic-regression-binary.html#cb285-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_cm</span>(model,   <span class="co"># Name of the results object</span></span>
+<span id="cb285-3"><a href="logistic-regression-binary.html#cb285-3" aria-hidden="true" tabindex="-1"></a>          train,   <span class="co"># Use training sample</span></span>
+<span id="cb285-4"><a href="logistic-regression-binary.html#cb285-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Yes&quot;</span>)   <span class="co"># Level of &#39;buy&#39; that represents success/true</span></span></code></pre></div>
 <pre class="custom-output"><code>Confusion Matrix and Statistics
 
           Reference
@@ -1065,12 +1065,12 @@ PCC = 53.99%</code></pre>
 <li><code>DATA</code> is the data set for which the ROC should be produced (i.e., original, training, or testing)</li>
 </ul></li>
 <li><p>This function requires the package <code>pROC</code>, which needs to be loaded</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="logistic-regression-binary.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load &#39;pROC&#39; package</span></span>
-<span id="cb284-2"><a href="logistic-regression-binary.html#cb284-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb284-3"><a href="logistic-regression-binary.html#cb284-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb284-4"><a href="logistic-regression-binary.html#cb284-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ROC Curve for the training sample</span></span>
-<span id="cb284-5"><a href="logistic-regression-binary.html#cb284-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_roc</span>(model,   <span class="co"># Name of the results object</span></span>
-<span id="cb284-6"><a href="logistic-regression-binary.html#cb284-6" aria-hidden="true" tabindex="-1"></a>           train)   <span class="co"># Use training sample</span></span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="logistic-regression-binary.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load &#39;pROC&#39; package</span></span>
+<span id="cb287-2"><a href="logistic-regression-binary.html#cb287-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb287-3"><a href="logistic-regression-binary.html#cb287-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb287-4"><a href="logistic-regression-binary.html#cb287-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ROC Curve for the training sample</span></span>
+<span id="cb287-5"><a href="logistic-regression-binary.html#cb287-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_roc</span>(model,   <span class="co"># Name of the results object</span></span>
+<span id="cb287-6"><a href="logistic-regression-binary.html#cb287-6" aria-hidden="true" tabindex="-1"></a>           train)   <span class="co"># Use training sample</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t4roc1"></span>
 <img src="_main_files/figure-html/t4roc1-1.png" alt="ROC Curve for Training Sample" width="672" />
 <p class="caption">
@@ -1096,20 +1096,20 @@ Figure 4.2: ROC Curve for Training Sample
 <ul>
 <li>To use, assign the result to an object name, and then call one of the four objects returned from the function</li>
 </ul>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="logistic-regression-binary.html#cb285-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># Load necessary packages (if not already loaded)</span></span>
-<span id="cb285-2"><a href="logistic-regression-binary.html#cb285-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb285-3"><a href="logistic-regression-binary.html#cb285-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb285-4"><a href="logistic-regression-binary.html#cb285-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb285-5"><a href="logistic-regression-binary.html#cb285-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-6"><a href="logistic-regression-binary.html#cb285-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the function and assign to object named &#39;glresults&#39;</span></span>
-<span id="cb285-7"><a href="logistic-regression-binary.html#cb285-7" aria-hidden="true" tabindex="-1"></a>glresults <span class="ot">&lt;-</span> <span class="fu">gainlift</span>(model,  <span class="co"># Name of the glm results object</span></span>
-<span id="cb285-8"><a href="logistic-regression-binary.html#cb285-8" aria-hidden="true" tabindex="-1"></a>                      train,  <span class="co"># Name of the training data frame</span></span>
-<span id="cb285-9"><a href="logistic-regression-binary.html#cb285-9" aria-hidden="true" tabindex="-1"></a>                      test,   <span class="co"># Name of the testing data frame</span></span>
-<span id="cb285-10"><a href="logistic-regression-binary.html#cb285-10" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Yes&quot;</span>)  <span class="co"># Level that represents success/true</span></span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="logistic-regression-binary.html#cb288-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># Load necessary packages (if not already loaded)</span></span>
+<span id="cb288-2"><a href="logistic-regression-binary.html#cb288-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb288-3"><a href="logistic-regression-binary.html#cb288-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb288-4"><a href="logistic-regression-binary.html#cb288-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb288-5"><a href="logistic-regression-binary.html#cb288-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb288-6"><a href="logistic-regression-binary.html#cb288-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the function and assign to object named &#39;glresults&#39;</span></span>
+<span id="cb288-7"><a href="logistic-regression-binary.html#cb288-7" aria-hidden="true" tabindex="-1"></a>glresults <span class="ot">&lt;-</span> <span class="fu">gainlift</span>(model,  <span class="co"># Name of the glm results object</span></span>
+<span id="cb288-8"><a href="logistic-regression-binary.html#cb288-8" aria-hidden="true" tabindex="-1"></a>                      train,  <span class="co"># Name of the training data frame</span></span>
+<span id="cb288-9"><a href="logistic-regression-binary.html#cb288-9" aria-hidden="true" tabindex="-1"></a>                      test,   <span class="co"># Name of the testing data frame</span></span>
+<span id="cb288-10"><a href="logistic-regression-binary.html#cb288-10" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Yes&quot;</span>)  <span class="co"># Level that represents success/true</span></span></code></pre></div>
 <ul>
 <li><code>OBJ.NAME$gaintable</code> returns the Gain table</li>
 </ul>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="logistic-regression-binary.html#cb286-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>gaintable</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="logistic-regression-binary.html#cb289-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>gaintable</span></code></pre></div>
 <pre class="custom-output"><code># A tibble: 20 × 3
    `% Sample` Holdout Training
         &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
@@ -1138,7 +1138,7 @@ Figure 4.2: ROC Curve for Training Sample
 <ul>
 <li><code>OBJ.NAME$gainplot</code> returns the Gain plot</li>
 </ul>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="logistic-regression-binary.html#cb288-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>gainplot</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="logistic-regression-binary.html#cb291-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>gainplot</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t4gainlift02"></span>
 <img src="_main_files/figure-html/t4gainlift02-1.png" alt="Gain Plot" width="672" />
 <p class="caption">
@@ -1148,7 +1148,7 @@ Figure 4.3: Gain Plot
 <ul>
 <li><code>OBJ.NAME$lifttable</code> returns the Lift table</li>
 </ul>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="logistic-regression-binary.html#cb289-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>lifttable</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="logistic-regression-binary.html#cb292-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>lifttable</span></code></pre></div>
 <pre class="custom-output"><code># A tibble: 20 × 3
    `% Sample` Holdout Training
         &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
@@ -1177,7 +1177,7 @@ Figure 4.3: Gain Plot
 <ul>
 <li><code>OBJ.NAME$liftplot</code> returns the Lift plot</li>
 </ul>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="logistic-regression-binary.html#cb291-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>liftplot</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="logistic-regression-binary.html#cb294-1" aria-hidden="true" tabindex="-1"></a>glresults<span class="sc">$</span>liftplot</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t4gainlift04"></span>
 <img src="_main_files/figure-html/t4gainlift04-1.png" alt="Lift Plot" width="672" />
 <p class="caption">
@@ -1197,13 +1197,13 @@ Figure 4.4: Lift Plot
 <li><code>"POS"</code> is the level of the factor variable that is the <span style="font-family: Courier;">SUCCESS</span> level</li>
 </ul></li>
 <li><p>This function requires the <code>ggplot2</code> package, which needs to be loaded first</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="logistic-regression-binary.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
-<span id="cb292-2"><a href="logistic-regression-binary.html#cb292-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb292-3"><a href="logistic-regression-binary.html#cb292-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb292-4"><a href="logistic-regression-binary.html#cb292-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sensitivity/Specificity Plot for Training Sample</span></span>
-<span id="cb292-5"><a href="logistic-regression-binary.html#cb292-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_cut</span>(model,  <span class="co"># Name of the results object</span></span>
-<span id="cb292-6"><a href="logistic-regression-binary.html#cb292-6" aria-hidden="true" tabindex="-1"></a>          train,   <span class="co"># Use training sample</span></span>
-<span id="cb292-7"><a href="logistic-regression-binary.html#cb292-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Yes&quot;</span>)   <span class="co"># Level of &#39;buy&#39; that represents success/true</span></span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="logistic-regression-binary.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<span id="cb295-2"><a href="logistic-regression-binary.html#cb295-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb295-3"><a href="logistic-regression-binary.html#cb295-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-4"><a href="logistic-regression-binary.html#cb295-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sensitivity/Specificity Plot for Training Sample</span></span>
+<span id="cb295-5"><a href="logistic-regression-binary.html#cb295-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logreg_cut</span>(model,  <span class="co"># Name of the results object</span></span>
+<span id="cb295-6"><a href="logistic-regression-binary.html#cb295-6" aria-hidden="true" tabindex="-1"></a>          train,   <span class="co"># Use training sample</span></span>
+<span id="cb295-7"><a href="logistic-regression-binary.html#cb295-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Yes&quot;</span>)   <span class="co"># Level of &#39;buy&#39; that represents success/true</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t4sensspec"></span>
 <img src="_main_files/figure-html/t4sensspec-1.png" alt="Sensitivity/Specificity Plot for Training Sample" width="672" />
 <p class="caption">
