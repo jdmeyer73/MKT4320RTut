@@ -40,6 +40,8 @@ source("gainlift.R")
 source("logreg_cut.R")
 ```
 
+[Video Tutorial: Logistic Regression - Introduction](https://youtu.be/7Tk9QGJAx9w){target="_blank"}
+
 ## The `glm()` Function
 
 * `glm` stands for Generalized Linear Model, and this function can be used with a variety of dependent variables by specifying different `family="FAMILY"` options
@@ -58,6 +60,8 @@ source("logreg_cut.R")
     ```
 <caption>(\#tab:t4lr1) Logit Coefficients from `glm()` call</caption>
 
+[Video Tutorial: *glm()* Basic Usage](https://youtu.be/ts78xA1bwHY){target="_blank"}
+
 * However, if the results of the `glm()` call are assigned to an object, the Base R `summary()` function can be used to get much more detailed output, but requires manual calculation of McFadden's Pseudo-$R^2$
     ```{r t4lr2, cache=TRUE}
     prelim <- glm(buy ~ age + gender, directmktg, family="binomial")
@@ -67,6 +71,9 @@ source("logreg_cut.R")
     cat("McFadden's Pseudo-Rsquared = ", Mrsq)
     ```
 <caption>(\#tab:t4lr2) Summary results from `glm()` call</caption>
+
+[Video Tutorial: *glm()* Output](https://youtu.be/Jx1SKnNxVvI){target="_blank"}
+
 * For "nicer" looking results, the package `jtools` can be used
     * NOTE: `jtools` is not available in BGSU's Virtual Computing Lab
     ```{r t4lr3, cache=TRUE}
@@ -77,18 +84,33 @@ source("logreg_cut.R")
     ```
 <caption>(\#tab:t4lr3) Summary results from `glm()` using `jtools` package</caption>
 
+[Video Tutorial: *glm()* Output Using the *jtools* Package](https://youtu.be/Ck0-csdEv5I){target="_blank"}
+
+### Odds Ratio Coefficients
+
 * To get the Odds Ratio coefficients, use the user defined function `or_table.R`
 * Usage: `or_table(MODEL, DIGITS, CONF)`
     * `MODEL` is the name of the object with results of the `glm()` call
     * `DIGITS` is the number of digits to round the values to in the table
     * `CONF` is the confidence interval level (e.g., 95 = 95%)
     ``` {r t4or1, cache=TRUE}
-    flextable(           # Wrapping it with 'flextable' for nicer output
+    flextable(           # Wrapping it with 'flextable' for nicer output; not required
         or_table(prelim,  # Saved logistic regression model from above
                  4,      # Number of digits to round output to
                  95))    # Level of confidence
     ```
 <caption>(\#tab:t4or1) Odds Ratio Coefficients</caption>
+
+* Odds Ratio coefficients can also be obtained from the `summ` function of the `jtools` package
+    ```{r t4lr3b, cache=TRUE}
+    summ(prelim,   # Saved object from before
+         digits=4, # How many digits to display in each column
+         exp = TRUE,  # Obtain exponentiated coefficients (i.e., Odds Ratio)
+         model.info = FALSE)  # Suppress extraneous information
+    ```
+<caption>(\#tab:t4lr3b) Odds Ratio Coefficients using `jtools` package</caption>
+
+[Video Tutorial: *glm()* Odds Ratio Coefficients](https://youtu.be/iy571oPix_M){target="_blank"}
     
 ## Estimate with Training Sample Only
 
@@ -121,9 +143,12 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     test <- directmktg[-inTrain,]
     ```
 
+[Video Tutorial: Creating Training and Test Samples](https://youtu.be/ctWl-x-DKOU){target="_blank"}
+
 ### Run Model with only Training Sample
 
 * Once completed, run the model on the training sample only
+   * Goodness-of-Fit measures can be obtained from the results
     ``` {r t4lrtrainonly1}
     model <- glm(buy ~ age + gender, train, family="binomial")
     summ(model,   # 'jtools' results; use 'summary' for Base R
@@ -131,44 +156,8 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     flextable(or_table(model))
     ```
 <caption>(\#tab:t4lrtrainonly1) Logistic Regression Results for Training Sample</caption>
-    
-## Margin Plots
 
-* Margin plots are done in much the same way as with [linear regression margin plots](#linregmarginplots)
-
-    ```{r t4marginplot1, fig.cap="Margin plots for variables in model"}
-    # Load 'effects' package
-    library(effects)
-    
-    # Create data frame with values to be plotted with 'age' as focal
-    age.pred <- data.frame(predictorEffect("age", model))
-    
-    # Create plot and assign to 'p1'
-    p1 <- age.pred %>%
-        ggplot(aes(x=age, y=fit)) +
-            geom_line(size=1) +   # Draw predicted line
-            geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
-                            ymax=upper),
-                            alpha=0.2) + # Sets transparency level
-            labs(x="Age", y="Pr(Buy)") +
-            scale_y_continuous(limits=c(0,1))
-    
-    # Create data frame with values to be plotted with 'gender' as focal
-    g.pred <- data.frame(predictorEffect("gender", model))
-    
-    # Create plot and assign to 'p2'
-    p2 <- g.pred %>%
-        ggplot(aes(x=gender, y=fit, 
-               group=1)) +   # Need to draw line between points
-            geom_point(size=4) + 
-            geom_line(color="orange") + 
-            geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
-            labs(x="Gender", y="Pr(Buy)") +
-            scale_y_continuous(limits=c(0,1))
-    
-    #Use 'cowplot' to put into single plot
-    plot_grid(p1,p2)
-    ```
+[Video Tutorial: Model Fit - Goodness-of-Fit Measures](https://youtu.be/1NOVark1Ki4){target="_blank"}
     
 ## Classification Matrix
 
@@ -187,6 +176,8 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     ```
 <caption>(\#tab:t4classmat1) Classification Matrix for Training Sample
 
+[Video Tutorial: Model Fit - Classification Matrix](https://youtu.be/MWM9Jsb4iZQ){target="_blank"}
+
 ## ROC Curve
 
 * To get the ROC curve, use the user defined function `logreg_roc.R`
@@ -202,6 +193,8 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     logreg_roc(model,   # Name of the results object
                train)   # Use training sample
     ```
+
+[Video Tutorial: Model Fit - ROC Curve](https://youtu.be/pclV0SBPL5c){target="_blank"}
     
 ## Gain/Lift Charts and Tables
 
@@ -251,6 +244,8 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     glresults$liftplot
     ```
 
+[Video Tutorial: Model Performance - Gain and Lift](https://youtu.be/9O6qNetd6GQ){target="_blank"}
+
 ## Sensitivity/Specificity Plot
 
 * To get the Sensitivity/Specificity plot, use the user defined function `logreg_cut.R`
@@ -268,3 +263,44 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
               train,   # Use training sample
               "Yes")   # Level of 'buy' that represents success/true
     ```
+
+[Video Tutorial: Logistic Regression - Sensitivity/Specificity Plots](https://youtu.be/WNVklblqVxA){target="_blank"}
+
+## Margin Plots
+
+* Margin plots are done in much the same way as with [linear regression margin plots](#linregmarginplots)
+    ```{r t4marginplot1, fig.cap="Margin plots for variables in model"}
+    # Load 'effects' package
+    library(effects)
+    
+    # Create data frame with values to be plotted with 'age' as focal
+    age.pred <- data.frame(predictorEffect("age", model))
+    
+    # Create plot and assign to 'p1'
+    p1 <- age.pred %>%
+        ggplot(aes(x=age, y=fit)) +
+            geom_line(size=1) +   # Draw predicted line
+            geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
+                            ymax=upper),
+                            alpha=0.2) + # Sets transparency level
+            labs(x="Age", y="Pr(Buy)") +
+            scale_y_continuous(limits=c(0,1))
+    
+    # Create data frame with values to be plotted with 'gender' as focal
+    g.pred <- data.frame(predictorEffect("gender", model))
+    
+    # Create plot and assign to 'p2'
+    p2 <- g.pred %>%
+        ggplot(aes(x=gender, y=fit, 
+               group=1)) +   # Need to draw line between points
+            geom_point(size=4) + 
+            geom_line(color="orange") + 
+            geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
+            labs(x="Gender", y="Pr(Buy)") +
+            scale_y_continuous(limits=c(0,1))
+    
+    #Use 'cowplot' to put into single plot
+    plot_grid(p1,p2)
+    ```
+    
+[Video Tutorial: Logistic Regression - Margin Plots](https://youtu.be/W_k_NE6PE4E){target="_blank"}

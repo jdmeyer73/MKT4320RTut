@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-01-03" />
+<meta name="date" content="2023-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -304,17 +304,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#introduction-4"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#the-glm-function"><i class="fa fa-check"></i><b>4.2</b> The <code>glm()</code> Function</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#logistic-regression-using-glm"><i class="fa fa-check"></i><b>4.3</b> Logistic Regression using <code>glm()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#logistic-regression-using-glm"><i class="fa fa-check"></i><b>4.3</b> Logistic Regression using <code>glm()</code></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#odds-ratio-coefficients"><i class="fa fa-check"></i><b>4.3.1</b> Odds Ratio Coefficients</a></li>
+</ul></li>
 <li class="chapter" data-level="4.4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#estimate-with-training-sample-only"><i class="fa fa-check"></i><b>4.4</b> Estimate with Training Sample Only</a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#creating-train-and-test-samples"><i class="fa fa-check"></i><b>4.4.1</b> Creating <code>train</code> and <code>test</code> Samples</a></li>
 <li class="chapter" data-level="4.4.2" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#run-model-with-only-training-sample"><i class="fa fa-check"></i><b>4.4.2</b> Run Model with only Training Sample</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#margin-plots"><i class="fa fa-check"></i><b>4.5</b> Margin Plots</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.6</b> Classification Matrix</a></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.7</b> ROC Curve</a></li>
-<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.8</b> Gain/Lift Charts and Tables</a></li>
-<li class="chapter" data-level="4.9" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.9</b> Sensitivity/Specificity Plot</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#classification-matrix"><i class="fa fa-check"></i><b>4.5</b> Classification Matrix</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#roc-curve"><i class="fa fa-check"></i><b>4.6</b> ROC Curve</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#gainlift-charts-and-tables"><i class="fa fa-check"></i><b>4.7</b> Gain/Lift Charts and Tables</a></li>
+<li class="chapter" data-level="4.8" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#sensitivityspecificity-plot"><i class="fa fa-check"></i><b>4.8</b> Sensitivity/Specificity Plot</a></li>
+<li class="chapter" data-level="4.9" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html#margin-plots"><i class="fa fa-check"></i><b>4.9</b> Margin Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cluster-analysis.html"><a href="cluster-analysis.html"><i class="fa fa-check"></i><b>5</b> Cluster Analysis</a>
 <ul>
@@ -457,8 +460,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/greekbrands.rdata">greekbrands.rdata</a> is used. Load it now.</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="pca-perceptual-maps.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb370-2"><a href="pca-perceptual-maps.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="pca-perceptual-maps.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb371-2"><a href="pca-perceptual-maps.html#cb371-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/greekbrands.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
 <div id="introduction-7" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introduction<a href="pca-perceptual-maps.html#introduction-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -467,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="percmap.R">percmap.R</a> returns a <code>ggplot</code> created percpetual (or joint-space) map.</li>
 </ul>
 <p>Once saved in your working directory, it is good practice to source user defined functions.</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="pca-perceptual-maps.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="pca-perceptual-maps.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span></code></pre></div>
 </div>
 <div id="base-r-6" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Base R<a href="pca-perceptual-maps.html#base-r-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -484,21 +487,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="pca-perceptual-maps.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb372-2"><a href="pca-perceptual-maps.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb372-3"><a href="pca-perceptual-maps.html#cb372-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb372-4"><a href="pca-perceptual-maps.html#cb372-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand) <span class="sc">%&gt;%</span></span>
-<span id="cb372-5"><a href="pca-perceptual-maps.html#cb372-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(brand) <span class="sc">%&gt;%</span></span>
-<span id="cb372-6"><a href="pca-perceptual-maps.html#cb372-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb373-2"><a href="pca-perceptual-maps.html#cb373-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb373-3"><a href="pca-perceptual-maps.html#cb373-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb373-4"><a href="pca-perceptual-maps.html#cb373-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand) <span class="sc">%&gt;%</span></span>
+<span id="cb373-5"><a href="pca-perceptual-maps.html#cb373-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(brand) <span class="sc">%&gt;%</span></span>
+<span id="cb373-6"><a href="pca-perceptual-maps.html#cb373-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean)</span></code></pre></div>
 </div>
 <div id="perform-pca-first" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Perform PCA first<a href="pca-perceptual-maps.html#perform-pca-first" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>To create the perceptual map, we must first run and store a PCA object on our data frame</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>perform<span class="sc">+</span>leader<span class="sc">+</span>fun<span class="sc">+</span>serious<span class="sc">+</span>bargain<span class="sc">+</span>value, </span>
-<span id="cb373-2"><a href="pca-perceptual-maps.html#cb373-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>pmdata, </span>
-<span id="cb373-3"><a href="pca-perceptual-maps.html#cb373-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   </span>
-<span id="cb373-4"><a href="pca-perceptual-maps.html#cb373-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)  </span></code></pre></div></li>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>perform<span class="sc">+</span>leader<span class="sc">+</span>fun<span class="sc">+</span>serious<span class="sc">+</span>bargain<span class="sc">+</span>value, </span>
+<span id="cb374-2"><a href="pca-perceptual-maps.html#cb374-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>pmdata, </span>
+<span id="cb374-3"><a href="pca-perceptual-maps.html#cb374-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   </span>
+<span id="cb374-4"><a href="pca-perceptual-maps.html#cb374-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)  </span></code></pre></div></li>
 </ul>
 </div>
 <div id="create-map-using-biplot" class="section level3 hasAnchor" number="7.2.3">
@@ -506,8 +509,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>The map is created using the <code>biplot</code> function with the PCA object passed to it along with group variable labels</li>
 </ul>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pcaout,  <span class="co"># PCA object from above</span></span>
-<span id="cb374-2"><a href="pca-perceptual-maps.html#cb374-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlabs=</span>pmdata<span class="sc">$</span>brand)   <span class="co"># Grouping variable labels</span></span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="pca-perceptual-maps.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pcaout,  <span class="co"># PCA object from above</span></span>
+<span id="cb375-2"><a href="pca-perceptual-maps.html#cb375-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlabs=</span>pmdata<span class="sc">$</span>brand)   <span class="co"># Grouping variable labels</span></span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 </div>
 </div>
@@ -521,14 +524,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The data frame does not need to be aggregated, but must contain ONLY those variables</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="pca-perceptual-maps.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb375-2"><a href="pca-perceptual-maps.html#cb375-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb375-3"><a href="pca-perceptual-maps.html#cb375-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb375-4"><a href="pca-perceptual-maps.html#cb375-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
-<span id="cb375-5"><a href="pca-perceptual-maps.html#cb375-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb375-6"><a href="pca-perceptual-maps.html#cb375-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
-<span id="cb375-7"><a href="pca-perceptual-maps.html#cb375-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
-<span id="cb375-8"><a href="pca-perceptual-maps.html#cb375-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="pca-perceptual-maps.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb376-2"><a href="pca-perceptual-maps.html#cb376-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb376-3"><a href="pca-perceptual-maps.html#cb376-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb376-4"><a href="pca-perceptual-maps.html#cb376-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
+<span id="cb376-5"><a href="pca-perceptual-maps.html#cb376-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-6"><a href="pca-perceptual-maps.html#cb376-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
+<span id="cb376-7"><a href="pca-perceptual-maps.html#cb376-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
+<span id="cb376-8"><a href="pca-perceptual-maps.html#cb376-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
 </div>
 <div id="using-the-function" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Using the function<a href="pca-perceptual-maps.html#using-the-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -559,13 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Perceptual Map</li>
 </ul>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="pca-perceptual-maps.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span>
-<span id="cb376-2"><a href="pca-perceptual-maps.html#cb376-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="pca-perceptual-maps.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;percmap.R&quot;</span>)</span>
+<span id="cb377-2"><a href="pca-perceptual-maps.html#cb377-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" />
 <ul>
 <li>Joint Space Map</li>
 </ul>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="pca-perceptual-maps.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="pca-perceptual-maps.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="672" /></li>
 </ul>
 

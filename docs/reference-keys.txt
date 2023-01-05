@@ -78,8 +78,8 @@ tab:t4lr1
 tab:t4lr2
 tab:t4lr3
 tab:t4or1
+tab:t4lr3b
 tab:t4lrtrainonly1
-fig:t4marginplot1
 tab:t4classmat1
 fig:t4roc1
 tab:t4gainlift01
@@ -87,6 +87,7 @@ fig:t4gainlift02
 tab:t4gainlift03
 fig:t4gainlift04
 fig:t4sensspec
+fig:t4marginplot1
 r-basics
 introduction
 what-is-r
@@ -202,14 +203,15 @@ logistic-regression-binary
 introduction-4
 the-glm-function
 logistic-regression-using-glm
+odds-ratio-coefficients
 estimate-with-training-sample-only
 creating-train-and-test-samples
 run-model-with-only-training-sample
-margin-plots
 classification-matrix
 roc-curve
 gainlift-charts-and-tables
 sensitivityspecificity-plot
+margin-plots
 cluster-analysis
 introduction-5
 preparation
