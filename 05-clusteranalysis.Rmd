@@ -11,8 +11,8 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* The [ffseg.rdata]("Data/ffseg.rdata") is used. Load it now.
-    ```{r}
+* The [ffseg.rdata](Data/ffseg.rdata) is used. Load it now.
+    ```{r t5loaddata}
     # You may need to change the directory
     load("Data/ffseg.rdata")
     ```
@@ -61,6 +61,8 @@ clvar <- ffseg %>%
 sc.clvar <- data.frame(scale(clvar))  
 ```
 
+[Video Tutorial: Cluster Analysis Introduction and Preparation](https://youtu.be/P2MGLhXgSIw){target="_blank"}
+
 ## Hierarchical Agglomerative Clustering
 
 ### Base R
@@ -87,9 +89,11 @@ dist <- dist(sc.clvar,   # Scaled data from earlier
              method="euclidean")    # Euclidean distance measure
 ```
 
+[Video Tutorial: HCA in Base R - Creating Similarity Matrix](https://youtu.be/am9FvqA-5dg){target="_blank"}
+
 #### Perform hierarchical clustering
 
-* Usage: `hclust(d, method="") where:
+* Usage: `hclust(d, method="")` where:
     * `d` is the similarity/dissimilarity matrix
     * `method=""` indicates the linkage method:
         * `method="single"` provides Single linkage
@@ -117,6 +121,8 @@ hc1 <- hclust(dist(sc.clvar, method="euclidean"), method="ward.D")
 # Create dendrogram of object hc
 plot(hc)
 ```
+
+[Video Tutorial: HCA in Base R - Running the Analysis](https://youtu.be/1T56mq9rE50){target="_blank"}
 
 #### Stopping indices
 
@@ -146,6 +152,8 @@ NbClust(sc.clvar,   # Scaled cluster variable data from earlier
 NbClust(sc.clvar, distance="euclidean", method="ward.D",
         min.nc=1, max.nc=10, index="pseudot2")$All.index
 ```
+
+[Video Tutorial: HCA in Base R - Stopping Indices using *NbClust*](https://youtu.be/GVUOzBxkIZw){target="_blank"}
 
 ### User Defined Functions
 
@@ -183,6 +191,9 @@ NbClust(sc.clvar, distance="euclidean", method="ward.D",
     * If `cuts` are not provided:
         * Dendrogram with all branches
         * Stopping indices for 1 to 10 clusters, if requested (`$stop`)
+
+[Video Tutorial: HCA Using *myhc.R* (Part 1)](https://youtu.be/P9nDnFQNaS0){target="_blank"}
+
 * Examples:
     * No cuts with stopping indices
     ```{r, messages=FALSE}
@@ -208,6 +219,9 @@ NbClust(sc.clvar, distance="euclidean", method="ward.D",
     eg3$kcount
     eg3$kperc
     ```
+
+[Video Tutorial: HCA with *myhc.R* (Part 2)](https://youtu.be/Jf_5RGljpm0){target="_blank"}
+[Video Tutorial: HCA with *myhc.R* (Part 3)](https://youtu.be/r1mK4RRPGYg){target="_blank"}
     
 ### Cluster membership
 
@@ -231,6 +245,8 @@ ffseg$K4 <- as.factor(cutree(eg3$hc, # 'hclust' object from call to 'myhc' earli
 sc.cldesc <- cbind(sc.clvar,  # Scaled cluster variables
                    K3=as.factor(cutree(hc, k=3)))  # Cluster membership variable
 ```
+
+[Video Tutorial: Assigning Cluster Membership after HCA with *cutree(https://youtu.be/86uktpw0jSQ)*](){target="_blank"}
 
 ## *k*-Means Clustering
 
@@ -280,6 +296,8 @@ ks$kcount   # Cluster sizes
 ks$kperc     # Cluster percentages
 ```
 
+[Video Tutorial: *k*-Means Cluster Analysis - How Many Clusters?](https://youtu.be/KqUTX89yD8E){target="_blank"}
+
 #### kmeans function
 
 * Usage: `kmeans(data, centers=, nstart=)` where:
@@ -299,6 +317,8 @@ k4 <- kmeans(sc.clvar,   # Scaled cluster variables from earlier
              nstart=25)  # Request 25 random starting sets
 ffseg$KM4 <- as.factor(k4$cluster)
 ```
+
+[Video Tutorial: Using the *kmeans()* Function](https://youtu.be/aQ5VBwx7-gM){target="_blank"}
 
 ## Describing clusters
 
@@ -320,18 +340,9 @@ ffseg$KM4 <- as.factor(k4$cluster)
     * Table of ANOVA p-values (`$aovp`)
     * Table(s) of Tukey HSD multiple comparisons for any variables where the ANOVA p-value$<0.1$ (`tukey`)
 
-### `kcenters.R`
+[Video Tutorial: Describing clusers using *cldescr.R* (Part 1)](https://youtu.be/Q-Qse3xPpxg){target="_blank"}
 
-* For $k$-Means, the `kcenters.R` user defined function can be used to describe the cluster centers
-    * Requires `ggplot2` package
-* The results should be assigned to an object
-* Usage: `kcenters(kobject)` where:
-    * `kobject` is the name of a saved $k$-means object
-* Objects returned
-    * Table of means (`$table`)
-    * `ggplot` object (`$plot`)
-
-### Examples
+#### Examples
 
 * Describing hierarchical clustering using clustering variables
 
@@ -365,6 +376,20 @@ hc.fv$aovp
 hc.fv$tukey
 ```
 
+[Video Tutorial: Describing clusers using *cldescr.R* (Part 2)](https://youtu.be/NpmGvlodt3k){target="_blank"}
+[Video Tutorial: Describing clusers using *cldescr.R* (Part 3)](https://youtu.be/gJ0_Gm-tVNM){target="_blank"}
+
+### `kcenters.R`
+
+* For $k$-Means, the `kcenters.R` user defined function can be used to describe the cluster centers
+    * Requires `ggplot2` package
+* The results should be assigned to an object
+* Usage: `kcenters(kobject)` where:
+    * `kobject` is the name of a saved $k$-means object
+* Objects returned
+    * Table of means (`$table`)
+    * `ggplot` object (`$plot`)
+
 * Describing $k$-means clustering using cluster centers
 
 ```{r}
@@ -372,3 +397,5 @@ km.cent <- kcenters(k4)
 km.cent$table
 km.cent$plot
 ```
+
+[Video Tutorial: Describing clusers using *kcenters.R*](https://youtu.be/vkqBuITUpyM){target="_blank"}

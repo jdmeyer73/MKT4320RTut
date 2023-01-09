@@ -230,8 +230,8 @@ cluster-sizes
 kmeans-function
 describing-clusters
 cldescr.r
-kcenters.r
 examples
+kcenters.r
 principal-components-analysis
 introduction-6
 preparation-1
