@@ -604,6 +604,26 @@ Often, a series of commands is repeated over and over, or there is not an easy, 
     ```
 
 \newpage
+## Package *MKT4320BGSU*
+
+The `MKT4320BGSU` package is a package I created that contains data sets and user-defined functions for this course. By installing this package when instructed, you will more easily be able to access the functions and data for the course, and you will have access to help files for the functions and data sets.  The process for installing this package is a little different. You must first install the `devtools` package in order to use the `install_github` command.  The steps are shown in the code below.
+
+``` {r mkt4320pack, eval=FALSE}
+# INSTALL 'devtools'
+# NOTE: This step only has to be done the first time
+install.packages("devtools")
+
+# LOAD 'devtools' package
+library(devtools)
+
+# INSTALL 'MKT4320BGSU' package
+install_github("jdmeyer73/MKT4320BGSU")
+
+# LOAD 'MKT4320BGSU' package
+library(MKT4320BGSU)
+```
+
+\newpage
 ## Package *dplyr*
 
 The `dplyr` package (pronounced DEE ply er) is a package that makes data manipulation much easier and more intuitive (for most).  `dplyr` is built around the five main "verbs" shown below that make up a majority of data manipulation. However, there are other functions that `dplyr` uses to also help with data manipulation.
