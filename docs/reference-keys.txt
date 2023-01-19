@@ -150,6 +150,7 @@ code-chunks
 inserting-a-code-chunk
 using-code-chunks
 knitting-the-results
+working-with-r-notebook-lab-assignment-files
 examining-and-summarizing-data
 introduction-1
 visualizations
