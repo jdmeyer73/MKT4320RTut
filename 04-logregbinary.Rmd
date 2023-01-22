@@ -15,30 +15,23 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* The [directmktg.rdata](Data/directmktg.rdata) is used. Load it now.
+* The `directmktg` data is used from the `MKT4320BGSU` course package. Load the package and use the `data()` function to load the data.
     ```{r t4loaddata}
-    # You may need to change the directory
-    load("Data/directmktg.rdata")
+    # Load the course package
+    library(MKT4320BGSU)
+    # Load the data
+    data(directmktg)
     ```
 
 ## Introduction
 
-Base R is typically sufficient for performing the basics of logisitic regression, but to get some of the outputs required, I have created some user defined functions.  You should download these functions and save them in your working directory.
+Base R is typically sufficient for performing the basics of logisitic regression, but to get some of the outputs required, I have created some user defined functions that are available in the course package. 
 
-* [or_table.R](or_table.R) produces Odds Ratio Coefficients
-* [logreg_cm.R](logreg_cm.R) produces the Classification Matrix
-* [logreg_roc.R](logreg_roc.R) produces the ROC Curves
-* [gainlift.R](gainlift.R) produces Gain/Lift tables and charts
-* [logreg_cut.R](logreg_cut.R) produces the Sensitivity/Specificity Plot
-
-Once saved in your working directory, it is good practice to source them.
-``` {r t4sourceudf}
-source("or_table.R")
-source("logreg_cm.R")
-source("logreg_roc.R")
-source("gainlift.R")
-source("logreg_cut.R")
-```
+* `or_table.R()` produces Odds Ratio Coefficients
+* `logreg_cm()` produces the Classification Matrix
+* `logreg_roc()` produces the ROC Curves
+* `gainlift()` produces Gain/Lift tables and charts
+* `logreg_cut()` produces the Sensitivity/Specificity Plot
 
 [Video Tutorial: Logistic Regression - Introduction](https://youtu.be/7Tk9QGJAx9w){target="_blank"}
 
@@ -75,7 +68,6 @@ source("logreg_cut.R")
 [Video Tutorial: *glm()* Output](https://youtu.be/Jx1SKnNxVvI){target="_blank"}
 
 * For "nicer" looking results, the package `jtools` can be used
-    * NOTE: `jtools` is not available in BGSU's Virtual Computing Lab
     ```{r t4lr3, cache=TRUE}
     library(jtools)
     summ(prelim,   # Saved object from before
@@ -88,16 +80,15 @@ source("logreg_cut.R")
 
 ### Odds Ratio Coefficients
 
-* To get the Odds Ratio coefficients, use the user defined function `or_table.R`
+* To get the Odds Ratio coefficients, use the `or_table()` function from the `MKT4320BGSU` course package.
 * Usage: `or_table(MODEL, DIGITS, CONF)`
     * `MODEL` is the name of the object with results of the `glm()` call
     * `DIGITS` is the number of digits to round the values to in the table
     * `CONF` is the confidence interval level (e.g., 95 = 95%)
     ``` {r t4or1, cache=TRUE}
-    flextable(           # Wrapping it with 'flextable' for nicer output; not required
-        or_table(prelim,  # Saved logistic regression model from above
+    or_table(prelim,  # Saved logistic regression model from above
                  4,      # Number of digits to round output to
-                 95))    # Level of confidence
+                 95)    # Level of confidence
     ```
 <caption>(\#tab:t4or1) Odds Ratio Coefficients</caption>
 
@@ -153,7 +144,7 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     model <- glm(buy ~ age + gender, train, family="binomial")
     summ(model,   # 'jtools' results; use 'summary' for Base R
          4, model.info=FALSE)
-    flextable(or_table(model))
+    or_table(model)
     ```
 <caption>(\#tab:t4lrtrainonly1) Logistic Regression Results for Training Sample</caption>
 
@@ -161,7 +152,7 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     
 ## Classification Matrix
 
-* To get the Classification Matrix, use the user defined function `logreg_cm.R`
+* To get the Classification Matrix, use the `logreg_cm()` function from the `MKT4320BGSU` course package. 
 * Usage: `logreg_cm(MOD, DATA, "POS", CUTOFF=)`
     * `MOD` is the name of the object with results of the `glm()` call
     * `DATA` is the data set for which the Classification Matrix should be produced (i.e., original, training, or testing)
@@ -180,7 +171,7 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
 
 ## ROC Curve
 
-* To get the ROC curve, use the user defined function `logreg_roc.R`
+* To get the ROC curve, use the `user defined function ``logreg_roc()` function from the `MKT4320BGSU` course package.
 * Usage: `logreg_roc(MOD, DATA)`
     * `MOD` is the name of the object with results of the `glm()` call
     * `DATA` is the data set for which the ROC should be produced (i.e., original, training, or testing)
@@ -198,7 +189,7 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
     
 ## Gain/Lift Charts and Tables
 
-* To get the Gain/Lift charts and tables , use the user defined function `gainlift.R`
+* To get the Gain/Lift charts and tables , use the `gainlift()` function from the `MKT4320BGSU` course package.
 * Usage: `OBJ.NAME <- gainlift(MOD, TRAIN, TEST, "POS")`
     * `OBJ.NAME` is the name of the object to assign the results to
     * `MOD` is the name of the object with results of the `glm()` call
@@ -248,8 +239,8 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
 
 ## Sensitivity/Specificity Plot
 
-* To get the Sensitivity/Specificity plot, use the user defined function `logreg_cut.R`
-* Usage: `logreg_cut.r(MOD, DATA, "POS")`
+* To get the Sensitivity/Specificity plot, use the `logreg_cut()` function from the `MKT4320BGSU` course package.
+* Usage: `logreg_cut(MOD, DATA, "POS")`
     * `MOD` is the name of the object with results of the `glm()` call
     * `DATA` is the data set for which the plot should be produced (i.e., original, training, or testing)
     * `"POS"` is the level of the factor variable that is the <span style="font-family: Courier;">SUCCESS</span> level
@@ -269,6 +260,7 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
 ## Margin Plots
 
 * Margin plots are done in much the same way as with [linear regression margin plots](#linregmarginplots)
+
     ```{r t4marginplot1, fig.cap="Margin plots for variables in model"}
     # Load 'effects' package
     library(effects)

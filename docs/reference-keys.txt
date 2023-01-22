@@ -38,9 +38,7 @@ fig:t2scatter2
 fig:t2scatter3
 tab:t2onewayfreq1
 tab:t2onewayfreq2
-tab:t2onewayfreq3
 tab:t2crosstab1
-tab:t2crosstab2
 tab:t2crosstab3
 tab:t2crosstab4
 tab:t2summary1

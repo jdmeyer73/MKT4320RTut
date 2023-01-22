@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-01-19" />
+<meta name="date" content="2023-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -460,7 +459,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="introduction-1" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Introduction<a href="examining-and-summarizing-data.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th <code>ggplot2</code> package. For this part of the tutorial, the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> data file is used, which contains the <span style="font-family: Courier;">airlinesat</span> dataframe. You should load this data now:<br><code>load("airlinesat.rdata")</code></p>
+<p>Examining and summarizing data involves visualizations (e.g., graphs and charts) and tables. For visualization, the most popular package in R is th <code>ggplot2</code> package.</p>
+<p>Data for this chapter:</p>
+<ul>
+<li><p>The <code>airlinesat</code> data is used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="examining-and-summarizing-data.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load course package</span></span>
+<span id="cb172-2"><a href="examining-and-summarizing-data.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb172-3"><a href="examining-and-summarizing-data.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb172-4"><a href="examining-and-summarizing-data.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airlinesat)</span></code></pre></div></li>
+</ul>
 <div style="page-break-after: always;"></div>
 </div>
 <div id="visualizations" class="section level2 hasAnchor" number="2.2">
@@ -498,8 +505,8 @@ If the <code>ggplot()</code> function alone is used, the output is simply the co
 <ul>
 <li>Because a geom hasn’t been requested</li>
 </ul>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="examining-and-summarizing-data.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airlinesat,    <span class="co"># Use data frame &#39;airlinesat&#39;</span></span>
-<span id="cb172-2"><a href="examining-and-summarizing-data.html#cb172-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>nflights))   <span class="co"># Map &#39;country&#39; on x and &#39;nflights&#39; on y</span></span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="examining-and-summarizing-data.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airlinesat,    <span class="co"># Use data frame &#39;airlinesat&#39;</span></span>
+<span id="cb173-2"><a href="examining-and-summarizing-data.html#cb173-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>nflights))   <span class="co"># Map &#39;country&#39; on x and &#39;nflights&#39; on y</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2ggplotonly"></span>
 <img src="_main_files/figure-html/t2ggplotonly-1.png" alt="Call to ggplot() without a geom" width="672" />
 <p class="caption">
@@ -512,9 +519,9 @@ Figure 2.1: Call to ggplot() without a geom
 The call to <code>ggplot()</code> is the foundation, but the structure is built one layer at a time</li>
 <li>Example: Request a column chart for a discrete <span style="font-family: Courier;">x</span> and a continuous <span style="font-family: Courier;">y</span></li>
 </ul>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="examining-and-summarizing-data.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airlinesat,    <span class="co"># Use data frame &#39;airlinesat&#39;</span></span>
-<span id="cb173-2"><a href="examining-and-summarizing-data.html#cb173-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>nflights)) <span class="sc">+</span>  <span class="co"># Map &#39;country&#39; on x and &#39;nflights&#39; on y</span></span>
-<span id="cb173-3"><a href="examining-and-summarizing-data.html#cb173-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_col</span>()   <span class="co"># Ask for column chart as the geom</span></span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="examining-and-summarizing-data.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airlinesat,    <span class="co"># Use data frame &#39;airlinesat&#39;</span></span>
+<span id="cb174-2"><a href="examining-and-summarizing-data.html#cb174-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>nflights)) <span class="sc">+</span>  <span class="co"># Map &#39;country&#39; on x and &#39;nflights&#39; on y</span></span>
+<span id="cb174-3"><a href="examining-and-summarizing-data.html#cb174-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_col</span>()   <span class="co"># Ask for column chart as the geom</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2simplecolumn"></span>
 <img src="_main_files/figure-html/t2simplecolumn-1.png" alt="ggplot() + geom_col()" width="672" />
 <p class="caption">
@@ -528,16 +535,16 @@ Figure 2.2: ggplot() + geom_col()
 <li>We can use <code>dplyr</code> and <code>ggplot2</code> together to get a different value, such as the mean</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="examining-and-summarizing-data.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use airlinesat data</span></span>
-<span id="cb174-2"><a href="examining-and-summarizing-data.html#cb174-2" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span>    </span>
-<span id="cb174-3"><a href="examining-and-summarizing-data.html#cb174-3" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Group data by &#39;country&#39;</span></span>
-<span id="cb174-4"><a href="examining-and-summarizing-data.html#cb174-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
-<span id="cb174-5"><a href="examining-and-summarizing-data.html#cb174-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Create summary statistic</span></span>
-<span id="cb174-6"><a href="examining-and-summarizing-data.html#cb174-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">mean_nflights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb174-7"><a href="examining-and-summarizing-data.html#cb174-7" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Pass this results to ggplot and start the plot</span></span>
-<span id="cb174-8"><a href="examining-and-summarizing-data.html#cb174-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>mean_nflights)) <span class="sc">+</span>   <span class="co"># Note dataset was `piped`</span></span>
-<span id="cb174-9"><a href="examining-and-summarizing-data.html#cb174-9" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Request column geom</span></span>
-<span id="cb174-10"><a href="examining-and-summarizing-data.html#cb174-10" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="examining-and-summarizing-data.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use airlinesat data</span></span>
+<span id="cb175-2"><a href="examining-and-summarizing-data.html#cb175-2" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span>    </span>
+<span id="cb175-3"><a href="examining-and-summarizing-data.html#cb175-3" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Group data by &#39;country&#39;</span></span>
+<span id="cb175-4"><a href="examining-and-summarizing-data.html#cb175-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb175-5"><a href="examining-and-summarizing-data.html#cb175-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Create summary statistic</span></span>
+<span id="cb175-6"><a href="examining-and-summarizing-data.html#cb175-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">mean_nflights=</span><span class="fu">mean</span>(nflights, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb175-7"><a href="examining-and-summarizing-data.html#cb175-7" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Pass this results to ggplot and start the plot</span></span>
+<span id="cb175-8"><a href="examining-and-summarizing-data.html#cb175-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>mean_nflights)) <span class="sc">+</span>   <span class="co"># Note dataset was `piped`</span></span>
+<span id="cb175-9"><a href="examining-and-summarizing-data.html#cb175-9" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Request column geom</span></span>
+<span id="cb175-10"><a href="examining-and-summarizing-data.html#cb175-10" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_col</span>()</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2dplyrggplot"></span>
 <img src="_main_files/figure-html/t2dplyrggplot-1.png" alt="Using dplyr before ggplot to get mean values" width="672" />
 <p class="caption">
@@ -557,9 +564,9 @@ Figure 2.3: Using dplyr before ggplot to get mean values
 <h4><span class="header-section-number">2.2.2.1</span> Bar Charts<a href="examining-and-summarizing-data.html#bar-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The standard bar chart provides a count of observations of each category of discrete variable <span style="font-family: Courier;">x</span></p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="examining-and-summarizing-data.html#cb175-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb175-2"><a href="examining-and-summarizing-data.html#cb175-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender)) <span class="sc">+</span></span>
-<span id="cb175-3"><a href="examining-and-summarizing-data.html#cb175-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="examining-and-summarizing-data.html#cb176-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb176-2"><a href="examining-and-summarizing-data.html#cb176-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender)) <span class="sc">+</span></span>
+<span id="cb176-3"><a href="examining-and-summarizing-data.html#cb176-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_bar</span>()</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2bar1"></span>
 <img src="_main_files/figure-html/t2bar1-1.png" alt="Standard bar chart" width="672" />
 <p class="caption">
@@ -570,13 +577,13 @@ Figure 2.4: Standard bar chart
 <p><a href="https://youtu.be/R0A7bgOmpRU" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 1)</a></p>
 <ul>
 <li><p>To get percentages of each category, we need to summarize the data and calculate the proportion for each category</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="examining-and-summarizing-data.html#cb176-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb176-2"><a href="examining-and-summarizing-data.html#cb176-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
-<span id="cb176-3"><a href="examining-and-summarizing-data.html#cb176-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with count of each gender</span></span>
-<span id="cb176-4"><a href="examining-and-summarizing-data.html#cb176-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with proportion by gender</span></span>
-<span id="cb176-5"><a href="examining-and-summarizing-data.html#cb176-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender,  <span class="co"># Variable for the x-axis</span></span>
-<span id="cb176-6"><a href="examining-and-summarizing-data.html#cb176-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">y=</span>prop)) <span class="sc">+</span> <span class="co"># Use &#39;prop&#39; instead of default counts for y-axis</span></span>
-<span id="cb176-7"><a href="examining-and-summarizing-data.html#cb176-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)  <span class="co"># Use the value of y as-is</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="examining-and-summarizing-data.html#cb177-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb177-2"><a href="examining-and-summarizing-data.html#cb177-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
+<span id="cb177-3"><a href="examining-and-summarizing-data.html#cb177-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with count of each gender</span></span>
+<span id="cb177-4"><a href="examining-and-summarizing-data.html#cb177-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with proportion by gender</span></span>
+<span id="cb177-5"><a href="examining-and-summarizing-data.html#cb177-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender,  <span class="co"># Variable for the x-axis</span></span>
+<span id="cb177-6"><a href="examining-and-summarizing-data.html#cb177-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">y=</span>prop)) <span class="sc">+</span> <span class="co"># Use &#39;prop&#39; instead of default counts for y-axis</span></span>
+<span id="cb177-7"><a href="examining-and-summarizing-data.html#cb177-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)  <span class="co"># Use the value of y as-is</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2bar2"></span>
 <img src="_main_files/figure-html/t2bar2-1.png" alt="Bar chart with proportions" width="672" />
 <p class="caption">
@@ -587,21 +594,21 @@ Figure 2.5: Bar chart with proportions
 <p><a href="https://youtu.be/UNOsKBipS_M" target="_blank">Video Tutorial: Bar Charts with <em>ggplot::geom_bar</em> (Part 2)</a></p>
 <ul>
 <li><p>To make the chart “pretty”, we change the color of each bar we can add layers for axis labels, use the <code>scales</code> package to have the y-axis show percent, add labels for the bars etc.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="examining-and-summarizing-data.html#cb177-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb177-2"><a href="examining-and-summarizing-data.html#cb177-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
-<span id="cb177-3"><a href="examining-and-summarizing-data.html#cb177-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with count of each gender</span></span>
-<span id="cb177-4"><a href="examining-and-summarizing-data.html#cb177-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with proportion by gender</span></span>
-<span id="cb177-5"><a href="examining-and-summarizing-data.html#cb177-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender,  <span class="co"># Variable for the x-axis</span></span>
-<span id="cb177-6"><a href="examining-and-summarizing-data.html#cb177-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span>prop,   <span class="co"># Use &#39;prop&#39; instead of default counts for y-axis</span></span>
-<span id="cb177-7"><a href="examining-and-summarizing-data.html#cb177-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill=</span>gender)) <span class="sc">+</span> <span class="co"># Use different color for each bar</span></span>
-<span id="cb177-8"><a href="examining-and-summarizing-data.html#cb177-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">show.legend=</span><span class="cn">FALSE</span>, <span class="co"># Hide legend</span></span>
-<span id="cb177-9"><a href="examining-and-summarizing-data.html#cb177-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, ) <span class="sc">+</span>  <span class="co"># Use the value of y as-is</span></span>
-<span id="cb177-10"><a href="examining-and-summarizing-data.html#cb177-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> <span class="co"># y-axis labels %</span></span>
-<span id="cb177-11"><a href="examining-and-summarizing-data.html#cb177-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>) <span class="sc">+</span>  <span class="co"># Label x- and y-axes</span></span>
-<span id="cb177-12"><a href="examining-and-summarizing-data.html#cb177-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), <span class="co"># Format label number</span></span>
-<span id="cb177-13"><a href="examining-and-summarizing-data.html#cb177-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">vjust=</span>.<span class="dv">95</span>, <span class="co"># Vertically adjust the labels</span></span>
-<span id="cb177-14"><a href="examining-and-summarizing-data.html#cb177-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
-<span id="cb177-15"><a href="examining-and-summarizing-data.html#cb177-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="examining-and-summarizing-data.html#cb178-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb178-2"><a href="examining-and-summarizing-data.html#cb178-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span>  <span class="co"># Group data by gender</span></span>
+<span id="cb178-3"><a href="examining-and-summarizing-data.html#cb178-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with count of each gender</span></span>
+<span id="cb178-4"><a href="examining-and-summarizing-data.html#cb178-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Create variable with proportion by gender</span></span>
+<span id="cb178-5"><a href="examining-and-summarizing-data.html#cb178-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender,  <span class="co"># Variable for the x-axis</span></span>
+<span id="cb178-6"><a href="examining-and-summarizing-data.html#cb178-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span>prop,   <span class="co"># Use &#39;prop&#39; instead of default counts for y-axis</span></span>
+<span id="cb178-7"><a href="examining-and-summarizing-data.html#cb178-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill=</span>gender)) <span class="sc">+</span> <span class="co"># Use different color for each bar</span></span>
+<span id="cb178-8"><a href="examining-and-summarizing-data.html#cb178-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">show.legend=</span><span class="cn">FALSE</span>, <span class="co"># Hide legend</span></span>
+<span id="cb178-9"><a href="examining-and-summarizing-data.html#cb178-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, ) <span class="sc">+</span>  <span class="co"># Use the value of y as-is</span></span>
+<span id="cb178-10"><a href="examining-and-summarizing-data.html#cb178-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> <span class="co"># y-axis labels %</span></span>
+<span id="cb178-11"><a href="examining-and-summarizing-data.html#cb178-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>) <span class="sc">+</span>  <span class="co"># Label x- and y-axes</span></span>
+<span id="cb178-12"><a href="examining-and-summarizing-data.html#cb178-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), <span class="co"># Format label number</span></span>
+<span id="cb178-13"><a href="examining-and-summarizing-data.html#cb178-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">vjust=</span>.<span class="dv">95</span>, <span class="co"># Vertically adjust the labels</span></span>
+<span id="cb178-14"><a href="examining-and-summarizing-data.html#cb178-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
+<span id="cb178-15"><a href="examining-and-summarizing-data.html#cb178-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2bar3"></span>
 <img src="_main_files/figure-html/t2bar3-1.png" alt="Prettier bar chart" width="672" />
 <p class="caption">
@@ -619,20 +626,20 @@ Figure 2.6: Prettier bar chart
 <li>The <span style="font-family: Courier;">x=</span> variable specifies the axis, while the <span style="font-family: Courier;">fill=</span> variable stacks the bars by the other variable</li>
 <li>As with other bar charts, the default is to count observations, so some manipulation is needed to get “100% stacked bar charts”</li>
 </ul>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="examining-and-summarizing-data.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb178-2"><a href="examining-and-summarizing-data.html#cb178-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span>  <span class="co"># Group data by two discrete variables</span></span>
-<span id="cb178-3"><a href="examining-and-summarizing-data.html#cb178-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count observations for each combination</span></span>
-<span id="cb178-4"><a href="examining-and-summarizing-data.html#cb178-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Calculate prop WITHIN first grouping variable</span></span>
-<span id="cb178-5"><a href="examining-and-summarizing-data.html#cb178-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
-<span id="cb178-6"><a href="examining-and-summarizing-data.html#cb178-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;fill&quot;</span>,  <span class="co"># Stack the bars</span></span>
-<span id="cb178-7"><a href="examining-and-summarizing-data.html#cb178-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> <span class="co"># Use the value of y as-is</span></span>
-<span id="cb178-8"><a href="examining-and-summarizing-data.html#cb178-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> <span class="co"># y-axis labels %</span></span>
-<span id="cb178-9"><a href="examining-and-summarizing-data.html#cb178-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,  <span class="co"># Label x- and y-axes </span></span>
-<span id="cb178-10"><a href="examining-and-summarizing-data.html#cb178-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  <span class="co"># Label legend</span></span>
-<span id="cb178-11"><a href="examining-and-summarizing-data.html#cb178-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), <span class="co"># Format data label</span></span>
-<span id="cb178-12"><a href="examining-and-summarizing-data.html#cb178-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span>.<span class="dv">95</span>), <span class="co"># Adjust the labels</span></span>
-<span id="cb178-13"><a href="examining-and-summarizing-data.html#cb178-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
-<span id="cb178-14"><a href="examining-and-summarizing-data.html#cb178-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="examining-and-summarizing-data.html#cb179-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb179-2"><a href="examining-and-summarizing-data.html#cb179-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span>  <span class="co"># Group data by two discrete variables</span></span>
+<span id="cb179-3"><a href="examining-and-summarizing-data.html#cb179-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count observations for each combination</span></span>
+<span id="cb179-4"><a href="examining-and-summarizing-data.html#cb179-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># Calculate prop WITHIN first grouping variable</span></span>
+<span id="cb179-5"><a href="examining-and-summarizing-data.html#cb179-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
+<span id="cb179-6"><a href="examining-and-summarizing-data.html#cb179-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;fill&quot;</span>,  <span class="co"># Stack the bars</span></span>
+<span id="cb179-7"><a href="examining-and-summarizing-data.html#cb179-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> <span class="co"># Use the value of y as-is</span></span>
+<span id="cb179-8"><a href="examining-and-summarizing-data.html#cb179-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> <span class="co"># y-axis labels %</span></span>
+<span id="cb179-9"><a href="examining-and-summarizing-data.html#cb179-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,  <span class="co"># Label x- and y-axes </span></span>
+<span id="cb179-10"><a href="examining-and-summarizing-data.html#cb179-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  <span class="co"># Label legend</span></span>
+<span id="cb179-11"><a href="examining-and-summarizing-data.html#cb179-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), <span class="co"># Format data label</span></span>
+<span id="cb179-12"><a href="examining-and-summarizing-data.html#cb179-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span>.<span class="dv">95</span>), <span class="co"># Adjust the labels</span></span>
+<span id="cb179-13"><a href="examining-and-summarizing-data.html#cb179-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
+<span id="cb179-14"><a href="examining-and-summarizing-data.html#cb179-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2barchart3"></span>
 <img src="_main_files/figure-html/t2barchart3-1.png" alt="Stacked bar chart" width="672" />
 <p class="caption">
@@ -648,52 +655,52 @@ Figure 2.7: Stacked bar chart
 <ul>
 <li>Percentages can be within a group (like in 100% stacked, see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart4">2.8</a>) or percent of overall total (see Figure <a href="examining-and-summarizing-data.html#fig:t2barchart5">2.9</a>)</li>
 </ul>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="examining-and-summarizing-data.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
-<span id="cb179-2"><a href="examining-and-summarizing-data.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="co">#       ONLY the changes have been commented on below</span></span>
-<span id="cb179-3"><a href="examining-and-summarizing-data.html#cb179-3" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb179-4"><a href="examining-and-summarizing-data.html#cb179-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span>  </span>
-<span id="cb179-5"><a href="examining-and-summarizing-data.html#cb179-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  </span>
-<span id="cb179-6"><a href="examining-and-summarizing-data.html#cb179-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  </span>
-<span id="cb179-7"><a href="examining-and-summarizing-data.html#cb179-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
-<span id="cb179-8"><a href="examining-and-summarizing-data.html#cb179-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use position=&quot;dodge&quot; to make bars side-by-side</span></span>
-<span id="cb179-9"><a href="examining-and-summarizing-data.html#cb179-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,  </span>
-<span id="cb179-10"><a href="examining-and-summarizing-data.html#cb179-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb179-11"><a href="examining-and-summarizing-data.html#cb179-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> </span>
-<span id="cb179-12"><a href="examining-and-summarizing-data.html#cb179-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,   </span>
-<span id="cb179-13"><a href="examining-and-summarizing-data.html#cb179-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  </span>
-<span id="cb179-14"><a href="examining-and-summarizing-data.html#cb179-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use position=position_dodge(width=1) to position labels</span></span>
-<span id="cb179-15"><a href="examining-and-summarizing-data.html#cb179-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       in center of each bar horizontally; use vjust=.95 to</span></span>
-<span id="cb179-16"><a href="examining-and-summarizing-data.html#cb179-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       position labels at the top of each bar</span></span>
-<span id="cb179-17"><a href="examining-and-summarizing-data.html#cb179-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), </span>
-<span id="cb179-18"><a href="examining-and-summarizing-data.html#cb179-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
-<span id="cb179-19"><a href="examining-and-summarizing-data.html#cb179-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
-<span id="cb179-20"><a href="examining-and-summarizing-data.html#cb179-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb179-21"><a href="examining-and-summarizing-data.html#cb179-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="examining-and-summarizing-data.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
+<span id="cb180-2"><a href="examining-and-summarizing-data.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co">#       ONLY the changes have been commented on below</span></span>
+<span id="cb180-3"><a href="examining-and-summarizing-data.html#cb180-3" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb180-4"><a href="examining-and-summarizing-data.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span>  </span>
+<span id="cb180-5"><a href="examining-and-summarizing-data.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span>  </span>
+<span id="cb180-6"><a href="examining-and-summarizing-data.html#cb180-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb180-7"><a href="examining-and-summarizing-data.html#cb180-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
+<span id="cb180-8"><a href="examining-and-summarizing-data.html#cb180-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use position=&quot;dodge&quot; to make bars side-by-side</span></span>
+<span id="cb180-9"><a href="examining-and-summarizing-data.html#cb180-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,  </span>
+<span id="cb180-10"><a href="examining-and-summarizing-data.html#cb180-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb180-11"><a href="examining-and-summarizing-data.html#cb180-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> </span>
+<span id="cb180-12"><a href="examining-and-summarizing-data.html#cb180-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,   </span>
+<span id="cb180-13"><a href="examining-and-summarizing-data.html#cb180-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb180-14"><a href="examining-and-summarizing-data.html#cb180-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use position=position_dodge(width=1) to position labels</span></span>
+<span id="cb180-15"><a href="examining-and-summarizing-data.html#cb180-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       in center of each bar horizontally; use vjust=.95 to</span></span>
+<span id="cb180-16"><a href="examining-and-summarizing-data.html#cb180-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       position labels at the top of each bar</span></span>
+<span id="cb180-17"><a href="examining-and-summarizing-data.html#cb180-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), </span>
+<span id="cb180-18"><a href="examining-and-summarizing-data.html#cb180-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
+<span id="cb180-19"><a href="examining-and-summarizing-data.html#cb180-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
+<span id="cb180-20"><a href="examining-and-summarizing-data.html#cb180-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb180-21"><a href="examining-and-summarizing-data.html#cb180-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2barchart4"></span>
 <img src="_main_files/figure-html/t2barchart4-1.png" alt="Side-by-side bar chart (% within group)" width="672" />
 <p class="caption">
 Figure 2.8: Side-by-side bar chart (% within group)
 </p>
 </div>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="examining-and-summarizing-data.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
-<span id="cb180-2"><a href="examining-and-summarizing-data.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co">#       ONLY the changes have been commented on below</span></span>
-<span id="cb180-3"><a href="examining-and-summarizing-data.html#cb180-3" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb180-4"><a href="examining-and-summarizing-data.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span></span>
-<span id="cb180-5"><a href="examining-and-summarizing-data.html#cb180-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use .groups=&quot;drop&quot; to remove the grouping structure after</span></span>
-<span id="cb180-6"><a href="examining-and-summarizing-data.html#cb180-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       summarising the data</span></span>
-<span id="cb180-7"><a href="examining-and-summarizing-data.html#cb180-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb180-8"><a href="examining-and-summarizing-data.html#cb180-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  </span>
-<span id="cb180-9"><a href="examining-and-summarizing-data.html#cb180-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
-<span id="cb180-10"><a href="examining-and-summarizing-data.html#cb180-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,  </span>
-<span id="cb180-11"><a href="examining-and-summarizing-data.html#cb180-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb180-12"><a href="examining-and-summarizing-data.html#cb180-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> </span>
-<span id="cb180-13"><a href="examining-and-summarizing-data.html#cb180-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,   </span>
-<span id="cb180-14"><a href="examining-and-summarizing-data.html#cb180-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  </span>
-<span id="cb180-15"><a href="examining-and-summarizing-data.html#cb180-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), </span>
-<span id="cb180-16"><a href="examining-and-summarizing-data.html#cb180-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
-<span id="cb180-17"><a href="examining-and-summarizing-data.html#cb180-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
-<span id="cb180-18"><a href="examining-and-summarizing-data.html#cb180-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb180-19"><a href="examining-and-summarizing-data.html#cb180-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="examining-and-summarizing-data.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: The code for this chart is nearly identical to the previous figure</span></span>
+<span id="cb181-2"><a href="examining-and-summarizing-data.html#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="co">#       ONLY the changes have been commented on below</span></span>
+<span id="cb181-3"><a href="examining-and-summarizing-data.html#cb181-3" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb181-4"><a href="examining-and-summarizing-data.html#cb181-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(gender, flight_type) <span class="sc">%&gt;%</span></span>
+<span id="cb181-5"><a href="examining-and-summarizing-data.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: Use .groups=&quot;drop&quot; to remove the grouping structure after</span></span>
+<span id="cb181-6"><a href="examining-and-summarizing-data.html#cb181-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       summarising the data</span></span>
+<span id="cb181-7"><a href="examining-and-summarizing-data.html#cb181-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb181-8"><a href="examining-and-summarizing-data.html#cb181-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb181-9"><a href="examining-and-summarizing-data.html#cb181-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>prop, <span class="at">fill=</span>flight_type)) <span class="sc">+</span></span>
+<span id="cb181-10"><a href="examining-and-summarizing-data.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,  </span>
+<span id="cb181-11"><a href="examining-and-summarizing-data.html#cb181-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb181-12"><a href="examining-and-summarizing-data.html#cb181-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span> </span>
+<span id="cb181-13"><a href="examining-and-summarizing-data.html#cb181-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Gender&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,   </span>
+<span id="cb181-14"><a href="examining-and-summarizing-data.html#cb181-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill=</span><span class="st">&quot;Flight Type&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb181-15"><a href="examining-and-summarizing-data.html#cb181-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.1f%%&quot;</span>, prop<span class="sc">*</span><span class="dv">100</span>)), </span>
+<span id="cb181-16"><a href="examining-and-summarizing-data.html#cb181-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
+<span id="cb181-17"><a href="examining-and-summarizing-data.html#cb181-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
+<span id="cb181-18"><a href="examining-and-summarizing-data.html#cb181-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb181-19"><a href="examining-and-summarizing-data.html#cb181-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2barchart5"></span>
 <img src="_main_files/figure-html/t2barchart5-1.png" alt="Side-by-side bar chart (% of total)" width="672" />
 <p class="caption">
@@ -709,9 +716,9 @@ Figure 2.9: Side-by-side bar chart (% of total)
 <h4><span class="header-section-number">2.2.2.2</span> Column Charts<a href="examining-and-summarizing-data.html#column-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The standard column chart provides a sum of continuous variable <span style="font-family: Courier;">y</span> of each category of disrete variable <span style="font-family: Courier;">x</span></p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="examining-and-summarizing-data.html#cb181-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb181-2"><a href="examining-and-summarizing-data.html#cb181-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>nflights)) <span class="sc">+</span></span>
-<span id="cb181-3"><a href="examining-and-summarizing-data.html#cb181-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="examining-and-summarizing-data.html#cb182-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb182-2"><a href="examining-and-summarizing-data.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>nflights)) <span class="sc">+</span></span>
+<span id="cb182-3"><a href="examining-and-summarizing-data.html#cb182-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2colchart1"></span>
 <img src="_main_files/figure-html/t2colchart1-1.png" alt="Standard column chart" width="672" />
 <p class="caption">
@@ -719,16 +726,16 @@ Figure 2.10: Standard column chart
 </p>
 </div></li>
 <li><p>To get a different summary statistic, such as mean, we can summarize the data and calculate the summary statistic for each category (and make the graph prettier)</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="examining-and-summarizing-data.html#cb182-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb182-2"><a href="examining-and-summarizing-data.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(flight_type) <span class="sc">%&gt;%</span></span>
-<span id="cb182-3"><a href="examining-and-summarizing-data.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(nflights)) <span class="sc">%&gt;%</span></span>
-<span id="cb182-4"><a href="examining-and-summarizing-data.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>mean, <span class="at">fill=</span>flight_type)) <span class="sc">+</span> </span>
-<span id="cb182-5"><a href="examining-and-summarizing-data.html#cb182-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb182-6"><a href="examining-and-summarizing-data.html#cb182-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Type&quot;</span>, <span class="at">y=</span><span class="st">&quot;Mean Number of Flights&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb182-7"><a href="examining-and-summarizing-data.html#cb182-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, mean)), <span class="co"># Format label number</span></span>
-<span id="cb182-8"><a href="examining-and-summarizing-data.html#cb182-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">vjust=</span>.<span class="dv">95</span>, <span class="co"># Vertically adjust the labels</span></span>
-<span id="cb182-9"><a href="examining-and-summarizing-data.html#cb182-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
-<span id="cb182-10"><a href="examining-and-summarizing-data.html#cb182-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="examining-and-summarizing-data.html#cb183-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb183-2"><a href="examining-and-summarizing-data.html#cb183-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(flight_type) <span class="sc">%&gt;%</span></span>
+<span id="cb183-3"><a href="examining-and-summarizing-data.html#cb183-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(nflights)) <span class="sc">%&gt;%</span></span>
+<span id="cb183-4"><a href="examining-and-summarizing-data.html#cb183-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>mean, <span class="at">fill=</span>flight_type)) <span class="sc">+</span> </span>
+<span id="cb183-5"><a href="examining-and-summarizing-data.html#cb183-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb183-6"><a href="examining-and-summarizing-data.html#cb183-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Type&quot;</span>, <span class="at">y=</span><span class="st">&quot;Mean Number of Flights&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb183-7"><a href="examining-and-summarizing-data.html#cb183-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, mean)), <span class="co"># Format label number</span></span>
+<span id="cb183-8"><a href="examining-and-summarizing-data.html#cb183-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">vjust=</span>.<span class="dv">95</span>, <span class="co"># Vertically adjust the labels</span></span>
+<span id="cb183-9"><a href="examining-and-summarizing-data.html#cb183-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,  <span class="co"># Bold typeface</span></span>
+<span id="cb183-10"><a href="examining-and-summarizing-data.html#cb183-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="co"># Text color</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2colchart2"></span>
 <img src="_main_files/figure-html/t2colchart2-1.png" alt="Column chart showing means" width="672" />
 <p class="caption">
@@ -741,18 +748,18 @@ Figure 2.11: Column chart showing means
 <h5><span class="header-section-number">2.2.2.2.1</span> Side-by-Side Column Chart<a href="examining-and-summarizing-data.html#side-by-side-column-chart" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>A side by side column chart can be used to show two discrete variables on the <span style="font-family: Courier;">x</span>-axis</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="examining-and-summarizing-data.html#cb183-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb183-2"><a href="examining-and-summarizing-data.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(flight_type, flight_purpose) <span class="sc">%&gt;%</span>  </span>
-<span id="cb183-3"><a href="examining-and-summarizing-data.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(nflights), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb183-4"><a href="examining-and-summarizing-data.html#cb183-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>mean, <span class="at">fill=</span>flight_purpose)) <span class="sc">+</span></span>
-<span id="cb183-5"><a href="examining-and-summarizing-data.html#cb183-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb183-6"><a href="examining-and-summarizing-data.html#cb183-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Type&quot;</span>, <span class="at">y=</span><span class="st">&quot;Mean Number of Flights&quot;</span>,   </span>
-<span id="cb183-7"><a href="examining-and-summarizing-data.html#cb183-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>) <span class="sc">+</span>  </span>
-<span id="cb183-8"><a href="examining-and-summarizing-data.html#cb183-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, mean)), </span>
-<span id="cb183-9"><a href="examining-and-summarizing-data.html#cb183-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
-<span id="cb183-10"><a href="examining-and-summarizing-data.html#cb183-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
-<span id="cb183-11"><a href="examining-and-summarizing-data.html#cb183-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb183-12"><a href="examining-and-summarizing-data.html#cb183-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="examining-and-summarizing-data.html#cb184-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb184-2"><a href="examining-and-summarizing-data.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(flight_type, flight_purpose) <span class="sc">%&gt;%</span>  </span>
+<span id="cb184-3"><a href="examining-and-summarizing-data.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(nflights), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb184-4"><a href="examining-and-summarizing-data.html#cb184-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_type, <span class="at">y=</span>mean, <span class="at">fill=</span>flight_purpose)) <span class="sc">+</span></span>
+<span id="cb184-5"><a href="examining-and-summarizing-data.html#cb184-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb184-6"><a href="examining-and-summarizing-data.html#cb184-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Type&quot;</span>, <span class="at">y=</span><span class="st">&quot;Mean Number of Flights&quot;</span>,   </span>
+<span id="cb184-7"><a href="examining-and-summarizing-data.html#cb184-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">&quot;Flight Purpose&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb184-8"><a href="examining-and-summarizing-data.html#cb184-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, mean)), </span>
+<span id="cb184-9"><a href="examining-and-summarizing-data.html#cb184-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">1</span>), </span>
+<span id="cb184-10"><a href="examining-and-summarizing-data.html#cb184-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span>.<span class="dv">95</span>,</span>
+<span id="cb184-11"><a href="examining-and-summarizing-data.html#cb184-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb184-12"><a href="examining-and-summarizing-data.html#cb184-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2colchart3"></span>
 <img src="_main_files/figure-html/t2colchart3-1.png" alt="Side-by-side column chart" width="672" />
 <p class="caption">
@@ -773,9 +780,9 @@ Figure 2.12: Side-by-side column chart
 <li>A bin is a range of values of the continuous <span style="font-family: Courier;">x</span> variable</li>
 <li>By default, <code>ggplot</code> will produce a histogram with 30 bins, and a message is produced to that effect unless the bins are changed manually</li>
 </ul>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="examining-and-summarizing-data.html#cb184-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb184-2"><a href="examining-and-summarizing-data.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
-<span id="cb184-3"><a href="examining-and-summarizing-data.html#cb184-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="examining-and-summarizing-data.html#cb185-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb185-2"><a href="examining-and-summarizing-data.html#cb185-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
+<span id="cb185-3"><a href="examining-and-summarizing-data.html#cb185-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="figure"><span style="display:block;" id="fig:t2hist1"></span>
 <img src="_main_files/figure-html/t2hist1-1.png" alt="Standard histogram" width="672" />
@@ -817,11 +824,11 @@ Figure 2.15: Interactive histogram for bin width
 <div id="improving-the-look" class="section level4 hasAnchor" number="2.2.3.2">
 <h4><span class="header-section-number">2.2.3.2</span> Improving the Look<a href="examining-and-summarizing-data.html#improving-the-look" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You may find the default histogram a little “blah” or tough to read. Just as the look of bar and column charts could be changed, so can the look of histograms</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="examining-and-summarizing-data.html#cb186-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb186-2"><a href="examining-and-summarizing-data.html#cb186-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
-<span id="cb186-3"><a href="examining-and-summarizing-data.html#cb186-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>,  <span class="co"># Adds red border around each bar</span></span>
-<span id="cb186-4"><a href="examining-and-summarizing-data.html#cb186-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">&quot;tan&quot;</span>) <span class="sc">+</span>  <span class="co"># Makes each bar blue</span></span>
-<span id="cb186-5"><a href="examining-and-summarizing-data.html#cb186-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="examining-and-summarizing-data.html#cb187-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb187-2"><a href="examining-and-summarizing-data.html#cb187-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
+<span id="cb187-3"><a href="examining-and-summarizing-data.html#cb187-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>,  <span class="co"># Adds red border around each bar</span></span>
+<span id="cb187-4"><a href="examining-and-summarizing-data.html#cb187-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">&quot;tan&quot;</span>) <span class="sc">+</span>  <span class="co"># Makes each bar blue</span></span>
+<span id="cb187-5"><a href="examining-and-summarizing-data.html#cb187-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2hist2"></span>
 <img src="_main_files/figure-html/t2hist2-1.png" alt="Prettier histogram" width="672" />
 <p class="caption">
@@ -837,16 +844,16 @@ Figure 2.16: Prettier histogram
 <li>Often, a normal curve is added</li>
 </ul>
 <p>look of bar and column charts could be changed, so can the look of histograms</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="examining-and-summarizing-data.html#cb187-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb187-2"><a href="examining-and-summarizing-data.html#cb187-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
-<span id="cb187-3"><a href="examining-and-summarizing-data.html#cb187-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="co"># Request density instead of count</span></span>
-<span id="cb187-4"><a href="examining-and-summarizing-data.html#cb187-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color=</span><span class="st">&quot;black&quot;</span>,  <span class="co"># Adds red border around each bar</span></span>
-<span id="cb187-5"><a href="examining-and-summarizing-data.html#cb187-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">&quot;tan&quot;</span>) <span class="sc">+</span>  <span class="co"># Makes each bar blue</span></span>
-<span id="cb187-6"><a href="examining-and-summarizing-data.html#cb187-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun=</span><span class="cf">function</span>(x)   <span class="co"># Adds normal curve ovarlay</span></span>
-<span id="cb187-7"><a href="examining-and-summarizing-data.html#cb187-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">dnorm</span>(x, </span>
-<span id="cb187-8"><a href="examining-and-summarizing-data.html#cb187-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">mean=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="co"># Mean of normal dist</span></span>
-<span id="cb187-9"><a href="examining-and-summarizing-data.html#cb187-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">sd=</span><span class="fu">sd</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))) <span class="sc">+</span>  <span class="co"># StdDev of normal dist</span></span>
-<span id="cb187-10"><a href="examining-and-summarizing-data.html#cb187-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="examining-and-summarizing-data.html#cb188-1" aria-hidden="true" tabindex="-1"></a>    airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb188-2"><a href="examining-and-summarizing-data.html#cb188-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age)) <span class="sc">+</span></span>
+<span id="cb188-3"><a href="examining-and-summarizing-data.html#cb188-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="co"># Request density instead of count</span></span>
+<span id="cb188-4"><a href="examining-and-summarizing-data.html#cb188-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color=</span><span class="st">&quot;black&quot;</span>,  <span class="co"># Adds red border around each bar</span></span>
+<span id="cb188-5"><a href="examining-and-summarizing-data.html#cb188-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">&quot;tan&quot;</span>) <span class="sc">+</span>  <span class="co"># Makes each bar blue</span></span>
+<span id="cb188-6"><a href="examining-and-summarizing-data.html#cb188-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stat_function</span>(<span class="at">fun=</span><span class="cf">function</span>(x)   <span class="co"># Adds normal curve ovarlay</span></span>
+<span id="cb188-7"><a href="examining-and-summarizing-data.html#cb188-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">dnorm</span>(x, </span>
+<span id="cb188-8"><a href="examining-and-summarizing-data.html#cb188-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">mean=</span><span class="fu">mean</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="co"># Mean of normal dist</span></span>
+<span id="cb188-9"><a href="examining-and-summarizing-data.html#cb188-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">sd=</span><span class="fu">sd</span>(airlinesat<span class="sc">$</span>age, <span class="at">na.rm=</span><span class="cn">TRUE</span>))) <span class="sc">+</span>  <span class="co"># StdDev of normal dist</span></span>
+<span id="cb188-10"><a href="examining-and-summarizing-data.html#cb188-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2hist3"></span>
 <img src="_main_files/figure-html/t2hist3-1.png" alt="Density histogram with normal curve" width="672" />
 <p class="caption">
@@ -862,12 +869,12 @@ Figure 2.17: Density histogram with normal curve
 <ul>
 <li><p>To get a box plot for only the continuous <span style="font-family: Courier;">y</span> variable, use <code>x=""</code> as the discrete <span style="font-family: Courier;">x</span> variable</p></li>
 <li><p>To add whiskers, include a <code>stat_boxplot(geom="errorbar")</code> layer</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="examining-and-summarizing-data.html#cb188-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb188-2"><a href="examining-and-summarizing-data.html#cb188-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>, <span class="at">y=</span>age)) <span class="sc">+</span></span>
-<span id="cb188-3"><a href="examining-and-summarizing-data.html#cb188-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb188-4"><a href="examining-and-summarizing-data.html#cb188-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_boxplot</span>(<span class="at">geom=</span><span class="st">&quot;errorbar&quot;</span>) <span class="sc">+</span>  <span class="co"># Add whiskers to box plot</span></span>
-<span id="cb188-5"><a href="examining-and-summarizing-data.html#cb188-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>,  <span class="co"># Remove x axis label</span></span>
-<span id="cb188-6"><a href="examining-and-summarizing-data.html#cb188-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Age&quot;</span>)   <span class="co"># Make y axis label nicer</span></span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="examining-and-summarizing-data.html#cb189-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb189-2"><a href="examining-and-summarizing-data.html#cb189-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>, <span class="at">y=</span>age)) <span class="sc">+</span></span>
+<span id="cb189-3"><a href="examining-and-summarizing-data.html#cb189-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb189-4"><a href="examining-and-summarizing-data.html#cb189-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_boxplot</span>(<span class="at">geom=</span><span class="st">&quot;errorbar&quot;</span>) <span class="sc">+</span>  <span class="co"># Add whiskers to box plot</span></span>
+<span id="cb189-5"><a href="examining-and-summarizing-data.html#cb189-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>,  <span class="co"># Remove x axis label</span></span>
+<span id="cb189-6"><a href="examining-and-summarizing-data.html#cb189-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Age&quot;</span>)   <span class="co"># Make y axis label nicer</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2boxplot1"></span>
 <img src="_main_files/figure-html/t2boxplot1-1.png" alt="Single box plot with whiskers" width="672" />
 <p class="caption">
@@ -875,11 +882,11 @@ Figure 2.18: Single box plot with whiskers
 </p>
 </div></li>
 <li><p>To make comparisons across a discrete <span style="font-family: Courier;">x</span> variable, replaces the <code>x=""</code> from before with <code>x=VARIABLE</code></p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="examining-and-summarizing-data.html#cb189-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb189-2"><a href="examining-and-summarizing-data.html#cb189-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_purpose, <span class="at">y=</span>age)) <span class="sc">+</span></span>
-<span id="cb189-3"><a href="examining-and-summarizing-data.html#cb189-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb189-4"><a href="examining-and-summarizing-data.html#cb189-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_boxplot</span>(<span class="at">geom=</span><span class="st">&quot;errorbar&quot;</span>) <span class="sc">+</span>  <span class="co"># Add whiskers to box plot</span></span>
-<span id="cb189-5"><a href="examining-and-summarizing-data.html#cb189-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">y=</span><span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="examining-and-summarizing-data.html#cb190-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb190-2"><a href="examining-and-summarizing-data.html#cb190-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flight_purpose, <span class="at">y=</span>age)) <span class="sc">+</span></span>
+<span id="cb190-3"><a href="examining-and-summarizing-data.html#cb190-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb190-4"><a href="examining-and-summarizing-data.html#cb190-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_boxplot</span>(<span class="at">geom=</span><span class="st">&quot;errorbar&quot;</span>) <span class="sc">+</span>  <span class="co"># Add whiskers to box plot</span></span>
+<span id="cb190-5"><a href="examining-and-summarizing-data.html#cb190-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Flight Purpose&quot;</span>, <span class="at">y=</span><span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2boxplot2"></span>
 <img src="_main_files/figure-html/t2boxplot2-1.png" alt="Multiple box plot" width="672" />
 <p class="caption">
@@ -896,9 +903,9 @@ Figure 2.19: Multiple box plot
 <ul>
 <li>Notice the warning given due to missing values (these warnings will be suppressed in other scatterplots below)</li>
 </ul>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="examining-and-summarizing-data.html#cb190-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb190-2"><a href="examining-and-summarizing-data.html#cb190-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10)) <span class="sc">+</span> <span class="co"># s10 is satisfaction with condition of airplane</span></span>
-<span id="cb190-3"><a href="examining-and-summarizing-data.html#cb190-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="examining-and-summarizing-data.html#cb191-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb191-2"><a href="examining-and-summarizing-data.html#cb191-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10)) <span class="sc">+</span> <span class="co"># s10 is satisfaction with condition of airplane</span></span>
+<span id="cb191-3"><a href="examining-and-summarizing-data.html#cb191-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <pre><code>Warning: Removed 40 rows containing missing values (geom_point).</code></pre>
 <div class="figure"><span style="display:block;" id="fig:t2scatter1"></span>
 <img src="_main_files/figure-html/t2scatter1-1.png" alt="Standard scatterplot" width="672" />
@@ -915,11 +922,11 @@ Figure 2.20: Standard scatterplot
 <ul>
 <li>Use <code>geom_smooth(method="lm", se=FALSE)</code> to add a linear trend line</li>
 </ul>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="examining-and-summarizing-data.html#cb192-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb192-2"><a href="examining-and-summarizing-data.html#cb192-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10)) <span class="sc">+</span> <span class="co"># s10 is satisfaction with condition of airplane</span></span>
-<span id="cb192-3"><a href="examining-and-summarizing-data.html#cb192-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb192-4"><a href="examining-and-summarizing-data.html#cb192-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Add trendline</span></span>
-<span id="cb192-5"><a href="examining-and-summarizing-data.html#cb192-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Satisfaction with Aircraft Condition&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="examining-and-summarizing-data.html#cb193-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb193-2"><a href="examining-and-summarizing-data.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10)) <span class="sc">+</span> <span class="co"># s10 is satisfaction with condition of airplane</span></span>
+<span id="cb193-3"><a href="examining-and-summarizing-data.html#cb193-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb193-4"><a href="examining-and-summarizing-data.html#cb193-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Add trendline</span></span>
+<span id="cb193-5"><a href="examining-and-summarizing-data.html#cb193-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Satisfaction with Aircraft Condition&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2scatter2"></span>
 <img src="_main_files/figure-html/t2scatter2-1.png" alt="Scatterplot with trendline" width="672" />
 <p class="caption">
@@ -939,12 +946,12 @@ Figure 2.21: Scatterplot with trendline
 <li>If a trend line is requested, separate trend lines will be provided for each level of the discrete variable</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="examining-and-summarizing-data.html#cb193-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb193-2"><a href="examining-and-summarizing-data.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10, <span class="at">color=</span>flight_type)) <span class="sc">+</span> </span>
-<span id="cb193-3"><a href="examining-and-summarizing-data.html#cb193-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">17</span>) <span class="sc">+</span> </span>
-<span id="cb193-4"><a href="examining-and-summarizing-data.html#cb193-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Add trendline</span></span>
-<span id="cb193-5"><a href="examining-and-summarizing-data.html#cb193-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Satisfaction with Aircraft Condition&quot;</span>,</span>
-<span id="cb193-6"><a href="examining-and-summarizing-data.html#cb193-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;Flight Type&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="examining-and-summarizing-data.html#cb194-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb194-2"><a href="examining-and-summarizing-data.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>s10, <span class="at">color=</span>flight_type)) <span class="sc">+</span> </span>
+<span id="cb194-3"><a href="examining-and-summarizing-data.html#cb194-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">17</span>) <span class="sc">+</span> </span>
+<span id="cb194-4"><a href="examining-and-summarizing-data.html#cb194-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Add trendline</span></span>
+<span id="cb194-5"><a href="examining-and-summarizing-data.html#cb194-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Satisfaction with Aircraft Condition&quot;</span>,</span>
+<span id="cb194-6"><a href="examining-and-summarizing-data.html#cb194-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">color=</span><span class="st">&quot;Flight Type&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:t2scatter3"></span>
 <img src="_main_files/figure-html/t2scatter3-1.png" alt="Scatterplot with different colors for discrete variable" width="672" />
 <p class="caption">
@@ -968,11 +975,11 @@ Figure 2.22: Scatterplot with different colors for discrete variable
 <ul>
 <li>Wrapping the call to <code>table</code> with <code>proportions</code> will create the table with proportions (i.e., percent in each category)</li>
 </ul>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="examining-and-summarizing-data.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airlinesat<span class="sc">$</span>language)   <span class="co"># One way frequency table (counts)</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="examining-and-summarizing-data.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airlinesat<span class="sc">$</span>language)   <span class="co"># One way frequency table (counts)</span></span></code></pre></div>
 <pre class="custom-output"><code>
 English  French  German 
     233      10     822 </code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="examining-and-summarizing-data.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(airlinesat<span class="sc">$</span>language))   <span class="co"># One way table of proportions</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="examining-and-summarizing-data.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(airlinesat<span class="sc">$</span>language))   <span class="co"># One way table of proportions</span></span></code></pre></div>
 <pre class="custom-output"><code>
     English      French      German 
 0.218779343 0.009389671 0.771830986 </code></pre>
@@ -986,10 +993,10 @@ English  French  German
 <h4><span class="header-section-number">2.3.1.2</span> Package <em>questionr</em><a href="examining-and-summarizing-data.html#package-questionr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>The <code>freq()</code> command from the package <code>questionr</code> produces nice one-way frequency tables (i.e., a frequency table for a single discrete variable)</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="examining-and-summarizing-data.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(questionr)</span>
-<span id="cb198-2"><a href="examining-and-summarizing-data.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(airlinesat<span class="sc">$</span>language, <span class="co"># Provide discrete variable</span></span>
-<span id="cb198-3"><a href="examining-and-summarizing-data.html#cb198-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">cum=</span><span class="cn">TRUE</span>,  <span class="co"># Add cumulative percent column</span></span>
-<span id="cb198-4"><a href="examining-and-summarizing-data.html#cb198-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">total=</span><span class="cn">TRUE</span>)  <span class="co"># Add total row at bottom</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="examining-and-summarizing-data.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(questionr)</span>
+<span id="cb199-2"><a href="examining-and-summarizing-data.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(airlinesat<span class="sc">$</span>language, <span class="co"># Provide discrete variable</span></span>
+<span id="cb199-3"><a href="examining-and-summarizing-data.html#cb199-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">cum=</span><span class="cn">TRUE</span>,  <span class="co"># Add cumulative percent column</span></span>
+<span id="cb199-4"><a href="examining-and-summarizing-data.html#cb199-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">total=</span><span class="cn">TRUE</span>)  <span class="co"># Add total row at bottom</span></span></code></pre></div>
 <pre class="custom-output"><code>           n     %  val%  %cum val%cum
 English  233  21.9  21.9  21.9    21.9
 French    10   0.9   0.9  22.8    22.8
@@ -997,100 +1004,6 @@ German   822  77.2  77.2 100.0   100.0
 Total   1065 100.0 100.0 100.0   100.0</code></pre>
 <caption>
 <p><span id="tab:t2onewayfreq2">Table 2.2: </span> One-way frequency table using <code>questionr</code></p>
-</caption></li>
-<li><p>Use package <code>htmlTable()</code> to produce a nicer looking table for output in the viewer (vs. the console)</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="examining-and-summarizing-data.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlTable)</span>
-<span id="cb200-2"><a href="examining-and-summarizing-data.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(airlinesat<span class="sc">$</span>flight_type, </span>
-<span id="cb200-3"><a href="examining-and-summarizing-data.html#cb200-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">cum=</span><span class="cn">TRUE</span>,  </span>
-<span id="cb200-4"><a href="examining-and-summarizing-data.html#cb200-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">total=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>  <span class="co"># Pass result to htmlTable</span></span>
-<span id="cb200-5"><a href="examining-and-summarizing-data.html#cb200-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>()</span></code></pre></div>
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>n</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>%</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>val%</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>%cum</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>val%cum</p>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">
-<p>Domestic</p>
-</td>
-<td style="text-align: center;">
-<p>558</p>
-</td>
-<td style="text-align: center;">
-<p>52.4</p>
-</td>
-<td style="text-align: center;">
-<p>52.4</p>
-</td>
-<td style="text-align: center;">
-<p>52.4</p>
-</td>
-<td style="text-align: center;">
-<p>52.4</p>
-</td>
-</tr>
-<tr>
-<td style="text-align: left;">
-<p>International</p>
-</td>
-<td style="text-align: center;">
-<p>507</p>
-</td>
-<td style="text-align: center;">
-<p>47.6</p>
-</td>
-<td style="text-align: center;">
-<p>47.6</p>
-</td>
-<td style="text-align: center;">
-<p>100</p>
-</td>
-<td style="text-align: center;">
-<p>100</p>
-</td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">
-<p>Total</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>1065</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>100</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>100</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>100</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>100</p>
-</td>
-</tr>
-</tbody>
-</table>
-<caption>
-<p><span id="tab:t2onewayfreq3">Table 2.3: </span> One-way frequency table using <i>htmlTable</i></p>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/V9yAaN1ODJY" target="_blank">Video Tutorial: Frequency Tables with <em>questionr</em></a></p>
@@ -1101,8 +1014,8 @@ Total   1065 100.0 100.0 100.0   100.0</code></pre>
 <div id="base-r" class="section level4 hasAnchor" number="2.3.2.1">
 <h4><span class="header-section-number">2.3.2.1</span> Base R<a href="examining-and-summarizing-data.html#base-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li><p>Base R does not do a great job of easily creating cross-tabs and testing for independent of the two variables</p></li>
-<li><p>Using base R, a multistep process is required</p>
+<li>Base R does not do a great job of easily creating cross-tabs and testing for independent of the two variables</li>
+<li>Using base R, a multistep process is required
 <ul>
 <li>Create the two-way frequency table using the <code>table(rowvar, colvar)</code> function and assign it to a separate object
 <ul>
@@ -1136,89 +1049,7 @@ Total   1065 100.0 100.0 100.0   100.0</code></pre>
 data:  crosstab
 X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 <caption>
-<p><span id="tab:t2crosstab1">Table 2.4: </span> Cross-tabs using Base R</p>
-</caption></li>
-<li><p>The look of the tables can be improved with the <code>htmlTable</code> package</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="examining-and-summarizing-data.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlTable</span>(crosstab)</span></code></pre></div>
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>female</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>male</p>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">
-<p>Business</p>
-</td>
-<td style="text-align: center;">
-<p>76</p>
-</td>
-<td style="text-align: center;">
-<p>449</p>
-</td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">
-<p>Leisure</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>204</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>336</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="examining-and-summarizing-data.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlTable</span>(<span class="fu">round</span>(<span class="fu">proportions</span>(crosstab,<span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>female</p>
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-<p>male</p>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">
-<p>Business</p>
-</td>
-<td style="text-align: center;">
-<p>27.14</p>
-</td>
-<td style="text-align: center;">
-<p>57.2</p>
-</td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">
-<p>Leisure</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>72.86</p>
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-<p>42.8</p>
-</td>
-</tr>
-</tbody>
-</table>
-<caption>
-<p><span id="tab:t2crosstab2">Table 2.5: </span> Cross-tabs using <i>htmlTable</i></p>
+<span id="tab:t2crosstab1">Table 2.3: </span> Cross-tabs using Base R
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/pLewunbuCsE" target="_blank">Video Tutorial: Cross-Tabs with Base R</a></p>
@@ -1230,10 +1061,10 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 <h5><span class="header-section-number">2.3.2.2.1</span> Package <em>sjPlot</em><a href="examining-and-summarizing-data.html#package-sjplot" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>Use the function <code>tab_xtab(var.row=, var.col=, show.col.prc=TRUE)</code> to get a standard crosstab with column percentages</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="examining-and-summarizing-data.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb209-2"><a href="examining-and-summarizing-data.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_xtab</span>(<span class="at">var.row=</span>airlinesat<span class="sc">$</span>flight_purpose,</span>
-<span id="cb209-3"><a href="examining-and-summarizing-data.html#cb209-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">var.col=</span>airlinesat<span class="sc">$</span>gender,</span>
-<span id="cb209-4"><a href="examining-and-summarizing-data.html#cb209-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.col.prc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="examining-and-summarizing-data.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb207-2"><a href="examining-and-summarizing-data.html#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_xtab</span>(<span class="at">var.row=</span>airlinesat<span class="sc">$</span>flight_purpose,</span>
+<span id="cb207-3"><a href="examining-and-summarizing-data.html#cb207-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">var.col=</span>airlinesat<span class="sc">$</span>gender,</span>
+<span id="cb207-4"><a href="examining-and-summarizing-data.html#cb207-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.col.prc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">
@@ -1302,7 +1133,7 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 </tr>
 </table>
 <caption>
-<p><span id="tab:t2crosstab3">Table 2.6: </span> Cross-tab using <i>sjPlot</i></p>
+<p><span id="tab:t2crosstab3">Table 2.4: </span> Cross-tab using <i>sjPlot</i></p>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/ZcPXt9rm_2g" target="_blank">Video Tutorial: Cross-Tabs with <em>sjPlot</em></a></p>
@@ -1311,14 +1142,14 @@ X-squared = 73.386, df = 1, p-value &lt; 2.2e-16</code></pre>
 <h5><span class="header-section-number">2.3.2.2.2</span> Package <em>gmodels</em><a href="examining-and-summarizing-data.html#package-gmodels" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <ul>
 <li><p>Function<code>CrossTable(rowvar, colvar, OPTIONS)</code> has many options similar to SPSS</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="examining-and-summarizing-data.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb210-2"><a href="examining-and-summarizing-data.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(airlinesat<span class="sc">$</span>flight_purpose, airlinesat<span class="sc">$</span>gender,</span>
-<span id="cb210-3"><a href="examining-and-summarizing-data.html#cb210-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.r=</span><span class="cn">FALSE</span>,  <span class="co"># Exclude row percentages</span></span>
-<span id="cb210-4"><a href="examining-and-summarizing-data.html#cb210-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.t=</span><span class="cn">FALSE</span>,  <span class="co"># Exclude total percentages,</span></span>
-<span id="cb210-5"><a href="examining-and-summarizing-data.html#cb210-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.chisq=</span><span class="cn">FALSE</span>, <span class="co"># Exclude cell contribution to chi-sq</span></span>
-<span id="cb210-6"><a href="examining-and-summarizing-data.html#cb210-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">digits=</span><span class="dv">2</span>,  <span class="co"># 2 digits after decimal point</span></span>
-<span id="cb210-7"><a href="examining-and-summarizing-data.html#cb210-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">chisq=</span><span class="cn">TRUE</span>,  <span class="co"># Request test of independence</span></span>
-<span id="cb210-8"><a href="examining-and-summarizing-data.html#cb210-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">format=</span><span class="st">&quot;SPSS&quot;</span>)  <span class="co"># Request SPSS formatting</span></span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="examining-and-summarizing-data.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb208-2"><a href="examining-and-summarizing-data.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(airlinesat<span class="sc">$</span>flight_purpose, airlinesat<span class="sc">$</span>gender,</span>
+<span id="cb208-3"><a href="examining-and-summarizing-data.html#cb208-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.r=</span><span class="cn">FALSE</span>,  <span class="co"># Exclude row percentages</span></span>
+<span id="cb208-4"><a href="examining-and-summarizing-data.html#cb208-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.t=</span><span class="cn">FALSE</span>,  <span class="co"># Exclude total percentages,</span></span>
+<span id="cb208-5"><a href="examining-and-summarizing-data.html#cb208-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prop.chisq=</span><span class="cn">FALSE</span>, <span class="co"># Exclude cell contribution to chi-sq</span></span>
+<span id="cb208-6"><a href="examining-and-summarizing-data.html#cb208-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">digits=</span><span class="dv">2</span>,  <span class="co"># 2 digits after decimal point</span></span>
+<span id="cb208-7"><a href="examining-and-summarizing-data.html#cb208-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">chisq=</span><span class="cn">TRUE</span>,  <span class="co"># Request test of independence</span></span>
+<span id="cb208-8"><a href="examining-and-summarizing-data.html#cb208-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">format=</span><span class="st">&quot;SPSS&quot;</span>)  <span class="co"># Request SPSS formatting</span></span></code></pre></div>
 <pre class="custom-output"><code>
    Cell Contents
 |-------------------------|
@@ -1356,7 +1187,7 @@ Chi^2 =  73.38648     d.f. =  1     p =  1.065938e-17
 
        Minimum expected frequency: 138.0282 </code></pre>
 <caption>
-<p><span id="tab:t2crosstab4">Table 2.7: </span> Cross-tab using <i>gmodels</i></p>
+<p><span id="tab:t2crosstab4">Table 2.5: </span> Cross-tab using <i>gmodels</i></p>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/jN74Qn689xs" target="_blank">Video Tutorial: Cross-Tabs with <em>gmodels</em></a></p>
@@ -1375,15 +1206,15 @@ Chi^2 =  73.38648     d.f. =  1     p =  1.065938e-17
 <li><code>quantile(x, .percentile)</code> for percentiles (e.g., ‘.50’ would be median)</li>
 </ul></li>
 <li><p>For summary statistics except for standard deviation, the <code>summary(object)</code> function can be used, where object can be a single variable or an entire data frame</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="examining-and-summarizing-data.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary for a single variable</span></span>
-<span id="cb212-2"><a href="examining-and-summarizing-data.html#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airlinesat<span class="sc">$</span>nflights)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="examining-and-summarizing-data.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary for a single variable</span></span>
+<span id="cb210-2"><a href="examining-and-summarizing-data.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airlinesat<span class="sc">$</span>nflights)</span></code></pre></div>
 <pre class="custom-output"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    1.00    4.00    8.00   13.42   16.00  457.00 </code></pre>
 <caption>
-<p><span id="tab:t2summary1">Table 2.8: </span> Summary statistics in R Base, one variable</p>
+<p><span id="tab:t2summary1">Table 2.6: </span> Summary statistics in R Base, one variable</p>
 </caption>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="examining-and-summarizing-data.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset of airlinesat</span></span>
-<span id="cb214-2"><a href="examining-and-summarizing-data.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airlinesat[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nflights&quot;</span>, <span class="st">&quot;s10&quot;</span>)])</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="examining-and-summarizing-data.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset of airlinesat</span></span>
+<span id="cb212-2"><a href="examining-and-summarizing-data.html#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airlinesat[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nflights&quot;</span>, <span class="st">&quot;s10&quot;</span>)])</span></code></pre></div>
 <pre class="custom-output"><code>      age            nflights           s10        
  Min.   : 19.00   Min.   :  1.00   Min.   :  1.00  
  1st Qu.: 42.00   1st Qu.:  4.00   1st Qu.: 50.00  
@@ -1393,12 +1224,12 @@ Chi^2 =  73.38648     d.f. =  1     p =  1.065938e-17
  Max.   :101.00   Max.   :457.00   Max.   :100.00  
                                    NA&#39;s   :40      </code></pre>
 <caption>
-<p><span id="tab:t2summary2">Table 2.9: </span> Summary statistics in R Base, multiple variables</p>
+<p><span id="tab:t2summary2">Table 2.7: </span> Summary statistics in R Base, multiple variables</p>
 </caption></li>
 <li><p>Summary statistics for a continuous variable by different levels of a discrete variable can also be done in Base R using the <code>tapply(continuous variable, discrete variable, function)</code> function</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="examining-and-summarizing-data.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(airlinesat<span class="sc">$</span>nflights,  <span class="co"># Continous variable to apply the function to</span></span>
-<span id="cb216-2"><a href="examining-and-summarizing-data.html#cb216-2" aria-hidden="true" tabindex="-1"></a>       airlinesat<span class="sc">$</span>flight_purpose, <span class="co"># Discrete, grouping variable</span></span>
-<span id="cb216-3"><a href="examining-and-summarizing-data.html#cb216-3" aria-hidden="true" tabindex="-1"></a>       summary)  <span class="co"># R function to apply by group</span></span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="examining-and-summarizing-data.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(airlinesat<span class="sc">$</span>nflights,  <span class="co"># Continous variable to apply the function to</span></span>
+<span id="cb214-2"><a href="examining-and-summarizing-data.html#cb214-2" aria-hidden="true" tabindex="-1"></a>       airlinesat<span class="sc">$</span>flight_purpose, <span class="co"># Discrete, grouping variable</span></span>
+<span id="cb214-3"><a href="examining-and-summarizing-data.html#cb214-3" aria-hidden="true" tabindex="-1"></a>       summary)  <span class="co"># R function to apply by group</span></span></code></pre></div>
 <pre class="custom-output"><code>$Business
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    1.00    6.00   12.00   18.65   25.00  120.00 
@@ -1407,7 +1238,7 @@ $Leisure
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   1.000   3.000   4.000   8.337   8.000 457.000 </code></pre>
 <caption>
-<p><span id="tab:t2summary3">Table 2.10: </span> Summary statistics in R Base, one variable, grouped</p>
+<p><span id="tab:t2summary3">Table 2.8: </span> Summary statistics in R Base, one variable, grouped</p>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/XpUCa3DVmHE" target="_blank">Video Tutorial: Summary Measures with Base R</a></p>
@@ -1419,23 +1250,23 @@ $Leisure
 <ul>
 <li>One continuous variable</li>
 </ul>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="examining-and-summarizing-data.html#cb218-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb218-2"><a href="examining-and-summarizing-data.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(age),</span>
-<span id="cb218-3"><a href="examining-and-summarizing-data.html#cb218-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(age),</span>
-<span id="cb218-4"><a href="examining-and-summarizing-data.html#cb218-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">q1=</span><span class="fu">quantile</span>(age, .<span class="dv">25</span>),</span>
-<span id="cb218-5"><a href="examining-and-summarizing-data.html#cb218-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">median=</span><span class="fu">quantile</span>(age,.<span class="dv">50</span>),</span>
-<span id="cb218-6"><a href="examining-and-summarizing-data.html#cb218-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">q3=</span><span class="fu">quantile</span>(age, .<span class="dv">75</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="examining-and-summarizing-data.html#cb216-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb216-2"><a href="examining-and-summarizing-data.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(age),</span>
+<span id="cb216-3"><a href="examining-and-summarizing-data.html#cb216-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(age),</span>
+<span id="cb216-4"><a href="examining-and-summarizing-data.html#cb216-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">q1=</span><span class="fu">quantile</span>(age, .<span class="dv">25</span>),</span>
+<span id="cb216-5"><a href="examining-and-summarizing-data.html#cb216-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">median=</span><span class="fu">quantile</span>(age,.<span class="dv">50</span>),</span>
+<span id="cb216-6"><a href="examining-and-summarizing-data.html#cb216-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">q3=</span><span class="fu">quantile</span>(age, .<span class="dv">75</span>))</span></code></pre></div>
 <pre class="custom-output"><code>      mean       sd q1 median q3
 1 50.41972 12.27464 42     50 58</code></pre>
 <caption>
-<span id="tab:t2summary4">Table 2.11: </span> Summary statistics using <i>dplyr</i>, one variable
+<span id="tab:t2summary4">Table 2.9: </span> Summary statistics using <i>dplyr</i>, one variable
 </caption>
 <ul>
 <li>Multiple continuous variables</li>
 </ul>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="examining-and-summarizing-data.html#cb220-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb220-2"><a href="examining-and-summarizing-data.html#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age, nflights, s10) <span class="sc">%&gt;%</span></span>
-<span id="cb220-3"><a href="examining-and-summarizing-data.html#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="examining-and-summarizing-data.html#cb218-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb218-2"><a href="examining-and-summarizing-data.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(age, nflights, s10) <span class="sc">%&gt;%</span></span>
+<span id="cb218-3"><a href="examining-and-summarizing-data.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
 <pre class="custom-output"><code>      age            nflights           s10        
  Min.   : 19.00   Min.   :  1.00   Min.   :  1.00  
  1st Qu.: 42.00   1st Qu.:  4.00   1st Qu.: 50.00  
@@ -1445,25 +1276,25 @@ $Leisure
  Max.   :101.00   Max.   :457.00   Max.   :100.00  
                                    NA&#39;s   :40      </code></pre>
 <caption>
-<span id="tab:t2summary5">Table 2.12: </span> Summary statistics using <i>dplyr</i>, multiple variables
+<span id="tab:t2summary5">Table 2.10: </span> Summary statistics using <i>dplyr</i>, multiple variables
 </caption>
 <ul>
 <li>One continuous variable by a discrete/grouping variable</li>
 </ul>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="examining-and-summarizing-data.html#cb222-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="examining-and-summarizing-data.html#cb222-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(flight_purpose) <span class="sc">%&gt;%</span></span>
-<span id="cb222-3"><a href="examining-and-summarizing-data.html#cb222-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(age),</span>
-<span id="cb222-4"><a href="examining-and-summarizing-data.html#cb222-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(age),</span>
-<span id="cb222-5"><a href="examining-and-summarizing-data.html#cb222-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">q1=</span><span class="fu">quantile</span>(age, .<span class="dv">25</span>),</span>
-<span id="cb222-6"><a href="examining-and-summarizing-data.html#cb222-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">median=</span><span class="fu">quantile</span>(age,.<span class="dv">50</span>),</span>
-<span id="cb222-7"><a href="examining-and-summarizing-data.html#cb222-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">q3=</span><span class="fu">quantile</span>(age, .<span class="dv">75</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="examining-and-summarizing-data.html#cb220-1" aria-hidden="true" tabindex="-1"></a>airlinesat <span class="sc">%&gt;%</span></span>
+<span id="cb220-2"><a href="examining-and-summarizing-data.html#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(flight_purpose) <span class="sc">%&gt;%</span></span>
+<span id="cb220-3"><a href="examining-and-summarizing-data.html#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(age),</span>
+<span id="cb220-4"><a href="examining-and-summarizing-data.html#cb220-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(age),</span>
+<span id="cb220-5"><a href="examining-and-summarizing-data.html#cb220-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">q1=</span><span class="fu">quantile</span>(age, .<span class="dv">25</span>),</span>
+<span id="cb220-6"><a href="examining-and-summarizing-data.html#cb220-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">median=</span><span class="fu">quantile</span>(age,.<span class="dv">50</span>),</span>
+<span id="cb220-7"><a href="examining-and-summarizing-data.html#cb220-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">q3=</span><span class="fu">quantile</span>(age, .<span class="dv">75</span>))</span></code></pre></div>
 <pre class="custom-output"><code># A tibble: 2 x 6
   flight_purpose  mean    sd    q1 median    q3
   &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 1 Business        48.5  9.91    41     49    55
 2 Leisure         52.3 14.0     43     53    63</code></pre>
 <caption>
-<span id="tab:t2summary6">Table 2.13: </span> Summary statistics using <i>dplyr</i>, one variable, grouped
+<span id="tab:t2summary6">Table 2.11: </span> Summary statistics using <i>dplyr</i>, one variable, grouped
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/uesn3-BnAHE" target="_blank">Video Tutorial: Summary Measures with <em>dplyr</em></a></p>
@@ -1476,8 +1307,8 @@ $Leisure
 <ul>
 <li>One continuous variable</li>
 </ul>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="examining-and-summarizing-data.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vtable)</span>
-<span id="cb224-2"><a href="examining-and-summarizing-data.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, <span class="at">vars=</span><span class="st">&quot;nflights&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="examining-and-summarizing-data.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vtable)</span>
+<span id="cb222-2"><a href="examining-and-summarizing-data.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, <span class="at">vars=</span><span class="st">&quot;nflights&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1537,14 +1368,14 @@ nflights
 </tbody>
 </table>
 <caption>
-<span id="tab:t2summary7">Table 2.14: </span> Summary statistics using <i>vtable</i>, one variable
+<span id="tab:t2summary7">Table 2.12: </span> Summary statistics using <i>vtable</i>, one variable
 </caption>
 <ul>
 <li>Multiple continuous variables</li>
 </ul>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="examining-and-summarizing-data.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, </span>
-<span id="cb225-2"><a href="examining-and-summarizing-data.html#cb225-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">vars=</span><span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;s10&quot;</span>), <span class="co"># Use `c()` for multiple variables</span></span>
-<span id="cb225-3"><a href="examining-and-summarizing-data.html#cb225-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">add.median=</span><span class="cn">TRUE</span>)  <span class="co"># Request median</span></span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="examining-and-summarizing-data.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, </span>
+<span id="cb223-2"><a href="examining-and-summarizing-data.html#cb223-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">vars=</span><span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;s10&quot;</span>), <span class="co"># Use `c()` for multiple variables</span></span>
+<span id="cb223-3"><a href="examining-and-summarizing-data.html#cb223-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">add.median=</span><span class="cn">TRUE</span>)  <span class="co"># Request median</span></span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1668,15 +1499,15 @@ s10
 </tbody>
 </table>
 <caption>
-<span id="tab:t2summary8">Table 2.15: </span> Summary statistics using <i>vtable</i>, multiple variable
+<span id="tab:t2summary8">Table 2.13: </span> Summary statistics using <i>vtable</i>, multiple variable
 </caption>
 <ul>
 <li>One or more continuous variables by a discrete/grouping variable</li>
 </ul>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="examining-and-summarizing-data.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, </span>
-<span id="cb226-2"><a href="examining-and-summarizing-data.html#cb226-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">vars=</span><span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;s10&quot;</span>), </span>
-<span id="cb226-3"><a href="examining-and-summarizing-data.html#cb226-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">add.median=</span><span class="cn">TRUE</span>, </span>
-<span id="cb226-4"><a href="examining-and-summarizing-data.html#cb226-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">group=</span><span class="st">&quot;flight_purpose&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="examining-and-summarizing-data.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sumtable</span>(airlinesat, </span>
+<span id="cb224-2"><a href="examining-and-summarizing-data.html#cb224-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">vars=</span><span class="fu">c</span>(<span class="st">&quot;nflights&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;s10&quot;</span>), </span>
+<span id="cb224-3"><a href="examining-and-summarizing-data.html#cb224-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">add.median=</span><span class="cn">TRUE</span>, </span>
+<span id="cb224-4"><a href="examining-and-summarizing-data.html#cb224-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">group=</span><span class="st">&quot;flight_purpose&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1823,7 +1654,7 @@ s10
 </tbody>
 </table>
 <caption>
-<span id="tab:t2summary9">Table 2.16: </span> Summary statistics using <i>vtable</i>, multiple variables, grouped
+<span id="tab:t2summary9">Table 2.14: </span> Summary statistics using <i>vtable</i>, multiple variables, grouped
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/baAa81YhfQ0" target="_blank">Video Tutorial: Summary Measures with <em>vtable</em></a></p>
@@ -1839,7 +1670,7 @@ s10
 <ul>
 <li>By default, it includes only observations that are non-missing in both variables</li>
 </ul>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="examining-and-summarizing-data.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(airlinesat<span class="sc">$</span>age, airlinesat<span class="sc">$</span>nflights)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="examining-and-summarizing-data.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(airlinesat<span class="sc">$</span>age, airlinesat<span class="sc">$</span>nflights)</span></code></pre></div>
 <pre class="custom-output"><code>
     Pearson&#39;s product-moment correlation
 
@@ -1852,7 +1683,7 @@ sample estimates:
       cor 
 -0.115763 </code></pre>
 <caption>
-<span id="tab:t2corr1">Table 2.17: </span> Correlation with test in Base R
+<span id="tab:t2corr1">Table 2.15: </span> Correlation with test in Base R
 </caption></li>
 <li>Base R can also easily provide a correlation matrix of variables using the <code>cor(data)</code> function
 <ul>
@@ -1860,16 +1691,16 @@ sample estimates:
 <li>Use option <code>use="pairwise.complete.obs"</code> to exclude observations that are non-missing in both variables</li>
 <li>However, Base R cannot produce a correlation matrix with p-values</li>
 </ul>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="examining-and-summarizing-data.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First create data frame with only variables wanted</span></span>
-<span id="cb229-2"><a href="examining-and-summarizing-data.html#cb229-2" aria-hidden="true" tabindex="-1"></a>mycorr <span class="ot">&lt;-</span> airlinesat[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nflights&quot;</span>, <span class="st">&quot;s10&quot;</span>)]</span>
-<span id="cb229-3"><a href="examining-and-summarizing-data.html#cb229-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use function `round` to limit to 3 digits after decimal point</span></span>
-<span id="cb229-4"><a href="examining-and-summarizing-data.html#cb229-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(mycorr, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="examining-and-summarizing-data.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First create data frame with only variables wanted</span></span>
+<span id="cb227-2"><a href="examining-and-summarizing-data.html#cb227-2" aria-hidden="true" tabindex="-1"></a>mycorr <span class="ot">&lt;-</span> airlinesat[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nflights&quot;</span>, <span class="st">&quot;s10&quot;</span>)]</span>
+<span id="cb227-3"><a href="examining-and-summarizing-data.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use function `round` to limit to 3 digits after decimal point</span></span>
+<span id="cb227-4"><a href="examining-and-summarizing-data.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(mycorr, <span class="at">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>), <span class="dv">3</span>)</span></code></pre></div>
 <pre class="custom-output"><code>            age nflights    s10
 age       1.000   -0.116  0.167
 nflights -0.116    1.000 -0.121
 s10       0.167   -0.121  1.000</code></pre>
 <caption>
-<span id="tab:t2corr2">Table 2.18: </span> Correlation matrix in Base R
+<span id="tab:t2corr2">Table 2.16: </span> Correlation matrix in Base R
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/A-S5teahfxg" target="_blank">Video Tutorial: Correlation with Base R</a></p>
@@ -1885,11 +1716,10 @@ s10       0.167   -0.121  1.000</code></pre>
 <ul>
 <li><code>rcorr(as.matrix(dataframe))]]"r"]]</code> provides the correlation matrix</li>
 <li><code>rcorr(as.matrix(dataframe))]]"P"]]</code> provides the matrix of p-values</li>
-<li>Separate tables can used with <code>htmlTable()</code> for nicer output</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="examining-and-summarizing-data.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb231-2"><a href="examining-and-summarizing-data.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))  <span class="co"># </span><span class="al">NOTE</span><span class="co">: &#39;mycorr&#39; created in previous code</span></span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="examining-and-summarizing-data.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb229-2"><a href="examining-and-summarizing-data.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))  <span class="co"># </span><span class="al">NOTE</span><span class="co">: &#39;mycorr&#39; created in previous code</span></span></code></pre></div>
 <pre class="custom-output"><code>           age nflights   s10
 age       1.00    -0.12  0.17
 nflights -0.12     1.00 -0.12
@@ -1907,132 +1737,21 @@ age            2e-04    0e+00
 nflights 2e-04          1e-04
 s10      0e+00 1e-04         </code></pre>
 <caption>
-<span id="tab:t2corr3">Table 2.19: </span> Correlation matrix using <i>Hmisc</i>
+<span id="tab:t2corr3">Table 2.17: </span> Correlation matrix using <i>Hmisc</i>
 </caption>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="examining-and-summarizing-data.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use &#39;round()&#39; function to limit digits in output</span></span>
-<span id="cb233-2"><a href="examining-and-summarizing-data.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlTable</span>(<span class="fu">round</span>(<span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))[[<span class="st">&quot;r&quot;</span>]],<span class="dv">4</span>))</span>
-<span id="cb233-3"><a href="examining-and-summarizing-data.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlTable</span>(<span class="fu">round</span>(<span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))[[<span class="st">&quot;P&quot;</span>]],<span class="dv">5</span>))</span></code></pre></div>
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-age
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-nflights
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-s10
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">
-age
-</td>
-<td style="text-align: center;">
-1
-</td>
-<td style="text-align: center;">
--0.1158
-</td>
-<td style="text-align: center;">
-0.1671
-</td>
-</tr>
-<tr>
-<td style="text-align: left;">
-nflights
-</td>
-<td style="text-align: center;">
--0.1158
-</td>
-<td style="text-align: center;">
-1
-</td>
-<td style="text-align: center;">
--0.1206
-</td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">
-s10
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-0.1671
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
--0.1206
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-1
-</td>
-</tr>
-</tbody>
-</table>
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr>
-<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-age
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-nflights
-</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-s10
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">
-age
-</td>
-<td style="text-align: center;">
-</td>
-<td style="text-align: center;">
-0.00015
-</td>
-<td style="text-align: center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align: left;">
-nflights
-</td>
-<td style="text-align: center;">
-0.00015
-</td>
-<td style="text-align: center;">
-</td>
-<td style="text-align: center;">
-0.00011
-</td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">
-s10
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-0
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-0.00011
-</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">
-</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="examining-and-summarizing-data.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use &#39;round()&#39; function to limit digits in output</span></span>
+<span id="cb231-2"><a href="examining-and-summarizing-data.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))[[<span class="st">&quot;r&quot;</span>]],<span class="dv">4</span>)</span>
+<span id="cb231-3"><a href="examining-and-summarizing-data.html#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(mycorr))[[<span class="st">&quot;P&quot;</span>]],<span class="dv">5</span>)</span></code></pre></div>
+<pre class="custom-output"><code>             age nflights     s10
+age       1.0000  -0.1158  0.1671
+nflights -0.1158   1.0000 -0.1206
+s10       0.1671  -0.1206  1.0000</code></pre>
+<pre class="custom-output"><code>             age nflights     s10
+age           NA  0.00015 0.00000
+nflights 0.00015       NA 0.00011
+s10      0.00000  0.00011      NA</code></pre>
 <caption>
-<span id="tab:t2corr42">Table 2.20: </span> Separate correlation matrix output using <i>Hmisc</i>
+<span id="tab:t2corr42">Table 2.18: </span> Separate correlation matrix output using <i>Hmisc</i>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/5vepgZPT0E4" target="_blank">Video Tutorial: Correlation with <em>Hmisc</em></a></p>
@@ -2116,7 +1835,7 @@ Computed correlation used pearson-method with pairwise-deletion.
 </tr>
 </table>
 <caption>
-<span id="tab:t2corr5">Table 2.21: </span> Correlation matrix output using <i>sjPlot</i>
+<span id="tab:t2corr5">Table 2.19: </span> Correlation matrix output using <i>sjPlot</i>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/RDuXvLN3KW0" target="_blank">Video Tutorial: Correlation with <em>sjPlot</em></a></p>

@@ -13,10 +13,12 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* Once again, the [airlinesat.rdata](Data/airlinesat.rdata) is used. Load it now.
+* Once again, the `airlinesat` data is used from the `MKT4320BGSU` course package. Load the package and use the `data()` function to load the data.
     ```{r t3loaddata}
-    # You may need to change the directory
-    load("Data/airlinesat.rdata")
+    # Load course package
+    library(MKT4320BGSU)
+    # Load data
+    data(airlinesat)
     ```
 
 ## Introduction
@@ -57,9 +59,8 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
 
 [Video Tutorial: lm() - Output](https://youtu.be/cCil5B12908){target="_blank"}
 
-* To get standardized beta coefficients, use the [lm_beta](./lm_beta.R) user defined function. 
+* To get standardized beta coefficients, use the `lm_beta()` function from the `MKT4320BGSU` course package. 
     ```{r t3lmbeta}
-    source("lm_beta.R")  # Download lm_beta.R and put in working directory
     lm_beta(model1, # Saved object with results
             digits=4)  # Number of digits to diplsy
     
@@ -69,7 +70,6 @@ Base R is typically sufficient for performing most regression tasks.  Some addit
 [Video Tutorial: lm() - Standardized Beta Coefficients](https://youtu.be/UxSmuZMs1vE){target="_blank"}
 
 * For "nicer" looking results, the `tab_model` function from the `sjPlot` package can be used
-    * NOTE: `sjPlot` is not available in BGSU's Virtual Computing Lab
     ```{r t3lm5, cache=TRUE}
     library(sjPlot)
     tab_model(model1,   # Saved object from before
@@ -118,7 +118,7 @@ Suppose we wanted to predict, with a confidence interval, the `nps` of someone t
 values <- data.frame(age=c(45, 25), nflights=c(25, 45))  # Create data frame
 values  # Verify values
 ```
-Second the data frame is passed to the `predict.lm()` function with confidence intervals requested:
+Second, the data frame is passed to the `predict.lm()` function with confidence intervals requested:
 ```{r t3prediction2, cache=TRUE}
 predict.lm(model1,   # The model we are using to predict
            values,   # The data frame of values to predict with

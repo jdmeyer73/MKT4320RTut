@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-01-19" />
+<meta name="date" content="2023-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -464,9 +463,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Data for this chapter:</p>
 <ul>
-<li><p>Once again, the <a href="Data/airlinesat.rdata">airlinesat.rdata</a> is used. Load it now.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="linear-regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb236-2"><a href="linear-regression.html#cb236-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlinesat.rdata&quot;</span>)</span></code></pre></div></li>
+<li><p>Once again, the <code>airlinesat</code> data is used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="linear-regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load course package</span></span>
+<span id="cb236-2"><a href="linear-regression.html#cb236-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb236-3"><a href="linear-regression.html#cb236-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb236-4"><a href="linear-regression.html#cb236-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airlinesat)</span></code></pre></div></li>
 </ul>
 <div id="introduction-3" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Introduction<a href="linear-regression.html#introduction-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -538,10 +539,9 @@ F-statistic: 8.587 on 2 and 1062 DF,  p-value: 0.0001997</code></pre>
 </ul>
 <p><a href="https://youtu.be/cCil5B12908" target="_blank">Video Tutorial: lm() - Output</a></p>
 <ul>
-<li><p>To get standardized beta coefficients, use the <a href="./lm_beta.R">lm_beta</a> user defined function.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="linear-regression.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;lm_beta.R&quot;</span>)  <span class="co"># Download lm_beta.R and put in working directory</span></span>
-<span id="cb241-2"><a href="linear-regression.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm_beta</span>(model1, <span class="co"># Saved object with results</span></span>
-<span id="cb241-3"><a href="linear-regression.html#cb241-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">4</span>)  <span class="co"># Number of digits to diplsy</span></span></code></pre></div>
+<li><p>To get standardized beta coefficients, use the <code>lm_beta()</code> function from the <code>MKT4320BGSU</code> course package.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="linear-regression.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm_beta</span>(model1, <span class="co"># Saved object with results</span></span>
+<span id="cb241-2"><a href="linear-regression.html#cb241-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">4</span>)  <span class="co"># Number of digits to diplsy</span></span></code></pre></div>
 <pre class="custom-output"><code>            Std.Beta
 (Intercept)   0.0000
 age           0.0895
@@ -552,109 +552,106 @@ nflights     -0.0791</code></pre>
 </ul>
 <p><a href="https://youtu.be/UxSmuZMs1vE" target="_blank">Video Tutorial: lm() - Standardized Beta Coefficients</a></p>
 <ul>
-<li>For “nicer” looking results, the <code>tab_model</code> function from the <code>sjPlot</code> package can be used
-<ul>
-<li>NOTE: <code>sjPlot</code> is not available in BGSU’s Virtual Computing Lab</li>
-</ul>
+<li><p>For “nicer” looking results, the <code>tab_model</code> function from the <code>sjPlot</code> package can be used</p>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="linear-regression.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
 <span id="cb243-2"><a href="linear-regression.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(model1,   <span class="co"># Saved object from before</span></span>
 <span id="cb243-3"><a href="linear-regression.html#cb243-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.stat=</span><span class="cn">TRUE</span>) <span class="co"># Display t-statistic</span></span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
+<p> </p>
 </th>
 <th colspan="4" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-nps
+<p>nps</p>
 </th>
 </tr>
 <tr>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
+<p>Predictors</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
+<p>Estimates</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
+<p>CI</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Statistic
+<p>Statistic</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
+<p>p</p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
+<p>(Intercept)</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-6.79
+<p>6.79</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-6.18 – 7.40
+<p>6.18 – 7.40</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-21.85
+<p>21.85</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001</strong>
+<p><strong>&lt;0.001</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
+<p>age</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.02
+<p>0.02</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.01 – 0.03
+<p>0.01 – 0.03</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.92
+<p>2.92</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.004</strong>
+<p><strong>0.004</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-nflights
+<p>nflights</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.01
+<p>-0.01</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.02 – -0.00
+<p>-0.02 – -0.00</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.58
+<p>-2.58</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.010</strong>
+<p><strong>0.010</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
+<p>Observations</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="4">
-1065
+<p>1065</p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-R<sup>2</sup> / R<sup>2</sup> adjusted
+<p>R<sup>2</sup> / R<sup>2</sup> adjusted</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="4">
-0.016 / 0.014
+<p>0.016 / 0.014</p>
 </td>
 </tr>
 </table>
 <caption>
-<span id="tab:t3lm5">Table 3.4: </span> Summary results from <code>lm()</code> using <code>sjPlot</code> package
+<p><span id="tab:t3lm5">Table 3.4: </span> Summary results from <code>lm()</code> using <code>sjPlot</code> package</p>
 </caption>
 <ul>
 <li>Standardized beta coefficients can also be obtained</li>
@@ -667,99 +664,99 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
+<p> </p>
 </th>
 <th colspan="4" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-nps
+<p>nps</p>
 </th>
 </tr>
 <tr>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
+<p>Predictors</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
+<p>Estimates</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-std. Beta
+<p>std. Beta</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Statistic
+<p>Statistic</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
+<p>p</p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
+<p>(Intercept)</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-6.79
+<p>6.79</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.00
+<p>0.00</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-21.85
+<p>21.85</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001</strong>
+<p><strong>&lt;0.001</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
+<p>age</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.02
+<p>0.02</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.09
+<p>0.09</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.92
+<p>2.92</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.004</strong>
+<p><strong>0.004</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-nflights
+<p>nflights</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.01
+<p>-0.01</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.08
+<p>-0.08</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.58
+<p>-2.58</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.010</strong>
+<p><strong>0.010</strong></p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
+<p>Observations</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="4">
-1065
+<p>1065</p>
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-R<sup>2</sup> / R<sup>2</sup> adjusted
+<p>R<sup>2</sup> / R<sup>2</sup> adjusted</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="4">
-0.016 / 0.014
+<p>0.016 / 0.014</p>
 </td>
 </tr>
 </table>
 <caption>
-<span id="tab:t3lm6">Table 3.5: </span> Summary results from <code>lm()</code> using <code>sjPlot</code> package
+<p><span id="tab:t3lm6">Table 3.5: </span> Summary results from <code>lm()</code> using <code>sjPlot</code> package</p>
 </caption></li>
 </ul>
 <p><a href="https://youtu.be/Ki4VVzIbnuM" target="_blank">Video Tutorial: lm() - Results using the <em>sjPlot</em> Package</a></p>
@@ -1070,7 +1067,7 @@ nflights
 <pre class="custom-output"><code>  age nflights
 1  45       25
 2  25       45</code></pre>
-<p>Second the data frame is passed to the <code>predict.lm()</code> function with confidence intervals requested:</p>
+<p>Second, the data frame is passed to the <code>predict.lm()</code> function with confidence intervals requested:</p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="linear-regression.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict.lm</span>(model1,   <span class="co"># The model we are using to predict</span></span>
 <span id="cb249-2"><a href="linear-regression.html#cb249-2" aria-hidden="true" tabindex="-1"></a>           values,   <span class="co"># The data frame of values to predict with</span></span>
 <span id="cb249-3"><a href="linear-regression.html#cb249-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)   <span class="co"># Request confidence interval</span></span></code></pre></div>
