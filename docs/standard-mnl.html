@@ -456,26 +456,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 8</span> Standard MNL<a href="standard-mnl.html#standard-mnl" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sources for this chapter:</p>
 <ul>
-<li><em>R for Marketing Research ad Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
+<li><em>R for Marketing Research and Analytics, Second Edition</em> (2019). Chris Chapman and Elea McDonnell Feit
 <ul>
 <li><a href="http://r-marketing.r-forge.r-project.org/index.html">http://r-marketing.r-forge.r-project.org/index.html</a></li>
 </ul></li>
 </ul>
 <p>Data for this chapter:</p>
 <ul>
-<li><p>The <a href="Data/bfast.rdata">bfast.rdata</a> is used. Load it now.</p>
+<li><p>The <a href="Data/bfast.rdata">bfast.rdata</a> is used, which is part of the <code>MKT4320BGSU</code> package.</p>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="standard-mnl.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb383-2"><a href="standard-mnl.html#cb383-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/bfast.rdata&quot;</span>)</span></code></pre></div></li>
+<span id="cb383-2"><a href="standard-mnl.html#cb383-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bfast)</span></code></pre></div></li>
 </ul>
 <div id="introduction-8" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Introduction<a href="standard-mnl.html#introduction-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R is not good for standard multinomial logistic regression (MNL). The best package that I have found for standard MNL is <code>nnet</code> with its <code>multinom</code> function. Install that package <code>install.packages("nnet")</code> and load it.</p>
 <div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="standard-mnl.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span></code></pre></div>
-<p>In addition, I have created some user defined functions. You should download these functions and save them in your working directory.</p>
+<p>In addition, I have created some user defined functions, which are all in the <code>MKT4320BGSU</code> package.</p>
 <ul>
-<li><a href="stmnl.R">stmnl.R</a> produces Odds Ratio coefficients table, overall model significance, and McFadden’s Pseudo-<span class="math inline">\(R^2\)</span></li>
-<li><a href="stmnl_cm.R">stmnl_cm.R</a> produces a Classification Matrix</li>
-<li><a href="stmnl_pp.R">stmnl_pp.R</a> produces average predicted probability tables and plots</li>
+<li><code>stmnl</code> produces Odds Ratio coefficients table, overall model significance, and McFadden’s Pseudo-<span class="math inline">\(R^2\)</span></li>
+<li><code>stmnl_cm1</code> produces a Classification Matrix</li>
+<li><code>stmnl_pp</code> produces average predicted probability tables and plots</li>
 </ul>
 </div>
 <div id="data-preparation" class="section level2 hasAnchor" number="8.2">
@@ -535,8 +535,7 @@ AIC: 1169.995 </code></pre>
 </ul></li>
 <li>NOTE: This function requires the <code>broom</code> package. If you do not have it installed on your machine, you will need to install it.</li>
 </ul>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="standard-mnl.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;stmnl.R&quot;</span>)</span>
-<span id="cb390-2"><a href="standard-mnl.html#cb390-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="standard-mnl.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl</span>(model)</span></code></pre></div>
 <pre><code>Loading required package: broom</code></pre>
 <pre><code>Registered S3 methods overwritten by &#39;broom&#39;:
   method            from  
@@ -567,8 +566,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 <li><code>data</code> is name of the data to create the classification model for (i.e., training or holdout data)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="standard-mnl.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;stmnl_cm.R&quot;</span>)</span>
-<span id="cb394-2"><a href="standard-mnl.html#cb394-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, train)</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="standard-mnl.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, train)</span></code></pre></div>
 <pre class="custom-output"><code>0.5619 = Hit Ratio
 0.3413 = PCC</code></pre>
 <pre class="custom-output"><code>      Level T.Cereal T.Bar T.Oatmeal Total
@@ -607,12 +605,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 <li><code>ggplot2</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="standard-mnl.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;stmnl_pp.R&quot;</span>)</span>
-<span id="cb400-2"><a href="standard-mnl.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;Age in Years&quot;</span>)</span></code></pre></div>
-<pre><code>Warning: Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
-ℹ See details at &lt;https://tidyselect.r-lib.org/reference/faq-selection-context.html&gt;</code></pre>
-<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-ℹ Please use tidy evaluation ideoms with `aes()`</code></pre>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="standard-mnl.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;Age in Years&quot;</span>)</span></code></pre></div>
 <pre class="custom-output"><code>$table
   age   bfast p.prob lower.CI upper.CI
 1  31  Cereal 0.5158   0.5727   0.4586
@@ -627,7 +620,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 
 $plot</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="standard-mnl.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="standard-mnl.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
 <pre class="custom-output"><code>$table
   gender   bfast p.prob lower.CI upper.CI
 1 Female  Cereal 0.4660   0.5276   0.4053

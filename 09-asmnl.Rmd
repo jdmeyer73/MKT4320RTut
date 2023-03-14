@@ -1,16 +1,17 @@
 ```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
+library(MKT4320BGSU)
 ```
 
 # Alt-Specific MNL
 
 Data for this chapter:
 
-* The [yogurt.rdata](Data/yogurt.rdata) is used. Load it now.  Because of how the data is arranged, the training and holdout samples are both included in the file: `train.yog` and `test.yog`.
+* The [yogurt.rdata](Data/yogurt.rdata) is used. Because of how the data is arranged, this data file contains two dataframes. One dataframe is a training sample, called `train.yog`, and the other dataframe is a test/holdout sample, called `test.yog`.  Both of these dataframes are included in the `MKT4320BGSU` package.
     ```{r}
-    # You may need to change the directory
-    load("Data/yogurt.rdata")
+    data(train.yog)
+    data(test.yog)
     ```
 
 ## Introduction
@@ -21,14 +22,14 @@ Base R is not good for alternative specific multinomial logistic regression (MNL
 library(mlogit)
 ```
 
-However, even that is not very user friendly (in my opinion).  Therefore, I have written a few user defined functions to help with getting the necessary results from an alternative specific MNLInstall that package `install.packages("nnet")` and load it.
-* [asmnl_est.R](asmnl_est.R) produces Odds Ratio coefficients table, overall model significance, McFadden's Pseudo-$R^2$, and classification matrices for both the training data and the test/holdout data
-* [asmnl_me.R](stmnl_cm.R) produces marginal effects tables for all IVs
-* [asmnl_mp.R](stmnl_pp.R) produces margin plots for case-specific IVs
+However, even that is not very user friendly (in my opinion).  Therefore, I have written a few user defined functions to help with getting the necessary results from an alternative specific MNL.
+* `asmnl_est` produces Odds Ratio coefficients table, overall model significance, McFadden's Pseudo-$R^2$, and classification matrices for both the training data and the test/holdout data
+* `asmnl_me` produces marginal effects tables for all IVs
+* `asmnl_mp` produces margin plots for case-specific IVs
 
 ## Alt-Spec MNL using User Defined Function
 
-* Alternative Specific MNL is performed using the `asmnl_est.R` user defined function
+* Alternative Specific MNL is performed using the `asmnl_est` user defined function
 * Usage: `asmnl_est(formula, data, id="", alt="", choice="", testdata)`
     * `formula` is an object with a saved formula.  The formula is represented by a DV on the left side separated from the IVs on the right side by a tilde(`~`). The IVs are further separated by having choice-specific variables on the left and the case-specific variables on the right, separated by a vertical line, `|`.  For example:
         * `myform = choice ~ chvar1 + chvar2 | casvar1 + casvar2`
@@ -47,7 +48,6 @@ library(mlogit)
 # Saving formula to object
 myform <- choice ~ feat + price | income
 
-source("asmnl_est.R")
 asmod <- asmnl_est(formula=myform,
                data=train.yog,
                id="id",
@@ -58,18 +58,17 @@ asmod <- asmnl_est(formula=myform,
 
 ### Marginal Effects
 
-* The `asmnl_me.R` user defined function will be used to get the marginal effects of the IVs
+* The `asmnl_me` user defined function will be used to get the marginal effects of the IVs
 * Usage: `asmnl_me(mod)`
     * `mod` is the object containing the result of the `mlogit` call using the `asmnl_est` user defined function
 
 ```{r}
-source("asmnl_me.R")
 asmnl_me(asmod)
 ```
 
 ### Margin Plots
 
-* The `asmnl_mp.R` user defined function will create margin plots for a case-specific IV
+* The `asmnl_mp` user defined function will create margin plots for a case-specific IV
 * Usage: `almnl_mp(mod, focal="", type="")
     * `mod` is the object containing the result of the `mlogit` call using the `asmnl_est` user defined function
     * `focal` is the case-specific IV for which a margin plot is wanted (in quotes)
@@ -77,6 +76,5 @@ asmnl_me(asmod)
 * NOTE: This function requires the `ggplot2` package
 
 ``` {r}
-source("asmnl_mp.R")
 asmnl_mp(asmod,"income", "C")
 ```
