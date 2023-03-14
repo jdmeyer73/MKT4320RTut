@@ -6,46 +6,22 @@ library(ggplot2)
 
 Sources for this chapter:
 
-* *R for Marketing Research ad Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+* *R for Marketing Research and Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
     * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
 
 Data for this chapter:
 
-* The [greekbrands.rdata](Data/greekbrands.rdata) is used. Load it now.
+* The [greekbrands.rdata](Data/greekbrands.rdata) is used, which is part of the `MKT4320BGSU` package.
     ```{r}
     # You may need to change the directory
-    load("Data/greekbrands.rdata")
+    data(greekbrands)
     ```
 
 ## Introduction
 
-Base R is typically sufficient for performing the basics of principal components analysis, but to get some of the outputs required more easily and more efficiently, I have created a user defined function.  You should download this function and save it in your working directory.
+Base R is typically sufficient for performing the basics of principal components analysis, but to get some of the outputs required more easily and more efficiently, I have created a user defined function, which is part of the `MKT4320BGSU` package.
 
-* [pcaex.R](pcaex.R) provides eigenvalue table, scree plot, unrotated and rotated factor loading tables, and the principal components R object
-
-Once saved in your working directory, it is good practice to source user defined functions.
-``` {r}
-source("pcaex.R")
-```
-
-## Preparation
-
-* For principal components analysis (PCA), we need to pass a data frame to the user defined function containing the variables to be used.
-    * Although we can pass a dataframe with additional variables, I find it easier to create a new dataframe with only those variables we want to include ( and maybe a preference and group/brand variable, see below)
-    * In our class, the data set will often be used for creating a perceptual map, so we may also have a grouping variable (e.g., brand or product name) and a preference variable
-    * Package `dplyr` is usually the best tool for this
-* For this tutorial, we will perform a PCA using the `greekbrands` dataframe
-    * We will use only the following attributes:
-        * $perform$, $leader$, $fun$, $serious$, $bargain$, $value$
-        * The data also has a preference variable, $pref$ and a brand variable, $brand$
-    
-```{r}
-library(dplyr)
-# Store variables selected using dplyr to 'segvar'
-pcadata <- greekbrands %>%   
-    select(perform, leader, fun, serious, bargain, value,
-           pref, brand)
-```
+* `pcaex` provides an eigenvalue table, scree plot, unrotated and rotated factor loading tables, and the principal components R object
 
 ## Base R
 
@@ -99,7 +75,7 @@ The `prcomp()` function performs PCA
 
 ## User Defined Function
 
-* The `pcaex.R` user defined function can produce the results with one or two passes of the function
+* The `pcaex` user defined function can produce the results with one or two passes of the function
     * Requires the following packages:
         * `ggplot2`
         * `dplyr`
@@ -122,28 +98,78 @@ The `prcomp()` function performs PCA
         * Rotated factor loading table (`$rotated`)
         * PCA object (`$pcaobj`)
 * When a `group=` variable is provided, the PCA will be performed on an aggregated data frame (i.e., mean values by group)
-* Examples:
-    * All components
-    ```{r, messages=FALSE}
-    # pcaex.R need to be "sourced"
-    gb.all <- pcaex(pcadata,    # PCA data created earlier
-                    group="brand",   # Grouping variable
-                    pref="pref")    # Preference variable
-    # Do not include 'comp' to get all components
-    # Call gb.all$table to get eigenvalue table
-    gb.all$table
-    # Call gb.all$plot to get scree plot
-    gb.all$plot
-    ```
-    * Two components
-    ```{r}
-    gb.2comp <- pcaex(pcadata,    # PCA data created earlier
-                    group="brand",   # Grouping variable
-                    pref="pref",    # Preference variable
-                    comp=2)   # Request 2 components
 
-    # Call gb.2comp$unrotated to get unrotated factor loadings
-    gb.2comp$unrotated
-    # Call gb.2comp$rotated to get rotated factor loadings
-    gb.2comp$rotated
-    ```
+### Preparation
+
+* We need to pass a data frame to the user defined function containing the variables to be used (and maybe a preference and group/brand variable, see below)
+    * In our class, the data set will often be used for creating a perceptual map, so we may also have a grouping variable (e.g., brand or product name) and a preference variable
+    * Package `dplyr` is usually the best tool for this
+* For this tutorial, we will perform a PCA using the `greekbrands` dataframe
+    * We will use only the following attributes:
+        * $perform$, $leader$, $fun$, $serious$, $bargain$, $value$
+        * The data also has a preference variable, $pref$ and a group variable, $brand$, but we do not always want to use them.
+    
+```{r}
+library(dplyr)
+# Store variables selected to 'pcadata1' (WITHOUT group and pref variables)
+pcadata1 <- greekbrands %>%   
+    select(perform, leader, fun, serious, bargain, value)
+
+# Store variables selected to 'pcadata2' (INCLUDES group and pref variables)
+pcadata2 <- greekbrands %>%   
+    select(perform, leader, fun, serious, bargain, value,
+           pref, brand)
+```
+
+### Examples
+    
+#### WITHOUT `group=` or `pref=` options
+
+* All components
+```{r, messages=FALSE}
+    gb1.all <- pcaex(pcadata1)    # PCA data created earlier
+    # Do not include 'comp' to get all components
+    
+    # Call gb1.all$table to get eigenvalue table
+    gb1.all$table
+    # Call gb1.all$plot to get scree plot
+    gb1.all$plot
+```
+    
+* Two components
+```{r, messages=FALSE}
+    gb1.2comp <- pcaex(pcadata1,    # PCA data created earlier
+                       comp=2)   # Request 2 components
+    
+    # Call gb1.2comp$unrotated to get unrotated factor loadings
+    gb1.2comp$unrotated
+    # Call gb1.2comp$rotated to get rotated factor loadings
+    gb1.2comp$rotated
+```
+
+#### WITH `group=` or `pref=` options
+
+* All components
+```{r, messages=FALSE}
+    gb2.all <- pcaex(pcadata2,    # PCA data created earlier
+                     group="brand",   # Grouping variable
+                     pref="pref")    # Preference variable
+    # Do not include 'comp' to get all components
+    # Call gb2.all$table to get eigenvalue table
+    gb2.all$table
+    # Call gb2.all$plot to get scree plot
+    gb2.all$plot
+```
+    
+* Two components
+```{r}
+    gb2.2comp <- pcaex(pcadata2,    # PCA data created earlier
+                       group="brand",   # Grouping variable
+                       pref="pref",    # Preference variable
+                       comp=2)   # Request 2 components
+
+    # Call gb2.2comp$unrotated to get unrotated factor loadings
+    gb2.2comp$unrotated
+    # Call gb2.2comp$rotated to get rotated factor loadings
+    gb2.2comp$rotated
+```
