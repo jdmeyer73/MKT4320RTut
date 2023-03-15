@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-03-14" />
+<meta name="date" content="2023-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -478,25 +478,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.2</span> Base R<a href="principal-components-analysis.html#base-r-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="prcomp-function" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> <code>prcomp()</code> function<a href="principal-components-analysis.html#prcomp-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <code>prcomp()</code> function performs PCA
-* Usage: <code>prcomp(formula, data=, scale=TRUE, rank=)</code> where:
-* <code>formula</code> is a formula with no response variables, but rather only the numeric variables to be included if not all variables in <code>data</code> are to be included
-* No response variable means the formula is written as:<br>
-<code>~var1 + var2 + var3 + ... + var4</code>
-* <code>data=</code> is the name of the dataframe
-* <code>scale=TRUE</code> standardizes the variables before running the PCA
-* <code>rank=</code> is the number of components to retain; default is all
-* When saved to an object, the following components are saved:
-* <code>$sdev</code> is the standard deviations of the principal components (i.e., the square roots of the eigenvalues)
-* <code>$rotation</code> is the unroated factor loadings
-* <code>$x</code> is the factor scores
-* Example: perform PCA on <span class="math inline">\(serious\)</span>, <span class="math inline">\(fun\)</span>, <span class="math inline">\(bargain\)</span>, <span class="math inline">\(trendy\)</span>, and <span class="math inline">\(value\)</span> with only two components retained</p>
-<pre><code>```r
-pcaout &lt;- prcomp(~serious+fun+bargain+trendy+value, # Variables to include
-                 data=greekbrands,  # Data frame to use
-                 scale=TRUE,   # Standardize the variables
-                 rank=2)   # Retain only first two components
-```</code></pre>
+<p>The <code>prcomp()</code> function performs PCA</p>
+<ul>
+<li><p>Usage: <code>prcomp(formula, data=, scale=TRUE, rank=)</code> where:</p>
+<ul>
+<li><code>formula</code> is a formula with no response variables, but rather only the numeric variables to be included if not all variables in <code>data</code> are to be included
+<ul>
+<li>No response variable means the formula is written as:<br>
+<code>~var1 + var2 + var3 + ... + var4</code></li>
+</ul></li>
+<li><code>data=</code> is the name of the dataframe</li>
+<li><code>scale=TRUE</code> standardizes the variables before running the PCA</li>
+<li><code>rank=</code> is the number of components to retain; default is all</li>
+</ul></li>
+<li><p>When saved to an object, the following components are saved:</p>
+<ul>
+<li><code>$sdev</code> is the standard deviations of the principal components (i.e., the square roots of the eigenvalues)</li>
+<li><code>$rotation</code> is the unroated factor loadings</li>
+<li><code>$x</code> is the factor scores</li>
+</ul></li>
+<li><p>Example: perform PCA on <span class="math inline">\(serious\)</span>, <span class="math inline">\(fun\)</span>, <span class="math inline">\(bargain\)</span>, <span class="math inline">\(trendy\)</span>, and <span class="math inline">\(value\)</span> with only two components retained</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="principal-components-analysis.html#cb357-1" aria-hidden="true" tabindex="-1"></a>pcaout <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="sc">~</span>serious<span class="sc">+</span>fun<span class="sc">+</span>bargain<span class="sc">+</span>trendy<span class="sc">+</span>value, <span class="co"># Variables to include</span></span>
+<span id="cb357-2"><a href="principal-components-analysis.html#cb357-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>greekbrands,  <span class="co"># Data frame to use</span></span>
+<span id="cb357-3"><a href="principal-components-analysis.html#cb357-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">scale=</span><span class="cn">TRUE</span>,   <span class="co"># Standardize the variables</span></span>
+<span id="cb357-4"><a href="principal-components-analysis.html#cb357-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rank=</span><span class="dv">2</span>)   <span class="co"># Retain only first two components</span></span></code></pre></div></li>
+</ul>
 </div>
 <div id="eigenvalue-table" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> Eigenvalue table<a href="principal-components-analysis.html#eigenvalue-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -28,6 +28,7 @@ Base R is typically sufficient for performing the basics of principal components
 ### `prcomp()` function
 
 The `prcomp()` function performs PCA
+
 * Usage: `prcomp(formula, data=, scale=TRUE, rank=)` where:
     * `formula` is a formula with no response variables, but rather only the numeric variables to be included if not all variables in `data` are to be included
         * No response variable means the formula is written as:<br>
