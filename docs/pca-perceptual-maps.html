@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 PCA Perceptual Maps | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2024-01-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="principal-components-analysis.html"/>
-<link rel="next" href="standard-mnl.html"/>
+<link rel="next" href="ab-testing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -291,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#prediction"><i class="fa fa-check"></i><b>3.3</b> Prediction</a></li>
-<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots (Manual Process)</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-no-interaction"><i class="fa fa-check"></i><b>3.4.1</b> Continuous IV (No Interaction)</a></li>
 <li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots-no-interaction"><i class="fa fa-check"></i><b>3.4.2</b> Separate Margin Plots (No Interaction)</a></li>
@@ -299,6 +303,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.4" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-factor-iv"><i class="fa fa-check"></i><b>3.4.4</b> Continuous IV (Interaction with Factor IV)</a></li>
 <li class="chapter" data-level="3.4.5" data-path="linear-regression.html"><a href="linear-regression.html#factor-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.5</b> Factor IV (Interaction with Continuous IV)</a></li>
 <li class="chapter" data-level="3.4.6" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.6</b> Continuous IV (Interaction with Continuous IV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplotsudf"><i class="fa fa-check"></i><b>3.5</b> Margin Plots (User-Defined Function)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-1"><i class="fa fa-check"></i><b>3.5.1</b> Overview</a></li>
+<li class="chapter" data-level="3.5.2" data-path="linear-regression.html"><a href="linear-regression.html#examples"><i class="fa fa-check"></i><b>3.5.2</b> Examples</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression (Binary)</a>
@@ -349,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cldescr.r"><i class="fa fa-check"></i><b>5.5.1</b> <code>cldescr.R</code></a>
 <ul>
-<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
+<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples-1"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#kcenters.r"><i class="fa fa-check"></i><b>5.5.2</b> <code>kcenters.R</code></a></li>
 </ul></li>
@@ -366,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#user-defined-function"><i class="fa fa-check"></i><b>6.3</b> User Defined Function</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#preparation-1"><i class="fa fa-check"></i><b>6.3.1</b> Preparation</a></li>
-<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-1"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
+<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-2"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
 <ul>
 <li class="chapter" data-level="6.3.2.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#without-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.1</b> WITHOUT <code>group=</code> or <code>pref=</code> options</a></li>
 <li class="chapter" data-level="6.3.2.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#with-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.2</b> WITH <code>group=</code> or <code>pref=</code> options</a></li>
@@ -382,58 +391,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="pca-perceptual-maps.html"><a href="pca-perceptual-maps.html#using-the-function"><i class="fa fa-check"></i><b>7.2.2</b> Using the function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="standard-mnl.html"><a href="standard-mnl.html"><i class="fa fa-check"></i><b>8</b> Standard MNL</a>
+<li class="chapter" data-level="8" data-path="ab-testing.html"><a href="ab-testing.html"><i class="fa fa-check"></i><b>8</b> A/B Testing</a></li>
+<li class="chapter" data-level="9" data-path="standard-mnl.html"><a href="standard-mnl.html"><i class="fa fa-check"></i><b>9</b> Standard MNL</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-8"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="standard-mnl.html"><a href="standard-mnl.html#data-preparation"><i class="fa fa-check"></i><b>8.2</b> Data Preparation</a></li>
-<li class="chapter" data-level="8.3" data-path="standard-mnl.html"><a href="standard-mnl.html#standard-mnl-using-multinom"><i class="fa fa-check"></i><b>8.3</b> Standard MNL using <code>multinom()</code></a>
+<li class="chapter" data-level="9.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="standard-mnl.html"><a href="standard-mnl.html#data-preparation"><i class="fa fa-check"></i><b>9.2</b> Data Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="standard-mnl.html"><a href="standard-mnl.html#standard-mnl-using-multinom"><i class="fa fa-check"></i><b>9.3</b> Standard MNL using <code>multinom()</code></a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="standard-mnl.html"><a href="standard-mnl.html#stmnl-user-defined-function"><i class="fa fa-check"></i><b>8.3.1</b> <code>stmnl()</code> User Defined Function</a></li>
-<li class="chapter" data-level="8.3.2" data-path="standard-mnl.html"><a href="standard-mnl.html#classification-matrix-1"><i class="fa fa-check"></i><b>8.3.2</b> Classification Matrix</a></li>
-<li class="chapter" data-level="8.3.3" data-path="standard-mnl.html"><a href="standard-mnl.html#average-predicted-probabilities"><i class="fa fa-check"></i><b>8.3.3</b> Average Predicted Probabilities</a></li>
+<li class="chapter" data-level="9.3.1" data-path="standard-mnl.html"><a href="standard-mnl.html#stmnl-user-defined-function"><i class="fa fa-check"></i><b>9.3.1</b> <code>stmnl()</code> User Defined Function</a></li>
+<li class="chapter" data-level="9.3.2" data-path="standard-mnl.html"><a href="standard-mnl.html#classification-matrix-1"><i class="fa fa-check"></i><b>9.3.2</b> Classification Matrix</a></li>
+<li class="chapter" data-level="9.3.3" data-path="standard-mnl.html"><a href="standard-mnl.html#average-predicted-probabilities"><i class="fa fa-check"></i><b>9.3.3</b> Average Predicted Probabilities</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html"><i class="fa fa-check"></i><b>9</b> Alt-Specific MNL</a>
+<li class="chapter" data-level="10" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html"><i class="fa fa-check"></i><b>10</b> Alt-Specific MNL</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-9"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function"><i class="fa fa-check"></i><b>9.2</b> Alt-Spec MNL using User Defined Function</a>
+<li class="chapter" data-level="10.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function"><i class="fa fa-check"></i><b>10.2</b> Alt-Spec MNL using User Defined Function</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#marginal-effects"><i class="fa fa-check"></i><b>9.2.1</b> Marginal Effects</a></li>
-<li class="chapter" data-level="9.2.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#margin-plots-1"><i class="fa fa-check"></i><b>9.2.2</b> Margin Plots</a></li>
+<li class="chapter" data-level="10.2.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#marginal-effects"><i class="fa fa-check"></i><b>10.2.1</b> Marginal Effects</a></li>
+<li class="chapter" data-level="10.2.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#margin-plots-1"><i class="fa fa-check"></i><b>10.2.2</b> Margin Plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html"><i class="fa fa-check"></i><b>10</b> Conjoint Analysis</a>
+<li class="chapter" data-level="11" data-path="forecasting-i.html"><a href="forecasting-i.html"><i class="fa fa-check"></i><b>11</b> Forecasting I</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#introduction-10"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#tradca-user-defined-function"><i class="fa fa-check"></i><b>10.2</b> <code>tradca</code> User Defined Function</a></li>
-<li class="chapter" data-level="10.3" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#cademo-user-defined-function"><i class="fa fa-check"></i><b>10.3</b> <code>cademo</code> User Defined Function</a>
+<li class="chapter" data-level="11.1" data-path="forecasting-i.html"><a href="forecasting-i.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#preparation-3"><i class="fa fa-check"></i><b>10.3.1</b> Preparation</a></li>
-<li class="chapter" data-level="10.3.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#function-usage"><i class="fa fa-check"></i><b>10.3.2</b> Function usage</a></li>
+<li class="chapter" data-level="11.1.1" data-path="forecasting-i.html"><a href="forecasting-i.html#user-defined-functions-for-forecasting-i"><i class="fa fa-check"></i><b>11.1.1</b> User-Defined Functions for Forecasting I</a></li>
+<li class="chapter" data-level="11.1.2" data-path="forecasting-i.html"><a href="forecasting-i.html#packages-1"><i class="fa fa-check"></i><b>11.1.2</b> Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#capred-user-defined-function"><i class="fa fa-check"></i><b>10.4</b> <code>capred</code> User Defined Function</a>
+<li class="chapter" data-level="11.2" data-path="forecasting-i.html"><a href="forecasting-i.html#tsplot-user-defined-function"><i class="fa fa-check"></i><b>11.2</b> <code>tsplot</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.3" data-path="forecasting-i.html"><a href="forecasting-i.html#naivefc-user-defined-function"><i class="fa fa-check"></i><b>11.3</b> <code>naivefc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.4" data-path="forecasting-i.html"><a href="forecasting-i.html#smoothfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>smoothfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.5" data-path="forecasting-i.html"><a href="forecasting-i.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>linregfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.6" data-path="forecasting-i.html"><a href="forecasting-i.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.6</b> <code>fccompare</code> User Defined Function</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html"><i class="fa fa-check"></i><b>12</b> Conjoint Analysis (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#preparation-4"><i class="fa fa-check"></i><b>10.4.1</b> Preparation</a></li>
-<li class="chapter" data-level="10.4.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#function-usage-1"><i class="fa fa-check"></i><b>10.4.2</b> Function usage</a></li>
+<li class="chapter" data-level="12.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#introduction-11"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#tradca-user-defined-function"><i class="fa fa-check"></i><b>12.2</b> <code>tradca</code> User Defined Function</a></li>
+<li class="chapter" data-level="12.3" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#cademo-user-defined-function"><i class="fa fa-check"></i><b>12.3</b> <code>cademo</code> User Defined Function</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#preparation-3"><i class="fa fa-check"></i><b>12.3.1</b> Preparation</a></li>
+<li class="chapter" data-level="12.3.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#function-usage"><i class="fa fa-check"></i><b>12.3.2</b> Function usage</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#capred-user-defined-function"><i class="fa fa-check"></i><b>12.4</b> <code>capred</code> User Defined Function</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#preparation-4"><i class="fa fa-check"></i><b>12.4.1</b> Preparation</a></li>
+<li class="chapter" data-level="12.4.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#function-usage-1"><i class="fa fa-check"></i><b>12.4.2</b> Function usage</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>11</b> Forecasting</a>
+<li class="chapter" data-level="13" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html"><i class="fa fa-check"></i><b>13</b> Forecasting II (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="forecasting.html"><a href="forecasting.html#introduction-11"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
+<li class="chapter" data-level="13.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#introduction-12"><i class="fa fa-check"></i><b>13.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-forecasting-i"><i class="fa fa-check"></i><b>11.1.1</b> User-Defined Functions for Forecasting I</a></li>
-<li class="chapter" data-level="11.1.2" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-forecasting-ii"><i class="fa fa-check"></i><b>11.1.2</b> User-Defined Functions for Forecasting II</a></li>
-<li class="chapter" data-level="11.1.3" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-both"><i class="fa fa-check"></i><b>11.1.3</b> User-Defined Functions for Both</a></li>
-<li class="chapter" data-level="11.1.4" data-path="forecasting.html"><a href="forecasting.html#packages-1"><i class="fa fa-check"></i><b>11.1.4</b> Packages</a></li>
+<li class="chapter" data-level="13.1.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#user-defined-functions-for-forecasting-ii"><i class="fa fa-check"></i><b>13.1.1</b> User-Defined Functions for Forecasting II</a></li>
+<li class="chapter" data-level="13.1.2" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#packages-2"><i class="fa fa-check"></i><b>13.1.2</b> Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="forecasting.html"><a href="forecasting.html#tsplot-user-defined-function"><i class="fa fa-check"></i><b>11.2</b> <code>tsplot</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.3" data-path="forecasting.html"><a href="forecasting.html#naivefc-user-defined-function"><i class="fa fa-check"></i><b>11.3</b> <code>naivefc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.4" data-path="forecasting.html"><a href="forecasting.html#smoothfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>smoothfc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.5" data-path="forecasting.html"><a href="forecasting.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>linregfc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.6" data-path="forecasting.html"><a href="forecasting.html#acplots-user-defined-function"><i class="fa fa-check"></i><b>11.6</b> <code>acplots</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.7" data-path="forecasting.html"><a href="forecasting.html#tswh.noise-user-defined-function"><i class="fa fa-check"></i><b>11.7</b> <code>tswh.noise</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.8" data-path="forecasting.html"><a href="forecasting.html#autoarima-user-defined-function"><i class="fa fa-check"></i><b>11.8</b> <code>autoarima</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.9" data-path="forecasting.html"><a href="forecasting.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.9</b> <code>fccompare</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.2" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#acplots-user-defined-function"><i class="fa fa-check"></i><b>13.2</b> <code>acplots</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.3" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#tswh.noise-user-defined-function"><i class="fa fa-check"></i><b>13.3</b> <code>tswh.noise</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.4" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#autoarima-user-defined-function"><i class="fa fa-check"></i><b>13.4</b> <code>autoarima</code> User Defined Function</a></li>
 </ul></li>
 </ul>
 
@@ -463,9 +479,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Data for this chapter:</p>
 <ul>
-<li><p>The <a href="Data/greekbrands.rdata">greekbrands.rdata</a> is used, which is part of the <code>MKT4320BGSU</code> package.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="pca-perceptual-maps.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb379-2"><a href="pca-perceptual-maps.html#cb379-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(greekbrands)</span></code></pre></div></li>
+<li><p>The <code>greekbrands</code> data is used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
+<span id="cb373-2"><a href="pca-perceptual-maps.html#cb373-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb373-3"><a href="pca-perceptual-maps.html#cb373-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb373-4"><a href="pca-perceptual-maps.html#cb373-4" tabindex="-1"></a><span class="fu">data</span>(greekbrands)</span></code></pre></div></li>
 </ul>
 <div id="introduction-7" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introduction<a href="pca-perceptual-maps.html#introduction-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -484,14 +502,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The data frame does not need to be aggregated, but must contain ONLY those variables</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="pca-perceptual-maps.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb380-2"><a href="pca-perceptual-maps.html#cb380-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb380-3"><a href="pca-perceptual-maps.html#cb380-3" aria-hidden="true" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb380-4"><a href="pca-perceptual-maps.html#cb380-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
-<span id="cb380-5"><a href="pca-perceptual-maps.html#cb380-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb380-6"><a href="pca-perceptual-maps.html#cb380-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
-<span id="cb380-7"><a href="pca-perceptual-maps.html#cb380-7" aria-hidden="true" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
-<span id="cb380-8"><a href="pca-perceptual-maps.html#cb380-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb374-2"><a href="pca-perceptual-maps.html#cb374-2" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb374-3"><a href="pca-perceptual-maps.html#cb374-3" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb374-4"><a href="pca-perceptual-maps.html#cb374-4" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
+<span id="cb374-5"><a href="pca-perceptual-maps.html#cb374-5" tabindex="-1"></a></span>
+<span id="cb374-6"><a href="pca-perceptual-maps.html#cb374-6" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
+<span id="cb374-7"><a href="pca-perceptual-maps.html#cb374-7" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
+<span id="cb374-8"><a href="pca-perceptual-maps.html#cb374-8" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
 </div>
 <div id="using-the-function" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Using the function<a href="pca-perceptual-maps.html#using-the-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -522,13 +540,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Perceptual Map</li>
 </ul>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="pca-perceptual-maps.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
-<img src="_main_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="pca-perceptual-maps.html#cb375-1" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
+<img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" />
 <ul>
 <li>Joint Space Map</li>
 </ul>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="pca-perceptual-maps.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
-<img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></li>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="pca-perceptual-maps.html#cb376-1" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
+<img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></li>
 </ul>
 
 </div>
@@ -540,7 +558,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="principal-components-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="standard-mnl.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ab-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

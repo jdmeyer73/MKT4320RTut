@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320</title>
+  <title>Chapter 10 Alt-Specific MNL | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320" />
+  <meta property="og:title" content="Chapter 10 Alt-Specific MNL | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Alt-Specific MNL | R Tutorial for MKT 4320" />
+  <meta name="twitter:title" content="Chapter 10 Alt-Specific MNL | R Tutorial for MKT 4320" />
   
   <meta name="twitter:description" content="This book is a quick and basic R tutorial for MKT 4320." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2024-01-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="standard-mnl.html"/>
-<link rel="next" href="conjoint-analysis.html"/>
+<link rel="next" href="forecasting-i.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -291,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#prediction"><i class="fa fa-check"></i><b>3.3</b> Prediction</a></li>
-<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots (Manual Process)</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-no-interaction"><i class="fa fa-check"></i><b>3.4.1</b> Continuous IV (No Interaction)</a></li>
 <li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots-no-interaction"><i class="fa fa-check"></i><b>3.4.2</b> Separate Margin Plots (No Interaction)</a></li>
@@ -299,6 +303,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.4" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-factor-iv"><i class="fa fa-check"></i><b>3.4.4</b> Continuous IV (Interaction with Factor IV)</a></li>
 <li class="chapter" data-level="3.4.5" data-path="linear-regression.html"><a href="linear-regression.html#factor-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.5</b> Factor IV (Interaction with Continuous IV)</a></li>
 <li class="chapter" data-level="3.4.6" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.6</b> Continuous IV (Interaction with Continuous IV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplotsudf"><i class="fa fa-check"></i><b>3.5</b> Margin Plots (User-Defined Function)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-1"><i class="fa fa-check"></i><b>3.5.1</b> Overview</a></li>
+<li class="chapter" data-level="3.5.2" data-path="linear-regression.html"><a href="linear-regression.html#examples"><i class="fa fa-check"></i><b>3.5.2</b> Examples</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression (Binary)</a>
@@ -349,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cldescr.r"><i class="fa fa-check"></i><b>5.5.1</b> <code>cldescr.R</code></a>
 <ul>
-<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
+<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples-1"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#kcenters.r"><i class="fa fa-check"></i><b>5.5.2</b> <code>kcenters.R</code></a></li>
 </ul></li>
@@ -366,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#user-defined-function"><i class="fa fa-check"></i><b>6.3</b> User Defined Function</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#preparation-1"><i class="fa fa-check"></i><b>6.3.1</b> Preparation</a></li>
-<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-1"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
+<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-2"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
 <ul>
 <li class="chapter" data-level="6.3.2.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#without-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.1</b> WITHOUT <code>group=</code> or <code>pref=</code> options</a></li>
 <li class="chapter" data-level="6.3.2.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#with-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.2</b> WITH <code>group=</code> or <code>pref=</code> options</a></li>
@@ -382,58 +391,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="pca-perceptual-maps.html"><a href="pca-perceptual-maps.html#using-the-function"><i class="fa fa-check"></i><b>7.2.2</b> Using the function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="standard-mnl.html"><a href="standard-mnl.html"><i class="fa fa-check"></i><b>8</b> Standard MNL</a>
+<li class="chapter" data-level="8" data-path="ab-testing.html"><a href="ab-testing.html"><i class="fa fa-check"></i><b>8</b> A/B Testing</a></li>
+<li class="chapter" data-level="9" data-path="standard-mnl.html"><a href="standard-mnl.html"><i class="fa fa-check"></i><b>9</b> Standard MNL</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-8"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="standard-mnl.html"><a href="standard-mnl.html#data-preparation"><i class="fa fa-check"></i><b>8.2</b> Data Preparation</a></li>
-<li class="chapter" data-level="8.3" data-path="standard-mnl.html"><a href="standard-mnl.html#standard-mnl-using-multinom"><i class="fa fa-check"></i><b>8.3</b> Standard MNL using <code>multinom()</code></a>
+<li class="chapter" data-level="9.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="standard-mnl.html"><a href="standard-mnl.html#data-preparation"><i class="fa fa-check"></i><b>9.2</b> Data Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="standard-mnl.html"><a href="standard-mnl.html#standard-mnl-using-multinom"><i class="fa fa-check"></i><b>9.3</b> Standard MNL using <code>multinom()</code></a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="standard-mnl.html"><a href="standard-mnl.html#stmnl-user-defined-function"><i class="fa fa-check"></i><b>8.3.1</b> <code>stmnl()</code> User Defined Function</a></li>
-<li class="chapter" data-level="8.3.2" data-path="standard-mnl.html"><a href="standard-mnl.html#classification-matrix-1"><i class="fa fa-check"></i><b>8.3.2</b> Classification Matrix</a></li>
-<li class="chapter" data-level="8.3.3" data-path="standard-mnl.html"><a href="standard-mnl.html#average-predicted-probabilities"><i class="fa fa-check"></i><b>8.3.3</b> Average Predicted Probabilities</a></li>
+<li class="chapter" data-level="9.3.1" data-path="standard-mnl.html"><a href="standard-mnl.html#stmnl-user-defined-function"><i class="fa fa-check"></i><b>9.3.1</b> <code>stmnl()</code> User Defined Function</a></li>
+<li class="chapter" data-level="9.3.2" data-path="standard-mnl.html"><a href="standard-mnl.html#classification-matrix-1"><i class="fa fa-check"></i><b>9.3.2</b> Classification Matrix</a></li>
+<li class="chapter" data-level="9.3.3" data-path="standard-mnl.html"><a href="standard-mnl.html#average-predicted-probabilities"><i class="fa fa-check"></i><b>9.3.3</b> Average Predicted Probabilities</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html"><i class="fa fa-check"></i><b>9</b> Alt-Specific MNL</a>
+<li class="chapter" data-level="10" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html"><i class="fa fa-check"></i><b>10</b> Alt-Specific MNL</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-9"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function"><i class="fa fa-check"></i><b>9.2</b> Alt-Spec MNL using User Defined Function</a>
+<li class="chapter" data-level="10.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function"><i class="fa fa-check"></i><b>10.2</b> Alt-Spec MNL using User Defined Function</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#marginal-effects"><i class="fa fa-check"></i><b>9.2.1</b> Marginal Effects</a></li>
-<li class="chapter" data-level="9.2.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#margin-plots-1"><i class="fa fa-check"></i><b>9.2.2</b> Margin Plots</a></li>
+<li class="chapter" data-level="10.2.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#marginal-effects"><i class="fa fa-check"></i><b>10.2.1</b> Marginal Effects</a></li>
+<li class="chapter" data-level="10.2.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#margin-plots-1"><i class="fa fa-check"></i><b>10.2.2</b> Margin Plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html"><i class="fa fa-check"></i><b>10</b> Conjoint Analysis</a>
+<li class="chapter" data-level="11" data-path="forecasting-i.html"><a href="forecasting-i.html"><i class="fa fa-check"></i><b>11</b> Forecasting I</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#introduction-10"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#tradca-user-defined-function"><i class="fa fa-check"></i><b>10.2</b> <code>tradca</code> User Defined Function</a></li>
-<li class="chapter" data-level="10.3" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#cademo-user-defined-function"><i class="fa fa-check"></i><b>10.3</b> <code>cademo</code> User Defined Function</a>
+<li class="chapter" data-level="11.1" data-path="forecasting-i.html"><a href="forecasting-i.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#preparation-3"><i class="fa fa-check"></i><b>10.3.1</b> Preparation</a></li>
-<li class="chapter" data-level="10.3.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#function-usage"><i class="fa fa-check"></i><b>10.3.2</b> Function usage</a></li>
+<li class="chapter" data-level="11.1.1" data-path="forecasting-i.html"><a href="forecasting-i.html#user-defined-functions-for-forecasting-i"><i class="fa fa-check"></i><b>11.1.1</b> User-Defined Functions for Forecasting I</a></li>
+<li class="chapter" data-level="11.1.2" data-path="forecasting-i.html"><a href="forecasting-i.html#packages-1"><i class="fa fa-check"></i><b>11.1.2</b> Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#capred-user-defined-function"><i class="fa fa-check"></i><b>10.4</b> <code>capred</code> User Defined Function</a>
+<li class="chapter" data-level="11.2" data-path="forecasting-i.html"><a href="forecasting-i.html#tsplot-user-defined-function"><i class="fa fa-check"></i><b>11.2</b> <code>tsplot</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.3" data-path="forecasting-i.html"><a href="forecasting-i.html#naivefc-user-defined-function"><i class="fa fa-check"></i><b>11.3</b> <code>naivefc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.4" data-path="forecasting-i.html"><a href="forecasting-i.html#smoothfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>smoothfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.5" data-path="forecasting-i.html"><a href="forecasting-i.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>linregfc</code> User Defined Function</a></li>
+<li class="chapter" data-level="11.6" data-path="forecasting-i.html"><a href="forecasting-i.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.6</b> <code>fccompare</code> User Defined Function</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html"><i class="fa fa-check"></i><b>12</b> Conjoint Analysis (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#preparation-4"><i class="fa fa-check"></i><b>10.4.1</b> Preparation</a></li>
-<li class="chapter" data-level="10.4.2" data-path="conjoint-analysis.html"><a href="conjoint-analysis.html#function-usage-1"><i class="fa fa-check"></i><b>10.4.2</b> Function usage</a></li>
+<li class="chapter" data-level="12.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#introduction-11"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#tradca-user-defined-function"><i class="fa fa-check"></i><b>12.2</b> <code>tradca</code> User Defined Function</a></li>
+<li class="chapter" data-level="12.3" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#cademo-user-defined-function"><i class="fa fa-check"></i><b>12.3</b> <code>cademo</code> User Defined Function</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#preparation-3"><i class="fa fa-check"></i><b>12.3.1</b> Preparation</a></li>
+<li class="chapter" data-level="12.3.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#function-usage"><i class="fa fa-check"></i><b>12.3.2</b> Function usage</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#capred-user-defined-function"><i class="fa fa-check"></i><b>12.4</b> <code>capred</code> User Defined Function</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#preparation-4"><i class="fa fa-check"></i><b>12.4.1</b> Preparation</a></li>
+<li class="chapter" data-level="12.4.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#function-usage-1"><i class="fa fa-check"></i><b>12.4.2</b> Function usage</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>11</b> Forecasting</a>
+<li class="chapter" data-level="13" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html"><i class="fa fa-check"></i><b>13</b> Forecasting II (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="forecasting.html"><a href="forecasting.html#introduction-11"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
+<li class="chapter" data-level="13.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#introduction-12"><i class="fa fa-check"></i><b>13.1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-forecasting-i"><i class="fa fa-check"></i><b>11.1.1</b> User-Defined Functions for Forecasting I</a></li>
-<li class="chapter" data-level="11.1.2" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-forecasting-ii"><i class="fa fa-check"></i><b>11.1.2</b> User-Defined Functions for Forecasting II</a></li>
-<li class="chapter" data-level="11.1.3" data-path="forecasting.html"><a href="forecasting.html#user-defined-functions-for-both"><i class="fa fa-check"></i><b>11.1.3</b> User-Defined Functions for Both</a></li>
-<li class="chapter" data-level="11.1.4" data-path="forecasting.html"><a href="forecasting.html#packages-1"><i class="fa fa-check"></i><b>11.1.4</b> Packages</a></li>
+<li class="chapter" data-level="13.1.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#user-defined-functions-for-forecasting-ii"><i class="fa fa-check"></i><b>13.1.1</b> User-Defined Functions for Forecasting II</a></li>
+<li class="chapter" data-level="13.1.2" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#packages-2"><i class="fa fa-check"></i><b>13.1.2</b> Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="forecasting.html"><a href="forecasting.html#tsplot-user-defined-function"><i class="fa fa-check"></i><b>11.2</b> <code>tsplot</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.3" data-path="forecasting.html"><a href="forecasting.html#naivefc-user-defined-function"><i class="fa fa-check"></i><b>11.3</b> <code>naivefc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.4" data-path="forecasting.html"><a href="forecasting.html#smoothfc-user-defined-function"><i class="fa fa-check"></i><b>11.4</b> <code>smoothfc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.5" data-path="forecasting.html"><a href="forecasting.html#linregfc-user-defined-function"><i class="fa fa-check"></i><b>11.5</b> <code>linregfc</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.6" data-path="forecasting.html"><a href="forecasting.html#acplots-user-defined-function"><i class="fa fa-check"></i><b>11.6</b> <code>acplots</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.7" data-path="forecasting.html"><a href="forecasting.html#tswh.noise-user-defined-function"><i class="fa fa-check"></i><b>11.7</b> <code>tswh.noise</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.8" data-path="forecasting.html"><a href="forecasting.html#autoarima-user-defined-function"><i class="fa fa-check"></i><b>11.8</b> <code>autoarima</code> User Defined Function</a></li>
-<li class="chapter" data-level="11.9" data-path="forecasting.html"><a href="forecasting.html#fccompare-user-defined-function"><i class="fa fa-check"></i><b>11.9</b> <code>fccompare</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.2" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#acplots-user-defined-function"><i class="fa fa-check"></i><b>13.2</b> <code>acplots</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.3" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#tswh.noise-user-defined-function"><i class="fa fa-check"></i><b>13.3</b> <code>tswh.noise</code> User Defined Function</a></li>
+<li class="chapter" data-level="13.4" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#autoarima-user-defined-function"><i class="fa fa-check"></i><b>13.4</b> <code>autoarima</code> User Defined Function</a></li>
 </ul></li>
 </ul>
 
@@ -452,31 +468,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="alt-specific-mnl" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Alt-Specific MNL<a href="alt-specific-mnl.html#alt-specific-mnl" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="alt-specific-mnl" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Alt-Specific MNL<a href="alt-specific-mnl.html#alt-specific-mnl" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Data for this chapter:</p>
 <ul>
-<li><p>The <a href="Data/yogurt.rdata">yogurt.rdata</a> is used. Because of how the data is arranged, this data file contains two dataframes. One dataframe is a training sample, called <code>train.yog</code>, and the other dataframe is a test/holdout sample, called <code>test.yog</code>. Both of these dataframes are included in the <code>MKT4320BGSU</code> package.</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="alt-specific-mnl.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(train.yog)</span>
-<span id="cb404-2"><a href="alt-specific-mnl.html#cb404-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(test.yog)</span></code></pre></div></li>
+<li><p>The <code>train.yog</code> and <code>test.yog</code> data are used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="alt-specific-mnl.html#cb396-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
+<span id="cb396-2"><a href="alt-specific-mnl.html#cb396-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb396-3"><a href="alt-specific-mnl.html#cb396-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb396-4"><a href="alt-specific-mnl.html#cb396-4" tabindex="-1"></a><span class="fu">data</span>(train.yog)</span>
+<span id="cb396-5"><a href="alt-specific-mnl.html#cb396-5" tabindex="-1"></a><span class="fu">data</span>(test.yog)</span></code></pre></div></li>
 </ul>
-<div id="introduction-9" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Introduction<a href="alt-specific-mnl.html#introduction-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-9" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introduction<a href="alt-specific-mnl.html#introduction-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R is not good for alternative specific multinomial logistic regression (MNL). The best package that I have found for alternative specific MNL is <code>mlogit</code> with its <code>mlogit</code> function. Use <code>install.packages("mlogit")</code> to install the package on your machine, then load it using the <code>library</code> function when needed.</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="alt-specific-mnl.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
-<pre><code>Loading required package: dfidx</code></pre>
-<pre><code>
-Attaching package: &#39;dfidx&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:stats&#39;:
-
-    filter</code></pre>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="alt-specific-mnl.html#cb397-1" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span></code></pre></div>
 <p>However, even that is not very user friendly (in my opinion). Therefore, I have written a few user defined functions to help with getting the necessary results from an alternative specific MNL.
 * <code>asmnl_est</code> produces Odds Ratio coefficients table, overall model significance, McFadden’s Pseudo-<span class="math inline">\(R^2\)</span>, and classification matrices for both the training data and the test/holdout data
 * <code>asmnl_me</code> produces marginal effects tables for all IVs
 * <code>asmnl_mp</code> produces margin plots for case-specific IVs</p>
 </div>
-<div id="alt-spec-mnl-using-user-defined-function" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Alt-Spec MNL using User Defined Function<a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="alt-spec-mnl-using-user-defined-function" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Alt-Spec MNL using User Defined Function<a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Alternative Specific MNL is performed using the <code>asmnl_est</code> user defined function</li>
 <li>Usage: <code>asmnl_est(formula, data, id="", alt="", choice="", testdata)</code>
@@ -496,16 +509,16 @@ Attaching package: &#39;dfidx&#39;</code></pre>
 <li>NOTE 1: To work properly, all factor IVs should already be in dummy variable coding</li>
 <li>NOTE 2: This function also requires the <code>broom</code> package</li>
 </ul>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="alt-specific-mnl.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
-<span id="cb409-2"><a href="alt-specific-mnl.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
-<span id="cb409-3"><a href="alt-specific-mnl.html#cb409-3" aria-hidden="true" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
-<span id="cb409-4"><a href="alt-specific-mnl.html#cb409-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb409-5"><a href="alt-specific-mnl.html#cb409-5" aria-hidden="true" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
-<span id="cb409-6"><a href="alt-specific-mnl.html#cb409-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
-<span id="cb409-7"><a href="alt-specific-mnl.html#cb409-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb409-8"><a href="alt-specific-mnl.html#cb409-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
-<span id="cb409-9"><a href="alt-specific-mnl.html#cb409-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
-<span id="cb409-10"><a href="alt-specific-mnl.html#cb409-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="alt-specific-mnl.html#cb398-1" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
+<span id="cb398-2"><a href="alt-specific-mnl.html#cb398-2" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
+<span id="cb398-3"><a href="alt-specific-mnl.html#cb398-3" tabindex="-1"></a>myform <span class="ot">&lt;-</span> choice <span class="sc">~</span> feat <span class="sc">+</span> price <span class="sc">|</span> income</span>
+<span id="cb398-4"><a href="alt-specific-mnl.html#cb398-4" tabindex="-1"></a></span>
+<span id="cb398-5"><a href="alt-specific-mnl.html#cb398-5" tabindex="-1"></a>asmod <span class="ot">&lt;-</span> <span class="fu">asmnl_est</span>(<span class="at">formula=</span>myform,</span>
+<span id="cb398-6"><a href="alt-specific-mnl.html#cb398-6" tabindex="-1"></a>               <span class="at">data=</span>train.yog,</span>
+<span id="cb398-7"><a href="alt-specific-mnl.html#cb398-7" tabindex="-1"></a>               <span class="at">id=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb398-8"><a href="alt-specific-mnl.html#cb398-8" tabindex="-1"></a>               <span class="at">alt=</span><span class="st">&quot;brand&quot;</span>,</span>
+<span id="cb398-9"><a href="alt-specific-mnl.html#cb398-9" tabindex="-1"></a>               <span class="at">choice=</span><span class="st">&quot;choice&quot;</span>,</span>
+<span id="cb398-10"><a href="alt-specific-mnl.html#cb398-10" tabindex="-1"></a>               <span class="at">testdata=</span>test.yog)</span></code></pre></div>
 <pre class="custom-output"><code>
 
 ---------
@@ -555,8 +568,8 @@ P.Hiland         2        2        1         1     6
 P.Weight         8        1       12        13    34
 P.Yoplait       33        0       21       152   206
 Total          242       17      138       204   601</code></pre>
-<div id="marginal-effects" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Marginal Effects<a href="alt-specific-mnl.html#marginal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="marginal-effects" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Marginal Effects<a href="alt-specific-mnl.html#marginal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>asmnl_me</code> user defined function will be used to get the marginal effects of the IVs</li>
 <li>Usage: <code>asmnl_me(mod)</code>
@@ -564,7 +577,7 @@ Total          242       17      138       204   601</code></pre>
 <li><code>mod</code> is the object containing the result of the <code>mlogit</code> call using the <code>asmnl_est</code> user defined function</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="alt-specific-mnl.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="alt-specific-mnl.html#cb400-1" tabindex="-1"></a><span class="fu">asmnl_me</span>(asmod)</span></code></pre></div>
 <pre class="custom-output"><code>
 --------------------------------
 Predicted Probabilities at Means
@@ -596,15 +609,15 @@ Yoplait  0.05450  0.00054  0.02899 -0.08404
   Dannon   Hiland   Weight  Yoplait 
 -0.00731 -0.00059 -0.00684  0.01473 </code></pre>
 </div>
-<div id="margin-plots-1" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Margin Plots<a href="alt-specific-mnl.html#margin-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="margin-plots-1" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Margin Plots<a href="alt-specific-mnl.html#margin-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>The <code>asmnl_mp</code> user defined function will create margin plots for a case-specific IV</li>
 <li>Usage: <code>almnl_mp(mod, focal="", type="")     *</code>mod<code>is the object containing the result of the</code>mlogit<code>call using the</code>asmnl_est<code>user defined function     *</code>focal<code>is the case-specific IV for which a margin plot is wanted (in quotes)     *</code>type<code>is the type of IV; must be either</code>“C”<code>for continuous or</code>“D”` for dummy</li>
 <li>NOTE: This function requires the <code>ggplot2</code> package</li>
 </ul>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="alt-specific-mnl.html#cb413-1" aria-hidden="true" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="alt-specific-mnl.html#cb402-1" tabindex="-1"></a><span class="fu">asmnl_mp</span>(asmod,<span class="st">&quot;income&quot;</span>, <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -615,7 +628,7 @@ Yoplait  0.05450  0.00054  0.02899 -0.08404
         </div>
       </div>
 <a href="standard-mnl.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="conjoint-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="forecasting-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

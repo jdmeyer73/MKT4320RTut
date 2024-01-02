@@ -1,0 +1,106 @@
+```{r echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(MKT4320BGSU)
+```
+
+# Standard MNL
+
+Sources for this chapter:
+
+* *R for Marketing Research and Analytics, Second Edition* (2019). Chris Chapman and Elea McDonnell Feit
+    * [http://r-marketing.r-forge.r-project.org/index.html](http://r-marketing.r-forge.r-project.org/index.html)
+
+Data for this chapter:
+
+* The `bfast` data is used from the `MKT4320BGSU` course package. Load the package and use the `data()` function to load the data.
+    ```{r t9loaddata}
+    # Load the course package
+    library(MKT4320BGSU)
+    # Load the data
+    data(bfast)
+    ```
+
+## Introduction
+
+Base R is not good for standard multinomial logistic regression (MNL). The best package that I have found for standard MNL is `nnet` with its `multinom` function. Install that package `install.packages("nnet")` and load it.
+
+``` {r}
+library(nnet)
+```
+
+In addition, I have created some user defined functions, which are all in the `MKT4320BGSU` package.
+
+* `stmnl` produces Odds Ratio coefficients table, overall model significance, and McFadden's Pseudo-$R^2$
+* `stmnl_cm1` produces a Classification Matrix
+* `stmnl_pp` produces average predicted probability tables and plots
+
+## Data Preparation
+
+As with binary logistic regression, we often us a training and holdout sample when using MNL. For standard MNL, the process is the same.
+
+``` {r}
+library(caret)
+set.seed(4320)
+inTrain <- createDataPartition(y=bfast$bfast, p=.75, list=FALSE)
+train <- bfast[inTrain,]
+test <- bfast[-inTrain,]
+```
+
+## Standard MNL using `multinom()`
+
+* Standard MNL is performed using the `multinom()` function from the `nnet` package
+* Usage: `multinom(formula, data)`
+    * `formula` is represented by dependent variables on the left side separated from the independent variables on the right side by a tilde(`~`), such as: `dv ~ iv1 + iv2`
+    * `data` is the name of the (usually) training data
+* As with other analyses, we save the result of the model to an object
+    * `summary()` provides standard coefficient estimates (i.e., **not** Odds Ratio estiamtes), but does not provide overall model fit values (i.e., overall model $p$-value or McFadden's Psuedo $R^2$) or p-values for each independent variable
+
+``` {r}
+library(nnet)
+model <- multinom(bfast ~ gender + marital + lifestyle + age, data=train)
+summary(model)
+```
+
+### `stmnl()` User Defined Function
+
+* To get overall model fit values, as well as an Odds Ratio estimate table with p-values, the `stmnl()` user defined function can be used
+* Usage: `stmnl(model)`
+    * `model` is the name of the object with the saved model results
+* NOTE: This function requires the `broom` package.  If you do not have it installed on your machine, you will need to install it.
+
+```{r}
+stmnl(model)
+```
+
+### Classification Matrix
+
+* To get a classification matrix, the `stmnl_cm` user-defined function should be used
+* Usage: `stmnl_cm(model, data)`
+    * `model` is the name of the object with the saved model results
+    * `data` is name of the data to create the classification model for (i.e., training or holdout data)
+    
+```{r}
+stmnl_cm(model, train)
+stmnl_cm(model, test)
+```
+
+### Average Predicted Probabilities
+
+* Predicted probabilities can help interpret the effects of the independent variables on the choice dependent variable
+* Use the `stmnl_pp` user-defined function for each IV to obtain these.
+* Usage: `stmnl_pp(model, focal, xlab)`
+    * `model` is the name of the object with the saved model results
+    * `focal` is the name of the variable (in quotes) for which predicted probabilities are wanted
+    * `xlab` is optional, but can be provided for a better x-axis label for the plot (e.g., "Income Category")  
+* NOTE 1: For continuous focal variables, the table produced uses three levels to calculate predicted probabilities: $-1 SD$, $MEAN$, $+1 SD$   
+* NOTE 2: This function requires the following packages:
+    * `tidyr`
+    * `effects`
+    * `dplyr`
+    * `ggplot2`
+
+```{r}
+stmnl_pp(model, "age", "Age in Years")
+stmnl_pp(model, "gender", "Gender")
+```

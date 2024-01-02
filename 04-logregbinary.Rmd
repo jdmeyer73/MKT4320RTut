@@ -262,37 +262,14 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
 * Margin plots are done in much the same way as with [linear regression margin plots](#linregmarginplots)
 
     ```{r t4marginplot1, fig.cap="Margin plots for variables in model"}
-    # Load 'effects' package
-    library(effects)
+    # Create plot for 'age' and assign to 'p1'
+    p1 <- mymp(model, "age")$plot
     
-    # Create data frame with values to be plotted with 'age' as focal
-    age.pred <- data.frame(predictorEffect("age", model))
-    
-    # Create plot and assign to 'p1'
-    p1 <- age.pred %>%
-        ggplot(aes(x=age, y=fit)) +
-            geom_line(size=1) +   # Draw predicted line
-            geom_ribbon(aes(ymin=lower,  # Draws the confidence interval bands
-                            ymax=upper),
-                            alpha=0.2) + # Sets transparency level
-            labs(x="Age", y="Pr(Buy)") +
-            scale_y_continuous(limits=c(0,1))
-    
-    # Create data frame with values to be plotted with 'gender' as focal
-    g.pred <- data.frame(predictorEffect("gender", model))
-    
-    # Create plot and assign to 'p2'
-    p2 <- g.pred %>%
-        ggplot(aes(x=gender, y=fit, 
-               group=1)) +   # Need to draw line between points
-            geom_point(size=4) + 
-            geom_line(color="orange") + 
-            geom_errorbar(aes(ymin=lower, ymax=upper), width=.5) +
-            labs(x="Gender", y="Pr(Buy)") +
-            scale_y_continuous(limits=c(0,1))
+    # Create plot for 'gender' and assign to 'p2'
+    p2 <- mymp(model, "gender")$plot
     
     #Use 'cowplot' to put into single plot
-    plot_grid(p1,p2)
+    cowplot::plot_grid(p1,p2)
     ```
     
 [Video Tutorial: Logistic Regression - Margin Plots](https://youtu.be/W_k_NE6PE4E){target="_blank"}

@@ -11,9 +11,11 @@ Sources for this chapter:
 
 Data for this chapter:
 
-* The [greekbrands.rdata](Data/greekbrands.rdata) is used, which is part of the `MKT4320BGSU` package.
-    ```{r}
-    # You may need to change the directory
+* The `greekbrands` data is used from the `MKT4320BGSU` course package. Load the package and use the `data()` function to load the data.
+    ```{r t6loaddata}
+    # Load the course package
+    library(MKT4320BGSU)
+    # Load the data
     data(greekbrands)
     ```
 

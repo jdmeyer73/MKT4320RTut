@@ -128,7 +128,7 @@ predict.lm(model1,   # The model we are using to predict
 [Video Tutorial: lm() - Prediction](https://youtu.be/4I4V6OAOep0){target="_blank"}
 
 \newpage
-## Margin Plots {#linregmarginplots}
+## Margin Plots (Manual Process) {#linregmarginplots}
 
 In R, margin plots are a multistep process:
 
@@ -312,3 +312,38 @@ age.pred %>%
 ```
 
 [Video Tutorial: lm() - Margin Plots for Continuous IV with Continuous IV Interaction](https://youtu.be/lP3xc-DhCf0){target="_blank"}
+
+## Margin Plots (User-Defined Function) {#linregmarginplotsudf}
+
+### Overview
+
+* The `mymp` user-defined function can produce a margin plot (and margin table) for a single variable or for a variable that has an interaction with another variable.
+   * Requires the following packages:
+      * `ggplot2`
+      * `dplyr`
+      * `ggeffects`
+      * `insight`
+* Usage: `mymp(model, focal, int=NULL)` where:
+   * `model` is a saved linear regression (`lm`) model or binary logistic regression (`glm, family="binomial"`) model.
+   * `focal` is the name of the focal predictor variable. Must be in quotations.
+   * `int` is the name of the interaction predictor variable. Must be in quotations. Can be excluded if focal variable only wanted (or no interaction exists).
+* Objects returned:
+   * `$ptable` is the margin table used to produce the plot
+   * `$plot` is the margin plot
+* Notes:
+   * The function will automatically determine the variable type (i.e., continuous or factor) and create the plot accordingly.
+   
+### Examples
+
+* Using `model3` from above, which was the following model: $nps=\alpha+\beta_0age+\beta_1flight\_purpuse+\beta_3age\times{flight\_purpose}+\beta_4nflights+\varepsilon$
+* In this model, `age` and `nflights` are continuous, and `flight_purpose` is a factor.
+```{r, warning=FALSE, message=FALSE}
+# Focal variable only
+## Output will be both "$ptable" and "$plot"
+mymp(model=model3, focal="nflights")
+
+# Focal variable and interaction
+## Output will be "$plot" only
+
+mymp(model3, "age", "flight_purpose")$plot
+```

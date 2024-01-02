@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Conjoint Analysis | R Tutorial for MKT 4320</title>
   <meta name="description" content="This book is a quick and basic R tutorial for MKT 4320." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Conjoint Analysis | R Tutorial for MKT 4320" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2024-01-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -291,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#the-lm-function"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#prediction"><i class="fa fa-check"></i><b>3.3</b> Prediction</a></li>
-<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots</a>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplots"><i class="fa fa-check"></i><b>3.4</b> Margin Plots (Manual Process)</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-no-interaction"><i class="fa fa-check"></i><b>3.4.1</b> Continuous IV (No Interaction)</a></li>
 <li class="chapter" data-level="3.4.2" data-path="linear-regression.html"><a href="linear-regression.html#separate-margin-plots-no-interaction"><i class="fa fa-check"></i><b>3.4.2</b> Separate Margin Plots (No Interaction)</a></li>
@@ -299,6 +303,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.4" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-factor-iv"><i class="fa fa-check"></i><b>3.4.4</b> Continuous IV (Interaction with Factor IV)</a></li>
 <li class="chapter" data-level="3.4.5" data-path="linear-regression.html"><a href="linear-regression.html#factor-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.5</b> Factor IV (Interaction with Continuous IV)</a></li>
 <li class="chapter" data-level="3.4.6" data-path="linear-regression.html"><a href="linear-regression.html#continuous-iv-interaction-with-continuous-iv"><i class="fa fa-check"></i><b>3.4.6</b> Continuous IV (Interaction with Continuous IV)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="linear-regression.html"><a href="linear-regression.html#linregmarginplotsudf"><i class="fa fa-check"></i><b>3.5</b> Margin Plots (User-Defined Function)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-1"><i class="fa fa-check"></i><b>3.5.1</b> Overview</a></li>
+<li class="chapter" data-level="3.5.2" data-path="linear-regression.html"><a href="linear-regression.html#examples"><i class="fa fa-check"></i><b>3.5.2</b> Examples</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="logistic-regression-binary.html"><a href="logistic-regression-binary.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression (Binary)</a>
@@ -349,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#cldescr.r"><i class="fa fa-check"></i><b>5.5.1</b> <code>cldescr.R</code></a>
 <ul>
-<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
+<li class="chapter" data-level="5.5.1.1" data-path="cluster-analysis.html"><a href="cluster-analysis.html#examples-1"><i class="fa fa-check"></i><b>5.5.1.1</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5.2" data-path="cluster-analysis.html"><a href="cluster-analysis.html#kcenters.r"><i class="fa fa-check"></i><b>5.5.2</b> <code>kcenters.R</code></a></li>
 </ul></li>
@@ -366,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#user-defined-function"><i class="fa fa-check"></i><b>6.3</b> User Defined Function</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#preparation-1"><i class="fa fa-check"></i><b>6.3.1</b> Preparation</a></li>
-<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-1"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
+<li class="chapter" data-level="6.3.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#examples-2"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a>
 <ul>
 <li class="chapter" data-level="6.3.2.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#without-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.1</b> WITHOUT <code>group=</code> or <code>pref=</code> options</a></li>
 <li class="chapter" data-level="6.3.2.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#with-group-or-pref-options"><i class="fa fa-check"></i><b>6.3.2.2</b> WITH <code>group=</code> or <code>pref=</code> options</a></li>
@@ -457,8 +466,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <a href="Data/airlineca.rdata">airlineca.rdata</a> is used. Load it now. Because of how the data is arranged, the training and holdout samples are both included in the file: <code>train.yog</code> and <code>test.yog</code>.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="conjoint-analysis.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
-<span id="cb414-2"><a href="conjoint-analysis.html#cb414-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlineca.rdata&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="conjoint-analysis.html#cb404-1" tabindex="-1"></a><span class="co"># You may need to change the directory</span></span>
+<span id="cb404-2"><a href="conjoint-analysis.html#cb404-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Data/airlineca.rdata&quot;</span>)</span></code></pre></div></li>
 </ul>
 <div id="introduction-10" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Introduction<a href="conjoint-analysis.html#introduction-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -495,42 +504,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>ggplot2</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="conjoint-analysis.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
-<span id="cb415-2"><a href="conjoint-analysis.html#cb415-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb415-3"><a href="conjoint-analysis.html#cb415-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb415-4"><a href="conjoint-analysis.html#cb415-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb415-5"><a href="conjoint-analysis.html#cb415-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb415-6"><a href="conjoint-analysis.html#cb415-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb415-7"><a href="conjoint-analysis.html#cb415-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
-<span id="cb415-8"><a href="conjoint-analysis.html#cb415-8" aria-hidden="true" tabindex="-1"></a>caform <span class="ot">&lt;-</span> value <span class="sc">~</span> airline <span class="sc">+</span> connect <span class="sc">+</span> price</span>
-<span id="cb415-9"><a href="conjoint-analysis.html#cb415-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb415-10"><a href="conjoint-analysis.html#cb415-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading user defined function</span></span>
-<span id="cb415-11"><a href="conjoint-analysis.html#cb415-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;tradca.R&quot;</span>)</span>
-<span id="cb415-12"><a href="conjoint-analysis.html#cb415-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb415-13"><a href="conjoint-analysis.html#cb415-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Using fucntion and saving to object called &#39;results&#39;</span></span>
-<span id="cb415-14"><a href="conjoint-analysis.html#cb415-14" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tradca</span>(<span class="at">formula =</span> caform,  <span class="co"># Formula object created above</span></span>
-<span id="cb415-15"><a href="conjoint-analysis.html#cb415-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> airlineca,  <span class="co"># Data frame with profile ratings</span></span>
-<span id="cb415-16"><a href="conjoint-analysis.html#cb415-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">idvar=</span><span class="st">&quot;caseid&quot;</span>)    <span class="co"># Case id variable</span></span></code></pre></div>
-<pre><code>Warning: `funs()` was deprecated in dplyr 0.8.0.
-ℹ Please use a list of either functions or lambdas:
-
-# Simple named list: list(mean = mean, median = median)
-
-# Auto named with `tibble::lst()`: tibble::lst(mean, median)
-
-# Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</code></pre>
-<pre><code>Warning: `funs()` was deprecated in dplyr 0.8.0.
-ℹ Please use a list of either functions or lambdas:
-
-# Simple named list: list(mean = mean, median = median)
-
-# Auto named with `tibble::lst()`: tibble::lst(mean, median)
-
-# Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="conjoint-analysis.html#cb418-1" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>pwplot   <span class="co"># Get part worth plot</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="conjoint-analysis.html#cb419-1" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>impplot  <span class="co"># Get importance plot</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="conjoint-analysis.html#cb405-1" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<span id="cb405-2"><a href="conjoint-analysis.html#cb405-2" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb405-3"><a href="conjoint-analysis.html#cb405-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb405-4"><a href="conjoint-analysis.html#cb405-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb405-5"><a href="conjoint-analysis.html#cb405-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb405-6"><a href="conjoint-analysis.html#cb405-6" tabindex="-1"></a></span>
+<span id="cb405-7"><a href="conjoint-analysis.html#cb405-7" tabindex="-1"></a><span class="co"># Saving formula to object</span></span>
+<span id="cb405-8"><a href="conjoint-analysis.html#cb405-8" tabindex="-1"></a>caform <span class="ot">&lt;-</span> value <span class="sc">~</span> airline <span class="sc">+</span> connect <span class="sc">+</span> price</span>
+<span id="cb405-9"><a href="conjoint-analysis.html#cb405-9" tabindex="-1"></a></span>
+<span id="cb405-10"><a href="conjoint-analysis.html#cb405-10" tabindex="-1"></a><span class="co"># Loading user defined function</span></span>
+<span id="cb405-11"><a href="conjoint-analysis.html#cb405-11" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;tradca.R&quot;</span>)</span>
+<span id="cb405-12"><a href="conjoint-analysis.html#cb405-12" tabindex="-1"></a></span>
+<span id="cb405-13"><a href="conjoint-analysis.html#cb405-13" tabindex="-1"></a><span class="co"># Using fucntion and saving to object called &#39;results&#39;</span></span>
+<span id="cb405-14"><a href="conjoint-analysis.html#cb405-14" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tradca</span>(<span class="at">formula =</span> caform,  <span class="co"># Formula object created above</span></span>
+<span id="cb405-15"><a href="conjoint-analysis.html#cb405-15" tabindex="-1"></a>                  <span class="at">data =</span> airlineca,  <span class="co"># Data frame with profile ratings</span></span>
+<span id="cb405-16"><a href="conjoint-analysis.html#cb405-16" tabindex="-1"></a>                  <span class="at">idvar=</span><span class="st">&quot;caseid&quot;</span>)    <span class="co"># Case id variable</span></span>
+<span id="cb405-17"><a href="conjoint-analysis.html#cb405-17" tabindex="-1"></a></span>
+<span id="cb405-18"><a href="conjoint-analysis.html#cb405-18" tabindex="-1"></a>results<span class="sc">$</span>pwplot   <span class="co"># Get part worth plot</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="conjoint-analysis.html#cb406-1" tabindex="-1"></a>results<span class="sc">$</span>impplot  <span class="co"># Get importance plot</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-114-2.png" width="672" /></p>
 </div>
 <div id="cademo-user-defined-function" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> <code>cademo</code> User Defined Function<a href="conjoint-analysis.html#cademo-user-defined-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -549,42 +543,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>To use this function, the <code>casetable</code> from the call to the <code>tradca</code> function must be appended with the demographic variables for each case. To do this, use the following code:</li>
 </ul>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="conjoint-analysis.html#cb420-1" aria-hidden="true" tabindex="-1"></a>demos <span class="ot">&lt;-</span> airlineca <span class="sc">%&gt;%</span>   <span class="co"># Create new dataframe called &#39;demos&#39; based on original data</span></span>
-<span id="cb420-2"><a href="conjoint-analysis.html#cb420-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(caseid) <span class="sc">%&gt;%</span>      <span class="co"># Group by the &#39;idvar&#39;</span></span>
-<span id="cb420-3"><a href="conjoint-analysis.html#cb420-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">inc=</span><span class="fu">first</span>(inc),    <span class="co"># Capture the demographic variables</span></span>
-<span id="cb420-4"><a href="conjoint-analysis.html#cb420-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">type=</span><span class="fu">first</span>(type)) <span class="sc">%&gt;%</span> </span>
-<span id="cb420-5"><a href="conjoint-analysis.html#cb420-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">bind_cols</span>(.,results<span class="sc">$</span>casetable[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(results<span class="sc">$</span>casetable)])  </span>
-<span id="cb420-6"><a href="conjoint-analysis.html#cb420-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb420-7"><a href="conjoint-analysis.html#cb420-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">:  This last command appends the demographic variables &#39;casetable&#39; dataframe </span></span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="conjoint-analysis.html#cb407-1" tabindex="-1"></a>demos <span class="ot">&lt;-</span> airlineca <span class="sc">%&gt;%</span>   <span class="co"># Create new dataframe called &#39;demos&#39; based on original data</span></span>
+<span id="cb407-2"><a href="conjoint-analysis.html#cb407-2" tabindex="-1"></a>   <span class="fu">group_by</span>(caseid) <span class="sc">%&gt;%</span>      <span class="co"># Group by the &#39;idvar&#39;</span></span>
+<span id="cb407-3"><a href="conjoint-analysis.html#cb407-3" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">inc=</span><span class="fu">first</span>(inc),    <span class="co"># Capture the demographic variables</span></span>
+<span id="cb407-4"><a href="conjoint-analysis.html#cb407-4" tabindex="-1"></a>             <span class="at">type=</span><span class="fu">first</span>(type)) <span class="sc">%&gt;%</span> </span>
+<span id="cb407-5"><a href="conjoint-analysis.html#cb407-5" tabindex="-1"></a>   <span class="fu">bind_cols</span>(.,results<span class="sc">$</span>casetable[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(results<span class="sc">$</span>casetable)])  </span>
+<span id="cb407-6"><a href="conjoint-analysis.html#cb407-6" tabindex="-1"></a></span>
+<span id="cb407-7"><a href="conjoint-analysis.html#cb407-7" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">:  This last command appends the demographic variables &#39;casetable&#39; dataframe </span></span></code></pre></div>
 </div>
 <div id="function-usage" class="section level3 hasAnchor" number="10.3.2">
 <h3><span class="header-section-number">10.3.2</span> Function usage<a href="conjoint-analysis.html#function-usage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="conjoint-analysis.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;cademo.R&quot;</span>)   <span class="co"># Load the function&#39;</span></span>
-<span id="cb421-2"><a href="conjoint-analysis.html#cb421-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cademo</span>(caform,  <span class="co"># Formula object from before</span></span>
-<span id="cb421-3"><a href="conjoint-analysis.html#cb421-3" aria-hidden="true" tabindex="-1"></a>       demos,   <span class="co"># Dataframe created above</span></span>
-<span id="cb421-4"><a href="conjoint-analysis.html#cb421-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;inc&quot;</span>, <span class="st">&quot;type&quot;</span>))  <span class="co"># Names of the demographic variables</span></span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="conjoint-analysis.html#cb408-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;cademo.R&quot;</span>)   <span class="co"># Load the function&#39;</span></span>
+<span id="cb408-2"><a href="conjoint-analysis.html#cb408-2" tabindex="-1"></a><span class="fu">cademo</span>(caform,  <span class="co"># Formula object from before</span></span>
+<span id="cb408-3"><a href="conjoint-analysis.html#cb408-3" tabindex="-1"></a>       demos,   <span class="co"># Dataframe created above</span></span>
+<span id="cb408-4"><a href="conjoint-analysis.html#cb408-4" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;inc&quot;</span>, <span class="st">&quot;type&quot;</span>))  <span class="co"># Names of the demographic variables</span></span></code></pre></div>
 <pre class="custom-output"><code>
-Correlation Matrix for airline_</code></pre>
-<pre><code>Loading required package: Hmisc</code></pre>
-<pre><code>Loading required package: survival</code></pre>
-<pre><code>
-Attaching package: &#39;survival&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:caret&#39;:
-
-    cluster</code></pre>
-<pre><code>Loading required package: Formula</code></pre>
-<pre><code>
-Attaching package: &#39;Hmisc&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:jtools&#39;:
-
-    %nin%</code></pre>
-<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
-
-    src, summarize</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    format.pval, units</code></pre>
-<pre class="custom-output"><code>                     inc
+Correlation Matrix for airline_
+                     inc
 airline_1: Delta   0.36*
 airline_2: Spirit   0.17
 airline_3: SW      0.36*
@@ -645,17 +620,17 @@ typePleasure  14.5439     6.2200  2.3382   0.0249</code></pre>
 <li>For example, for the first <em>Delta</em> is the first level of the <code>airline</code> attribute, so we would use <code>airline_1</code> to indicate that level of that attribute</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="conjoint-analysis.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create first profile</span></span>
-<span id="cb433-2"><a href="conjoint-analysis.html#cb433-2" aria-hidden="true" tabindex="-1"></a>prof1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;airline_1&quot;</span>, <span class="st">&quot;connect_2&quot;</span>, <span class="st">&quot;price_3&quot;</span>)</span>
-<span id="cb433-3"><a href="conjoint-analysis.html#cb433-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second profile</span></span>
-<span id="cb433-4"><a href="conjoint-analysis.html#cb433-4" aria-hidden="true" tabindex="-1"></a>prof2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;airline_3&quot;</span>, <span class="st">&quot;connect_2&quot;</span>, <span class="st">&quot;price_2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="conjoint-analysis.html#cb410-1" tabindex="-1"></a><span class="co"># Create first profile</span></span>
+<span id="cb410-2"><a href="conjoint-analysis.html#cb410-2" tabindex="-1"></a>prof1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;airline_1&quot;</span>, <span class="st">&quot;connect_2&quot;</span>, <span class="st">&quot;price_3&quot;</span>)</span>
+<span id="cb410-3"><a href="conjoint-analysis.html#cb410-3" tabindex="-1"></a><span class="co"># Create second profile</span></span>
+<span id="cb410-4"><a href="conjoint-analysis.html#cb410-4" tabindex="-1"></a>prof2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;airline_3&quot;</span>, <span class="st">&quot;connect_2&quot;</span>, <span class="st">&quot;price_2&quot;</span>)</span></code></pre></div>
 </div>
 <div id="function-usage-1" class="section level3 hasAnchor" number="10.4.2">
 <h3><span class="header-section-number">10.4.2</span> Function usage<a href="conjoint-analysis.html#function-usage-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="conjoint-analysis.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;capred.R&quot;</span>)   <span class="co"># Load the function&#39;</span></span>
-<span id="cb434-2"><a href="conjoint-analysis.html#cb434-2" aria-hidden="true" tabindex="-1"></a><span class="fu">capred</span>(caform,  <span class="co"># Formula object from before</span></span>
-<span id="cb434-3"><a href="conjoint-analysis.html#cb434-3" aria-hidden="true" tabindex="-1"></a>       results<span class="sc">$</span>casetable,   <span class="co"># Dataframe from original &#39;tradca&#39; call</span></span>
-<span id="cb434-4"><a href="conjoint-analysis.html#cb434-4" aria-hidden="true" tabindex="-1"></a>       prof1, prof2)  <span class="co"># Names of our profile objects</span></span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="conjoint-analysis.html#cb411-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;capred.R&quot;</span>)   <span class="co"># Load the function&#39;</span></span>
+<span id="cb411-2"><a href="conjoint-analysis.html#cb411-2" tabindex="-1"></a><span class="fu">capred</span>(caform,  <span class="co"># Formula object from before</span></span>
+<span id="cb411-3"><a href="conjoint-analysis.html#cb411-3" tabindex="-1"></a>       results<span class="sc">$</span>casetable,   <span class="co"># Dataframe from original &#39;tradca&#39; call</span></span>
+<span id="cb411-4"><a href="conjoint-analysis.html#cb411-4" tabindex="-1"></a>       prof1, prof2)  <span class="co"># Names of our profile objects</span></span></code></pre></div>
 <pre class="custom-output"><code>
 Profile 1 = airline_1: Delta  /  connect_2: One  /  price_3: $600
 Mean Utility = 26.382
