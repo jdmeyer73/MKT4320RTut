@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2024-01-02" />
+<meta name="date" content="2024-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -480,10 +480,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <code>greekbrands</code> data is used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="pca-perceptual-maps.html#cb373-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
-<span id="cb373-2"><a href="pca-perceptual-maps.html#cb373-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
-<span id="cb373-3"><a href="pca-perceptual-maps.html#cb373-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb373-4"><a href="pca-perceptual-maps.html#cb373-4" tabindex="-1"></a><span class="fu">data</span>(greekbrands)</span></code></pre></div></li>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
+<span id="cb374-2"><a href="pca-perceptual-maps.html#cb374-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb374-3"><a href="pca-perceptual-maps.html#cb374-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb374-4"><a href="pca-perceptual-maps.html#cb374-4" tabindex="-1"></a><span class="fu">data</span>(greekbrands)</span></code></pre></div></li>
 </ul>
 <div id="introduction-7" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introduction<a href="pca-perceptual-maps.html#introduction-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -502,14 +502,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The data frame does not need to be aggregated, but must contain ONLY those variables</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="pca-perceptual-maps.html#cb374-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb374-2"><a href="pca-perceptual-maps.html#cb374-2" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
-<span id="cb374-3"><a href="pca-perceptual-maps.html#cb374-3" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
-<span id="cb374-4"><a href="pca-perceptual-maps.html#cb374-4" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
-<span id="cb374-5"><a href="pca-perceptual-maps.html#cb374-5" tabindex="-1"></a></span>
-<span id="cb374-6"><a href="pca-perceptual-maps.html#cb374-6" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
-<span id="cb374-7"><a href="pca-perceptual-maps.html#cb374-7" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
-<span id="cb374-8"><a href="pca-perceptual-maps.html#cb374-8" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="pca-perceptual-maps.html#cb375-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb375-2"><a href="pca-perceptual-maps.html#cb375-2" tabindex="-1"></a><span class="co"># For a perceptual map, store variables selected using dplyr to &#39;pmdata&#39;</span></span>
+<span id="cb375-3"><a href="pca-perceptual-maps.html#cb375-3" tabindex="-1"></a>pmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span> </span>
+<span id="cb375-4"><a href="pca-perceptual-maps.html#cb375-4" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, brand)</span>
+<span id="cb375-5"><a href="pca-perceptual-maps.html#cb375-5" tabindex="-1"></a></span>
+<span id="cb375-6"><a href="pca-perceptual-maps.html#cb375-6" tabindex="-1"></a><span class="co"># For a joint space map, store variable selected using dplyr to &#39;jsmdata&#39;</span></span>
+<span id="cb375-7"><a href="pca-perceptual-maps.html#cb375-7" tabindex="-1"></a>jsmdata <span class="ot">&lt;-</span> greekbrands <span class="sc">%&gt;%</span></span>
+<span id="cb375-8"><a href="pca-perceptual-maps.html#cb375-8" tabindex="-1"></a>    <span class="fu">select</span>(perform, leader, fun, serious, bargain, value, pref, brand)</span></code></pre></div>
 </div>
 <div id="using-the-function" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Using the function<a href="pca-perceptual-maps.html#using-the-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -540,12 +540,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Perceptual Map</li>
 </ul>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="pca-perceptual-maps.html#cb375-1" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="pca-perceptual-maps.html#cb376-1" tabindex="-1"></a><span class="fu">percmap</span>(pmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" />
 <ul>
 <li>Joint Space Map</li>
 </ul>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="pca-perceptual-maps.html#cb376-1" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="pca-perceptual-maps.html#cb377-1" tabindex="-1"></a><span class="fu">percmap</span>(jsmdata, <span class="at">group=</span><span class="st">&quot;brand&quot;</span>, <span class="at">pref=</span><span class="st">&quot;pref&quot;</span>)</span></code></pre></div>
 <img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></li>
 </ul>
 

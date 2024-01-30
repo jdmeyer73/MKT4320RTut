@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2024-01-02" />
+<meta name="date" content="2024-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -480,15 +480,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <code>bfast</code> data is used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="standard-mnl.html#cb377-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
-<span id="cb377-2"><a href="standard-mnl.html#cb377-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
-<span id="cb377-3"><a href="standard-mnl.html#cb377-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb377-4"><a href="standard-mnl.html#cb377-4" tabindex="-1"></a><span class="fu">data</span>(bfast)</span></code></pre></div></li>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="standard-mnl.html#cb378-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
+<span id="cb378-2"><a href="standard-mnl.html#cb378-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb378-3"><a href="standard-mnl.html#cb378-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb378-4"><a href="standard-mnl.html#cb378-4" tabindex="-1"></a><span class="fu">data</span>(bfast)</span></code></pre></div></li>
 </ul>
 <div id="introduction-8" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Introduction<a href="standard-mnl.html#introduction-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Base R is not good for standard multinomial logistic regression (MNL). The best package that I have found for standard MNL is <code>nnet</code> with its <code>multinom</code> function. Install that package <code>install.packages("nnet")</code> and load it.</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="standard-mnl.html#cb378-1" tabindex="-1"></a><span class="fu">library</span>(nnet)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="standard-mnl.html#cb379-1" tabindex="-1"></a><span class="fu">library</span>(nnet)</span></code></pre></div>
 <p>In addition, I have created some user defined functions, which are all in the <code>MKT4320BGSU</code> package.</p>
 <ul>
 <li><code>stmnl</code> produces Odds Ratio coefficients table, overall model significance, and McFadden’s Pseudo-<span class="math inline">\(R^2\)</span></li>
@@ -499,11 +499,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-preparation" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Data Preparation<a href="standard-mnl.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As with binary logistic regression, we often us a training and holdout sample when using MNL. For standard MNL, the process is the same.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="standard-mnl.html#cb379-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb379-2"><a href="standard-mnl.html#cb379-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4320</span>)</span>
-<span id="cb379-3"><a href="standard-mnl.html#cb379-3" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(<span class="at">y=</span>bfast<span class="sc">$</span>bfast, <span class="at">p=</span>.<span class="dv">75</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
-<span id="cb379-4"><a href="standard-mnl.html#cb379-4" tabindex="-1"></a>train <span class="ot">&lt;-</span> bfast[inTrain,]</span>
-<span id="cb379-5"><a href="standard-mnl.html#cb379-5" tabindex="-1"></a>test <span class="ot">&lt;-</span> bfast[<span class="sc">-</span>inTrain,]</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="standard-mnl.html#cb380-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb380-2"><a href="standard-mnl.html#cb380-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4320</span>)</span>
+<span id="cb380-3"><a href="standard-mnl.html#cb380-3" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(<span class="at">y=</span>bfast<span class="sc">$</span>bfast, <span class="at">p=</span>.<span class="dv">75</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb380-4"><a href="standard-mnl.html#cb380-4" tabindex="-1"></a>train <span class="ot">&lt;-</span> bfast[inTrain,]</span>
+<span id="cb380-5"><a href="standard-mnl.html#cb380-5" tabindex="-1"></a>test <span class="ot">&lt;-</span> bfast[<span class="sc">-</span>inTrain,]</span></code></pre></div>
 </div>
 <div id="standard-mnl-using-multinom" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Standard MNL using <code>multinom()</code><a href="standard-mnl.html#standard-mnl-using-multinom" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -519,14 +519,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>summary()</code> provides standard coefficient estimates (i.e., <strong>not</strong> Odds Ratio estiamtes), but does not provide overall model fit values (i.e., overall model <span class="math inline">\(p\)</span>-value or McFadden’s Psuedo <span class="math inline">\(R^2\)</span>) or p-values for each independent variable</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="standard-mnl.html#cb380-1" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb380-2"><a href="standard-mnl.html#cb380-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(bfast <span class="sc">~</span> gender <span class="sc">+</span> marital <span class="sc">+</span> lifestyle <span class="sc">+</span> age, <span class="at">data=</span>train)</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="standard-mnl.html#cb381-1" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb381-2"><a href="standard-mnl.html#cb381-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(bfast <span class="sc">~</span> gender <span class="sc">+</span> marital <span class="sc">+</span> lifestyle <span class="sc">+</span> age, <span class="at">data=</span>train)</span></code></pre></div>
 <pre class="custom-output"><code># weights:  18 (10 variable)
 initial  value 727.281335 
 iter  10 value 579.014122
 final  value 574.997631 
 converged</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="standard-mnl.html#cb382-1" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="standard-mnl.html#cb383-1" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre class="custom-output"><code>Call:
 multinom(formula = bfast ~ gender + marital + lifestyle + age, 
     data = train)
@@ -553,7 +553,7 @@ AIC: 1169.995 </code></pre>
 </ul></li>
 <li>NOTE: This function requires the <code>broom</code> package. If you do not have it installed on your machine, you will need to install it.</li>
 </ul>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="standard-mnl.html#cb384-1" tabindex="-1"></a><span class="fu">stmnl</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="standard-mnl.html#cb385-1" tabindex="-1"></a><span class="fu">stmnl</span>(model)</span></code></pre></div>
 <pre class="custom-output"><code>LR chi2 (8) = 288.1568; p &lt; 0.0001
 McFadden&#39;s Pseudo R-square = 0.2004
 
@@ -579,7 +579,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 <li><code>data</code> is name of the data to create the classification model for (i.e., training or holdout data)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="standard-mnl.html#cb386-1" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, train)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="standard-mnl.html#cb387-1" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, train)</span></code></pre></div>
 <pre class="custom-output"><code>0.5619 = Hit Ratio
 0.3413 = PCC</code></pre>
 <pre class="custom-output"><code>      Level T.Cereal T.Bar T.Oatmeal Total
@@ -587,7 +587,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 2     P.Bar       52    68         7   127
 3 P.Oatmeal       79    21       180   280
 4     Total      255   174       233   662</code></pre>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="standard-mnl.html#cb389-1" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, test)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="standard-mnl.html#cb390-1" tabindex="-1"></a><span class="fu">stmnl_cm</span>(model, test)</span></code></pre></div>
 <pre class="custom-output"><code>0.5826 = Hit Ratio
 0.3416 = PCC</code></pre>
 <pre class="custom-output"><code>      Level T.Cereal T.Bar T.Oatmeal Total
@@ -618,7 +618,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 <li><code>ggplot2</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="standard-mnl.html#cb392-1" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;Age in Years&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="standard-mnl.html#cb393-1" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;Age in Years&quot;</span>)</span></code></pre></div>
 <pre class="custom-output"><code>$table
   age   bfast p.prob lower.CI upper.CI
 1  31  Cereal 0.5158   0.5727   0.4586
@@ -633,7 +633,7 @@ McFadden&#39;s Pseudo R-square = 0.2004
 
 $plot</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="standard-mnl.html#cb394-1" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="standard-mnl.html#cb395-1" tabindex="-1"></a><span class="fu">stmnl_pp</span>(model, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
 <pre class="custom-output"><code>$table
   gender   bfast p.prob lower.CI upper.CI
 1 Female  Cereal 0.4660   0.5276   0.4053

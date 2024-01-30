@@ -524,7 +524,7 @@ To know where your files are saved to, and to make it easier to load files, it i
 
 * Use the `getwd()` function to see your current working directory
 ```{r echo=FALSE}
-knitr::opts_knit$set(root.dir = "C:/Users/jdmeyer/Docs/RFiles")
+knitr::opts_knit$set(root.dir = "C:/Users/jdmeyer/Documents")
 ```
 
     ```{r}

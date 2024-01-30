@@ -113,6 +113,19 @@ Generally, it is good practice to use a training sample and a testing/holdout sa
 * After running this procedure, two new data frames will be created
     * One containing the training data, `train`
     * One containing the testing/holdout data, `test`
+* Two methods are available: using the `splitsample` function from the `MKT4320BGSU` package or manually using `caret`
+    * To use the `splitsample` function
+        * Usage: `splitsample(data, outcome, p=0.75, seed=4320)`
+            * `data` is the name of the dataframe to be used to estimate the model
+            * `outcome` is the name of the outcome variable (i.e., dependent variable) for the model to be estimated
+            * `p` is the percent of the data to be assigned to the training sample; defaults to 0.75
+            * `seed` is an integer to be used for random number generation; defaults to 4320
+        * Requires the `caret` package
+        * Will create two new dataframes in your environment: `train` and `test`
+    ``` {r t4trtstsample01, message=FALSE, eval=FALSE}
+    splitsample(directmktg, buy)
+    ```
+    * To use the `caret` package manually, follow the code below   
     ``` {r t4trtstsample, message=FALSE}
     # Use 'caret' package to create training and test/holdout samples
     # This will create two separate dataframes: train and test

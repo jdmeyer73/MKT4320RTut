@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2024-01-02" />
+<meta name="date" content="2024-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -473,11 +473,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data for this chapter:</p>
 <ul>
 <li><p>The <code>msales</code> and <code>qales</code> data are used from the <code>MKT4320BGSU</code> course package. Load the package and use the <code>data()</code> function to load the data.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="forecasting-i.html#cb403-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
-<span id="cb403-2"><a href="forecasting-i.html#cb403-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
-<span id="cb403-3"><a href="forecasting-i.html#cb403-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb403-4"><a href="forecasting-i.html#cb403-4" tabindex="-1"></a><span class="fu">data</span>(msales)</span>
-<span id="cb403-5"><a href="forecasting-i.html#cb403-5" tabindex="-1"></a><span class="fu">data</span>(qsales)</span></code></pre></div></li>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="forecasting-i.html#cb404-1" tabindex="-1"></a><span class="co"># Load the course package</span></span>
+<span id="cb404-2"><a href="forecasting-i.html#cb404-2" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb404-3"><a href="forecasting-i.html#cb404-3" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb404-4"><a href="forecasting-i.html#cb404-4" tabindex="-1"></a><span class="fu">data</span>(msales)</span>
+<span id="cb404-5"><a href="forecasting-i.html#cb404-5" tabindex="-1"></a><span class="fu">data</span>(qsales)</span></code></pre></div></li>
 </ul>
 <div id="introduction-10" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Introduction<a href="forecasting-i.html#introduction-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -505,15 +505,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>stringr</code></li>
 <li><code>cowplot</code></li>
 </ul>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="forecasting-i.html#cb404-1" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
-<span id="cb404-2"><a href="forecasting-i.html#cb404-2" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
-<span id="cb404-3"><a href="forecasting-i.html#cb404-3" tabindex="-1"></a><span class="fu">library</span>(slider)</span>
-<span id="cb404-4"><a href="forecasting-i.html#cb404-4" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb404-5"><a href="forecasting-i.html#cb404-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb404-6"><a href="forecasting-i.html#cb404-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb404-7"><a href="forecasting-i.html#cb404-7" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb404-8"><a href="forecasting-i.html#cb404-8" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb404-9"><a href="forecasting-i.html#cb404-9" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="forecasting-i.html#cb405-1" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
+<span id="cb405-2"><a href="forecasting-i.html#cb405-2" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
+<span id="cb405-3"><a href="forecasting-i.html#cb405-3" tabindex="-1"></a><span class="fu">library</span>(slider)</span>
+<span id="cb405-4"><a href="forecasting-i.html#cb405-4" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb405-5"><a href="forecasting-i.html#cb405-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb405-6"><a href="forecasting-i.html#cb405-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb405-7"><a href="forecasting-i.html#cb405-7" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb405-8"><a href="forecasting-i.html#cb405-8" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb405-9"><a href="forecasting-i.html#cb405-9" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
 </div>
 </div>
 <div id="tsplot-user-defined-function" class="section level2 hasAnchor" number="11.2">
@@ -534,13 +534,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li>Output: A time series plot</li>
 </ul>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="forecasting-i.html#cb405-1" tabindex="-1"></a><span class="fu">tsplot</span>(msales,  <span class="co"># Dataframe</span></span>
-<span id="cb405-2"><a href="forecasting-i.html#cb405-2" tabindex="-1"></a>       <span class="st">&quot;t&quot;</span>,     <span class="co"># Date variable</span></span>
-<span id="cb405-3"><a href="forecasting-i.html#cb405-3" tabindex="-1"></a>       <span class="st">&quot;sales&quot;</span>, <span class="co"># Measure variable</span></span>
-<span id="cb405-4"><a href="forecasting-i.html#cb405-4" tabindex="-1"></a>       <span class="st">&quot;ym&quot;</span>,    <span class="co"># Date type</span></span>
-<span id="cb405-5"><a href="forecasting-i.html#cb405-5" tabindex="-1"></a>       <span class="dv">12</span>)      <span class="co"># Holdout periods</span></span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="forecasting-i.html#cb406-1" tabindex="-1"></a><span class="fu">tsplot</span>(msales,  <span class="co"># Dataframe</span></span>
+<span id="cb406-2"><a href="forecasting-i.html#cb406-2" tabindex="-1"></a>       <span class="st">&quot;t&quot;</span>,     <span class="co"># Date variable</span></span>
+<span id="cb406-3"><a href="forecasting-i.html#cb406-3" tabindex="-1"></a>       <span class="st">&quot;sales&quot;</span>, <span class="co"># Measure variable</span></span>
+<span id="cb406-4"><a href="forecasting-i.html#cb406-4" tabindex="-1"></a>       <span class="st">&quot;ym&quot;</span>,    <span class="co"># Date type</span></span>
+<span id="cb406-5"><a href="forecasting-i.html#cb406-5" tabindex="-1"></a>       <span class="dv">12</span>)      <span class="co"># Holdout periods</span></span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="forecasting-i.html#cb406-1" tabindex="-1"></a><span class="fu">tsplot</span>(qsales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;yq&quot;</span>, <span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="forecasting-i.html#cb407-1" tabindex="-1"></a><span class="fu">tsplot</span>(qsales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;yq&quot;</span>, <span class="dv">8</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-110-2.png" width="672" /></p>
 </div>
 <div id="naivefc-user-defined-function" class="section level2 hasAnchor" number="11.3">
@@ -574,16 +574,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Seas.Naive.Drift</strong> for the seasonal naive model with drift</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="forecasting-i.html#cb407-1" tabindex="-1"></a>naive <span class="ot">&lt;-</span> <span class="fu">naivefc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
-<span id="cb407-2"><a href="forecasting-i.html#cb407-2" tabindex="-1"></a>naive<span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="forecasting-i.html#cb408-1" tabindex="-1"></a>naive <span class="ot">&lt;-</span> <span class="fu">naivefc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb408-2"><a href="forecasting-i.html#cb408-2" tabindex="-1"></a>naive<span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="forecasting-i.html#cb408-1" tabindex="-1"></a>naive<span class="sc">$</span>acc</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="forecasting-i.html#cb409-1" tabindex="-1"></a>naive<span class="sc">$</span>acc</span></code></pre></div>
 <pre class="custom-output"><code>             Model    RMSE     MAE  MAPE
 1            Naive 323.496 263.917 0.945
 2      Naive.Drift 253.103 185.868 0.665
 3       Seas.Naive 133.710 127.417 0.459
 4 Seas.Naive.Drift  45.769  41.417 0.149</code></pre>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="forecasting-i.html#cb410-1" tabindex="-1"></a>naive<span class="sc">$</span>fcresplot</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="forecasting-i.html#cb411-1" tabindex="-1"></a>naive<span class="sc">$</span>fcresplot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-111-2.png" width="672" /></p>
 </div>
 <div id="smoothfc-user-defined-function" class="section level2 hasAnchor" number="11.4">
@@ -617,16 +617,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>H-W.Mult</strong> for Hold-Winters Multiplicative model</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="forecasting-i.html#cb411-1" tabindex="-1"></a>smooth <span class="ot">&lt;-</span> <span class="fu">smoothfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
-<span id="cb411-2"><a href="forecasting-i.html#cb411-2" tabindex="-1"></a>smooth<span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="forecasting-i.html#cb412-1" tabindex="-1"></a>smooth <span class="ot">&lt;-</span> <span class="fu">smoothfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb412-2"><a href="forecasting-i.html#cb412-2" tabindex="-1"></a>smooth<span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="forecasting-i.html#cb412-1" tabindex="-1"></a>smooth<span class="sc">$</span>acc</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="forecasting-i.html#cb413-1" tabindex="-1"></a>smooth<span class="sc">$</span>acc</span></code></pre></div>
 <pre class="custom-output"><code>       Model    RMSE     MAE  MAPE
 1 Exp.Smooth 323.495 263.915 0.945
 2    H-W.Add  54.469  46.754 0.168
 3   H-W.Mult  43.857  40.626 0.146
 4    Mov.Ave 225.685 191.245 0.686</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="forecasting-i.html#cb414-1" tabindex="-1"></a>smooth<span class="sc">$</span>fcresplot</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="forecasting-i.html#cb415-1" tabindex="-1"></a>smooth<span class="sc">$</span>fcresplot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-112-2.png" width="672" /></p>
 </div>
 <div id="linregfc-user-defined-function" class="section level2 hasAnchor" number="11.5">
@@ -658,14 +658,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Line.Reg.Seas.Trend</strong> for linear regression with trend and seasonality model</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="forecasting-i.html#cb415-1" tabindex="-1"></a>linreg <span class="ot">&lt;-</span> <span class="fu">linregfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
-<span id="cb415-2"><a href="forecasting-i.html#cb415-2" tabindex="-1"></a>linreg<span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="forecasting-i.html#cb416-1" tabindex="-1"></a>linreg <span class="ot">&lt;-</span> <span class="fu">linregfc</span>(msales, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;sales&quot;</span>, <span class="st">&quot;ym&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb416-2"><a href="forecasting-i.html#cb416-2" tabindex="-1"></a>linreg<span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="forecasting-i.html#cb416-1" tabindex="-1"></a>linreg<span class="sc">$</span>acc</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="forecasting-i.html#cb417-1" tabindex="-1"></a>linreg<span class="sc">$</span>acc</span></code></pre></div>
 <pre class="custom-output"><code>               Model    RMSE     MAE  MAPE
 1 Lin.Reg.Seas.Trend  55.212  47.898 0.172
 2      Lin.Reg.Trend 199.198 168.985 0.607</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="forecasting-i.html#cb418-1" tabindex="-1"></a>linreg<span class="sc">$</span>fcresplot</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="forecasting-i.html#cb419-1" tabindex="-1"></a>linreg<span class="sc">$</span>fcresplot</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
 </div>
 <div id="fccompare-user-defined-function" class="section level2 hasAnchor" number="11.6">
@@ -682,9 +682,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>$fcresplot</code> contains a plot of the holdout period residuals</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="forecasting-i.html#cb419-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>(naive, smooth, linreg)</span>
-<span id="cb419-2"><a href="forecasting-i.html#cb419-2" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Naive&quot;</span>, <span class="st">&quot;Mov.Ave&quot;</span>, <span class="st">&quot;Lin.Reg.Trend&quot;</span>)</span>
-<span id="cb419-3"><a href="forecasting-i.html#cb419-3" tabindex="-1"></a><span class="fu">fccompare</span>(results, models)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="forecasting-i.html#cb420-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">list</span>(naive, smooth, linreg)</span>
+<span id="cb420-2"><a href="forecasting-i.html#cb420-2" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Naive&quot;</span>, <span class="st">&quot;Mov.Ave&quot;</span>, <span class="st">&quot;Lin.Reg.Trend&quot;</span>)</span>
+<span id="cb420-3"><a href="forecasting-i.html#cb420-3" tabindex="-1"></a><span class="fu">fccompare</span>(results, models)</span></code></pre></div>
 <pre class="custom-output"><code>$acc
            Model    RMSE     MAE  MAPE
 1          Naive 323.496 263.917 0.945
