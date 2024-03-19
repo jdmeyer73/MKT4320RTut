@@ -4,6 +4,195 @@ library(ggplot2)
 library(MKT4320BGSU)
 ```
 
-# A/B Testing
+# A/B Testing and Uplift Modeling
 
-Coming soon...
+Data for this chapter:
+
+* The `email.camp.w` data is used from the `MKT4320BGSU` course package. Load the package and use the `data()` function to load the data.
+    ```{r t8loaddata}
+    # Load the course package
+    library(MKT4320BGSU)
+    # Load the data
+    data(emailcampw)  # Note: the dataframe is called email.camp.w
+    ```
+
+## Introduction
+
+While A/B testing and Uplift modeling can be preformed with mostly base R functions, several user-defined functions that are part of the `MKT4320BGSU`package have been created to make the process more streamlined and consistent.
+
+Data for this chapter
+
+## Randomization check
+
+* To perform a randomization check for the treatment and control groups for an A/B test, use the `rcheck` function.
+* This function checks if the characteristics/covariates used for uplift modeling from an A/B test were randomly assigned to the test and control groups.
+* To use the function, we must pass it a dataframe containing the covariates we want to use to check randomization.  We must also provide it with the name of the treatment variable, and the name(s) of the outcome variabe(s) if they are included in the dataframe.
+
+### Using the `rcheck` function
+
+* Requires the following packages:
+    * fastDummies
+    * htmlTable (if option `nice="ht"` is used)
+    * flextable (if option `nice="ft"` is used)
+* Usage: `rcheck(data, treatment, outcome=NULL, nice=c("no","ft", "ht"))` where:
+    * `data` is the name of the dataframe containing the treatment variable and the covariates.
+    * `treatment` is the variable name identifying the treatment variable. Must be in quotations.
+    * `outcome` is the name or names of the variables that identifies the outcome variables. Default value is `NULL`. Must be in quotations.
+    * `nice` is the format for the output; can be:
+        * `"no"` for standard output
+        * `"ft"` for output using the `flextable` package
+        * `"ht"` for output using the `htmlTable` package
+* Returns: A table containing the results of the randomization check
+
+#### Examples
+
+* Example 1: Standard output
+    ```{r t8rcheck1}
+    rcheck(email.camp.w, "promotion", c("visit", "spend"), nice="no")
+    ```
+   
+* Example 2: `flextable` output
+    ```{r t8rcheck2}
+    rcheck(email.camp.w, "promotion", c("visit", "spend"), nice="ft")
+    ```
+    
+## Average Treatment Effect
+
+* To examine the average treatment effect both without control variables with control variables to account for observed heterogeneity, use the `abate` function.
+* This function uses linear regression to calculate the average treatment effects both without controls and with controls. The function returns a `flextable` object.
+
+### Using the `abate` function
+
+* Requires the following packages:
+    * dplyr
+    * gtsummary
+    * flextable
+* Usage: `abate(model, treatement)` where:
+    * `model` is an existing linear regression (`lm`) object containing all control variables and the treatment variable. Treatment variable should appear as the first independent variable.
+    * `treatment` is the variable name identifying the treatment variable. Must be in quotations.
+* Returns: A `flextable` object containing the results.
+
+#### Examples
+
+* Example:
+    ```{r t8abate1}
+    # Create the 'lm' models
+    ate.visit <- lm(visit ~ promotion + recency + history + zip + womens,
+                    data=email.camp.w)
+    ate.spend <- lm(spend ~ promotion + recency + history + zip + womens,
+                    data=email.camp.w)
+    
+    # Use the function
+    abate(ate.visit, "promotion")
+    abate(ate.spend, "promotion")
+    ```
+
+
+## Uplift Modling using Regression
+
+* To perform a uplift modeling using regression, we will use the `reguplift` function. This function performs uplift modeling based on either logistic regression (for binary outcomes) or linear regression (for continuous outcomes). The function uses the two-model, indirect modeling approach.
+* In order to use the function, we must first create our base model.
+    * The base model is usually a model with no interactions included, along with the treatment variable. 
+    * If known interactions are to be used, the base model can include the interactions also.
+    * The base model must contain the treatment variable as the first independent variable.
+* Base model examples: 
+    ```{r t8basemodels}
+    # Base model for binary outcome variable
+    email.visit <- glm(visit ~ promotion + recency + history + zip + womens,
+                       data=email.camp.w, family="binomial")
+    
+    # Base model for continuous outcome variable
+    email.spend <- lm(visit ~ promotion + recency + history + zip + womens,
+                      data=email.camp.w)
+    ```
+    
+### Using the `reguplift` function
+
+* Requires the following packages:
+    * ggplot2
+    * gtsummary (if option `ct="Y"` is used)
+    * flextable (if option `ct="Y"` is used or if option `int="Y"` is used)
+* Usage: `reguplift(model, treatment, pdata=NULL,ng=10, ar=NULL, int="N", ct="N")` where:
+    * `model` is a logistic or linear regression model saved results. The model must have been run where the treatment variable was the first term in the right-hand side of the model formula, followed by all independent variables. For option `int="Y"`, no interaction terms should have been included in the original model.
+    * `treatment` is the variable name identifying the treatment variable. Must be in quotations.
+    * `pdata` is the data upon which to calculate the lift. Default is `NULL`, in which case the lift will be calculated using the original model data.
+    * `ng` is the number of groups to split the data for the group output table and the plots. Must be an integer between 5 and 20. Default is 10.
+    * `ar` is the aspect ratio for the plots. Default is `NULL`.
+    * `int` is an indicator if an interaction check between independent variables is desired (`int="Y"`) or not (`int="N"`). Default is "N".
+    * `ct` is an indicator if comparison tables between treatment levels is desired (`ct="Y"`) or not (`ct="N"`). Default is "N". Rarely used.
+* Returns: A list containing the following objects.
+    * `$group` is a table of lift results by ordered group based on `ng`
+    * `$all` is the original model data or `pdata` (if provided) with lift values appended.
+    * `$plots` is a list containing three plots:
+        * `$qini` is a Qini plot containing a Qini coefficient
+        * `$uplift` is a mean uplift plot by ordered group
+        * `$c.gain` is a cumulative gain plot by ordered group
+    * `$int` is an interaction table showing significant potential interactions.
+    * `$ct` is a comparison table between treatment levels.
+   
+#### Examples
+
+* Using all default options
+    ```{r t8reguplift1}
+    # Save results as an object
+    visit.uplift <- reguplift(email.visit, "promotion")
+    spend.uplift <- reguplift(email.spend, "promotion")
+    
+    # Examine results
+    visit.uplift$plots
+    spend.uplift$plots
+    ```
+
+* Using options
+    ```{r t8reguplift2}
+    # Save results as an object
+    spend.uplift.5 <- reguplift(email.spend, "promotion", ng=5, int="Y")
+    
+    # Examine results
+    spend.uplift.5$plots
+    spend.uplift.5$int
+    ```
+    
+## LIFT Plots
+
+* To get LIFT plots based on an uplift modeling object, use the `liftplot` function.
+* This function creates a lift plot following uplift modeling. It can create a histogram (if `var` is null) or an error-bar plot. For continuous variables, it will create an error-bar for the quintile values of the variable. For factor variables, it will create an error-bar for each level of the factor. It can also create side-by-side error-bar plots for two variables simultaneously by using the `byvar` option.
+
+### Using the `liftplot` function
+
+* Requires the following packages:
+    * ggplot2
+* Usage: `liftplot(data, var=NULL, byvar=NULL, ar=NULL, ci=c(0.90, 0.95, 0.975, 0.99, 0))` where:
+    * `data` is the name of the dataframe with the results of an uplift modeling analysis.
+    * `var` is the variable name for which the error-bars should be created. Must be in quotations. Default is `NULL` for a histogram.
+    * `byvar` is the variable that identifies second variable if side-by-side error-bar plots are desired. Must be in quotations. Default is `NULL`.
+    * `ar` is the aspect ratio for the plots. Default is `NULL`.
+    * `ci` is the type of error-var desired. Ignored if `var` is `NULL`. Must be one of the following if `var` is not `NULL`:
+        * `0` for error-bars to represent 1 standard deviation
+        * `0.90` or `0.95` or `0.975` or `0.99` for error-bars to represent the desired confidence level.
+* Returns: A ggplot object
+
+#### Examples
+
+* Example 1: Histogram
+    ```{r t8liftplot1}
+    liftplot(visit.uplift$all)
+    ```
+    
+* Example 2: Single variable lift plots
+    ```{r t8liftplot2}
+    # Standard deviation error bars
+    liftplot(visit.uplift$all, var="recency", ci=0)
+    
+    # 99% CI error bars
+    liftplot(visit.uplift$all, var="zip", ci=0.99)
+    ```
+    
+* Example 3: Side-by-side, two variable lift plots
+    ```{r t8liftplot3}
+    # Standard deviation error bars
+    liftplot(spend.uplift$all, var="recency", byvar="zip", ci=0)
+    
+    # 99% CI error bars
+    liftplot(spend.uplift$all, var="zip", byvar="womens", ci=0.99)
+    ```
