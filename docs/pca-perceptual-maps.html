@@ -23,7 +23,7 @@
 <meta name="author" content="Jeffrey Meyer" />
 
 
-<meta name="date" content="2024-01-30" />
+<meta name="date" content="2024-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="principal-components-analysis.html"/>
-<link rel="next" href="ab-testing.html"/>
+<link rel="next" href="ab-testing-and-uplift-modeling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +54,8 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -391,10 +393,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="pca-perceptual-maps.html"><a href="pca-perceptual-maps.html#using-the-function"><i class="fa fa-check"></i><b>7.2.2</b> Using the function</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ab-testing.html"><a href="ab-testing.html"><i class="fa fa-check"></i><b>8</b> A/B Testing</a></li>
+<li class="chapter" data-level="8" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html"><i class="fa fa-check"></i><b>8</b> A/B Testing and Uplift Modeling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#introduction-8"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#randomization-check"><i class="fa fa-check"></i><b>8.2</b> Randomization check</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#using-the-rcheck-function"><i class="fa fa-check"></i><b>8.2.1</b> Using the <code>rcheck</code> function</a>
+<ul>
+<li class="chapter" data-level="8.2.1.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#examples-3"><i class="fa fa-check"></i><b>8.2.1.1</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#average-treatment-effect"><i class="fa fa-check"></i><b>8.3</b> Average Treatment Effect</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#using-the-abate-function"><i class="fa fa-check"></i><b>8.3.1</b> Using the <code>abate</code> function</a>
+<ul>
+<li class="chapter" data-level="8.3.1.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#examples-4"><i class="fa fa-check"></i><b>8.3.1.1</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#uplift-modling-using-regression"><i class="fa fa-check"></i><b>8.4</b> Uplift Modling using Regression</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#using-the-reguplift-function"><i class="fa fa-check"></i><b>8.4.1</b> Using the <code>reguplift</code> function</a>
+<ul>
+<li class="chapter" data-level="8.4.1.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#examples-5"><i class="fa fa-check"></i><b>8.4.1.1</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#lift-plots"><i class="fa fa-check"></i><b>8.5</b> LIFT Plots</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#using-the-liftplot-function"><i class="fa fa-check"></i><b>8.5.1</b> Using the <code>liftplot</code> function</a>
+<ul>
+<li class="chapter" data-level="8.5.1.1" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html#examples-6"><i class="fa fa-check"></i><b>8.5.1.1</b> Examples</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="standard-mnl.html"><a href="standard-mnl.html"><i class="fa fa-check"></i><b>9</b> Standard MNL</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.1" data-path="standard-mnl.html"><a href="standard-mnl.html#introduction-9"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
 <li class="chapter" data-level="9.2" data-path="standard-mnl.html"><a href="standard-mnl.html#data-preparation"><i class="fa fa-check"></i><b>9.2</b> Data Preparation</a></li>
 <li class="chapter" data-level="9.3" data-path="standard-mnl.html"><a href="standard-mnl.html#standard-mnl-using-multinom"><i class="fa fa-check"></i><b>9.3</b> Standard MNL using <code>multinom()</code></a>
 <ul>
@@ -405,7 +438,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html"><i class="fa fa-check"></i><b>10</b> Alt-Specific MNL</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#introduction-10"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
 <li class="chapter" data-level="10.2" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#alt-spec-mnl-using-user-defined-function"><i class="fa fa-check"></i><b>10.2</b> Alt-Spec MNL using User Defined Function</a>
 <ul>
 <li class="chapter" data-level="10.2.1" data-path="alt-specific-mnl.html"><a href="alt-specific-mnl.html#marginal-effects"><i class="fa fa-check"></i><b>10.2.1</b> Marginal Effects</a></li>
@@ -414,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="forecasting-i.html"><a href="forecasting-i.html"><i class="fa fa-check"></i><b>11</b> Forecasting I</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="forecasting-i.html"><a href="forecasting-i.html#introduction-10"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
+<li class="chapter" data-level="11.1" data-path="forecasting-i.html"><a href="forecasting-i.html#introduction-11"><i class="fa fa-check"></i><b>11.1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="11.1.1" data-path="forecasting-i.html"><a href="forecasting-i.html#user-defined-functions-for-forecasting-i"><i class="fa fa-check"></i><b>11.1.1</b> User-Defined Functions for Forecasting I</a></li>
 <li class="chapter" data-level="11.1.2" data-path="forecasting-i.html"><a href="forecasting-i.html#packages-1"><i class="fa fa-check"></i><b>11.1.2</b> Packages</a></li>
@@ -427,7 +460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html"><i class="fa fa-check"></i><b>12</b> Conjoint Analysis (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#introduction-11"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.1" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#introduction-12"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
 <li class="chapter" data-level="12.2" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#tradca-user-defined-function"><i class="fa fa-check"></i><b>12.2</b> <code>tradca</code> User Defined Function</a></li>
 <li class="chapter" data-level="12.3" data-path="conjoint-analysis-not-covered.html"><a href="conjoint-analysis-not-covered.html#cademo-user-defined-function"><i class="fa fa-check"></i><b>12.3</b> <code>cademo</code> User Defined Function</a>
 <ul>
@@ -442,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html"><i class="fa fa-check"></i><b>13</b> Forecasting II (Not Covered)</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#introduction-12"><i class="fa fa-check"></i><b>13.1</b> Introduction</a>
+<li class="chapter" data-level="13.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#introduction-13"><i class="fa fa-check"></i><b>13.1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="13.1.1" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#user-defined-functions-for-forecasting-ii"><i class="fa fa-check"></i><b>13.1.1</b> User-Defined Functions for Forecasting II</a></li>
 <li class="chapter" data-level="13.1.2" data-path="forecasting-ii-not-covered.html"><a href="forecasting-ii-not-covered.html#packages-2"><i class="fa fa-check"></i><b>13.1.2</b> Packages</a></li>
@@ -558,7 +591,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="principal-components-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ab-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ab-testing-and-uplift-modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
