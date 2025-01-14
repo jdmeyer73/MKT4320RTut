@@ -331,12 +331,11 @@ look of bar and column charts could be changed, so can the look of histograms
 Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a box plot for a continuous <span style="font-family: Courier;">y</span> variable, but for each level of a discrete <span style="font-family: Courier;">x</span> variable. In addition, the standard box plot does not contain "whiskers".
 
 * To get a box plot for only the continuous <span style="font-family: Courier;">y</span> variable, use `x=""` as the discrete <span style="font-family: Courier;">x</span> variable
-* To add whiskers, include a `stat_boxplot(geom="errorbar")` layer
+* To add whiskers, include a `staplewidth=1` within the `geom_boxplot`.
     ```{r t2boxplot1, fig.cap="Single box plot with whiskers", cache=TRUE}
     airlinesat %>%
       ggplot(aes(x="", y=age)) +
-        geom_boxplot() +
-        stat_boxplot(geom="errorbar") +  # Add whiskers to box plot
+        geom_boxplot(staplewidth = 1) +
         labs(x="",  # Remove x axis label
              y="Age")   # Make y axis label nicer
     ```
@@ -345,8 +344,7 @@ Box Plots are drawn with the `geom_boxplot()` geom, which by default creates a b
     ```{r t2boxplot2, fig.cap="Multiple box plot", cache=TRUE}
     airlinesat %>%
       ggplot(aes(x=flight_purpose, y=age)) +
-        geom_boxplot() +
-        stat_boxplot(geom="errorbar") +  # Add whiskers to box plot
+        geom_boxplot(staplewidth = 1) +
         labs(x="Flight Purpose", y="Age")
     ```
 
