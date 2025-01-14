@@ -51,16 +51,16 @@ And
 
 ### Getting Started
 
-#### Option 1: Install on your Machine
+#### Option 1: Use OSC Classroom OnDemand 
+
+* See course website for link
+
+#### Option 2: Install on your Machine
 1. Install "R base" from the Comprehensive R Archive Network (CRAN)
     * [https://cran.r-project.org/](https://cran.r-project.org/){target="_blank"}
 2. Install RStudio
     * [https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download){target="_blank"}
 
-#### Option 2: Use BGSU's Virtual Computing Lab pilot
-
-* See course website for link
-    
 #### Option 3: Use a computer in an on-campus computer lab
 
 * All computer in on-campus computer labs should have R and RStudio installed
@@ -143,7 +143,7 @@ Packages are collections of functions that have been written to expand the funct
     install.packages("dplyr")
     ```
 * **NOTE 1**: Packages only need to be installed on your machine once
-* **NOTE 2**: If using BGSU's Virtual Computing Lab, new packages cannot be installed, but the version in the virtual environment has *most* of the most common packages pre-installed
+* **NOTE 2**: If using OSC Classroom OnDemand, all packages are already installed.
 
 ### Loading Packages
 
@@ -606,7 +606,11 @@ Often, a series of commands is repeated over and over, or there is not an easy, 
 \newpage
 ## Package *MKT4320BGSU*
 
-The `MKT4320BGSU` package is a package I created that contains data sets and user-defined functions for this course. By installing this package when instructed, you will more easily be able to access the functions and data for the course, and you will have access to help files for the functions and data sets.  The process for installing this package is a little different. You must first install the `devtools` package in order to use the `install_github` command.  The steps are shown in the code below.
+The `MKT4320BGSU` package is a package I created that contains data sets and user-defined functions for this course. By using this package when instructed, you will more easily be able to access the functions and data for the course, and you will have access to help files for the functions and data sets.
+
+**NOTE**: If you using the OSC Classroom OnDemand for R/RStudio, this package is already installed.
+
+If you are using your own machine, you will need to install this package.  The process for installing this package is a little different. You must first install the `devtools` package in order to use the `install_github` command.  The steps are shown in the code below.
 
 ``` {r mkt4320pack, eval=FALSE}
 # INSTALL 'devtools'

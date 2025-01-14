@@ -93,8 +93,8 @@ why-r
 why-not-r
 what-is-rstudio
 getting-started
-option-1-install-on-your-machine
-option-2-use-bgsus-virtual-computing-lab-pilot
+option-1-use-osc-classroom-ondemand
+option-2-install-on-your-machine
 option-3-use-a-computer-in-an-on-campus-computer-lab
 navigating-rstudio
 quadrant-1
